@@ -1,5 +1,5 @@
 site_name: 'USP Core WAAP documentation'
-docs_dir: './docs/en'                        # Where to find the English markdown files
+docs_dir: './docs'                        # Where to find the English markdown files
 site_dir: './generated'                      # Where to put the English HTML files
 #site_url: 'https://github.com/waf'
 
