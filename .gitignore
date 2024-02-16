@@ -1,0 +1,24 @@
+/site
+/build
+/MANIFEST
+/dist
+/generated
+
+*.log
+
+# Eclipse m2e generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+.settings/
+
+# End of https://www.toptal.com/developers/gitignore/api/maven
+
+.idea
+*.iml
+*.ipr
+*.iws
+out/
+
+
