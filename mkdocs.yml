@@ -1,0 +1,52 @@
+site_name: 'USP Core WAAP documentation'
+docs_dir: './docs/en'                        # Where to find the English markdown files
+site_dir: './generated'                      # Where to put the English HTML files
+#site_url: 'https://github.com/waf'
+
+theme:
+  name: material
+  custom_dir: './overrides/'                  # This is where the customization of the theme lives
+  logo: assets/images/sorbay-blue-white.png                 # The logo is shared by all languages
+  favicon: assets/images/favicon.png              # The favicon is shared by all languages
+  language: en                                    # The build's language
+extra_css:
+  - assets/stylesheets/extra.css
+
+plugins:
+  - search:
+      lang: en                                      # Set language for search
+  - swagger-ui-tag:
+      supportedSubmitMethods: []
+      validatorUrl: none
+  - redirects:
+      redirect_maps:
+          'idlight.md': 'sorbay_ciam.md'
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+nav:
+  - Welcome: 'index.md'
+  - Profile: 'profile.md'
+  - Workspaces: 'workspaces.md'
+  - Services:
+    - About: 'services.md'
+    - sorbay_ciam:
+      - Configuration: 'sorbay_ciam.md'
+      - Integration: 'sorbay_ciam_integration.md'
+      - API: 'sorbay_ciam_api.md'
+    - sorbay_risk:
+      - Overview: 'sorbay_risk.md'
+      - Configuration: 'sorbay_risk_configuration.md'
+      - Integration: 'sorbay_risk_integration.md'
+      - API: 'sorbay_risk_api.md'
+  - Members: 'members.md'
+  - Settings: 'settings.md'
+  - Help: 'help.md'
