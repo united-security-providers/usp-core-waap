@@ -21,6 +21,7 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-op
 # Prepare site source directory
 cd $DIR
 cp -R src/docs ./docs
+mkdir ./docs/files
 cp build/core-waap-operator/waap-operator-0.2.0-changelog.md ./docs/CHANGELOG.md
 
 # Prepare file downloads
