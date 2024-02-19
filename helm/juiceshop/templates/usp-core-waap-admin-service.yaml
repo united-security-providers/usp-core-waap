@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: core-waap-admin-if
+  namespace: juiceshop
+spec:
+  type: NodePort
+  selector:
+    app: usp-core-waap
+  ports:
+    - name: http
+      port: 8001
+      targetPort: 9901

@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.quarkus.io/commit-id: f31d1dee1022c13241ed29958db11b48d4e2764d
+    app.quarkus.io/build-timestamp: 2023-11-08 - 09:09:18 +0000
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /q/metrics
+    prometheus.io/port: "8888"
+    prometheus.io/scheme: http
+  labels:
+    app.kubernetes.io/managed-by: quarkus
+    app.kubernetes.io/version: {{.Values.operatorVersion}}
+    app.kubernetes.io/name: core-waap-operator
+  name: core-waap-operator
+  namespace: usp-core-waap-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/version: {{.Values.operatorVersion}}
+      app.kubernetes.io/name: core-waap-operator
+  template:
+    metadata:
+      annotations:
+        app.quarkus.io/commit-id: f31d1dee1022c13241ed29958db11b48d4e2764d
+        app.quarkus.io/build-timestamp: 2023-11-08 - 09:09:18 +0000
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /q/metrics
+        prometheus.io/port: "8888"
+        prometheus.io/scheme: http
+      labels:
+        app.kubernetes.io/managed-by: quarkus
+        app.kubernetes.io/version: {{.Values.operatorVersion}}
+        app.kubernetes.io/name: core-waap-operator
+      namespace: usp-core-waap-operator
+    spec:
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: usp-core-waap-operator-config
+          name: operator-config-volume
+      containers:
+        - env:
+            - name: LOGLEVEL
+              value: INFO
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: "{{.Values.image.registry}}:{{.Values.operatorVersion}}"
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: "60Mi"
+          volumeMounts:
+            - mountPath: /etc/usp-core-waap/
+              name: operator-config-volume
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8888
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: core-waap-operator
+          ports:
+            - containerPort: 8888
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8888
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/started
+              port: 8888
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+      serviceAccountName: core-waap-operator

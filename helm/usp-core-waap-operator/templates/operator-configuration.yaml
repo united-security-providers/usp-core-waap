@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: core-waap-operator
+    app.kubernetes.io/version: {{.Values.operatorVersion}}
+    app.kubernetes.io/managed-by: quarkus
+  name: usp-core-waap-operator-config
+  namespace: usp-core-waap-operator
+data:
+  # NOTE: All the configuration settings below that are marked "Optional"
+  # are set to their internal default value in this example configuration.
+  operator-config.yaml: |
+
+    # Settings which affect the operators basic mode of operation
+    operator:
+
+      # Optional: list of namespaces for which to process custom resources or ingress manifests (defaults to all).
+      namespaces:
+      # Optional: If set to true, envoy will be deployed as an ingress proxy in the operators own namespace
+      ingressMode: false
+      # Optional: name of ConfigMap which holds the CA truststore to be used by default (globally) in the pod.
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/custom-cacerts"
+      caCertificatesConfigMapName: "ca-certificates"
+      # Optional: name of key in ConfigMap which holds the CA truststore. The entry with that key name
+      # will be mapped to the "ca-certificates" file.
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/custom-cacerts-key"
+      # caCertificateKeyInConfigMap: "my-acme-cert"
+
+    # Settings which affect the Envoy proxy deployments
+    envoy:
+
+      # Optional: Name of envoy container image
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/image"
+      image: {{.Values.envoyImage}}
+
+      # Optional: Name of envoy proxy pod(s)
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/pod-name"
+      podName: "usp-core-waap"
+
+      # Optional: Number of pod replicas (defaults to 1)
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/replicas"
+      replicas: 1
+
+      # Optional: Listener port of k8s service created by the operator for the envoy proxy
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/service-port"
+      servicePort: 8080
+
+      # Optional: Envoy proxy listener port (usually only needed if a custom image is used where envoy does not listen on 8080)
+      # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/listener-port"
+      listenerPort: 8080
+
+      # Resources:
+      resources:
+        request:
+          # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/request-cpu"
+          cpu: "1.0"
+          # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/request-memory"
+          memory: "300Mi"
+        limits:
+          # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/limits-cpu"
+          cpu: "1500m"
+          # Override per deployment with custom resource annotation "core.waap.u-s-p.ch/limits-memory"
+          memory: "500Mi"
+
+      geoIpProvider:
+
+        # Settings for MaxMind GeoIP data provider
+        maxmind:
+          # Optional: Set to false to disable using the free databases.
+          useLite: true
+          # Optional: MaxMind account ID for DB download
+          accountId: ""
+          # Optional: MaxMind license key for DB download
+          licenseKey: ""
+
+        # Settings for ipinfo.io GeoIP data provider
+        ipinfo:
+          # Optional: Token string for DB download
+          token: ""

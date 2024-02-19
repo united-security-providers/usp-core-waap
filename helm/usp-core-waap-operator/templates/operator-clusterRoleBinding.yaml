@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: core-waap-operator-role-binding
+  namespace: usp-core-waap-operator
+subjects:
+  - kind: ServiceAccount
+    name: core-waap-operator
+    namespace: usp-core-waap-operator    # should match quarkus.kubernetes.namespace in application.properties
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: core-waap-operator-role # should match metadata/name in core-waap-operator-role.yaml

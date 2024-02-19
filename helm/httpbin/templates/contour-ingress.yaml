@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: contour-ingress
+  namespace: httpbin
+spec:
+  rules:
+    - host: {{.Values.hostnames.viaCoreWaap}}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: usp-core-waap-app
+                port:
+                  number: 8080
+    - host: {{.Values.hostnames.direct}}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: httpbin
+                port:
+                  number: 8000
