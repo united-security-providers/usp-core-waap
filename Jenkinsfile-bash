@@ -3,7 +3,5 @@
 @Library('SES-Library@master') _
 
 bashBuildPipeline {
-    pipelineParams {
-		dockerBaseImage                : 'reg-bob.u-s-p.local/tools/usp-maven:ubuntu22_04-jdk8u345b01-mvn3_8_6-20240219'
-    }
+	dockerBaseImage                : 'reg-bob.u-s-p.local/tools/usp-maven:ubuntu22_04-jdk8u345b01-mvn3_8_6-20240219'
 }
