@@ -6,11 +6,11 @@ site_dir: './generated'                      # Where to put the English HTML fil
 theme:
   name: material
   custom_dir: './overrides/'                  # This is where the customization of the theme lives
-  #logo: assets/images/sorbay-blue-white.png                 # The logo is shared by all languages
-  #favicon: assets/images/favicon.png              # The favicon is shared by all languages
+  logo: assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp                 # The logo is shared by all languages
+  favicon: assets/images/favicon.png              # The favicon is shared by all languages
   language: en                                    # The build's language
-#extra_css:
-# - assets/stylesheets/extra.css
+extra_css:
+  - assets/stylesheets/extra.css
 
 plugins:
   - search:
@@ -36,6 +36,7 @@ nav:
   - Welcome: 'index.md'
   - Releases: 'CHANGELOG.md'
   - Documentation: 'documentation.md'
-  - Demo:
-    - Juiceshop: 'juiceshop.md'
-    - Httpbin: 'httpbin.md'
+  - Helm:
+    - Operator: 'files/usp-core-waap-operator.zip'
+    - Juiceshop: 'files/juiceshop.zip'
+    - Httpbin: 'files/httpbin.zip'
