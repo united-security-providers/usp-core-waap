@@ -16,7 +16,7 @@
 
 # End of https://www.toptal.com/developers/gitignore/api/maven
 
-./placeholder_plugin.yaml
+./placeholder-plugin.yaml
 
 .idea
 *.iml
