@@ -35,7 +35,8 @@ markdown_extensions:
 nav:
   - Welcome: 'index.md'
   - Releases: 'CHANGELOG.md'
-  - Documentation: 'documentation.md'
+  - Auto-Learning: 'autolearning.md'
+  - Downloads: 'downloads.md'
   - Helm:
     - Operator: 'files/usp-core-waap-operator.zip'
     - Juiceshop: 'files/juiceshop.zip'
