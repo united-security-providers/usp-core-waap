@@ -17,9 +17,6 @@ export RELEASE=`git tag --sort=creatordate -l *.*.* | tail -1`
 echo "Last operator release: $RELEASE"
 git checkout $RELEASE
 
-# Download changelog of operator release
-wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-operator/$RELEASE/waap-operator-$RELEASE-changelog.md
-
 export SPEC_VERSION=`grep 'spec.version' pom.xml`
 export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '>' -f 2)
 export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '<' -f 1)
@@ -39,12 +36,20 @@ cd $DIR
 
 cp -R src/docs ./docs
 mkdir -p ./docs/files
-cp build/core-waap-operator/waap-operator-$RELEASE-changelog.md ./docs/CHANGELOG.md
+cp build/core-waap-operator/CHANGELOG.md ./docs/CHANGELOG.md
 
-sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/index.md
-sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/downloads.md
-sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' docs/downloads.md
-sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/autolearning.md
+# Replace version placeholders
+for file in docs; do
+    if [ -f "$file" ]; then
+        sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
+        sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
+    fi
+done
+
+#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/index.md
+#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/downloads.md
+#sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' docs/downloads.md
+#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/autolearning.md
 
 # Prepare file downloads
 zip -q -r docs/files/usp-core-waap-operator-$RELEASE.zip helm/usp-core-waap-operator
