@@ -4,13 +4,30 @@ Welcome to the USP Core WAAP (Web Application and API Protection) customers repo
 
 This requires mkdocs to generate the website and deploy it to github pages. 
 
+## Generate site
 
-## Setup
-
-Install mkdocs and the corresponding plugins:
-
-TBD
+To just generate the site, run
 
 ----
-python3 -m pip install mkdocs-placeholder-plugin
+$ ./release.sh
 ----
+
+## Generate and deploy to Github
+
+To generate the site and deploy it to Github pages, run
+
+----
+$ ./release.sh deploy
+----
+
+## Local testing
+
+Generate the site without deploying it, then run mkdocs to serve it locally:
+
+----
+$ ./release.sh
+$ mkdocs serve
+----
+
+This will make it available locally (URL visible in shell output).
+
