@@ -37,7 +37,3 @@ nav:
   - Releases: 'CHANGELOG.md'
   - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'
-  - Helm:
-    - Operator: 'files/usp-core-waap-operator.zip'
-    - Juiceshop: 'files/juiceshop.zip'
-    - Httpbin: 'files/httpbin.zip'
