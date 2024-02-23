@@ -44,6 +44,7 @@ cp build/core-waap-operator/waap-operator-$RELEASE-changelog.md ./docs/CHANGELOG
 sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/index.md
 sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/downloads.md
 sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' docs/downloads.md
+sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/autolearning.md
 
 # Prepare file downloads
 zip -q -r docs/files/usp-core-waap-operator-$RELEASE.zip helm/usp-core-waap-operator

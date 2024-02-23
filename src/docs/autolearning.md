@@ -8,7 +8,7 @@ The tool itself is an executable Java archive (jar) and can be [downloaded here]
 Usage:
 
 ----
-$ java -jar envoy-waf-autolearn-cli-<version>.jar [arguments]
+$ java -jar envoy-waf-autolearn-cli-%RELEASE%.jar [arguments]
 ----
 
 
