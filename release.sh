@@ -57,6 +57,8 @@ zip -q -r docs/files/juiceshop.zip helm/juiceshop
 zip -q -r docs/files/httpbin.zip helm/httpbin
 cp build/core-waap-operator/waap-lib-spec-cli-$SPEC_VERSION.jar docs/files/
 
-# Deploy to Github pages
-#mkdocs gh-deploy
+if [ "$1" == "deploy" ]; then
+    # Deploy to Github pages
+    mkdocs gh-deploy
+fi
 
