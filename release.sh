@@ -39,7 +39,7 @@ mkdir -p ./docs/files
 cp build/core-waap-operator/CHANGELOG.md ./docs/CHANGELOG.md
 
 # Replace version placeholders
-for file in docs; do
+for file in ./docs/*; do
     if [ -f "$file" ]; then
         sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
         sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
