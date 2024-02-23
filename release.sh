@@ -27,29 +27,18 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-li
 
 # Prepare site source directory
 cd $DIR
-#echo "placeholders:" > placeholder-plugin.yaml
-#echo "  placeholder_css: ''" >> placeholder-plugin.yaml
-#echo "  RELEASE: $RELEASE"  >> placeholder-plugin.yaml
-#echo "  SPEC_VERSION: $SPEC_VERSION"  >> placeholder-plugin.yaml
-#echo "settings:" >> placeholder-plugin.yaml
-#echo "  auto_placeholder_tables: false" >> placeholder-plugin.yaml
 
 cp -R src/docs ./docs
 mkdir -p ./docs/files
 cp build/core-waap-operator/CHANGELOG.md ./docs/CHANGELOG.md
 
-# Replace version placeholders
+# Replace version placeholders in all markdown files
 for file in ./docs/*; do
     if [ -f "$file" ]; then
         sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
         sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
     fi
 done
-
-#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/index.md
-#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/downloads.md
-#sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' docs/downloads.md
-#sed -i -e 's/%RELEASE%/'$RELEASE'/g' docs/autolearning.md
 
 # Prepare file downloads
 zip -q -r docs/files/usp-core-waap-operator-$RELEASE.zip helm/usp-core-waap-operator
