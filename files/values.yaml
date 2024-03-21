@@ -1,0 +1,57 @@
+# Version of operator to deploy
+operator:
+  version: 0.5.0
+  namespace: usp-core-waap-operator
+  # Optional: list of namespaces for which to process custom resources or ingress manifests (defaults to all).
+  watchedNamespaces:
+  # Optional: If set to true, envoy will be deployed as an ingress proxy in the operators own namespace
+  ingressMode: false
+  # Optional: name of ConfigMap which holds the CA truststore to be used by default (globally) in the pod.
+  caCertsConfigMapName: "ca-certificates"
+  # Mandatory if caCertificatesConfigMapName is set:
+  # name of key in ConfigMap which holds the CA truststore. The entry with that key name
+  # will be mapped to the "ca-certificates.crt" file.
+  caCertKeyInConfigMap: "ca-certificates.crt"
+  # Name of service account
+  serviceAccount: usp-core-waap-operator
+
+envoy:
+  # The Envoy container image to use
+  image: "quay.io/usp/usp-core-waap"
+  # Optional: Name of envoy proxy pod(s)
+  name: "usp-core-waap-abc"
+  # Optional: Additional label(s) for Envoy pods
+  # Must be comma- or blank-separated key/value pairs"
+  labels: "creator=usp logformat=json"
+  # Optional: Number of pod replicas
+  # If not set, the field is not seen as "managed by the operator", meaning the operator
+  # won't undo any changes to this field done by the HPA (Horizontal Pod Autoscaler).
+  replicas: 1
+  # Optional: Listener port of k8s service created by the operator for the envoy proxy
+  servicePort: 8080
+  # Optional: Envoy proxy listener port (usually only needed if a custom image is used where envoy does not listen on 8080)
+  listenerPort: 8080
+  # Resources required by WAAP pods
+  resources:
+    request:
+      cpu: "1.0"
+      memory: "300Mi"
+    limits:
+      cpu: "1500m"
+      memory: "500Mi"
+  # Optional GeoIP provider configuration
+  geoIpProvider:
+    # Settings for MaxMind GeoIP data provider
+    maxmind:
+      # Optional: Set to false to disable using the free databases.
+      useLite: true
+      # Optional: MaxMind account ID for DB download
+      accountId: ""
+      # Optional: MaxMind license key for DB download
+      licenseKey: ""
+    # Settings for ipinfo.io GeoIP data provider
+    ipinfo:
+      # Optional: Token string for DB download
+      token: ""
+
+
