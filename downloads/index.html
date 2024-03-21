@@ -170,20 +170,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#operator-helm-charts">
-<span class="md-ellipsis">
-      Operator / Helm Charts
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#operator-configuration">
-<span class="md-ellipsis">
-      Operator Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#demo-apps">
 <span class="md-ellipsis">
       Demo Apps
@@ -215,20 +201,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#operator-helm-charts">
-<span class="md-ellipsis">
-      Operator / Helm Charts
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#operator-configuration">
-<span class="md-ellipsis">
-      Operator Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#demo-apps">
 <span class="md-ellipsis">
       Demo Apps
@@ -250,33 +222,6 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="downloads">Downloads</h1>
-<h2 id="operator-helm-charts">Operator / Helm Charts</h2>
-<p>Install the operator via Helm using the Helm charts. The Helm charts are available on the USP OCI repository:</p>
-<ul>
-<li><code>oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator</code></li>
-</ul>
-<p>To just download the Helm charts (latest release):</p>
-<div class="highlight"><pre><span></span><code>$ helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator
-</code></pre></div>
-<p>To install the latest operator release:</p>
-<div class="highlight"><pre><span></span><code>$ helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
-</code></pre></div>
-<p>To override the operator configuration settings in the <code>operator-configuration.yaml</code> Helm template, use a local values
-file, e.g. <code>custom-values.yaml</code> with the <code>-f</code> Helm CLI argument:</p>
-<div class="highlight"><pre><span></span><code>$ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
-</code></pre></div>
-<p>You can use <code>helm template</code> to just render the templates to the console in order to look at the contents, before 
-actually installing the operator:</p>
-<div class="highlight"><pre><span></span><code>$ helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
-</code></pre></div>
-<h2 id="operator-configuration">Operator Configuration</h2>
-<p>The operator configuration template contains many settings for the operator itself, and/or the WAAP Envoy deployments.
-The template bundled in the Helm charts contains default settings from the bundled <code>values.yaml</code> file, which will 
-usually have to be overridden for any custom deployments. To override the values, a local values YAML file can be used.</p>
-<p>The bundled <code>values.yaml</code> file can be downloaded here:</p>
-<ul>
-<li><a href="../files/values.yaml">values.yaml</a></li>
-</ul>
 <h2 id="demo-apps">Demo Apps</h2>
 <ul>
 <li>Juiceshop: <a href="../files/juiceshop.zip">juiceshop.zip</a></li>
