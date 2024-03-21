@@ -5,10 +5,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="../autolearning/" rel="prev"/>
+<link href="../CHANGELOG/" rel="prev"/>
+<link href="../values/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.5.9" name="generator"/>
-<title>Downloads - USP Core WAAP documentation</title>
+<title>Helm - USP Core WAAP documentation</title>
 <link href="../assets/stylesheets/main.f2e4d321.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -21,7 +22,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#downloads">
+<a class="md-skip" href="#helm-charts">
           Skip to content
         </a>
 </div>
@@ -45,7 +46,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Downloads
+              Helm
             
           </span>
 </div>
@@ -112,26 +113,62 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
 <span class="md-ellipsis">
     Operator
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
             Operator
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../helm/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Helm
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     Helm
   </span>
 </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#download-pull">
+<span class="md-ellipsis">
+      Download (pull)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-operator">
+<span class="md-ellipsis">
+      Install operator
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#information">
+<span class="md-ellipsis">
+      Information
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../values/">
@@ -150,55 +187,12 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    Downloads
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../downloads/">
 <span class="md-ellipsis">
     Downloads
   </span>
 </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#operator-helm-charts">
-<span class="md-ellipsis">
-      Operator / Helm Charts
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#operator-configuration">
-<span class="md-ellipsis">
-      Operator Configuration
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#demo-apps">
-<span class="md-ellipsis">
-      Demo Apps
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#auto-learning-tool">
-<span class="md-ellipsis">
-      Auto-Learning Tool
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -215,30 +209,23 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#operator-helm-charts">
+<a class="md-nav__link" href="#download-pull">
 <span class="md-ellipsis">
-      Operator / Helm Charts
+      Download (pull)
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#operator-configuration">
+<a class="md-nav__link" href="#install-operator">
 <span class="md-ellipsis">
-      Operator Configuration
+      Install operator
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#demo-apps">
+<a class="md-nav__link" href="#information">
 <span class="md-ellipsis">
-      Demo Apps
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#auto-learning-tool">
-<span class="md-ellipsis">
-      Auto-Learning Tool
+      Information
     </span>
 </a>
 </li>
@@ -249,15 +236,16 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="downloads">Downloads</h1>
-<h2 id="operator-helm-charts">Operator / Helm Charts</h2>
+<h1 id="helm-charts">Helm Charts</h1>
 <p>Install the operator via Helm using the Helm charts. The Helm charts are available on the USP OCI repository:</p>
 <ul>
 <li><code>oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator</code></li>
 </ul>
+<h2 id="download-pull">Download (pull)</h2>
 <p>To just download the Helm charts (latest release):</p>
 <div class="highlight"><pre><span></span><code>$ helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator
 </code></pre></div>
+<h2 id="install-operator">Install operator</h2>
 <p>To install the latest operator release:</p>
 <div class="highlight"><pre><span></span><code>$ helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
 </code></pre></div>
@@ -265,27 +253,11 @@
 file, e.g. <code>custom-values.yaml</code> with the <code>-f</code> Helm CLI argument:</p>
 <div class="highlight"><pre><span></span><code>$ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
 </code></pre></div>
+<h2 id="information">Information</h2>
 <p>You can use <code>helm template</code> to just render the templates to the console in order to look at the contents, before 
 actually installing the operator:</p>
 <div class="highlight"><pre><span></span><code>$ helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.5.1
 </code></pre></div>
-<h2 id="operator-configuration">Operator Configuration</h2>
-<p>The operator configuration template contains many settings for the operator itself, and/or the WAAP Envoy deployments.
-The template bundled in the Helm charts contains default settings from the bundled <code>values.yaml</code> file, which will 
-usually have to be overridden for any custom deployments. To override the values, a local values YAML file can be used.</p>
-<p>The bundled <code>values.yaml</code> file can be downloaded here:</p>
-<ul>
-<li><a href="../files/values.yaml">values.yaml</a></li>
-</ul>
-<h2 id="demo-apps">Demo Apps</h2>
-<ul>
-<li>Juiceshop: <a href="../files/juiceshop.zip">juiceshop.zip</a></li>
-<li>Httpbin: <a href="../files/httpbin.zip">httpbin.zip</a></li>
-</ul>
-<h2 id="auto-learning-tool">Auto-Learning Tool</h2>
-<ul>
-<li>Executable Jar: <a href="../files/waap-lib-spec-cli-0.4.0.jar">waap-lib-spec-cli-0.4.0.jar</a></li>
-</ul>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
