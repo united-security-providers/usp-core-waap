@@ -65,8 +65,18 @@ cp -R src/docs ./docs
 # Generate values documentation Markdown file
 helm-docs --chart-search-root=build/core-waap-operator/usp-core-waap-operator -o values.md
 
+# Remove footer section with all link URLs from changelog
+sed -n '/linksnurls/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.md
+# Until a new operator release is made with the "linksnurls" footer marker, the
+# following line has to be used to cut off the footer instead:
+sed -n '/redmine/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.md
+
+# Remove all link brackets
+sed 's|[\[,]||g' build/CHANGELOG2.md > build/CHANGELOG3.md
+sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG-clean.md
+
 mkdir -p ./docs/files
-cp build/core-waap-operator/CHANGELOG.md ./docs/CHANGELOG.md
+cp build/CHANGELOG-clean.md ./docs/CHANGELOG.md
 cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
 cp build/core-waap-operator/waap-lib-spec-cli-$SPEC_VERSION.jar docs/files/
 cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
