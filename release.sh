@@ -91,9 +91,8 @@ for file in ./docs/*; do
 done
 
 # Prepare file downloads
-zip -q -r docs/files/usp-core-waap-operator-$RELEASE.zip helm/usp-core-waap-operator
-zip -q -r docs/files/juiceshop.zip helm/juiceshop
-zip -q -r docs/files/httpbin.zip helm/httpbin
+zip -q -r docs/files/juiceshop.zip build/core-waap-operator/helm/juiceshop
+zip -q -r docs/files/httpbin.zip build/core-waap-operator/helm/httpbin
 
 if [ "$1" == "deploy" ]; then
     # Deploy to Github pages
