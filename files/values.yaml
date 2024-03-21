@@ -1,4 +1,8 @@
 # USP Core WAAP Operator configuration values
+# NOTE: The values documentation on the Core WAAP website (https://united-security-providers.github.io/usp-core-waap/values/)
+# is generated directly from the contents of this file, which is why Markdown formatting elements are used in the
+# comments, and why each comment documenting a setting must start with "--" (requirement of the tool used to convert
+# this YAML file to Markdown).
 
 operator:
 
