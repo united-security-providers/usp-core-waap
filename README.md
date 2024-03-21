@@ -2,7 +2,22 @@
 
 Welcome to the USP Core WAAP (Web Application and API Protection) customers repository.
 
-This requires `mkdocs` to generate the website and deploy it to GitHub pages. 
+## Requirements
+
+- `mkdocs` to generate the website and deploy it to GitHub pages.
+- `helm` command used for pulling the Helm charts to provide the "values.yaml" file as download
+- `oras` CLI tool to query the OCI Helm repository: https://oras.land/
+
+Look up oras setup instructions on the site above, but as a backup, here are the current ones:
+
+```
+VERSION="1.1.0"
+curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
+mkdir -p oras-install/
+tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/
+sudo mv oras-install/oras /usr/local/bin/
+rm -rf oras_${VERSION}_*.tar.gz oras-install/
+```
 
 ## Generate site
 
