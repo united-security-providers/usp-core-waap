@@ -2,7 +2,32 @@
 
 ## Helm Charts
 
-- Operator: [usp-core-waap-operator-%RELEASE%.zip]
+- Operator: Install or pull from USP Helm charts OCI repository
+- Repository: `oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator`
+
+Install current operator release:
+
+```
+$ helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version %RELEASE%
+```
+
+To override the operator configuration settings in the `operator-configuration.yaml` Helm template, use a local values
+file, e.g. `custom-values.yaml` with the `-f` Helm CLI argument:
+
+```
+$ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version %RELEASE%
+```
+
+You can use `helm template` to just render the templates to the console in order to look at the contents, before 
+actually installing the operator:
+
+```
+$ helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version %RELEASE%
+```
+
+
+## Demo Apps
+
 - Juiceshop: [juiceshop.zip]
 - Httpbin: [httpbin.zip]
 
