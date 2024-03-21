@@ -9,6 +9,9 @@ operator:
   # -- Version of operator to deploy
   version: 0.5.0
 
+  # -- Operator container image
+  image: "quay.io/usp/usp-core-waap-operator"
+
   # -- Operator deployment namespace
   namespace: usp-core-waap-operator
 
