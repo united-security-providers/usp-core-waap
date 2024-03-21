@@ -5,8 +5,9 @@ Welcome to the USP Core WAAP (Web Application and API Protection) customers repo
 ## Requirements
 
 - `mkdocs` to generate the website and deploy it to GitHub pages.
-- `helm` command used for pulling the Helm charts to provide the "values.yaml" file as download
+- `helm` command used for pulling the Helm charts to process the "values.yaml" file.
 - `oras` CLI tool to query the OCI Helm repository: https://oras.land/
+- `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
 
 Look up oras setup instructions on the site above, but as a backup, here are the current ones:
 

@@ -61,10 +61,15 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-li
 cd $DIR
 
 cp -R src/docs ./docs
+
+# Generate values documentation Markdown file
+helm-docs --chart-search-root=build/core-waap-operator/usp-core-waap-operator -o values.md
+
 mkdir -p ./docs/files
 cp build/core-waap-operator/CHANGELOG.md ./docs/CHANGELOG.md
 cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
 cp build/core-waap-operator/waap-lib-spec-cli-$SPEC_VERSION.jar docs/files/
+cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
 
 # Replace version placeholders in all markdown files
 for file in ./docs/*; do

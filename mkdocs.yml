@@ -35,5 +35,8 @@ markdown_extensions:
 nav:
   - Welcome: 'index.md'
   - Releases: 'CHANGELOG.md'
+  - Operator:
+      - Helm: 'helm.md'
+      - Values: 'values.md'
   - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'
