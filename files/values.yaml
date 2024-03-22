@@ -7,16 +7,16 @@
 operator:
 
   # -- Version of operator to deploy
-  version: 0.5.0
+  version: "0.5.0"
 
   # -- Operator container image
   image: "quay.io/usp/usp-core-waap-operator"
 
   # -- Operator deployment namespace
-  namespace: usp-core-waap-operator
+  namespace: "usp-core-waap-operator"
 
   # -- _Optional_: list of namespaces for which to process custom resources or ingress manifests (defaults to all).
-  watchedNamespaces:
+  watchedNamespaces: ""
 
   # -- _Optional_: If set to true, envoy will be deployed as an ingress proxy in the operators own namespace
   ingressMode: false
@@ -30,7 +30,7 @@ operator:
   caCertKeyInConfigMap: "ca-certificates.crt"
 
   # -- Name of service account
-  serviceAccount: usp-core-waap-operator
+  serviceAccount: "usp-core-waap-operator"
 
 envoy:
 
