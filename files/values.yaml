@@ -22,12 +22,12 @@ operator:
   ingressMode: false
 
   # -- _Optional_: name of ConfigMap which holds the CA truststore to be used by default (globally) in the pod.
-  caCertsConfigMapName: "ca-certificates"
+  caCertsConfigMapName:
 
   # -- Mandatory if caCertificatesConfigMapName is set:
   # name of key in ConfigMap which holds the CA truststore. The entry with that key name
   # will be mapped to the "ca-certificates.crt" file.
-  caCertKeyInConfigMap: "ca-certificates.crt"
+  caCertKeyInConfigMap:
 
   # -- Name of service account
   serviceAccount: "usp-core-waap-operator"
@@ -35,7 +35,7 @@ operator:
 envoy:
 
   # -- image: The Envoy container image to use
-  image: "quay.io/usp/usp-core-waap"
+  image: "quay.io/usp/usp-core-waap:1.1.2"
 
   # -- _Optional_: Additional label(s) for Envoy pods
   # Must be comma- or blank-separated key/value pairs.
