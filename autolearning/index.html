@@ -176,18 +176,9 @@
 <article class="md-content__inner md-typeset">
 <h1 id="auto-learning">Auto-Learning</h1>
 <p>USP Core WAAP provides a command-line tool that allows to apply an automated learning mechanism to generate a set
-of rules for Coraza (ModSecurity).</p>
+of rules for Coraza (ModSecurity/CRS).</p>
 <p>The tool itself is an executable Java archive (jar) and can be <a href="../downloads/">downloaded here</a>.</p>
-<div class="highlight"><pre><span></span><code>Usage: java -jar waap-lib-spec-cli-&lt;version&gt;.jar [-hV] [-o=&lt;out&gt;] &lt;in&gt;
-Converts a USP Core WAAP config YAML to native Envoy config.
-Copyright (c) 2023 United Security Providers AG, Switzerland, All rights
-reserved.
-      &lt;in&gt;          The USP Core WAAP config YAML file.
-  -h, --help        Show this help message and exit.
-  -o, --out=&lt;out&gt;   Directory for target Envoy configuration, defaults to
-                      current working directory.
-  -V, --version     Print version information and exit.
-</code></pre></div>
+<p>Run with <code>java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar -h</code> to see usage.</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
