@@ -178,7 +178,36 @@
 <p>USP Core WAAP provides a command-line tool that allows to apply an automated learning mechanism to generate a set
 of rules for Coraza (ModSecurity/CRS).</p>
 <p>The tool itself is an executable Java archive (jar) and can be <a href="../downloads/">downloaded here</a>.</p>
-<p>Run with <code>java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar -h</code> to see usage.</p>
+<p>Run with <code>java -jar waap-lib-autolearn-cli-0.5.0.jar --help</code> to see usage:</p>
+<div class="highlight"><pre><span></span><code>Usage: java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar [-hsV] [-e=&lt;error&gt;]
+       [-i=&lt;specIn&gt;] [-l=&lt;log&gt;] [-n=&lt;namespace&gt;] [-o=&lt;specOut&gt;] [-t=&lt;range&gt;]
+       [-w=&lt;instance&gt;]
+Autolearns CRS rule exceptions from USP Core WAAP log files.
+Copyright (c) 2023 United Security Providers AG, Switzerland, All rights
+reserved.
+  -e, --errorfile=&lt;error&gt;   File to write errors to, optional, by default no
+                              file is written.
+  -h, --help                Show this help message and exit.
+  -i, --waapspecin=&lt;specIn&gt; USP Core WAAP spec file (or manifest file) to read,
+                              use '-' for stdin, exclusive with -n/-w.
+  -l, --log=&lt;log&gt;           USP Core WAAP log file to parse, exclusive with
+                              -n/-w.
+  -n, --namespace=&lt;namespace&gt;
+                            Kubernetes namespace with USP Core WAAP, exclusive
+                              with -i/-l.
+  -o, --waapspecout=&lt;specOut&gt;
+                            USP Core WAAP spec file (or manifest file) to
+                              write, defaults to 'waap.yaml', use '-' for
+                              stdout (then automatically also -s).
+  -s, --silent              No output to stdout with number of learned rules
+                              and errors.
+  -t, --timerange=&lt;range&gt;   Optional time range to learn from, e.g.
+                              "20231201.1010-20231202.1010" (time with minutes).
+  -V, --version             Print version information and exit.
+  -w, --waapinstance=&lt;instance&gt;
+                            Kubernetes USP Core WAAP instance name (app.
+                              kubernetes.io/instance), exclusive with -i/-l.
+</code></pre></div>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
