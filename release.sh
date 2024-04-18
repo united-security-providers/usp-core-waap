@@ -55,7 +55,7 @@ helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 
 # Download autolearning tool
-wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-lib-spec-cli/$SPEC_VERSION/waap-lib-spec-cli-$SPEC_VERSION.jar
+wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-lib-autolearn-cli/$SPEC_VERSION/waap-lib-autolearn-cli-$SPEC_VERSION.jar
 
 # Prepare site source directory
 cd $DIR
@@ -78,7 +78,7 @@ sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG-clean.md
 mkdir -p ./docs/files
 cp build/CHANGELOG-clean.md ./docs/CHANGELOG.md
 cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
-cp build/core-waap-operator/waap-lib-spec-cli-$SPEC_VERSION.jar docs/files/
+cp build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
 cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
 
 # Replace version placeholders in all markdown files
