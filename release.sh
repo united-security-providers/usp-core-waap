@@ -22,6 +22,8 @@ fi
 DIR=`pwd`
 rm -rf build
 rm -rf docs
+rm -rf output.log
+rm -rf generated
 
 # Determine last release version
 mkdir build
@@ -60,7 +62,15 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-li
 # Prepare site source directory
 cd $DIR
 
+java -jar ./build/core-waap-operator/waap-lib-autolearn-cli-0.5.0.jar --help > output.log
+
 cp -R src/docs ./docs
+
+echo "\`\`\`"  >> ./docs/autolearning.md
+cat output.log >> ./docs/autolearning.md
+echo "\`\`\`"  >> ./docs/autolearning.md
+echo " "  >> ./docs/autolearning.md
+echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
 
 # Generate values documentation Markdown file
 helm-docs --chart-search-root=build/core-waap-operator/usp-core-waap-operator -o values.md

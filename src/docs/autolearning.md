@@ -5,7 +5,7 @@ of rules for Coraza (ModSecurity/CRS).
 
 The tool itself is an executable Java archive (jar) and can be [downloaded here](downloads.md).
 
-Run with `java -jar waap-lib-autolearn-cli-<version>.jar -h` to see usage.
+Run with `java -jar waap-lib-autolearn-cli-%SPEC_VERSION%.jar --help` to see usage:
 
 
-[downloaded here]: /downloads/
+
