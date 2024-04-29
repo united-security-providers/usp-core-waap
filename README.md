@@ -30,6 +30,8 @@ $ ./release.sh
 
 ## Generate and deploy to GitHub
 
+Update the spec lib version in the `waap-lib-autolearn-cli-<version>` call in `release.sh`.
+
 To generate the site and deploy it to GitHub pages, run
 
 ----
