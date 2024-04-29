@@ -1,23 +1,23 @@
 #!/bin/bash
 
-if ! command -v mkdocs &> /dev/null
-then
-    echo "mkdocs command could not be found"
-    exit 1
-fi
+set -eE # same as: `set -o errexit -o errtrace`
+trap 'catch $? $LINENO' ERR
 
-if ! command -v helm &> /dev/null
-then
-    echo "helm command could not be found"
-    exit 1
-fi
+catch() {
+  echo "Error $1 occurred on line $2"
+}
 
-if ! command -v oras &> /dev/null
-then
-    echo "oras command could not be found"
-    exit 1
-fi
+checkbin() {
+  local cmd=$1
+  if ! command -v $cmd &> /dev/null; then
+    echo "$cmd command could not be found"
+    exit
+  fi
+}
 
+checkbin mkdocs
+checkbin helm
+checkbin oras
 
 DIR=`pwd`
 rm -rf build
@@ -110,3 +110,4 @@ if [ "$1" == "deploy" ]; then
     mkdocs gh-deploy
 fi
 
+trap - ERR
