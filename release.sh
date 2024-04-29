@@ -84,7 +84,10 @@ sed -n '/redmine/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.m
 
 # Remove all link brackets
 sed 's|[\[,]||g' build/CHANGELOG2.md > build/CHANGELOG3.md
-sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG-clean.md
+sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG4.md
+
+# hopefully temporary fix around wrong Envoy versions in 0.7.0 operator changelog
+sed 's/ 0.30.1/ 1.30.1/g' build/CHANGELOG4.md > build/CHANGELOG-clean.md
 
 mkdir -p ./docs/files
 cp build/CHANGELOG-clean.md ./docs/CHANGELOG.md
