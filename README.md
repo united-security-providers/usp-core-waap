@@ -22,13 +22,21 @@ rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
 ## Generate site
 
+Get the password for "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
+
+Oras login with:
+
+```
+$ oras login uspregistry.azurecr.io
+Username: usp-ci-bob
+Password: <enter password>
+```
+
 Helm login with:
 
 ```
-helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
+$ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
 ```
-
-(Get the password from the Password Safe, search for "usp-ci-bob")
 
 To just generate the site, run:
 

@@ -29,7 +29,8 @@ rm -rf generated
 mkdir build
 cd build
 
-# Clone meta information of operator project
+# Clone meta information of ci and operator project
+git clone git@git.u-s-p.local:core-waap/core-waap-ci.git
 git clone git@git.u-s-p.local:core-waap/core-waap-operator.git
 cd core-waap-operator
 
@@ -101,8 +102,8 @@ for file in ./docs/*; do
 done
 
 # Prepare file downloads
-zip -q -r docs/files/juiceshop.zip build/core-waap-operator/helm/juiceshop
-zip -q -r docs/files/httpbin.zip build/core-waap-operator/helm/httpbin
+zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
+zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
 if [ "$1" == "deploy" ]; then
     # Deploy to Github pages
