@@ -22,7 +22,15 @@ rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
 ## Generate site
 
-To just generate the site, run
+Helm login with:
+
+```
+helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
+```
+
+(Get the password from the Password Safe, search for "usp-ci-bob")
+
+To just generate the site, run:
 
 ```
 $ ./release.sh
@@ -30,9 +38,7 @@ $ ./release.sh
 
 ## Generate and deploy to GitHub
 
-Update the spec lib version in the `waap-lib-autolearn-cli-<version>` call in `release.sh`.
-
-To generate the site and deploy it to GitHub pages, run
+To generate the site and deploy it to GitHub pages, run:
 
 ```
 $ ./release.sh deploy

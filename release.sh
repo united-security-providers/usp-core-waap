@@ -62,7 +62,7 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-li
 # Prepare site source directory
 cd $DIR
 
-java -jar ./build/core-waap-operator/waap-lib-autolearn-cli-0.6.0.jar --help > output.log
+java -jar ./build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > output.log
 
 cp -R src/docs ./docs
 
