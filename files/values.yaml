@@ -7,7 +7,7 @@
 operator:
 
   # -- Version of operator to deploy
-  version: "0.6.1"
+  version: "0.7.0"
 
   # -- Operator container image
   image: "quay.io/usp/usp-core-waap-operator"
@@ -31,9 +31,6 @@ operator:
 
   # -- Name of service account
   serviceAccount: "usp-core-waap-operator"
-
-  # -- _Optional_: Name of the image pull secret to be used by the service account
-  imagePullSecretName: ""
 
 envoy:
 
@@ -61,7 +58,7 @@ envoy:
   resources:
     request:
       # -- CPU resources required per request
-      cpu: "1.0"
+      cpu: "1000m"
       # -- Memory resources required per request
       memory: "300Mi"
     limits:
