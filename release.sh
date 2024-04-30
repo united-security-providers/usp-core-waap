@@ -29,8 +29,17 @@ rm -rf generated
 mkdir build
 cd build
 
-# Clone meta information of ci and operator project
+# Determine last Helm charts release
+export CHARTS_VERSION=`oras repo tags uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator | tail -1`
+echo "Last Helm charts release: $CHARTS_VERSION"
+
+# clone ci project and checkout tag matching the helm charts release
 git clone git@git.u-s-p.local:core-waap/core-waap-ci.git
+cd core-waap-ci
+git checkout --quiet helm$CHARTS_VERSION
+cd ..
+
+# clone operator project
 git clone git@git.u-s-p.local:core-waap/core-waap-operator.git
 cd core-waap-operator
 
@@ -38,10 +47,6 @@ cd core-waap-operator
 export RELEASE=`git tag --sort=creatordate -l *.*.* | tail -1`
 echo "-------------------------------------------"
 echo "Last operator release: $RELEASE"
-
-# Determine last Helm charts release
-export CHARTS_VERSION=`oras repo tags uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator | tail -1`
-echo "Last Helm charts release: $CHARTS_VERSION"
 
 # Check out the operator project release (GIT tag)
 git checkout --quiet $RELEASE
