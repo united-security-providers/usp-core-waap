@@ -35,7 +35,7 @@ operator:
 envoy:
 
   # -- image: The Envoy container image to use
-  image: "quay.io/usp/usp-core-waap:1.1.2"
+  image: "quay.io/usp/usp-core-waap:1.1.5"
 
   # -- _Optional_: Additional label(s) for Envoy pods
   # Must be comma- or blank-separated key/value pairs.
