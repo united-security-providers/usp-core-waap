@@ -235,16 +235,16 @@
 </code></pre></div>
 <h2 id="install-operator">Install operator</h2>
 <p>To install the latest operator release:</p>
-<div class="highlight"><pre><span></span><code>$ helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.7.4
+<div class="highlight"><pre><span></span><code>$ helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.8.0
 </code></pre></div>
 <p>To override the operator configuration settings in the <code>operator-configuration.yaml</code> Helm template, use a local values
 file, e.g. <code>custom-values.yaml</code> with the <code>-f</code> Helm CLI argument:</p>
-<div class="highlight"><pre><span></span><code>$ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.7.4
+<div class="highlight"><pre><span></span><code>$ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.8.0
 </code></pre></div>
 <h2 id="information">Information</h2>
 <p>You can use <code>helm template</code> to just render the templates to the console in order to look at the contents, before 
 actually installing the operator:</p>
-<div class="highlight"><pre><span></span><code>$ helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.7.4
+<div class="highlight"><pre><span></span><code>$ helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 0.8.0
 </code></pre></div>
 </article>
 </div>

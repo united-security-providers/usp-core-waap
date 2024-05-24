@@ -7,10 +7,10 @@
 operator:
 
   # -- Version of operator to deploy
-  version: "0.7.0"
+  version: "0.8.0"
 
   # -- Operator container image
-  image: "quay.io/usp/usp-core-waap-operator"
+  image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator"
 
   # -- Operator deployment namespace
   namespace: "usp-core-waap-operator"
@@ -32,10 +32,13 @@ operator:
   # -- Name of service account
   serviceAccount: "usp-core-waap-operator"
 
+  # -- _Optional_: Name of the image pull secret to be used by the service account
+  imagePullSecretName: ""
+
 envoy:
 
   # -- image: The Envoy container image to use
-  image: "quay.io/usp/usp-core-waap:1.1.5"
+  image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap:1.1.5"
 
   # -- _Optional_: Additional label(s) for Envoy pods
   # Must be comma- or blank-separated key/value pairs.
