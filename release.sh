@@ -39,6 +39,12 @@ cd core-waap-ci
 git checkout --quiet helm$CHARTS_VERSION
 cd ..
 
+# clone helm chart project and checkout tag matching the helm charts release
+git clone git@git.u-s-p.local:core-waap/core-waap-operator-helm.git
+cd core-waap-operator-helm
+git checkout --quiet $CHARTS_VERSION
+cd ..
+
 # clone operator project
 git clone git@git.u-s-p.local:core-waap/core-waap-operator.git
 cd core-waap-operator
@@ -87,15 +93,20 @@ sed -n '/linksnurls/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG
 # following line has to be used to cut off the footer instead:
 sed -n '/redmine/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.md
 
-# Remove all link brackets
+# Remove all link brackets from operator changelog
 sed 's|[\[,]||g' build/CHANGELOG2.md > build/CHANGELOG3.md
 sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG-clean.md
 
 mkdir -p ./docs/files
-cp build/CHANGELOG-clean.md ./docs/CHANGELOG.md
+cp build/CHANGELOG-clean.md ./docs/operator-CHANGELOG.md
 cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
 cp build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
 cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
+
+# Remove all link brackets from helm chart changelog
+sed 's|[\[,]||g' build/core-waap-operator-helm/CHANGELOG.md > build/helm-CHANGELOG2.md
+sed 's|[],]||g' build/helm-CHANGELOG2.md > build/helm-CHANGELOG-clean.md
+cp build/helm-CHANGELOG-clean.md ./docs/helm-CHANGELOG.md
 
 # Replace version placeholders in all markdown files
 for file in ./docs/*; do

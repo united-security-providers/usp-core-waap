@@ -34,9 +34,11 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Releases: 'CHANGELOG.md'
-  - Operator:
-      - Helm: 'helm.md'
+  - Releases:
+      - Operator: 'operator-CHANGELOG.md'
+      - Helm Chart: 'helm-CHANGELOG.md'
+  - Operator How-To:
+      - Helm Usage: 'helm.md'
       - Values: 'values.md'
   - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'

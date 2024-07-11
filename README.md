@@ -27,6 +27,8 @@ rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
 Get the password for "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
 
+* PasswordSafe link: ps8://MDpPaERzLTlHYUVlNjRVUUJRVnJjWXZ3
+
 Oras login with:
 
 ```
