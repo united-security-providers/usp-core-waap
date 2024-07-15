@@ -23,6 +23,32 @@ sudo mv oras-install/oras /usr/local/bin/
 rm -rf oras_${VERSION}_*.tar.gz oras-install/
 ```
 
+### mkdocs notes
+
+* Do NOT install mkdocs as a system package (e.g. Debian package). Those are often older releases. Install
+it with the Python package manager "pip" instead. Also, install all the required Python packages as well.
+
+* mkdocs installation guide: https://www.mkdocs.org/user-guide/installation/#installing-mkdocs
+
+### Install / upgrade pip
+
+```
+python get-pip.py
+pip install --upgrade pip
+```
+
+### Install mkdocs
+
+```
+pip install mkdocs
+pip install pymdown-extensions
+pip install mkdocs-material
+pip install mkdocs-redirects
+```
+
+*NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH.
+
+
 ## Generate site
 
 Get the password for "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
