@@ -35,6 +35,7 @@ markdown_extensions:
 nav:
   - Welcome: 'index.md'
   - Releases:
+      - Core-WAAP: 'core-waap-CHANGELOG.md'
       - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
   - Operator How-To:

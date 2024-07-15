@@ -43,6 +43,16 @@ cd ..
 git clone git@git.u-s-p.local:core-waap/core-waap-operator-helm.git
 cd core-waap-operator-helm
 git checkout --quiet $CHARTS_VERSION
+# Determine core-waap (Envoy) version from Helm values.yaml file
+export CORE_WAAP_VERSION=`grep '/usp/core/waap/usp-core-waap:' helm/usp-core-waap-operator/values.yaml`
+export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d ':' -f 3)
+export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d '"' -f 1)
+cd ..
+
+# clone core-waap container project
+git clone git@git.u-s-p.local:core-waap/core-waap-build.git
+cd core-waap-build
+git checkout --quiet v$CORE_WAAP_VERSION
 cd ..
 
 # clone operator project
@@ -51,8 +61,10 @@ cd core-waap-operator
 
 # Get last version GIT tag
 export RELEASE=`git tag --sort=creatordate -l *.*.* | tail -1`
-echo "-------------------------------------------"
-echo "Last operator release: $RELEASE"
+echo "----------------------------------------------------"
+echo "Last Helm chart release in OCI repository: $CHARTS_VERSION"
+echo "Core-WAAP version from 'values.yaml': $CORE_WAAP_VERSION"
+echo "Last operator release by GIT tag: $RELEASE"
 
 # Check out the operator project release (GIT tag)
 git checkout --quiet $RELEASE
@@ -61,8 +73,10 @@ git checkout --quiet $RELEASE
 export SPEC_VERSION=`grep 'spec.version' pom.xml`
 export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '>' -f 2)
 export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '<' -f 1)
-echo "Spec lib version: $SPEC_VERSION"
-echo "-------------------------------------------"
+echo "Spec lib version from POM: $SPEC_VERSION"
+
+
+echo "----------------------------------------------------"
 
 # Get Helm charts to extract values.yaml file
 helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
@@ -102,6 +116,11 @@ cp build/CHANGELOG-clean.md ./docs/operator-CHANGELOG.md
 cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
 cp build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
 cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
+
+# Remove all link brackets from core-waap container changelog
+sed 's|[\[,]||g' build/core-waap-build/CHANGELOG.md > build/core-waap-CHANGELOG2.md
+sed 's|[],]||g' build/core-waap-CHANGELOG2.md > build/core-waap-CHANGELOG-clean.md
+cp build/core-waap-CHANGELOG-clean.md ./docs/core-waap-CHANGELOG.md
 
 # Remove all link brackets from helm chart changelog
 sed 's|[\[,]||g' build/core-waap-operator-helm/CHANGELOG.md > build/helm-CHANGELOG2.md
