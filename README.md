@@ -46,12 +46,18 @@ pip install mkdocs-material
 pip install mkdocs-redirects
 ```
 
-*NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH.
+*NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH. Check by running
+
+```
+mkdocs --version
+mkdocs, version 1.5.3 from /home/<myuser>/.local/lib/python3.10/site-packages/mkdocs (Python 3.10)
+```
 
 
 ## Generate site
 
-Get the password for "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
+Before running the script which generates the site, you need to log in _once_ manually both with the "oras" and
+the "helm" tool. Get the password for user "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
 
 * PasswordSafe link: ps8://MDpPaERzLTlHYUVlNjRVUUJRVnJjWXZ3
 
@@ -69,11 +75,13 @@ Helm login with:
 $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
 ```
 
-To just generate the site, run:
+To just generate the site locally, run:
 
 ```
 $ ./release.sh
 ```
+
+The site has then been generated within the "build" directory.
 
 ## Generate and deploy to GitHub
 
