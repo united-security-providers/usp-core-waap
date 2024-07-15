@@ -85,12 +85,20 @@ tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 # Download autolearning tool
 wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-lib-autolearn-cli/$SPEC_VERSION/waap-lib-autolearn-cli-$SPEC_VERSION.jar
 
+# Download CRD
+mkdir crd
+cd crd
+wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-operator/$RELEASE/waap-operator-$RELEASE-crd.yml
+# Generate CRD documentation
+crdoc  --resources . --output crd-doc.md
+
 # Prepare site source directory
 cd $DIR
 
 java -jar ./build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > output.log
 
 cp -R src/docs ./docs
+cp build/core-waap-operator/crd/crd-doc.md ./docs/
 
 echo "\`\`\`"  >> ./docs/autolearning.md
 cat output.log >> ./docs/autolearning.md

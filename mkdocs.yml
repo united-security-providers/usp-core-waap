@@ -38,6 +38,7 @@ nav:
       - Core-WAAP: 'core-waap-CHANGELOG.md'
       - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
+  - Custom Resource: 'crd-doc.md'
   - Operator How-To:
       - Helm Usage: 'helm.md'
       - Values: 'values.md'

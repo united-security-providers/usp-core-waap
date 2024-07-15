@@ -11,17 +11,8 @@ the scripts required to build the USP Core WAAP website:
 - `helm` command used for pulling the Helm charts to process the "values.yaml" file.
 - `oras` CLI tool to query the OCI Helm repository: https://oras.land/
 - `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
+- `crdoc` to generate the CRD documentation: https://github.com/fybrik/crdoc
 
-Look up oras setup instructions on the site above, but as a backup, here are the current ones:
-
-```
-VERSION="1.1.0"
-curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
-mkdir -p oras-install/
-tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/
-sudo mv oras-install/oras /usr/local/bin/
-rm -rf oras_${VERSION}_*.tar.gz oras-install/
-```
 
 ### mkdocs notes
 
@@ -30,14 +21,14 @@ it with the Python package manager "pip" instead. Also, install all the required
 
 * mkdocs installation guide: https://www.mkdocs.org/user-guide/installation/#installing-mkdocs
 
-### Install / upgrade pip
+#### Install / upgrade pip
 
 ```
 python get-pip.py
 pip install --upgrade pip
 ```
 
-### Install mkdocs
+#### Install mkdocs
 
 ```
 pip install mkdocs
@@ -51,6 +42,39 @@ pip install mkdocs-redirects
 ```
 mkdocs --version
 mkdocs, version 1.5.3 from /home/<myuser>/.local/lib/python3.10/site-packages/mkdocs (Python 3.10)
+```
+
+### oras notes
+
+Look up oras setup instructions on the site above, but as a backup, here are the current ones:
+
+```
+VERSION="1.1.0"
+curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
+mkdir -p oras-install/
+tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/
+sudo mv oras-install/oras /usr/local/bin/
+rm -rf oras_${VERSION}_*.tar.gz oras-install/
+```
+
+### helm-docs notes
+
+* Download the latest release binary from here: https://github.com/norwoodj/helm-docs/releases
+* Make sure to download the "Linux x64/64" tar.gz archive
+* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
+
+```
+sudo mv helm-docs /usr/local/bin
+```
+
+### crdoc notes
+
+* Download the latest release binary from here: https://github.com/fybrik/crdoc/releases
+* Make sure to download the "Linux x64/64" tar.gz archive
+* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
+
+```
+sudo mv crdoc /usr/local/bin
 ```
 
 
