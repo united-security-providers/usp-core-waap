@@ -44,15 +44,18 @@ git clone git@git.u-s-p.local:core-waap/core-waap-operator-helm.git
 cd core-waap-operator-helm
 git checkout --quiet $CHARTS_VERSION
 # Determine core-waap (Envoy) version from Helm values.yaml file
-export CORE_WAAP_VERSION=`grep '/usp/core/waap/usp-core-waap:' helm/usp-core-waap-operator/values.yaml`
-export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d ':' -f 3)
-export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d '"' -f 1)
+
+# export CORE_WAAP_VERSION=`grep '/usp/core/waap/usp-core-waap:' helm/usp-core-waap-operator/values.yaml`
+# export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d ':' -f 3)
+# export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d '"' -f 1)
 cd ..
 
 # clone core-waap container project
 git clone git@git.u-s-p.local:core-waap/core-waap-build.git
 cd core-waap-build
-git checkout --quiet v$CORE_WAAP_VERSION
+export CORE_WAAP_VERSION=`git tag --sort=creatordate -l *.*.* | tail -1`
+echo $CORE_WAAP_VERSION
+git checkout --quiet $CORE_WAAP_VERSION
 cd ..
 
 # clone operator project
@@ -141,6 +144,7 @@ for file in ./docs/*; do
         sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
         sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
+        sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
     fi
 done
 
