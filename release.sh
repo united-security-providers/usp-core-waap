@@ -58,6 +58,14 @@ git clone git@git.u-s-p.local:core-waap/core-waap-operator-helm.git
 cd core-waap-operator-helm
 git checkout --quiet $CHARTS_VERSION
 export OPERATOR_VERSION=`grep 'operator.version' pom.xml`
+
+# Perform quick check here - we NEVER want a snapshot documented on the website, so make
+# sure that the Helm chart contains a reference to a fixed operator release
+if [[ $OPERATOR_VERSION =~ "SNAPSHOT" ]]; then
+  echo "ERROR: Helm chart contains reference to SNAPSHOT operator: $OPERATOR_VERSION"
+  exit 1;
+fi
+
 export OPERATOR_VERSION=$(echo $OPERATOR_VERSION | cut -d '>' -f 2)
 export OPERATOR_VERSION=$(echo $OPERATOR_VERSION | cut -d '<' -f 1)
 cd ..
