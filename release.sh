@@ -17,7 +17,22 @@ checkbin() {
 
 checkbin mkdocs
 checkbin helm
-checkbin oras
+checkbin wget
+checkbin crdoc
+
+if [ "$#" -lt 2 ]
+then
+  echo "Not enough arguments supplied. Usage:"
+  echo ""
+  echo "./release.sh <helm-chart-version> <core-waap-version>"
+  exit 1
+fi
+
+export CHARTS_VERSION=$1
+export CORE_WAAP_VERSION=$2
+
+echo "Helm charts version: $CHARTS_VERSION"
+echo "Core WAAP version: $CORE_WAAP_VERSION"
 
 DIR=`pwd`
 rm -rf build
@@ -30,7 +45,6 @@ mkdir build
 cd build
 
 # Determine last Helm charts release
-export CHARTS_VERSION=`oras repo tags uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator | tail -1`
 echo "Last Helm charts release: $CHARTS_VERSION"
 
 # clone ci project and checkout tag matching the helm charts release
@@ -39,14 +53,13 @@ cd core-waap-ci
 git checkout --quiet helm$CHARTS_VERSION
 cd ..
 
-# clone helm chart project and checkout tag matching the helm charts release
+# clone helm chart project and checkout tag matching the helm charts release (for the changelog)
 git clone git@git.u-s-p.local:core-waap/core-waap-operator-helm.git
 cd core-waap-operator-helm
 git checkout --quiet $CHARTS_VERSION
-# Determine core-waap (Envoy) version from Helm values.yaml file
-export CORE_WAAP_VERSION=`grep '/usp/core/waap/usp-core-waap:' helm/usp-core-waap-operator/values.yaml`
-export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d ':' -f 3)
-export CORE_WAAP_VERSION=$(echo $CORE_WAAP_VERSION | cut -d '"' -f 1)
+export OPERATOR_VERSION=`grep 'operator.version' pom.xml`
+export OPERATOR_VERSION=$(echo $OPERATOR_VERSION | cut -d '>' -f 2)
+export OPERATOR_VERSION=$(echo $OPERATOR_VERSION | cut -d '<' -f 1)
 cd ..
 
 # clone core-waap container project
@@ -58,16 +71,8 @@ cd ..
 # clone operator project
 git clone git@git.u-s-p.local:core-waap/core-waap-operator.git
 cd core-waap-operator
-
-# Get last version GIT tag
-export RELEASE=`git tag --sort=creatordate -l *.*.* | tail -1`
-echo "----------------------------------------------------"
-echo "Last Helm chart release in OCI repository: $CHARTS_VERSION"
-echo "Core-WAAP version from 'values.yaml': $CORE_WAAP_VERSION"
-echo "Last operator release by GIT tag: $RELEASE"
-
-# Check out the operator project release (GIT tag)
-git checkout --quiet $RELEASE
+# Check out the operator project release (GIT tag) for changelog
+git checkout --quiet $OPERATOR_VERSION
 
 # Determine spec-lib version from operator Maven pom
 export SPEC_VERSION=`grep 'spec.version' pom.xml`
@@ -76,7 +81,11 @@ export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '<' -f 1)
 echo "Spec lib version from POM: $SPEC_VERSION"
 
 
-echo "----------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "Selected Helm chart release: $CHARTS_VERSION"
+echo "Selected Core WAAP release: $CORE_WAAP_VERSION"
+echo "Operator release in Helm chart: $OPERATOR_VERSION"
+echo "-------------------------------------------------------------"
 
 # Get Helm charts to extract values.yaml file
 helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
@@ -88,7 +97,7 @@ wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-li
 # Download CRD
 mkdir crd
 cd crd
-wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-operator/$RELEASE/waap-operator-$RELEASE-crd.yml
+wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-operator/$OPERATOR_VERSION/waap-operator-$OPERATOR_VERSION-crd.yml
 # Generate CRD documentation
 crdoc  --resources . --output crd-doc.md
 
@@ -138,7 +147,7 @@ cp build/helm-CHANGELOG-clean.md ./docs/helm-CHANGELOG.md
 # Replace version placeholders in all markdown files
 for file in ./docs/*; do
     if [ -f "$file" ]; then
-        sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
+        sed -i -e 's/%RELEASE%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
     fi
