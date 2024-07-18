@@ -24,7 +24,9 @@ if [ "$#" -lt 2 ]
 then
   echo "Not enough arguments supplied. Usage:"
   echo ""
-  echo "./release.sh <helm-chart-version> <core-waap-version>"
+  echo "./release.sh <helm-chart-version> <core-waap-version> [deploy]"
+  echo ""
+  echo "If the optional 'deploy' argument is set, the website will be deployed to Github and made public!"
   exit 1
 fi
 
@@ -61,7 +63,7 @@ export OPERATOR_VERSION=`grep 'operator.version' pom.xml`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
-if [[ $OPERATOR_VERSION =~ "SNAPSHOT" ]]; then
+if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$3" == "deploy" ]]; then
   echo "ERROR: Helm chart contains reference to SNAPSHOT operator: $OPERATOR_VERSION"
   exit 1;
 fi
@@ -165,7 +167,7 @@ done
 zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
 zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
-if [ "$1" == "deploy" ]; then
+if [ "$3" == "deploy" ]; then
     # Deploy to Github pages
     mkdocs gh-deploy
 fi
