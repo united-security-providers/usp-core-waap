@@ -101,7 +101,11 @@ echo "Operator release in Helm chart: $OPERATOR_VERSION"
 echo "-------------------------------------------------------------"
 
 # Get Helm charts to extract values.yaml file
-helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
+if [[ $CHARTS_VERSION =~ "SNAPSHOT" ]]; then
+  helm pull oci://devuspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
+else
+  helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
+fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 
 # Download autolearning tool
