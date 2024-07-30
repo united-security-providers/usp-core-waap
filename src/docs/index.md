@@ -4,8 +4,8 @@ USP Core WAAP (Web Application and API Protection) provides secure access to web
 while simplifying the process of configuration and deployment.
 
 * Current USP Core WAAP operator release version: [%RELEASE%](operator-CHANGELOG/)
-* Current Helm charts version for USP Core WAAP operator : [%CHARTS_VERSION%](helm-CHANGELOG/)
-* Current Core WAAP image: [%CORE_WAAP_VERSION%](core-waap-CHANGELOG/)
+* Current Helm charts version for USP Core WAAP operator : [%CHARTS_VERSION%]
+* Current Core WAAP image: [%CORE_WAAP_VERSION%]
 
 ## Overview
 
