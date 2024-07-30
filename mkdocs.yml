@@ -34,14 +34,15 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Releases:
-      - Core WAAP: 'core-waap-CHANGELOG.md'
+  - Release Notes:
+      - Core WAAP: 'changelog-corewaap.md'
       - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
   - Docs:
-    - Custom Resource: 'crd-doc.md'
-    - Operator How-To:
-        - Helm Usage: 'helm.md'
+    - Custom Resource: 'crd-0-8-0.md'
+    - Operator helm chart:
+        - Usage: 'helm.md'
         - Values: 'values.md'
+    - Upgrade Procedure: 'upgrade.md'
     - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'
