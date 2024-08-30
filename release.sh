@@ -64,7 +64,7 @@ downloadFromNexus() {
 # Remove extra info in CRD description fields from incl. "||" to before "</br>"
 # or to before a line with "<table>", potentially stretching across multiple lines.
 # LATER: Would in principle be safer to operate on a parsed CRD, but that
-#        would require an additional tool.
+#        would require an additional tool or tools.
 removeExtraCrdInfo() {
   cat crd/crd-doc-raw.md | awk 'BEGIN { inExtraInfo = 0 }
     {
