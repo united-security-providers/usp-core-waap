@@ -1,4 +1,4 @@
-# Error Pages / Static Resources
+# Error Pages / Static Files
 
 Configuration samples that show how to configure custom error pages and static web resources.
 
