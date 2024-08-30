@@ -61,6 +61,48 @@ downloadFromNexus() {
   fi
 }
 
+# Remove extra info in CRD description fields from incl. "||" to before "</br>"
+# or to before a line with "<table>", potentially stretching across multiple lines.
+# LATER: Would in principle be safer to operate on a parsed CRD, but that
+#        would require an additional tool.
+removeExtraCrdInfo() {
+  cat crd/crd-doc-raw.md | awk 'BEGIN { inExtraInfo = 0 }
+    {
+      i = index($0, "||")
+      j = index($0, "<br/>")
+      k = index($0, "<table>")
+      if (inExtraInfo) {
+        if (j) {
+          print substr($0, j, length($0))
+          inExtraInfo = 0
+        } else if (k) {
+          print ""
+          print $0
+          inExtraInfo = 0
+        }
+      } else {
+        if (i) {
+          if (j) {
+            print substr($0, 1, i-1) substr($0, j, length($0))
+          } else {
+            inExtraInfo = 1
+            print substr($0, 1, i-1)
+          }
+        } else {
+          print $0
+        }
+      }
+    }
+  ' > crd/crd-doc.md
+}
+
+generateCrdDocumentation() {
+  mkdir crd
+  cp usp-core-waap-operator/templates/crd-core-waap.yaml crd/
+  crdoc  --resources crd --output crd/crd-doc-raw.md
+  removeExtraCrdInfo
+}
+
 checkbin mkdocs
 checkbin helm
 checkbin wget
@@ -88,7 +130,6 @@ export CORE_WAAP_VERSION=$2
 DIR=`pwd`
 rm -rf build
 rm -rf docs
-rm -rf output.log
 rm -rf generated
 mkdir build
 cd build
@@ -127,9 +168,7 @@ downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md chang
 #
 
 # Generate CRD documentation
-mkdir crd
-cp usp-core-waap-operator/templates/crd-core-waap.yaml crd/
-crdoc  --resources crd --output crd/crd-doc.md
+generateCrdDocumentation
 
 # Download autolearning tool
 downloadFromNexus $SPEC_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar
@@ -156,9 +195,9 @@ cp build/crd/crd-doc.md ./docs/
 # Generate autolearn-cli tool doc by capturing the help output into a file
 export JARFILE=./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar
 
-java -jar ./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > output.log
+java -jar ./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > ./build/autolearning-output.log
 echo "\`\`\`"  >> ./docs/autolearning.md
-cat output.log >> ./docs/autolearning.md
+cat ./build/autolearning-output.log >> ./docs/autolearning.md
 echo "\`\`\`"  >> ./docs/autolearning.md
 echo " "  >> ./docs/autolearning.md
 echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
@@ -191,9 +230,12 @@ done
 zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
 zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
+echo "Successfully generated site (Markdown) at ./docs."
+
 if [ "$3" == "deploy" ]; then
-    # Deploy to Github pages
+    echo "Deploying to GitHub pages..."
     mkdocs gh-deploy
+    echo "Successfully deployed to to GitHub pages"
 fi
 
 trap - ERR

@@ -9,7 +9,6 @@ the scripts required to build the USP Core WAAP website:
 
 - `mkdocs` to generate the website and deploy it to GitHub pages.
 - `helm` command used for pulling the Helm charts to process the "values.yaml" file.
-- `oras` CLI tool to query the OCI Helm repository: https://oras.land/
 - `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
 - `crdoc` to generate the CRD documentation: https://github.com/fybrik/crdoc
 
@@ -44,19 +43,6 @@ mkdocs --version
 mkdocs, version 1.5.3 from /home/<myuser>/.local/lib/python3.10/site-packages/mkdocs (Python 3.10)
 ```
 
-### oras notes
-
-Look up oras setup instructions on the site above, but as a backup, here are the current ones:
-
-```
-VERSION="1.1.0"
-curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz"
-mkdir -p oras-install/
-tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/
-sudo mv oras-install/oras /usr/local/bin/
-rm -rf oras_${VERSION}_*.tar.gz oras-install/
-```
-
 ### helm-docs notes
 
 * Download the latest release binary from here: https://github.com/norwoodj/helm-docs/releases
@@ -80,18 +66,10 @@ sudo mv crdoc /usr/local/bin
 
 ## Generate site
 
-Before running the script which generates the site, you need to log in _once_ manually both with the "oras" and
+Before running the script which generates the site, you need to log in _once_ manually with
 the "helm" tool. Get the password for user "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
 
 * PasswordSafe link: ps8://MDpPaERzLTlHYUVlNjRVUUJRVnJjWXZ3
-
-Oras login with:
-
-```
-$ oras login uspregistry.azurecr.io
-Username: usp-ci-bob
-Password: <enter password>
-```
 
 Helm login with:
 
@@ -102,7 +80,7 @@ $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <p
 To just generate the site locally, run:
 
 ```
-$ ./release.sh
+$ ./release.sh 
 ```
 
 The site has then been generated within the "build" directory.
@@ -112,7 +90,7 @@ The site has then been generated within the "build" directory.
 To generate the site and deploy it to GitHub pages, run:
 
 ```
-$ ./release.sh deploy
+$ ./release.sh {helm-version} core-waap-version} deploy
 ```
 
 ## Local testing

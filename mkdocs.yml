@@ -18,9 +18,6 @@ plugins:
   - swagger-ui-tag:
       supportedSubmitMethods: []
       validatorUrl: none
-  - redirects:
-      redirect_maps:
-          'idlight.md': 'sorbay_ciam.md'
 
 markdown_extensions:
   - pymdownx.superfences:
@@ -38,8 +35,10 @@ nav:
       - Core WAAP: 'changelog-corewaap.md'
       - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
-  - Docs:
+  - Configuration:
     - Custom Resource: 'crd-0-8-0.md'
+    - Error Pages / Static Resources: 'error-pages-static-resources.md'
+  - Operation:
     - Operator helm chart:
         - Usage: 'helm.md'
         - Values: 'values.md'
