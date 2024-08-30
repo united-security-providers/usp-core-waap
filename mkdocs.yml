@@ -41,7 +41,7 @@ nav:
   - Operation:
     - Operator helm chart:
         - Usage: 'helm.md'
-        - Values: 'values.md'
+        - Values: 'helm-values.md'
     - Upgrade Procedure: 'upgrade.md'
     - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'

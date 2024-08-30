@@ -203,7 +203,7 @@ echo " "  >> ./docs/autolearning.md
 echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
 
 # Generate values documentation Markdown file
-helm-docs --chart-search-root=build/usp-core-waap-operator -o values.md
+helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
 
 prepareChangelog build/waap-operator-$OPERATOR_VERSION-changelog.md ./docs/operator-CHANGELOG.md
@@ -213,7 +213,7 @@ prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/he
 mkdir -p ./docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
 cp build/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
-cp build/usp-core-waap-operator/values.md docs/
+cp build/usp-core-waap-operator/helm-values.md docs/
 
 
 # Replace version placeholders in all markdown files
