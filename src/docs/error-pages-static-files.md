@@ -6,6 +6,8 @@ The main purpose of custom error pages is to hide internals of the web applicati
 
 Static web resources like a company logo or CSS style sheet can be referenced from error pages and static web pages can also be served individually.
 
+![Sample 404 Error Page](assets/images/error-page-usp-404.jpg)
+
 ## HTML error page for all 4xx errors with style and logo
 
 A simple HTML error page with some info about the circumstances that caused the error with a referenced CSS style sheet and a JPEG logo.
