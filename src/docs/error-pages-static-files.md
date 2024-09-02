@@ -4,7 +4,7 @@ Configuration samples that show how to configure custom error pages and static w
 
 The main purpose of custom error pages is to hide internals of the web application backend (and the Core WAAP itself) from potential attackers who could otherwise gather information about vulnerabilities. HTML error status codes (e.g. 403, 500) can be mapped to error pages that can be customized by including information relevant for support calls, and they can be designed uniformly in your corporate design.
 
-Static web resources like a company logo or CSS style sheet can be referenced from error pages and also static web pages can be served individually.
+Static web resources like a company logo or CSS style sheet can be referenced from error pages and static web pages can also be served individually.
 
 ## HTML error page for all 4xx errors with style and logo
 
