@@ -158,14 +158,14 @@ echo "Operator release in Helm chart: $OPERATOR_VERSION"
 echo "Spec lib release in Helm chart: $SPEC_VERSION"
 echo "-------------------------------------------------------------"
 
-downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
-downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
-
 #
 #
 # TODO - DOWNLOAD Core-WAAP CHANGELOG FROM MAVEN
 #
 #
+#downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
+downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
+downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
 
 # Generate CRD documentation
 generateCrdDocumentation
@@ -206,6 +206,7 @@ echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
 helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
 
+#prepareChangelog build/waap-$CORE_WAAP_VERSION-changelog.md ./docs/waap-CHANGELOG.md
 prepareChangelog build/waap-operator-$OPERATOR_VERSION-changelog.md ./docs/operator-CHANGELOG.md
 prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/helm-CHANGELOG.md
 
