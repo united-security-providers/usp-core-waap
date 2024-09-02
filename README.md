@@ -81,7 +81,7 @@ $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <p
 To just generate the site locally, run:
 
 ```
-$ ./release.sh 
+$ ./release.sh {helm-version} core-waap-version}
 ```
 
 The site has then been generated within the "build" directory.
