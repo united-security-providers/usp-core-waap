@@ -36,7 +36,7 @@ nav:
       - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
   - Configuration:
-    - Custom Resource: 'crd-0-8-0.md'
+    - Custom Resource: 'crd-doc.md'
     - Error Pages / Static Files: 'error-pages-static-files.md'
   - Operation:
     - Operator helm chart:
