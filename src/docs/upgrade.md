@@ -1,6 +1,6 @@
 # Updating Core WAAP Operator
 
-To run a newer version of the Core WAAP Operator the corresponding helm chart can be used. Please check in the release notes what has changed and which setting may affect your deployed CoreWaapServices. In case of breaking changes, it is recommended to follow these instructions:
+To run a newer version of the Core WAAP Operator the corresponding helm chart can be used. Please check in the release notes what has changed and which settings may affect your deployed CoreWaapServices. In case of breaking changes, it is recommended to follow these instructions:
 
 1. Stop the Core WAAP Operator by scaling the deployment down to 0 replicas.
 2. Update the Core WAAP Operator by installing the new helm chart (ensure the CoreWaapService CustomResourceDefinition was updated.)
