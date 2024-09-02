@@ -65,7 +65,7 @@ sudo mv crdoc /usr/local/bin
 ```
 
 
-## Generate site
+## Generate site locally
 
 Before running the script which generates the site, you need to log in _once_ manually with
 the "helm" tool. Get the password for user "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
@@ -84,24 +84,26 @@ To just generate the site locally, run:
 $ ./release.sh {helm-version} {core-waap-version}
 ```
 
-The site has then been generated within the "build" directory.
+***TODO*** For releases is clear what to indicate and works, but support of snapshots seems to be only partial (e.g. giving `0.0.0-main-SNAPSHOT` as {helm-version} produced at least when I tried an outdated version of the operator changelog).
 
-## Generate and deploy to GitHub
+The site has then been generated within the "build" directory (Markdown source for mkdocs, not yet HTML).
 
-To generate the site and deploy it to GitHub pages, run:
+## Test site locally
 
-```
-$ ./release.sh {helm-version} {core-waap-version} deploy
-```
-
-## Local testing
-
-Generate the site without deploying it, then run `mkdocs` to serve it locally:
+Generate the site locally as described above, then run `mkdocs` to serve it locally:
 
 ```
 $ ./release.sh
 $ mkdocs serve
 ```
 
-This will make it available locally (URL visible in output on the shell).
+This will make it available locally (URL visible in output on the shell, typically http://127.0.0.1:8000/).
+
+## Generate site and publish it via GitHub
+
+To generate the site and deploy it to GitHub pages, run:
+
+```
+$ ./release.sh {helm-version} {core-waap-version} deploy
+```
 
