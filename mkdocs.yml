@@ -42,6 +42,7 @@ nav:
     - Operator helm chart:
         - Usage: 'helm.md'
         - Values: 'helm-values.md'
-    - Upgrade Procedure: 'upgrade.md'
+    - Core WAAP Upgrade: 'upgrade.md'
+    - Logs and metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'
