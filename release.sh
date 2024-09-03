@@ -158,11 +158,6 @@ echo "Operator release in Helm chart: $OPERATOR_VERSION"
 echo "Spec lib release in Helm chart: $SPEC_VERSION"
 echo "-------------------------------------------------------------"
 
-#
-#
-# TODO - DOWNLOAD Core-WAAP CHANGELOG FROM MAVEN
-#
-#
 downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
 downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
 downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
