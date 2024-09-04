@@ -196,7 +196,7 @@ _Note that the generated native Envoy config is subject to change:_
 
 Its structure may change, due to changes in the Core WAAP Operator or also due to changes in the underlying Envoy itself, hence it is not an API that is in any way guaranteed to remain stable, while in practice many things will still be quite stable most of the time.
 
-For example, in the future JavaScript functions may be offered to get/set the Core Rule Set (CRS) settings of the Coraza filter more easily.
+As an example of potential future enhancements, JavaScript functions may be offered to get/set the Core Rule Set (CRS) settings of the Coraza filter more easily.
 And/or similar JavaScript functions that make it both more simple and potentially also more robust to get/set some specific or general items in the native Envoy config.
 
 
