@@ -192,7 +192,9 @@ Side remark: Note that this use case is often also interesting internally at USP
 
 We are evaluating various ways to make using this feature generally more easy and also more robust regarding new Core WAAP releases.
 
-Note that the generated native Envoy config is subject to change, the structure may change, due to changes in the operator or also due to changes in Envoy itself, hence it is not an API that is in any way guaranteed to remain stable, while in practice many things will be quite stable most of the time.
+_Note that the generated native Envoy config is subject to change:_
+
+Its structure may change, due to changes in the operator or also due to changes in Envoy itself, hence it is not an API that is in any way guaranteed to remain stable, while in practice many things will still be quite stable most of the time.
 
 For example, in the future JavaScript functions may be offered to get/set the Core Rule Set (CRS) settings of the Coraza filter more easily.
 And/or similar JavaScript functions that make it both more simple and potentially also more robust to get/set some specific or general items in the native Envoy config.
