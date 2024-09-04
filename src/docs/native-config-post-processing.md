@@ -85,7 +85,7 @@ nativeConfigPostProcessing:
 ### Example 2 (complex, with Lua): OpenID Connect login at root location with ACI functionality as Lua filter
 
 This example is around OpenID Connect / OAuth 2.0 login via the corresponding Envoy authentication filter.
-And additional filter in the Lua script language is added via JavaScript which does roughly the following:
+An additional filter in the Lua script language is added via JavaScript which does roughly the following:
 
 * Certain unauthenticated requests receive a HTTP 419 status code instead of the HTTP 302 redirect from the OAuth filter.
 * Certain unauthenticated requests receive a HTTP 403 instead of the redirect and they also receive two additional response headers.
@@ -174,19 +174,19 @@ Note that the implementation is split up into two native config post-processing 
 
 #### Quick workarounds for issues in production
 
-This allows to fix an imminent problem without the need to create a bugfix release immediately.
+This allows to fix at least some imminent problems without the need to create a bugfix release immediately.
 
-This is especially useful in cases where a fix cannot be easily tested outside production, reducing turnaround between tests and thus a quicker fix in production.
+This can be especially useful in cases where a fix cannot be easily tested outside production, reducing turnaround times and thus a quicker fix in production.
 
-Obviously, in most cases the idea is to afterward include a correspondig fix into the next regular Core WAAP release.
+Obviously, in most cases the idea is to afterward include a corresponding fix into the next regular Core WAAP release.
 
 #### Quick and flexible integrations of something new
 
-A PoC is the general example, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release, again also reducing turnaround times in cases where the feature cannot be easily/quickly tested at USP.
+A PoC is maybe the most general example for this use case, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release, again also reducing turnaround times in cases where the feature cannot be easily/immediately tested outside the enviroment of the customer.
 
-Depending on the nature of the integration, it may later make sense to include new features into the Core WAAP, namely if the integration is of a kind that is generally useful or for other reasons the better choice.
+Depending on the nature of the integration, it may later make sense to include new features into the Core WAAP that cover the new intergrations, namely if the integrations are of a kind that is generally useful, or are the better choice for other reasons.
 
-Side remark: Note that is use case often also interesting internally at USP because it allows to explore new settings sometimes more quickly than operating directly with native Envoy config.
+Side remark: Note that this use case is often also interesting internally at USP because it allows to explore new settings sometimes more quickly than operating directly with native Envoy config.
 
 ### Future Improvements
 
