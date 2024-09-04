@@ -175,25 +175,25 @@ Note that the implementation is split up into two native config post-processing 
 
 This allows to fix an imminent problem without the need to create a bugfix release immediately.
 
-This is especially useful in cases where a fix cannot be easily tested outside production, reducing turnaround between tests.
+This is especially useful in cases where a fix cannot be easily tested outside production, reducing turnaround between tests and thus a quicker fix in production.
 
-Obviously, in most cases the idea is to afterward include the fix into the next regular release.
+Obviously, in most cases the idea is to afterward include a correspondig fix into the next regular Core WAAP release.
 
 #### Quick and flexible integrations of something new
 
-A PoC is the general example, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release.
+A PoC is the general example, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release, again also reducing turnaround times in cases where the feature cannot be easily/quickly tested at USP.
 
 Depending on the nature of the integration, it may later make sense to include new features into the Core WAAP, namely if the integration is of a kind that is generally useful or for other reasons the better choice.
 
-Side remark: Note that is use case often just as interesting internally at USP because it allows to explore new things sometimes more quickly than operating directly with native Envoy config.
+Side remark: Note that is use case often also interesting internally at USP because it allows to explore new settings sometimes more quickly than operating directly with native Envoy config.
 
 ### Future Improvements
 
-We are evaluating various ways to make using this feature generally more easy to use and also more robust regarding new Core WAAP releases.
+We are evaluating various ways to make using this feature generally more easy and also more robust regarding new Core WAAP releases.
 
 Note that the generated native Envoy config is subject to change, the structure may change, due to changes in the operator or also due to changes in Envoy itself, hence it is not an API that is in any way guaranteed to remain stable, while in practice many things will be quite stable most of the time.
 
-For example, in the future JavaScript functions may be offered to get/set the Core Rule Set (CRD) settings of the Coraza filter more easily.
-And/or similar JavaScript functions that make it both more simple and potentially also more robust to get/set some other items in the native Envoy config.
+For example, in the future JavaScript functions may be offered to get/set the Core Rule Set (CRS) settings of the Coraza filter more easily.
+And/or similar JavaScript functions that make it both more simple and potentially also more robust to get/set some specific or general items in the native Envoy config.
 
 
