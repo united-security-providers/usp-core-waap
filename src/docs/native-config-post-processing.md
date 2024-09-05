@@ -62,7 +62,7 @@ After that, some general comments about use cases, best practices and potential 
 
 ### Example 1 (simple): File upload in large chunks
 
-By default, Envoy has a limit on uploads to chunks of maximally 1 MB. This default behavior can be changed by explicitly setting `perConnectionBufferLimitBytes` on the listener, in the example below set to 10 MB in `lds.yaml`:
+By default, Envoy has a limit on uploads to chunks of maximally 1 MB when in combination with the Coraza WASM filter (CRS enabled). This default behavior can be changed by explicitly setting `perConnectionBufferLimitBytes` on the listener, in the example below set to 10 MB in `lds.yaml`:
 
 ```yaml
 resources:
