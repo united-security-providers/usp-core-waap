@@ -1,9 +1,11 @@
 # Native Config Post-Processing
 
-This feature is very helpful in essentially these two use cases:
+This feature is very helpful in essentially these use cases:
 
 * Quick workarounds for issues in production.
 * Quick and flexible integrations of something new.
+
+Plus generally using features of the underlying Envoy that are not (yet) accessible via the Core WAAP custom resource, for example, for tuning performance or to log extra information in the access log, and so on...
 
 ## Introduction
 
