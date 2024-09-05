@@ -92,60 +92,61 @@ An additional filter in the Lua script language is added via JavaScript which do
 * Certain unauthenticated requests receive a HTTP 419 status code instead of the HTTP 302 redirect from the OAuth filter.
 * Certain unauthenticated requests receive a HTTP 403 instead of the redirect and they also receive two additional response headers.
 
+Context is Microsoft Office in combination with WebDAV; ACI = Adaptive Client Integration.
+
 Note that the implementation is split up into two native config post-processing JavaScripts, one that defines the Lua script as a JavaScript variable and a second one that does the changes to the native Envoy config in the `lds.yaml`:
 
 ```yaml
   nativeConfigPostProcessing:
-    -  |
-      const luaScript = `
-                function envoy_on_request(request_handle)
-                  -- set the route and x_requested_with_header in the dynamic metadata to use later in the response handler
-                  local route = request_handle:headers():get(":path")
-                  local x_requested_with_header = request_handle:headers():get("x-requested-with")
-                  request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.request.path", route)
-                  if x_requested_with_header ~= nil and string.lower(x_requested_with_header) == "xmlhttprequest" then
-                    request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", true)
-                  else
-                    request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", false)
-                  end
-                end
-
-                function envoy_on_response(response_handle)
-                  local route = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.request.path"]
-                  local xhr = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.XHR"]
-                  local status = response_handle:headers():get(":status")
-                  local auth_endpoint = "https://oauth-keycloak-10-0-2-15.nip.io:8443/realms/core-waap-testing/protocol/openid-connect/auth"
-
-                  -- detect login redirect
-                  if status == "302" then
-                    local location = response_handle:headers():get("location")
-                    if string.find(location, auth_endpoint, 1 , true) ~= nil then
-
-                      -- handle XHR requests
-                      if xhr then
-                        response_handle:headers():replace(":status", "419")
-                        return
-                      end
-
-                      -- handle server sent events
-                      if string.find(route, "/sse/") ~= nil then
-                        response_handle:headers():replace(":status", "419")
-                        return
-                      end
-
-                      -- special treatment for request of non-browser-clients like Word and Excel
-                      if string.find(route,"/webdav") ~= nil then
-                        response_handle:headers():replace(":status", "403")
-                        response_handle:headers():add("X-FORMS_BASED_AUTH_RETURN_URL", route)
-                        response_handle:headers():add("X-FORMS_BASED_AUTH_REQUIRED", auth_endpoint)
-                        return
-                      end
-                    end
-                  end
-                end
-              `
     - |
+      const luaScript = `
+        function envoy_on_request(request_handle)
+          -- set the route and x_requested_with_header in the dynamic metadata to use later in the response handler
+          local route = request_handle:headers():get(":path")
+          local x_requested_with_header = request_handle:headers():get("x-requested-with")
+          request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.request.path", route)
+          if x_requested_with_header ~= nil and string.lower(x_requested_with_header) == "xmlhttprequest" then
+            request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", true)
+          else
+            request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", false)
+          end
+        end
 
+        function envoy_on_response(response_handle)
+          local route = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.request.path"]
+          local xhr = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.XHR"]
+          local status = response_handle:headers():get(":status")
+          local auth_endpoint = "https://oauth-keycloak-10-0-2-15.nip.io:8443/realms/core-waap-testing/protocol/openid-connect/auth"
+
+          -- detect login redirect
+          if status == "302" then
+            local location = response_handle:headers():get("location")
+            if string.find(location, auth_endpoint, 1 , true) ~= nil then
+
+              -- handle XHR requests
+              if xhr then
+                response_handle:headers():replace(":status", "419")
+                return
+              end
+
+              -- handle server sent events
+              if string.find(route, "/sse/") ~= nil then
+                response_handle:headers():replace(":status", "419")
+                return
+              end
+
+              -- special treatment for request of non-browser-clients like Word and Excel
+              if string.find(route,"/webdav") ~= nil then
+                response_handle:headers():replace(":status", "403")
+                response_handle:headers():add("X-FORMS_BASED_AUTH_RETURN_URL", route)
+                response_handle:headers():add("X-FORMS_BASED_AUTH_REQUIRED", auth_endpoint)
+                return
+              end
+            end
+          end
+        end
+      `
+    - |
       lds.resources[0].filterChains[0].filters[0].typedConfig.httpFilters.unshift({
         'name': 'envoy.filters.http.lua',
         'typed_config': {
@@ -157,17 +158,14 @@ Note that the implementation is split up into two native config post-processing 
           }
         }
       });
-  
-      var aciOn = {
-        'envoy.filters.http.lua': {
+      var aciKey = 'envoy.filters.http.lua';
+      var aciValue = {
           '@type': 'type.googleapis.com/envoy.extensions.filters.http.lua.v3.LuaPerRoute',
           'name': 'aci.lua'
-        }
       };
-
-      var vhostDef = lds.resources[0].filterChains[0].filters[0].typedConfig.routeConfig.virtualHosts[0];
-      // note: first route is auto-generated for callback+signout
-      vhostDef.routes[1].typedPerFilterConfig = aciOn;
+      const routes =
+      lds.resources[0].filterChains[0].filters[0].typedConfig.routeConfig.virtualHosts[0].routes;
+      routes.forEach((route) => route.typedPerFilterConfig[aciKey] = aciValue);
 ```
 
 ## General Comments
