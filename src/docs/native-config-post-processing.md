@@ -1,4 +1,4 @@
-# Native Config Post-Processing
+# Native Config Post-Processing (NCPP)
 
 This feature is very helpful in essentially these use cases:
 
