@@ -190,6 +190,10 @@ Depending on the nature of the integration, it may later make sense to include n
 
 Side remark: Note that this use case is often also interesting internally at USP because it allows to explore new settings sometimes more quickly than operating directly with native Envoy config.
 
+#### Tuning / debugging existing installations
+
+Use features that are present in the underlying Envoy but not (yet) configurable via the Core WAAP custom resource.
+
 ### Future Improvements
 
 We are evaluating various ways to make using this feature generally more easy and also more robust regarding new Core WAAP releases.
