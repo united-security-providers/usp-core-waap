@@ -14,14 +14,14 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ### Core WAAP Operator 0.8.0 to 1.0.0
 
-#### Operation-related Settings
+#### Operation-related settings
 
 The following kinds of settings have been regularized:
 
 - Instead of using annotations, use settings in the CoreWaapService CR under `spec.operation`.<br>
   **Note:** This means that all Core WAAP annotations have to be removed during migration.
 - The exact same settings can also be provided as defaults in the operator helm chart under `config.coreWaapDefaults`, replacing a number of previous operator settings.<br>
-  **Note:** All previous settings in the operator helm chart have to be moved to the new structure, even the ones that have no equivalent under `spec.operation`.
+  **Note:** All previous settings in the operator helm chart have to be moved to the new structure, even the ones that have no equivalent under `spec.operation`, best use the provided new helm chart as a basis.
 
 Generally, see the CoreWaapService CRD under `spec.operation` for all possible settings.
 
@@ -30,7 +30,13 @@ Migration setting-by-setting:
 - operator `envoy.image` / annotation `image` => `*.image`<br>
   (where `*.image` stands for `spec.operation.image` in the CoreWaapService CR, plus default in the operator helm chart at `config.coreWaapDefaults.image`, and similary in the following lines)
 - annotations `version` and `registry` => no longer supported, specify in `*.image`
-- ***TODO***
+- operator `envoy.labels` / annotation `labels` => `*.labels` (key/value)
+- operator `serviceAnnotations` / annotation `service-annotations` => `*.serviceAnnotations` (key/value)
+- ...
+- `envoy.replicas` / annotation `replicas` => `*.replicas`
+- operator `envoy.resources.*` / annotations `request-cpu`, `request-memory`, `limits-cpu`, `limits-memory` => `*.respources` (standard Kubernetes format; note that `request` in the old settings was wrong, in Kubernetes is plural `requests`)
+- operator `operator.caCertificatesConfigMapName` / annotation `custom-cacerts` => `*.caCertificates.configMap`
+- operator `operator.caCertificateKeyInConfigMap` / annotation `custom-cacerts-key` => `*.caCertificates.key`
 
 The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
 
