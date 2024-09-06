@@ -42,11 +42,10 @@ Migration setting-by-setting:
 The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
 
 #### CRS rules are now enums
-- ***TODO**
-[//]: # (Notes: CRS Request Rules now enums, if previously are were enabled, setting can be omitted &#40;all request rules active by default&#41; [Todo])
 
------------------------------------------
+- CRS request and response rules are no longer integers but enums, see the CRD for values.
+- **Important**: Because the default for request rules has changed to all activated by default, if you previously had listed all of them, there is need to list them now all as enum values, just omit the setting.
 
-[//]: # (- All CoreWaapService CR annotations have to be removed. The settings are now applied within the CoreWaapService `spec.operation` or in the Core WAAP Operator configuration &#40;`values.yaml` of the Operator helm chart within `config.coreWaapDefaults`&#41;)
-[//]: # (     - Annotation `core.waap.u-s-p.ch/custom-cacerts` has to be moved to `spec.operation.caCertificates.configMap`)
-[//]: # (     - core.waap.u-s-p.ch/custom-cacerts-key custom-cacerts-key)
+#### General
+
+- See the breaking changes in the changelog. For example, some of the security features that have been activated by default typically have no impact in practice, but legacy components might be affected.
