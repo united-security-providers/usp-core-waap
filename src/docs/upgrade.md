@@ -32,7 +32,8 @@ Migration setting-by-setting:
 - annotations `version` and `registry` => no longer supported, specify in `*.image`
 - operator `envoy.labels` / annotation `labels` => `*.labels` (key/value)
 - operator `serviceAnnotations` / annotation `service-annotations` => `*.serviceAnnotations` (key/value)
-- ...
+- operator `envoy.servicePort` and `envoy.listenerPort` / annotation `service-port` and `listener-port` => `*.port` (can no longer be set to different values, no use case)
+- operator `envoy.serviceAdminPort` and `envoy.listenerAdminPort` / annotation `admin-service-port` and `admin-listener-port` => `*.adminInterfaceService.port` (can also no longer be set to different values, no use case)
 - `envoy.replicas` / annotation `replicas` => `*.replicas`
 - operator `envoy.resources.*` / annotations `request-cpu`, `request-memory`, `limits-cpu`, `limits-memory` => `*.respources` (standard Kubernetes format; note that `request` in the old settings was wrong, in Kubernetes is plural `requests`)
 - operator `operator.caCertificatesConfigMapName` / annotation `custom-cacerts` => `*.caCertificates.configMap`
