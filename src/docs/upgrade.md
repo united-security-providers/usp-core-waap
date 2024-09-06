@@ -48,4 +48,4 @@ The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
 
 #### General
 
-- See the breaking changes in the changelog. For example, some of the security features that have been activated by default typically have no impact in practice, but legacy components might be affected.
+- See the breaking changes in the changelog. For example, some of the security features that have been activated by default typically have no impact in practice, but legacy components might fail to pass through.
