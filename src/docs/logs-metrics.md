@@ -1,4 +1,4 @@
-# Updating Core WAAP Operator
+# Logs and Metrics
 
 Logs about Core WAAP's http request/response processing and possible security policy violation events are crucial for the visibility of the target web application or API operation.
 Core WAAP Operator logs allow to monitor configuration change events. Besides logs, metrics offer quantitative data on aspects like traffic volume, response times, and blocked threats, enabling the monitoring of Core WAAP effectiveness over time and identifying trends or anomalies.
