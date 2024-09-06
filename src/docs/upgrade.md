@@ -44,7 +44,7 @@ The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
 #### CRS rules are now enums
 
 - CRS request and response rules are no longer integers but enums, see the CRD for values.
-- **Important**: Because the default for request rules has changed to all activated by default, if you previously had listed all of them, there is need to list them now all as enum values, just omit the setting.
+- **Note**: Because the default for request rules has changed to all activated by default, if you previously had listed all of them, there is need to list them now all as enum values, just omit the setting.
 
 #### General
 
