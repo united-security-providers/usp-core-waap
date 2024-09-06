@@ -18,9 +18,6 @@ plugins:
   - swagger-ui-tag:
       supportedSubmitMethods: []
       validatorUrl: none
-  - redirects:
-      redirect_maps:
-          'idlight.md': 'sorbay_ciam.md'
 
 markdown_extensions:
   - pymdownx.superfences:
@@ -34,9 +31,19 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Releases: 'CHANGELOG.md'
-  - Operator:
-      - Helm: 'helm.md'
-      - Values: 'values.md'
-  - Auto-Learning: 'autolearning.md'
+  - Release Notes:
+      - Core WAAP: 'waap-CHANGELOG.md'
+      - Operator: 'operator-CHANGELOG.md'
+      - Helm Chart: 'helm-CHANGELOG.md'
+  - Configuration:
+    - Custom Resource: 'crd-doc.md'
+    - Error Pages / Static Files: 'error-pages-static-files.md'
+    - Native Config Post-Processing: 'native-config-post-processing.md'
+  - Operation:
+    - Operator helm chart:
+        - Usage: 'helm.md'
+        - Values: 'helm-values.md'
+    - Core WAAP Upgrade: 'upgrade.md'
+    - Logs and metrics: 'logs-metrics.md'
+    - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'

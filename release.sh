@@ -15,94 +15,210 @@ checkbin() {
   fi
 }
 
+prepareChangelog() {
+  local sourceFile=$1
+  local targetFile=$2
+
+  rm -rf changelog-tmp
+  mkdir changelog-tmp
+
+  # Remove footer section with all link URLs from changelog
+#######################  sed -n '/linksnurls/q;p' $1 > changelog-tmp/CHANGELOG2.md
+  # Until a new operator release is made with the "linksnurls" footer marker, the
+  # following line has to be used to cut off the footer instead:
+  sed -n '/redmine/q;p' $sourceFile > changelog-tmp/CHANGELOG2.md
+
+  # Remove all link brackets from operator changelog
+  sed 's|[\[,]||g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
+  sed 's|[],]||g' changelog-tmp/CHANGELOG3.md > $targetFile
+
+  rm -rf changelog-tmp
+}
+
+downloadFromNexus() {
+  local version=$1
+  local groupId=$2
+  local artifactId=$3
+  local type=$4
+  local classifier=$5
+
+  local repository='releases'
+  if [[ $version =~ "SNAPSHOT" ]]; then
+    repository='snapshots'
+  fi
+
+  local query="http://nexus-bob.u-s-p.local/service/rest/v1/search/assets?sort=version&maven.baseVersion=$version&maven.groupId=$groupId&maven.artifactId=$artifactId&maven.extension=$type&maven.classifier=$classifier"
+  echo "Nexus query: $query"
+
+  wget -O info.json $query
+  downloadUrl=`cat info.json | grep -v '\-sources' | grep -a -m 1 -h "downloadUrl" | grep -Po 'downloadUrl" : "\K[^"]*'`
+  rm info.json
+  if [ -z "$classifier" ]
+  then
+    wget -O $artifactId-$version.$type $downloadUrl
+  else
+    wget -O $artifactId-$version-$classifier.$type $downloadUrl
+  fi
+}
+
+# Remove extra info in CRD description fields from incl. "||" to before "</br>"
+# or to before a line with "<table>", potentially stretching across multiple lines.
+# LATER: Would in principle be safer to operate on a parsed CRD, but that
+#        would require an additional tool or tools.
+removeExtraCrdInfo() {
+  cat crd/crd-doc-raw.md | awk 'BEGIN { inExtraInfo = 0 }
+    {
+      i = index($0, "||")
+      j = index($0, "<br/>")
+      k = index($0, "<table>")
+      if (inExtraInfo) {
+        if (j) {
+          print substr($0, j, length($0))
+          inExtraInfo = 0
+        } else if (k) {
+          print ""
+          print $0
+          inExtraInfo = 0
+        }
+      } else {
+        if (i) {
+          if (j) {
+            print substr($0, 1, i-1) substr($0, j, length($0))
+          } else {
+            inExtraInfo = 1
+            print substr($0, 1, i-1)
+          }
+        } else {
+          print $0
+        }
+      }
+    }
+  ' > crd/crd-doc.md
+}
+
+generateCrdDocumentation() {
+  mkdir crd
+  cp usp-core-waap-operator/templates/crd-core-waap.yaml crd/
+  crdoc  --resources crd --output crd/crd-doc-raw.md
+  removeExtraCrdInfo
+}
+
 checkbin mkdocs
 checkbin helm
-checkbin oras
+checkbin wget
+checkbin crdoc
+
+if [ "$#" -lt 2 ]
+then
+  echo "Not enough arguments supplied. Usage:"
+  echo ""
+  echo "./release.sh <helm-chart-version, e.g. 1.0.0> <core-waap-version, e.g. 1.1.6> [deploy]"
+  echo ""
+  echo "If the optional 'deploy' argument is set, the website will be deployed to Github and made public!"
+  echo ""
+  echo "Example for creating the website without deployment:"
+  echo ""
+  echo "./release.sh 1.0.0 1.1.6"
+  exit 1
+fi
+
+# 1st input parameter = Helm Chart version
+export CHARTS_VERSION=$1
+# 2nd input parameter = Core WAAP container version
+export CORE_WAAP_VERSION=$2
 
 DIR=`pwd`
 rm -rf build
 rm -rf docs
-rm -rf output.log
 rm -rf generated
-
-# Determine last release version
 mkdir build
 cd build
 
-# Determine last Helm charts release
-export CHARTS_VERSION=`oras repo tags uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator | tail -1`
-echo "Last Helm charts release: $CHARTS_VERSION"
+# Get Helm charts to extract operator and spec lib info
+if [[ $CHARTS_VERSION =~ "SNAPSHOT" ]]; then
+  helm pull oci://devuspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
+else
+  helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
+fi
+tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
+export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/templates/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
+export SPEC_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/templates/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 
+# Perform quick check here - we NEVER want a snapshot documented on the website, so make
+# sure that the Helm chart contains a reference to a fixed operator release
+if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$3" == "deploy" ]]; then
+  echo "ERROR: Helm chart contains reference to SNAPSHOT operator: $OPERATOR_VERSION"
+  exit 1;
+fi
+
+echo "-------------------------------------------------------------"
+echo "Selected Core WAAP release: $CORE_WAAP_VERSION"
+echo "Selected Helm chart release: $CHARTS_VERSION"
+echo "Operator release in Helm chart: $OPERATOR_VERSION"
+echo "Spec lib release in Helm chart: $SPEC_VERSION"
+echo "-------------------------------------------------------------"
+
+downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
+downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
+downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
+
+# Generate CRD documentation
+generateCrdDocumentation
+
+# Download autolearning tool
+downloadFromNexus $SPEC_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar
+
+
+# TO CHECK ---------------->>>>>>>>>>>>>>>> REALLY GET DEMO APPS FROM CI PROJECT? TBD
 # clone ci project and checkout tag matching the helm charts release
 git clone git@git.u-s-p.local:core-waap/core-waap-ci.git
 cd core-waap-ci
-git checkout --quiet helm$CHARTS_VERSION
+################ git checkout --quiet helm$CHARTS_VERSION
 cd ..
 
-# clone operator project
-git clone git@git.u-s-p.local:core-waap/core-waap-operator.git
-cd core-waap-operator
-
-# Get last version GIT tag
-export RELEASE=`git tag --sort=creatordate -l *.*.* | tail -1`
-echo "-------------------------------------------"
-echo "Last operator release: $RELEASE"
-
-# Check out the operator project release (GIT tag)
-git checkout --quiet $RELEASE
-
-# Determine spec-lib version from operator Maven pom
-export SPEC_VERSION=`grep 'spec.version' pom.xml`
-export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '>' -f 2)
-export SPEC_VERSION=$(echo $SPEC_VERSION | cut -d '<' -f 1)
-echo "Spec lib version: $SPEC_VERSION"
-echo "-------------------------------------------"
-
-# Get Helm charts to extract values.yaml file
-helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
-tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
-
-# Download autolearning tool
-wget http://nexus-bob.u-s-p.local/repository/releases/ch/u-s-p/core/waap/waap-lib-autolearn-cli/$SPEC_VERSION/waap-lib-autolearn-cli-$SPEC_VERSION.jar
+# =====================================================================
+# Begin site build
+# =====================================================================
 
 # Prepare site source directory
 cd $DIR
 
-java -jar ./build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > output.log
-
+# Copy base markdown files from sources
 cp -R src/docs ./docs
+cp build/crd/crd-doc.md ./docs/
 
+# Generate autolearn-cli tool doc by capturing the help output into a file
+export JARFILE=./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar
+
+java -jar ./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > ./build/autolearning-output.log
 echo "\`\`\`"  >> ./docs/autolearning.md
-cat output.log >> ./docs/autolearning.md
+cat ./build/autolearning-output.log >> ./docs/autolearning.md
 echo "\`\`\`"  >> ./docs/autolearning.md
 echo " "  >> ./docs/autolearning.md
 echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
 
 # Generate values documentation Markdown file
-helm-docs --chart-search-root=build/core-waap-operator/usp-core-waap-operator -o values.md
+helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
-# Remove footer section with all link URLs from changelog
-sed -n '/linksnurls/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.md
-# Until a new operator release is made with the "linksnurls" footer marker, the
-# following line has to be used to cut off the footer instead:
-sed -n '/redmine/q;p' build/core-waap-operator/CHANGELOG.md > build/CHANGELOG2.md
 
-# Remove all link brackets
-sed 's|[\[,]||g' build/CHANGELOG2.md > build/CHANGELOG3.md
-sed 's|[],]||g' build/CHANGELOG3.md > build/CHANGELOG-clean.md
+prepareChangelog build/waap-$CORE_WAAP_VERSION-changelog.md ./docs/waap-CHANGELOG.md
+prepareChangelog build/waap-operator-$OPERATOR_VERSION-changelog.md ./docs/operator-CHANGELOG.md
+prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/helm-CHANGELOG.md
+
 
 mkdir -p ./docs/files
-cp build/CHANGELOG-clean.md ./docs/CHANGELOG.md
-cp build/core-waap-operator/usp-core-waap-operator/values.yaml docs/files/
-cp build/core-waap-operator/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
-cp build/core-waap-operator/usp-core-waap-operator/values.md docs/
+######cp build/usp-core-waap-operator/values.yaml docs/files/
+cp build/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
+cp build/usp-core-waap-operator/helm-values.md docs/
+
 
 # Replace version placeholders in all markdown files
 for file in ./docs/*; do
     if [ -f "$file" ]; then
-        sed -i -e 's/%RELEASE%/'$RELEASE'/g' $file
+        sed -i -e 's/%RELEASE%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
+        sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
     fi
 done
 
@@ -110,9 +226,12 @@ done
 zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
 zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
-if [ "$1" == "deploy" ]; then
-    # Deploy to Github pages
+echo "Successfully generated site (Markdown) at ./docs."
+
+if [ "$3" == "deploy" ]; then
+    echo "Deploying to GitHub pages..."
     mkdocs gh-deploy
+    echo "Successfully deployed to to GitHub pages"
 fi
 
 trap - ERR
