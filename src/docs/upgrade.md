@@ -10,11 +10,36 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 **Note:** This procedure should prevent any downtime of a CoreWaapService. In case also a new Core WAAP Version is set, the pods will restart accordingly.
 
-# Core WAAP Migration Guide
+## Core WAAP Migration Guide
 
-## Core WAAP Operator 0.8.0 to 1.0.0
+### Core WAAP Operator 0.8.0 to 1.0.0
 
-- All CoreWaapService CR annotations have to be removed. The settings are now applied within the CoreWaapService `spec.operation` or in the Core WAAP Operator configuration (`values.yaml` of the Operator helm chart within `config.coreWaapDefaults`)
-     - Annotation `core.waap.u-s-p.ch/custom-cacerts` has to be moved to `spec.operation.caCertificates.configMap`
-     - core.waap.u-s-p.ch/custom-cacerts-key custom-cacerts-key
-- Notes: CRS Request Rules now enums, if previously are were enabled, setting can be omitted (all request rules active by default) [Todo]
+#### Operation-related Settings
+
+The following kinds of settings have been regularized:
+
+- Instead of using annotations, use settings in the CoreWaapService CR under `spec.operation`.<br>
+  **Note:** This means that all Core WAAP annotations have to be removed during migration.
+- The exact same settings can also be provided as defaults in the operator helm chart under `config.coreWaapDefaults`, replacing a number of previous operator settings.<br>
+  **Note:** This means that all previous settings there have to be moved to the new structure.
+
+Generally, see the CoreWaapService CRD under `spec.operation` for all possible settings.
+
+Migration setting-by-setting:
+
+- operator `envoy.image` / annotation `image` => `*.image`<br>
+  (where `*.image` stands for `spec.operation.image` in the CoreWaapService CR, plus default in the operator helm chart at `config.coreWaapDefaults.image`, and similary in the following lines)
+- annotations `version` and `registry` => no longer supported, specify in `*.image`
+- ***TODO***
+
+The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
+
+#### CRS rules are now enums
+- ***TODO**
+[//]: # (Notes: CRS Request Rules now enums, if previously are were enabled, setting can be omitted &#40;all request rules active by default&#41; [Todo])
+
+-----------------------------------------
+
+[//]: # (- All CoreWaapService CR annotations have to be removed. The settings are now applied within the CoreWaapService `spec.operation` or in the Core WAAP Operator configuration &#40;`values.yaml` of the Operator helm chart within `config.coreWaapDefaults`&#41;)
+[//]: # (     - Annotation `core.waap.u-s-p.ch/custom-cacerts` has to be moved to `spec.operation.caCertificates.configMap`)
+[//]: # (     - core.waap.u-s-p.ch/custom-cacerts-key custom-cacerts-key)
