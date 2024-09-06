@@ -39,7 +39,7 @@ Migration setting-by-setting:
 - operator `operator.caCertificatesConfigMapName` / annotation `custom-cacerts` => `*.caCertificates.configMap`
 - operator `operator.caCertificateKeyInConfigMap` / annotation `custom-cacerts-key` => `*.caCertificates.key`
 
-The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
+The setting `operator.watchedNamespaces` is now `config.watchedNamespaces`.
 
 #### CRS rules are now enums
 
@@ -48,4 +48,4 @@ The setting `operator.watchedNamespaces` is now simply `watchedNamespaces`.
 
 #### General
 
-- See the breaking changes in the changelog. For example, some of the security features that have been activated by default typically have no impact in practice, but legacy components might fail to pass through.
+- See the breaking changes in the changelog. For example, some of the security features that have been activated by default (header filtering, CRS, CSRF) typically have no impact in practice, but legacy components might fail to pass through.
