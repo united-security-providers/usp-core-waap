@@ -21,7 +21,7 @@ The following kinds of settings have been regularized:
 - Instead of using annotations, use settings in the CoreWaapService CR under `spec.operation`.<br>
   **Note:** This means that all Core WAAP annotations have to be removed during migration.
 - The exact same settings can also be provided as defaults in the operator helm chart under `config.coreWaapDefaults`, replacing a number of previous operator settings.<br>
-  **Note:** This means that all previous settings there have to be moved to the new structure.
+  **Note:** All previous settings in the operator helm chart have to be moved to the new structure, even the ones that have no equivalent under `spec.operation`.
 
 Generally, see the CoreWaapService CRD under `spec.operation` for all possible settings.
 
