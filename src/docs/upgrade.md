@@ -48,4 +48,5 @@ The setting `operator.watchedNamespaces` is now `config.watchedNamespaces`.
 
 #### General
 
-- See the breaking changes in the changelog. For example, some of the security features that have been activated by default (header filtering, CRS, CSRF) typically have no impact in practice, but legacy components might fail to pass through.
+- The new security features `csrfPolicy` and `headerFiltering` are introduced and enabled by default. To ensure the upgrade runs smoothly in the sense that the new features do not block any request unintentionally, these features can be disabled first. After a successful upgrade, it is recommended to enable this features and add exceptions where required.
+- The upgrade also includes a new OWASP Core Rule Set which may require configuration changes like adding rule exceptions to prevent false positive alerts. Therefore a new testing phase is recommended. For non productive/non public environments this can be done simplest with setting `crs.mode` to `DETECT` temporarily. For productive/public environments without previous testing stage it is recommended to keep the `crs.mode` to `BLOCK` and fix possible false positive blocks according to demand.
