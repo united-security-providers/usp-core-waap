@@ -403,7 +403,8 @@
 </ul>
 <h4 id="general">General</h4>
 <ul>
-<li>See the breaking changes in the changelog. For example, some of the security features that have been activated by default (header filtering, CRS, CSRF) typically have no impact in practice, but legacy components might fail to pass through.</li>
+<li>The new security features <code>csrfPolicy</code> and <code>headerFiltering</code> are introduced and enabled by default. To ensure the upgrade runs smoothly in the sense that the new features do not block any request unintentionally, these features can be disabled first. After a successful upgrade, it is recommended to enable this features and add exceptions where required.</li>
+<li>The upgrade also includes a new OWASP Core Rule Set which may require configuration changes like adding rule exceptions to prevent false positive alerts. Therefore a new testing phase is recommended. For non productive/non public environments this can be done simplest with setting <code>crs.mode</code> to <code>DETECT</code> temporarily. For productive/public environments without previous testing stage it is recommended to keep the <code>crs.mode</code> to <code>BLOCK</code> and fix possible false positive blocks according to demand.</li>
 </ul>
 </article>
 </div>
