@@ -98,7 +98,7 @@ removeExtraCrdInfo() {
 
 generateCrdDocumentation() {
   mkdir crd
-  cp usp-core-waap-operator/templates/crd-core-waap.yaml crd/
+  cp usp-core-waap-operator/crds/crd-core-waap.yaml crd/
   crdoc  --resources crd --output crd/crd-doc-raw.md
   removeExtraCrdInfo
 }
@@ -108,24 +108,22 @@ checkbin helm
 checkbin wget
 checkbin crdoc
 
-if [ "$#" -lt 2 ]
+if [ "$#" -lt 1 ]
 then
   echo "Not enough arguments supplied. Usage:"
   echo ""
-  echo "./release.sh <helm-chart-version, e.g. 1.0.0> <core-waap-version, e.g. 1.1.6> [deploy]"
+  echo "./release.sh <helm-chart-version, e.g. 1.0.0> [deploy]"
   echo ""
   echo "If the optional 'deploy' argument is set, the website will be deployed to Github and made public!"
   echo ""
   echo "Example for creating the website without deployment:"
   echo ""
-  echo "./release.sh 1.0.0 1.1.6"
+  echo "./release.sh 1.0.0"
   exit 1
 fi
 
 # 1st input parameter = Helm Chart version
 export CHARTS_VERSION=$1
-# 2nd input parameter = Core WAAP container version
-export CORE_WAAP_VERSION=$2
 
 DIR=`pwd`
 rm -rf build
@@ -141,12 +139,13 @@ else
   helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
 fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
-export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/templates/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
-export SPEC_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/templates/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
+export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
+export SPEC_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
+export CORE_WAAP_VERSION=`grep 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap:' usp-core-waap-operator/values.yaml | cut -d ':' -f 3| tr -d '"'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
-if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$3" == "deploy" ]]; then
+if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$2" == "deploy" ]]; then
   echo "ERROR: Helm chart contains reference to SNAPSHOT operator: $OPERATOR_VERSION"
   exit 1;
 fi
@@ -228,7 +227,7 @@ zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
 echo "Successfully generated site (Markdown) at ./docs."
 
-if [ "$3" == "deploy" ]; then
+if [ "$2" == "deploy" ]; then
     echo "Deploying to GitHub pages..."
     mkdocs gh-deploy
     echo "Successfully deployed to to GitHub pages"
