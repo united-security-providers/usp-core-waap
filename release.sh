@@ -22,13 +22,10 @@ prepareChangelog() {
   rm -rf changelog-tmp
   mkdir changelog-tmp
 
-  # Remove footer section with all link URLs from changelog
-#######################  sed -n '/linksnurls/q;p' $1 > changelog-tmp/CHANGELOG2.md
-  # Until a new operator release is made with the "linksnurls" footer marker, the
-  # following line has to be used to cut off the footer instead:
-  sed -n '/redmine/q;p' $sourceFile > changelog-tmp/CHANGELOG2.md
+  # Remove all "[...]: ..." link declarations (typ. at the bottom of the file)
+  sed -e "s/^\[[^\]*\]: http.*//g" $sourceFile > changelog-tmp/CHANGELOG2.md
 
-  # Remove all link brackets from operator changelog
+  # Remove all link brackets []
   sed 's|[\[,]||g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
   sed 's|[],]||g' changelog-tmp/CHANGELOG3.md > $targetFile
 
