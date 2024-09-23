@@ -3,12 +3,12 @@
 To run a newer version of the Core WAAP Operator the corresponding helm chart can be used. Please check in the release notes what has changed and which settings may affect your deployed CoreWaapServices. In case of breaking changes, it is recommended to follow these instructions:
 
 1. Stop the Core WAAP Operator by scaling the deployment down to 0 replicas (i.e. `kubectl scale deployment --replicas 0 -l app.kubernetes.io/name=core-waap-operator -n <operator-namespace>`).
-1. Manually update the CRD (`helm show crds ...` and `kubectl apply --server-side -f ...`, see [Upgrade operator](./helm.md#upgrade-operator))
+1. Manually update the CRD (see [upgrade operator](./helm.md#upgrade-operator)).
 1. Align the CoreWaapServices with the new schema according to the breaking changes in the release notes.
-1. Update the Core WAAP Operator by installing the new helm chart (ensure the CoreWaapService CustomResourceDefinition was updated, see [Upgrade operator](./helm.md#upgrade-operator))
+1. Update the Core WAAP Operator by upgrading the helm chart (ensure the CoreWaapService CustomResourceDefinition was updated, see [upgrade operator](./helm.md#upgrade-operator)).
 1. Check the Core WAAP Operator Logs, to ensure that no error due to incompatibility occurs. Fix the remaining issues in the CoreWaapServices Custom Resources if required.
 
-**Note:** This procedure should prevent any downtime of a CoreWaapService. In case a new Core WAAP Version is included too, the pods will restart accordingly. **Upgrade from versoins < 1.0.2 will have an increased risk by helm upgrade commands to remove the CRD** (and by this any custom resource) in case the upgrade command fails (due to any not core-waap specific reason liek not enough resources to start a POD etc)
+**Note:** This procedure should prevent any downtime of a CoreWaapService. In case a new Core WAAP Version is included too, the pods will restart accordingly. **Upgrade from versions < 1.0.2 will have an increased risk by helm upgrade commands to remove the CRD** (and by this any custom resource) in case the upgrade command fails (due to any not core-waap specific reason like not enough resources to start a POD etc)
 
 ## Core WAAP Migration Guide
 
