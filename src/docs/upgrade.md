@@ -8,11 +8,11 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 1. Update the Core WAAP Operator by upgrading the helm chart (ensure the CoreWaapService CustomResourceDefinition was updated, see [upgrade operator](./helm.md#upgrade-operator)).
 1. Check the Core WAAP Operator Logs, to ensure that no error due to incompatibility occurs. Fix the remaining issues in the CoreWaapServices Custom Resources if required.
 
-**Note:** This procedure should prevent any downtime of a CoreWaapService. In case a new Core WAAP Version is included too, the pods will restart accordingly. **Upgrade from versions < 1.0.2 will have an increased risk by helm upgrade commands to remove the CRD** (and by this any custom resource) in case the upgrade command fails (due to any not core-waap specific reason like not enough resources to start a POD etc)
+**Note:** This procedure should prevent any downtime of a CoreWaapService. In case a new Core WAAP Version is included too, the pods will restart accordingly. **Upgrade from helm chart versions < 1.0.2 will have an increased risk by helm upgrade commands to remove the CRD** (and by this any custom resource) in case the upgrade command fails (due to any not core-waap specific reason like not enough resources to start a POD etc)
 
 ## Core WAAP Migration Guide
 
-### Core WAAP Operator 0.8.0 to 1.0.0
+### Core WAAP Operator 0.8.0 to >=1.0.0
 
 #### Operation-related settings
 
