@@ -240,6 +240,16 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#extract-operator-custom-resource-definition-crd">
+    Extract Operator Custom Resource Definition (CRD)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrade-operator">
+    Upgrade operator
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#information">
     Information
   </a>
@@ -313,6 +323,16 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#extract-operator-custom-resource-definition-crd">
+    Extract Operator Custom Resource Definition (CRD)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrade-operator">
+    Upgrade operator
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#information">
     Information
   </a>
@@ -334,17 +354,35 @@
 <div class="highlight"><pre><span></span><code>helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator
 </code></pre></div>
 <h2 id="install-operator">Install operator</h2>
-<p>To install the latest operator release:</p>
-<div class="highlight"><pre><span></span><code>helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.0.2
+<p>To install the latest operator release (into existing default namespace) use:</p>
+<div class="highlight"><pre><span></span><code>helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0
 </code></pre></div>
+<p>To install the operator into a custom namespace called <code>usp-core-waap-op</code> use:</p>
+<div class="highlight"><pre><span></span><code>helm install --create-namespace --namespace usp-core-waap-operator usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0
+</code></pre></div>
+<p><strong>Note:</strong> The <code>--create-namespace</code> is required if the namespace does not yet exist but can be also be used if the namespace already exists (helm will then skip namespace creation). Detailed information about <code>--create-namespace</code> and <code>--namespace</code> options are available via <a href="https://helm.sh/docs/helm/helm_install/">helm documentation</a>.</p>
 <p>To override the operator configuration settings in the <code>operator-configuration.yaml</code> Helm template, use a local values
 file, e.g. <code>custom-values.yaml</code> with the <code>-f</code> Helm CLI argument:</p>
-<div class="highlight"><pre><span></span><code>helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.0.2
+<div class="highlight"><pre><span></span><code>helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0
 </code></pre></div>
+<h2 id="extract-operator-custom-resource-definition-crd">Extract Operator Custom Resource Definition (CRD)</h2>
+<p>In order to extract the CRD (Custom Resource Definition) you can use:</p>
+<div class="highlight"><pre><span></span><code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0 &gt; usp-core-waap-crd-1.1.0.yaml
+</code></pre></div>
+<p><strong>Note:</strong> If you upgrade the operator <strong>you manually have to apply the new CRD definition</strong> prior to the helm upgrade command!</p>
+<h2 id="upgrade-operator">Upgrade operator</h2>
+<p>As <a href="https://helm.sh/docs/chart_best_practices/custom_resource_definitions/">documented by helm</a> version 3 of helm does not yet support CRD upgrades and as such the will be skipped during a <code>helm upgrade</code> command with a warning, which can be prevented using the <code>--skip-crds</code> flag.</p>
+<p>In order to upgrade the current installed CRD <strong>you manually have to upgrade it</strong> otherwise the upgrade will not be successful!</p>
+<ol>
+<li>extract CRD: <code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0 &gt; usp-core-waap-crd-1.1.0.yaml</code></li>
+<li><a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">manually apply</a> new CRD: <code>kubectl apply --server-side -f usp-core-waap-crd-1.1.0.yaml --force-conflicts</code></li>
+<li>upgrade operator: <code>helm upgrade --namespace &lt;operator-namespace&gt; &lt;release-name&gt; oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0</code></li>
+</ol>
+<p><strong>Note:</strong> This generic procedure does not take into account possible <strong>manual changes to be applied prior to the operator <code>helm upgrade</code> command</strong> as support for automatic migration is not yet provided.</p>
 <h2 id="information">Information</h2>
 <p>You can use <code>helm template</code> to just render the templates to the console in order to look at the contents, before 
 actually installing the operator:</p>
-<div class="highlight"><pre><span></span><code>helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.0.2
+<div class="highlight"><pre><span></span><code>helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.0
 </code></pre></div>
 </article>
 </div>

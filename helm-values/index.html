@@ -305,7 +305,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="usp-core-waap-operator">usp-core-waap-operator</h1>
-<p><img alt="Version: 1.0.2" src="https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square"> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square"> <img alt="AppVersion: 1.0.1" src="https://img.shields.io/badge/AppVersion-1.0.1-informational?style=flat-square"/></img></img></p>
+<p><img alt="Version: 1.1.0" src="https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square"> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square"> <img alt="AppVersion: 1.0.1" src="https://img.shields.io/badge/AppVersion-1.0.1-informational?style=flat-square"/></img></img></p>
 <p>Helm chart for the USP Core WAAP operator.</p>
 <h2 id="values">Values</h2>
 <table>
@@ -349,10 +349,10 @@
 <td><em>Optional</em>: Name of the image pull secret to be used by the service account</td>
 </tr>
 <tr>
-<td>operator.namespace</td>
-<td>string</td>
-<td><code>"usp-core-waap-operator"</code></td>
-<td>Operator deployment namespace</td>
+<td>operator.replicas</td>
+<td>int</td>
+<td><code>1</code></td>
+<td>Number of replicas (0 or 1)</td>
 </tr>
 <tr>
 <td>operator.resources</td>
