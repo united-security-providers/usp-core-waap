@@ -163,9 +163,9 @@ Note that the implementation is split up into two native config post-processing 
           '@type': 'type.googleapis.com/envoy.extensions.filters.http.lua.v3.LuaPerRoute',
           'name': 'aci.lua'
       };
-      const routes =
+      var routes =
       lds.resources[0].filterChains[0].filters[0].typedConfig.routeConfig.virtualHosts[0].routes;
-      routes.forEach((route) => route.typedPerFilterConfig[aciKey] = aciValue);
+      routes.forEach((r) => { if ( r.typedPerFilterConfig) { r.typedPerFilterConfig[aciKey] = aciValue } } );
 ```
 
 ## General Comments
