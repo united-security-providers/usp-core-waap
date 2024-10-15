@@ -93,7 +93,7 @@ The site has then been generated within the "build" directory (Markdown source f
 Generate the site locally as described above, then run `mkdocs` to serve it locally:
 
 ```
-$ ./release.sh {helm-version}
+$ ./release.sh
 $ mkdocs serve
 ```
 
@@ -104,6 +104,6 @@ This will make it available locally (URL visible in output on the shell, typical
 To generate the site and deploy it to GitHub pages, run:
 
 ```
-$ ./release.sh deploy
+$ ./release.sh {helm-version} deploy
 ```
 
