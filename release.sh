@@ -137,7 +137,7 @@ else
 fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
-export SPEC_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
+export SPEC_LIB_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_VERSION=`grep 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap:' usp-core-waap-operator/values.yaml | cut -d ':' -f 3| tr -d '"'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
@@ -148,10 +148,10 @@ if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$2" == "deploy" ]]; then
 fi
 
 echo "-------------------------------------------------------------"
-echo "Selected Core WAAP release: $CORE_WAAP_VERSION"
-echo "Selected Helm chart release: $CHARTS_VERSION"
-echo "Operator release in Helm chart: $OPERATOR_VERSION"
-echo "Spec lib release in Helm chart: $SPEC_VERSION"
+echo "Selected Helm chart release:       $CHARTS_VERSION"
+echo "- Operator release in Helm chart:  $OPERATOR_VERSION"
+echo "- Spec lib release in Helm chart:  $SPEC_LIB_VERSION"
+echo "- Core WAAP release in Helm chart: $CORE_WAAP_VERSION"
 echo "-------------------------------------------------------------"
 
 downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
@@ -162,7 +162,7 @@ downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md chang
 generateCrdDocumentation
 
 # Download autolearning tool
-downloadFromNexus $SPEC_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar
+downloadFromNexus $SPEC_LIB_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar
 
 
 # TO CHECK ---------------->>>>>>>>>>>>>>>> REALLY GET DEMO APPS FROM CI PROJECT? TBD
@@ -184,9 +184,9 @@ cp -R src/docs ./docs
 cp build/crd/crd-doc.md ./docs/
 
 # Generate autolearn-cli tool doc by capturing the help output into a file
-export JARFILE=./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar
+export JARFILE=./build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar
 
-java -jar ./build/waap-lib-autolearn-cli-$SPEC_VERSION.jar --help > ./build/autolearning-output.log
+java -jar ./build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar --help > ./build/autolearning-output.log
 echo "\`\`\`"  >> ./docs/autolearning.md
 cat ./build/autolearning-output.log >> ./docs/autolearning.md
 echo "\`\`\`"  >> ./docs/autolearning.md
@@ -204,7 +204,7 @@ prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/he
 
 mkdir -p ./docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
-cp build/waap-lib-autolearn-cli-$SPEC_VERSION.jar docs/files/
+cp build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar docs/files/
 cp build/usp-core-waap-operator/helm-values.md docs/
 
 
@@ -212,7 +212,7 @@ cp build/usp-core-waap-operator/helm-values.md docs/
 for file in ./docs/*; do
     if [ -f "$file" ]; then
         sed -i -e 's/%RELEASE%/'$OPERATOR_VERSION'/g' $file
-        sed -i -e 's/%SPEC_VERSION%/'$SPEC_VERSION'/g' $file
+        sed -i -e 's/%SPEC_LIB_VERSION%/'$SPEC_LIB_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
     fi
