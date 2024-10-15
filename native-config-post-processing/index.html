@@ -555,9 +555,9 @@ An additional filter in the Lua script language is added via JavaScript which do
 <span class="w">          </span><span class="no">'@type': 'type.googleapis.com/envoy.extensions.filters.http.lua.v3.LuaPerRoute',</span>
 <span class="w">          </span><span class="no">'name': 'aci.lua'</span>
 <span class="w">      </span><span class="no">};</span>
-<span class="w">      </span><span class="no">const routes =</span>
+<span class="w">      </span><span class="no">var routes =</span>
 <span class="w">      </span><span class="no">lds.resources[0].filterChains[0].filters[0].typedConfig.routeConfig.virtualHosts[0].routes;</span>
-<span class="w">      </span><span class="no">routes.forEach((route) =&gt; route.typedPerFilterConfig[aciKey] = aciValue);</span>
+<span class="w">      </span><span class="no">routes.forEach((r) =&gt; { if ( typeof r.typedPerFilterConfig === 'undefined') { r.typedPerFilterConfig = {} }; r.typedPerFilterConfig[aciKey] = aciValue } );</span>
 </code></pre></div>
 <h2 id="general-comments">General Comments</h2>
 <h3 id="use-cases-and-best-practices">Use cases and best practices</h3>
