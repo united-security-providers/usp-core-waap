@@ -81,7 +81,7 @@ $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <p
 To just generate the site locally, run:
 
 ```
-$ ./release.sh {helm-version}
+$ ./release.sh <helm-version>
 ```
 
 ***TODO*** For releases is clear what to indicate and works, but support of snapshots seems to be only partial (e.g. giving `0.0.0-main-SNAPSHOT` as {helm-version} produced at least when I tried an outdated version of the operator changelog).
@@ -93,7 +93,7 @@ The site has then been generated within the "build" directory (Markdown source f
 Generate the site locally as described above, then run `mkdocs` to serve it locally:
 
 ```
-$ ./release.sh
+$ ./release.sh <helm-version>
 $ mkdocs serve
 ```
 
@@ -104,6 +104,6 @@ This will make it available locally (URL visible in output on the shell, typical
 To generate the site and deploy it to GitHub pages, run:
 
 ```
-$ ./release.sh {helm-version} deploy
+$ ./release.sh <helm-version> deploy
 ```
 
