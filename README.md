@@ -11,6 +11,7 @@ the scripts required to build the USP Core WAAP website:
 - `helm` command used for pulling the Helm charts to process the "values.yaml" file.
 - `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
 - `crdoc` to generate the CRD documentation: https://github.com/fybrik/crdoc
+- `ya` to query values from yaml files: https://mikefarah.gitbook.io/yq
 
 
 ### mkdocs notes
@@ -47,7 +48,7 @@ mkdocs, version 1.5.3 from /home/<myuser>/.local/lib/python3.10/site-packages/mk
 ### helm-docs notes
 
 * Download the latest release binary from here: https://github.com/norwoodj/helm-docs/releases
-* Make sure to download the "Linux x64/64" tar.gz archive
+* Make sure to download the "Linux x86/64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
 ```
@@ -57,11 +58,21 @@ sudo mv helm-docs /usr/local/bin
 ### crdoc notes
 
 * Download the latest release binary from here: https://github.com/fybrik/crdoc/releases
-* Make sure to download the "Linux x64/64" tar.gz archive
+* Make sure to download the "Linux x86/64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
 ```
 sudo mv crdoc /usr/local/bin
+```
+
+### yq notes
+
+* Download the latest release binary from here: https://github.com/mikefarah/yq/releases/latest
+* Make sure to download the "Linux amd64" tar.gz archive
+* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
+
+```
+sudo mv yq_linux_amd64 /usr/local/bin/yq
 ```
 
 
