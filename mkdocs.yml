@@ -39,6 +39,8 @@ nav:
     - Custom Resource: 'crd-doc.md'
     - Error Pages / Static Files: 'error-pages-static-files.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
+    - Traffic Processing:
+      - OpenAPI validation: 'openapi-validation.md'
   - Operation:
     - Operator helm chart:
         - Usage: 'helm.md'
