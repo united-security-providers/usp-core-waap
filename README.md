@@ -11,7 +11,7 @@ the scripts required to build the USP Core WAAP website:
 - `helm` command used for pulling the Helm charts to process the "values.yaml" file.
 - `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
 - `crdoc` to generate the CRD documentation: https://github.com/fybrik/crdoc
-- `ya` to query values from yaml files: https://mikefarah.gitbook.io/yq
+- `yq` to query values from yaml files: https://mikefarah.gitbook.io/yq
 
 
 ### mkdocs notes
