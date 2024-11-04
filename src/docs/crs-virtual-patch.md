@@ -28,27 +28,24 @@ It is advised to use [folded style](https://yaml.org/spec/1.2.2/#813-folded-styl
 
 Custom request rules will be inserted just before REQUEST-949-BLOCKING-EVALUATION.conf include, meaning that standard CRS variables (e.g. tx.anomaly_score_pl1) might be used.
 
-Below is the sample of fix for Log4j CVE-2021-44228 exploit.
+Keep in mind though, that by default the BLOCK/DETECT mode specified in '.spec.crs.mode' is not respected by the custom rules. Unless you specifically follow the standard CRS rules' approach of reporting an anomaly (updating corresponding variables, etc.) In order to emulate the DETECT mode, you could just replace [deny](https://coraza.io/docs/seclang/actions/#deny) action with [log](https://coraza.io/docs/seclang/actions/#log) action.
+
+Below is the sample rule that denies the request with 403 if the query string parameter 'attack' has the 'custom-pattern' value.
 
 ```yaml
 spec:
 ...
   crs:
-    mode: BLOCK
+    ...
     customRequestBlockingRules:
-    - name: Log4J
-      secLangExpression: >-
-        SecRule REQUEST_LINE|ARGS|ARGS_NAMES|REQUEST_COOKIES|REQUEST_COOKIES_NAMES|REQUEST_HEADERS|XML://*|XML://@* "@rx (?:\${[^}]{0,4}\${|\${(?:jndi|ctx))" 
-        "id:300001,
-        phase:2,
-        deny,
-        t:none,t:urlDecodeUni,t:cmdline,
-        log,
-        msg:'Potential Remote Command Execution: Log4j CVE-2021-44228',
-        logdata:'Matched Data found',
-        tag:'application-multi',
-        tag:'language-java',
-        tag:'platform-multi',
-        tag:'attack-rce',
-        severity:'CRITICAL'" 
+      - name: "Custom rule"
+        secLangExpression: >-
+          SecRule ARGS_GET:attack "custom-pattern"
+          "id:300001,
+          phase:2,deny,status:403,log,
+          t:lowercase,t:removeWhitespace,t:htmlEntityDecode,
+          msg:'Custom rule message',
+          logdata:'Matched Data: custom-pattern found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',
+          tag:'attack-custom',
+          severity:'CRITICAL'"
 ```
