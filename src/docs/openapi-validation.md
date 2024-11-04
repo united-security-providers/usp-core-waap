@@ -51,7 +51,7 @@ spec:
     openapi:
       - ...
         operation:
-          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-openapi:1.0.0"
+          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-openapi"
           version: 0.0.1
           resources:
             claims: ...
