@@ -41,6 +41,7 @@ nav:
     - Native Config Post-Processing: 'native-config-post-processing.md'
     - Traffic Processing:
       - OpenAPI validation: 'openapi-validation.md'
+    - Virtual Patch: 'crs-virtual-patch.md'
   - Operation:
     - Operator helm chart:
         - Usage: 'helm.md'
