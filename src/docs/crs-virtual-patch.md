@@ -1,5 +1,7 @@
 # Virtual Patch
 
+Applying a virtual patch on a web application firewall provides immediate protection against known vulnerabilities without requiring downtime or changes to the application's source code. It's a cost-effective, temporary solution that reduces the risk of attacks until a permanent patch on the application source code can be implemented.
+
 The Virtual Patch feature of Core WAAP works in conjunction with [OWASP Core Rule Set](https://coreruleset.org/) (CRS) feature. It provides a possibility to add a custom rule to standard CRS rules. This will allow any vulnerabilities to be immediately patched without waiting for the CRS rules to be updated.
 
 ## Configuration
