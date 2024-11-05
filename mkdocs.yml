@@ -40,13 +40,15 @@ nav:
     - Error Pages / Static Files: 'error-pages-static-files.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
     - Traffic Processing:
-      - OpenAPI validation: 'openapi-validation.md'
+      - Overview: 'traffic-processing-overview.md'
+      - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
+      - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
   - Operation:
-    - Operator helm chart:
+    - Operator Helm Chart:
         - Usage: 'helm.md'
         - Values: 'helm-values.md'
     - Core WAAP Upgrade: 'upgrade.md'
-    - Logs and metrics: 'logs-metrics.md'
+    - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
   - Downloads: 'downloads.md'
