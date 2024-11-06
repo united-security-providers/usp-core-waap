@@ -20,7 +20,7 @@ Currently supported formats of the specification are JSON and YAML.
 
 ## Configuration
 
-OpenAPI validation is a part of the more general Traffic Processing of Core WAAP. As such, the configuration of schema and processing options is located in the 'openapi' section of 'spec.trafficProcessing'.
+OpenAPI validation is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'openapi' section of 'spec.trafficProcessing':
 
 ```yaml
 spec:
@@ -32,9 +32,9 @@ spec:
         config: ...
 ```
 
-See the [Traffic Processing Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' (plus its defaults in the operator configuration) and 'grpc'.
+See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'grpc' above.
 
-The 'config' section contains the actual validation configuration.
+The 'config' section contains the OpenAPI-specific configuration:
 
 ```yaml
 spec:

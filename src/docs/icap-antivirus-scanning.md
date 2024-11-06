@@ -2,19 +2,19 @@
 
 ## Internet Content Adaptation Protocol (ICAP)
 
-ICAP is a protocol very similar to HTTP/1.1 designed to validate HTTP requests and responses and optionally to modify them. HTTP requests and responses can be sent to an ICAP server wrapped into ICAP requests and get back an OK or a modified HTTP request or response.
+ICAP is a protocol very similar to the original HTTP/1.x protocol, designed to validate HTTP requests and responses and optionally modify them. HTTP requests and responses can be wrapped into ICAP requests and sent to an ICAP server and the server sends back an ICAP response that signals an OK or contains a modified HTTP request or response.
 
-In practice ICAP has established itself for the purpose of antivirus scanning, typically only of HTTP requests and not modifying 
+ICAP has practically never been widely used in its full flexibility and would technologically be slightly outdated by now, but for the following use case it is still the de-facto standard today:
 
-## ICAP Antivirus Scanning
+## ICAP Antivirus (AV) Scanning
 
-TODO
+The Core WAAP provides scanning of HTTP requests via ICAP, typically to make sure that uploaded content does not contain any viruses or similar malware. (Modification of HTTP requests or scanning/modification of HTTP responses is, however, not a common use case and is currently not supported.)
 
-Currently supported is ... TODO
+Technically, the Core WAAP ICAP AV scanning feature uses OPTIONS and REQMOD ICAP requests, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware. 
 
 ## Configuration
 
-OpenAPI validation is a part of the more general Traffic Processing of Core WAAP. As such, the configuration of schema and processing options is located in 'openapi' section of 'spec.trafficProcessing'.
+ICAP AV scanning is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'icap' section of 'spec.trafficProcessing':
 
 ```yaml
 spec:
@@ -26,9 +26,9 @@ spec:
         config: ...
 ```
 
-See the [Traffic Processing Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' (plus its defaults in the operator configuration) and 'grpc'.
+See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'grpc' above.
 
-The 'config' section contains the actual validation configuration.
+The 'config' section contains the ICAP-specific configuration:
 
 ```yaml
 spec:
@@ -36,8 +36,12 @@ spec:
     icap:
       - ... 
         config:
-          TODO: TODO
+          url: "icap://some.host:1344/some/path"
 ```
 
-TODO
+The 'url' setting defines:
 
+- Whether to use TLS to the ICAP server ("icaps://") or not ("icap://")
+- Host, port and location to send the ICAP request to
+
+TLS uses the same CA certificates as for HTTP backend routes, i.e. the settings under 'spec.operation.caCertificates' (and corresponding operator defaults).
