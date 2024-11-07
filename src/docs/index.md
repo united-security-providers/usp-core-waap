@@ -26,4 +26,4 @@ A basic Core WAAP configuration looks as follows.
 To pull the Operator helm chart and corresponding container images you need a key. Get in contact with us, we are looking forward to support you.
 [Web Application &#038; API Protection (WAAP) &#8211; United Security Providers AG](https://www.united-security-providers.ch/technology/application-security/web-application-api-protection-waap/#more)
 
-If you wan't to try the Core WAAP yourself head over to the [Killercoda Core WAAP scenario's](https://killercoda.com/united-security-providers).
+If you want to try the Core WAAP yourself head over to the [Killercoda Core WAAP scenarios](https://killercoda.com/united-security-providers).
