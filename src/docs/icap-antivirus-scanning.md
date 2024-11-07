@@ -8,19 +8,19 @@ ICAP has practically never been widely used in its full flexibility and would te
 
 ## ICAP Antivirus (AV) Scanning
 
-The Core WAAP provides scanning of HTTP requests via ICAP, typically to make sure that uploaded content does not contain any viruses or similar malware. (Modification of HTTP requests or scanning/modification of HTTP responses is, however, not a common use case and is currently not supported.)
+The Core WAAP allows to send HTTP requests via ICAP to an ICAP server, typically to make sure that uploaded content does not contain any viruses or similar malware. (Modification of HTTP requests or scanning/modification of HTTP responses is, however, not a common use case and is currently not supported.)
 
-Technically, the Core WAAP ICAP AV scanning feature uses OPTIONS and REQMOD ICAP requests, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware. 
+Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP requests to the ICAP server, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware. 
 
 ## Configuration
 
-ICAP AV scanning is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'icap' section of 'spec.trafficProcessing':
+Providing ICAP AV scanning via an external ICAP server is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'icap' section of 'spec.trafficProcessing':
 
 ```yaml
 spec:
   trafficProcessing:
     icap:
-      - name: "icap-mcafee-3" 
+      - name: "icap-trendmicro-2" 
         operation: ...
         grpc: ...
         config: ...
