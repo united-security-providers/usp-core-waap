@@ -78,3 +78,7 @@ data:
       "message":"Gateway Timeout"
     }
 ```
+## Behavior on configuration changes
+
+Note that changes to a config map are not directly applied by a running Core WAAP. Therefore the Core WAAP Deployment has to be restarted. e.g.:
+`kubectl -n juiceshop rollout restart deployment usp-core-waap`
