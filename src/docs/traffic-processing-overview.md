@@ -16,7 +16,7 @@ Here is an overview of the architecture with ICAP AV and OpenAPI as examples:
 
 In case of OpenAPI, the sidecar does perform the actual validation, while in the case of ICAP AV the sidecar provides the bridge to the ICAP protocol with which an external ICAP server is contacted.
 
-The connection from the Core WAAP to the sidecars is always via gRPC ("Google" Remote Procedure Call), a very performant mechanism based on HTTP/2, here in a specific form that the Enovy Proxy provides for the purpose of what Envoy calls "external processing" (extProc).
+The connection from the Core WAAP to the sidecars is always via Envoy's External Processing (ext_proc or extProc), which is based on gRPC ("Google" Remote Procedure Call), a very performant mechanism based on HTTP/2, here in a specific form that the Enovy Proxy provides for the purpose of validating and/or modifying HTTP requests and responses.
 
 ## Configuration
 
@@ -30,12 +30,12 @@ spec:
     icap:
       - name: "icap-trendmicro-2"
         operation: ...
-        grpc: ...
+        extProc: ...
         config: ...
     openapi:
       - name: "openapi-petstore-v3" 
         operation: ...
-        grpc: ...
+        extProc: ...
         config: ...
 ```
 
@@ -60,7 +60,7 @@ spec:
     icap:
       - ...
         operation:
-          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-icap"
+          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap"
           version: 0.0.1
           resources:
             claims: ...
@@ -70,7 +70,7 @@ spec:
     openapi:
       - ...
         operation:
-          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-openapi"
+          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-openapi"
           version: 0.0.1
           resources:
             claims: ...
@@ -84,7 +84,7 @@ The 'operation' sections are optional and can be used to make some resource-rela
 ```yaml
 waapSpecTrafficProcessingDefaults:
   icap:
-    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-icap"
+    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap"
     version: 0.0.1
     resources:
       claims: ...
@@ -92,7 +92,7 @@ waapSpecTrafficProcessingDefaults:
       requests: ...
       additionalProperties: ...
   openapi:
-    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-grpc-openapi"
+    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-openapi"
     version: 0.0.1
     resources:
       claims: ...
@@ -101,18 +101,18 @@ waapSpecTrafficProcessingDefaults:
       additionalProperties: ...
 ```
 
-The 'grpc' section contains gRPC-related settings used for communication with the respective sidecar:
+The 'extProc' section contains extProc-related settings used for communication with the respective sidecar:
 
 ```yaml
 spec:
   trafficProcessing:
     icap:
       - ...
-        grpc:
+        extProc:
           messageTimeout: 30s
     openapi:
       - ...
-        grpc:
+        extProc:
           messageTimeout: 20s
 ```
 
