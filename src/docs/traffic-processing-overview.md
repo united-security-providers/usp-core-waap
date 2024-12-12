@@ -60,7 +60,7 @@ spec:
     icap:
       - ...
         operation:
-          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-extProc-icap"
+          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap"
           version: 0.0.1
           resources:
             claims: ...
@@ -70,7 +70,7 @@ spec:
     openapi:
       - ...
         operation:
-          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-extProc-openapi"
+          image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-openapi"
           version: 0.0.1
           resources:
             claims: ...
@@ -84,7 +84,7 @@ The 'operation' sections are optional and can be used to make some resource-rela
 ```yaml
 waapSpecTrafficProcessingDefaults:
   icap:
-    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-extProc-icap"
+    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap"
     version: 0.0.1
     resources:
       claims: ...
@@ -92,7 +92,7 @@ waapSpecTrafficProcessingDefaults:
       requests: ...
       additionalProperties: ...
   openapi:
-    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-extProc-openapi"
+    image: "uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-openapi"
     version: 0.0.1
     resources:
       claims: ...
