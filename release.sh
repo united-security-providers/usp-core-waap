@@ -45,10 +45,11 @@ downloadFromNexus() {
   fi
 
   local query="http://nexus-bob.u-s-p.local/service/rest/v1/search/assets?sort=version&maven.baseVersion=$version&maven.groupId=$groupId&maven.artifactId=$artifactId&maven.extension=$type&maven.classifier=$classifier"
-  echo "Nexus query: $query"
+  echo "Nexus query for Core WAAP changelog: $query"
 
   wget -O info.json $query
   downloadUrl=`cat info.json | grep -v '\-sources' | grep -a -m 1 -h "downloadUrl" | grep -Po 'downloadUrl" : "\K[^"]*'`
+  echo "Nexus download URL for Core WAAP changelog: $downloadUrl"
   rm info.json
   if [ -z "$classifier" ]
   then
