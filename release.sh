@@ -140,6 +140,8 @@ tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export SPEC_LIB_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecDefaults.version'`
+export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
+export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
@@ -149,15 +151,18 @@ if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$2" == "deploy" ]]; then
 fi
 
 echo "-------------------------------------------------------------"
-echo "Selected Helm chart release:       $CHARTS_VERSION"
-echo "- Operator release in Helm chart:  $OPERATOR_VERSION"
-echo "- Spec lib release in Helm chart:  $SPEC_LIB_VERSION"
-echo "- Core WAAP release in Helm chart: $CORE_WAAP_VERSION"
+echo "Selected Helm chart release:             $CHARTS_VERSION"
+echo "- Operator release in Helm chart:        $OPERATOR_VERSION"
+echo "- Spec lib release in Helm chart:        $SPEC_LIB_VERSION"
+echo "- Core WAAP release in Helm chart:       $CORE_WAAP_VERSION"
+echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
+echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
 echo "-------------------------------------------------------------"
 
 downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
 downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
 downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
+# TODO get extProc changelogs from somewhere (and maybe also the core waap changelog from elsewhere)
 
 # Generate CRD documentation
 generateCrdDocumentation
@@ -201,6 +206,9 @@ helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 prepareChangelog build/waap-$CORE_WAAP_VERSION-changelog.md ./docs/waap-CHANGELOG.md
 prepareChangelog build/waap-operator-$OPERATOR_VERSION-changelog.md ./docs/operator-CHANGELOG.md
 prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/helm-CHANGELOG.md
+# TODO prepare extProc changelogs
+echo "# TODO" >./docs/ext-proc-icap-CHANGELOG.md
+echo "# TODO" >./docs/ext-proc-openapi-CHANGELOG.md
 
 
 mkdir -p ./docs/files
@@ -216,6 +224,8 @@ for file in ./docs/*; do
         sed -i -e 's/%SPEC_LIB_VERSION%/'$SPEC_LIB_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
+        sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
+        sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file
     fi
 done
 

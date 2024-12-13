@@ -32,9 +32,11 @@ markdown_extensions:
 nav:
   - Welcome: 'index.md'
   - Release Notes:
-      - Core WAAP: 'waap-CHANGELOG.md'
-      - Operator: 'operator-CHANGELOG.md'
       - Helm Chart: 'helm-CHANGELOG.md'
+      - Operator: 'operator-CHANGELOG.md'
+      - Core WAAP: 'waap-CHANGELOG.md'
+      - extProc ICAP: 'ext-proc-icap-CHANGELOG.md'
+      - extProc OpenAPI: 'ext-proc-openapi-CHANGELOG.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Error Mapping: 'error-mapping.md'
