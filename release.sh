@@ -130,7 +130,7 @@ mkdir build
 cd build
 
 # Get Helm charts to extract operator and spec lib info
-if [[ $CHARTS_VERSION =~ "SNAPSHOT" ]]; then
+if [[ $CHARTS_VERSION =~ "SNAPSHOT" || $CHARTS_VERSION =~ "-rc" ]]; then
   helm pull oci://devuspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION
 else
   helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version $CHARTS_VERSION

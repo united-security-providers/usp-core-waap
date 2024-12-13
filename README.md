@@ -89,6 +89,12 @@ Helm login with:
 $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
 ```
 
+and/or for snapshots and RCs:
+
+```
+$ helm registry login devuspregistry.azurecr.io --username usp-ci-bob --password <dev-password>
+```
+
 To just generate the site locally, run:
 
 ```
