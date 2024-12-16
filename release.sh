@@ -252,7 +252,7 @@ prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGEL
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
-cp build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar docs/files/
+cp build/$AUTOLEARN_CLI_JAR docs/files/
 cp build/usp-core-waap-operator/helm-values.md docs/
 
 # Replace version placeholders in all markdown files
