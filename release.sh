@@ -32,17 +32,28 @@ prepareChangelog() {
   rm -rf changelog-tmp
 }
 
-downloadFromNexus() {
+getNexusOutfile() {
   local version=$1
   local groupId=$2
   local artifactId=$3
   local type=$4
   local classifier=$5
 
-  local repository='releases'
-  if [[ $version =~ "SNAPSHOT" ]]; then
-    repository='snapshots'
+  if [ -z "$classifier" ]; then
+    echo "$artifactId-$version.$type"
+  else
+    echo "$artifactId-$version-$classifier.$type"
   fi
+}
+
+downloadFromNexus() {
+  local version=$1
+  local groupId=$2
+  local artifactId=$3
+  local type=$4
+  local classifier=$5
+  local outfile
+  outfile=$(getNexusOutfile $@)
 
   local query="http://nexus-bob.u-s-p.local/service/rest/v1/search/assets?sort=version&maven.baseVersion=$version&maven.groupId=$groupId&maven.artifactId=$artifactId&maven.extension=$type&maven.classifier=$classifier"
   echo "Nexus query URL: $query"
@@ -51,12 +62,28 @@ downloadFromNexus() {
   downloadUrl=`cat info.json | grep -v '\-sources' | grep -a -m 1 -h "downloadUrl" | grep -Po 'downloadUrl" : "\K[^"]*'`
   echo "Nexus download URL: $downloadUrl"
   rm info.json
-  if [ -z "$classifier" ]
-  then
-    wget -O $artifactId-$version.$type $downloadUrl
-  else
-    wget -O $artifactId-$version-$classifier.$type $downloadUrl
-  fi
+  wget -O $outfile $downloadUrl
+}
+
+getGitLabOutfile() {
+  local version=$1
+  local repoPath=$2
+  local repoName=$3
+  local file=$4
+  echo "$repoName-$version-$file"
+}
+
+downloadFromGitLab() {
+  local version=$1
+  local repoPath=$2
+  local repoName=$3
+  local file=$4
+  local outfile
+  outfile=$(getGitLabOutfile $@)
+
+  git clone git@git.u-s-p.local:$repoPath/$repoName.git
+  (cd ${repoName} && git checkout --quiet $version)
+  cp $repoName/$file $outfile
 }
 
 # Remove extra info in CRD description fields from incl. "||" to before "</br>"
@@ -159,24 +186,41 @@ echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
 echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
 echo "-------------------------------------------------------------"
 
-downloadFromNexus $CORE_WAAP_VERSION ch.u-s-p.core.waap waap md changelog
-downloadFromNexus $OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog
-downloadFromNexus $CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog
-# TODO get extProc changelogs from somewhere (and maybe also the core waap changelog from elsewhere)
+# Get changelogs from Nexus or GitLab
+
+ARGS="$CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog"
+downloadFromNexus $ARGS
+CHARTS_CHANGELOG=$(getNexusOutfile $ARGS)
+
+ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
+downloadFromNexus $ARGS
+OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
+
+ARGS="$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
+downloadFromGitLab $ARGS
+CORE_WAAP_CHANGELOG=$(getGitLabOutfile $ARGS)
+
+ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
+downloadFromGitLab $ARGS
+EXT_PROC_ICAP_CHANGELOG=$(getGitLabOutfile $ARGS)
+
+ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CHANGELOG.md"
+downloadFromGitLab $ARGS
+EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 
 # Generate CRD documentation
 generateCrdDocumentation
 
 # Download autolearning tool
-downloadFromNexus $SPEC_LIB_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar
-
+ARGS="$SPEC_LIB_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar"
+downloadFromNexus $ARGS
+AUTOLEARN_CLI_JAR=$(getNexusOutfile $ARGS)
 
 # TO CHECK ---------------->>>>>>>>>>>>>>>> REALLY GET DEMO APPS FROM CI PROJECT? TBD
-# clone ci project and checkout tag matching the helm charts release
+# clone ci project
 git clone git@git.u-s-p.local:core-waap/core-waap-ci.git
-cd core-waap-ci
-################ git checkout --quiet helm$CHARTS_VERSION
-cd ..
+# checkout tag matching the helm charts release
+#(cd core-waap-ci && git checkout --quiet helm$CHARTS_VERSION)
 
 # =====================================================================
 # Begin site build
@@ -186,39 +230,33 @@ cd ..
 cd $DIR
 
 # Copy base markdown files from sources
-cp -R src/docs ./docs
-cp build/crd/crd-doc.md ./docs/
+cp -R src/docs docs
+cp build/crd/crd-doc.md docs/
 
 # Generate autolearn-cli tool doc by capturing the help output into a file
-export JARFILE=./build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar
-
-java -jar ./build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar --help > ./build/autolearning-output.log
-echo "\`\`\`"  >> ./docs/autolearning.md
-cat ./build/autolearning-output.log >> ./docs/autolearning.md
-echo "\`\`\`"  >> ./docs/autolearning.md
-echo " "  >> ./docs/autolearning.md
-echo "[downloaded here]: /downloads/" >> ./docs/autolearning.md
+java -jar build/$AUTOLEARN_CLI_JAR --help > build/autolearning-output.log
+echo "\`\`\`"  >> docs/autolearning.md
+cat build/autolearning-output.log >> docs/autolearning.md
+echo "\`\`\`"  >> docs/autolearning.md
+echo " "  >> docs/autolearning.md
+echo "[downloaded here]: /downloads/" >> docs/autolearning.md
 
 # Generate values documentation Markdown file
 helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
+prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md
+prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md
+prepareChangelog build/$CORE_WAAP_CHANGELOG docs/waap-CHANGELOG.md
+prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md
+prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md
 
-prepareChangelog build/waap-$CORE_WAAP_VERSION-changelog.md ./docs/waap-CHANGELOG.md
-prepareChangelog build/waap-operator-$OPERATOR_VERSION-changelog.md ./docs/operator-CHANGELOG.md
-prepareChangelog build/waap-operator-helm-$CHARTS_VERSION-changelog.md ./docs/helm-CHANGELOG.md
-# TODO prepare extProc changelogs
-echo "# TODO" >./docs/ext-proc-icap-CHANGELOG.md
-echo "# TODO" >./docs/ext-proc-openapi-CHANGELOG.md
-
-
-mkdir -p ./docs/files
+mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
 cp build/waap-lib-autolearn-cli-$SPEC_LIB_VERSION.jar docs/files/
 cp build/usp-core-waap-operator/helm-values.md docs/
 
-
 # Replace version placeholders in all markdown files
-for file in ./docs/*; do
+for file in docs/*; do
     if [ -f "$file" ]; then
         sed -i -e 's/%RELEASE%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%SPEC_LIB_VERSION%/'$SPEC_LIB_VERSION'/g' $file
@@ -233,7 +271,7 @@ done
 zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
 zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
-echo "Successfully generated site (Markdown) at ./docs."
+echo "Successfully generated site (Markdown) at docs."
 
 if [ "$2" == "deploy" ]; then
     echo "Deploying to GitHub pages..."
