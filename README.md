@@ -75,6 +75,7 @@ sudo mv crdoc /usr/local/bin
 sudo mv yq_linux_amd64 /usr/local/bin/yq
 ```
 
+(ast: I installed it via snap instead.)
 
 ## Generate site locally
 
