@@ -196,7 +196,7 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
 downloadFromNexus $ARGS
 OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 
-ARGS="$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
+ARGS="v$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
 downloadFromGitLab $ARGS
 CORE_WAAP_CHANGELOG=$(getGitLabOutfile $ARGS)
 
