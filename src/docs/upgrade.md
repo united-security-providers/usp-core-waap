@@ -12,6 +12,12 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 1.0.0 to >=1.1.0
+
+There are no mandatory migrations, but it is recommended to migrate the following deprecated settings, also in order to avoid deprecation warnings in the operator log:
+
+- Split up the `config.operation.image` field in the form "{image}:{version}" into `config.operation.image` without the version and the version separately in the new field `config.operation.version`.
+
 ### Core WAAP Operator 0.8.0 to >=1.0.0
 
 #### Operation-related settings
