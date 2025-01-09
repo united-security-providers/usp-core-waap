@@ -20,7 +20,7 @@ The following kinds of settings have been regularized:
 
 - Instead of using annotations, use settings in the CoreWaapService CR under `spec.operation`.<br>
   **Note:** This means that all Core WAAP annotations have to be removed during migration.
-- The exact same settings can also be provided as defaults in the operator helm chart under `config.coreWaapDefaults`, replacing a number of previous operator settings.<br>
+- The exact same settings can also be provided as defaults in the operator helm chart under `config.waapSpecDefaults`, replacing a number of previous operator settings.<br>
   **Note:** All previous settings in the operator helm chart have to be moved to the new structure, even the ones that have no equivalent under `spec.operation`; best use the provided new helm chart as a basis.
 
 Generally, see the CoreWaapService CRD under `spec.operation` for all possible settings.
@@ -28,7 +28,7 @@ Generally, see the CoreWaapService CRD under `spec.operation` for all possible s
 Migration setting-by-setting:
 
 - operator `envoy.image` / annotation `image` => `*.image`<br>
-  (where `*.image` stands for `spec.operation.image` in the CoreWaapService CR, plus default in the operator helm chart at `config.coreWaapDefaults.image`, and similary in the following lines)
+  (where `*.image` stands for `spec.operation.image` in the CoreWaapService CR, plus default in the operator helm chart at `config.waapSpecDefaults.image`, and similary in the following lines)
 - annotations `version` and `registry` => no longer supported, specify in `*.image`
 - operator `envoy.labels` / annotation `labels` => `*.labels` (key/value)
 - operator `serviceAnnotations` / annotation `service-annotations` => `*.serviceAnnotations` (key/value)
