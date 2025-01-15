@@ -165,7 +165,6 @@ else
 fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
-export SPEC_LIB_VERSION=`grep 'Spec lib version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecDefaults.version'`
 export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
 export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
@@ -180,7 +179,6 @@ fi
 echo "-------------------------------------------------------------"
 echo "Selected Helm chart release:             $CHARTS_VERSION"
 echo "- Operator release in Helm chart:        $OPERATOR_VERSION"
-echo "- Spec lib release in Helm chart:        $SPEC_LIB_VERSION"
 echo "- Core WAAP release in Helm chart:       $CORE_WAAP_VERSION"
 echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
 echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
@@ -212,7 +210,7 @@ EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 generateCrdDocumentation
 
 # Download autolearning tool
-ARGS="$SPEC_LIB_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar"
+ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar"
 downloadFromNexus $ARGS
 AUTOLEARN_CLI_JAR=$(getNexusOutfile $ARGS)
 
@@ -258,8 +256,7 @@ cp build/usp-core-waap-operator/helm-values.md docs/
 # Replace version placeholders in all markdown files
 for file in docs/*; do
     if [ -f "$file" ]; then
-        sed -i -e 's/%RELEASE%/'$OPERATOR_VERSION'/g' $file
-        sed -i -e 's/%SPEC_LIB_VERSION%/'$SPEC_LIB_VERSION'/g' $file
+        sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
         sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
