@@ -206,6 +206,11 @@ ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CH
 downloadFromGitLab $ARGS
 EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 
+# Add notice to changelogs that still have versions that are implicitly in "alpha" (0.0.x versions)
+ALPHA_NOTICE="_This component\/feature is in still active development (\"alpha\"); it is not recommended to already use it in productive environments._"
+sed -i "s/# Changelog/# Changelog\n\n$ALPHA_NOTICE/" $EXT_PROC_ICAP_CHANGELOG
+sed -i "s/# Changelog/# Changelog\n\n$ALPHA_NOTICE/" $EXT_PROC_OPENAPI_CHANGELOG
+
 # Generate CRD documentation
 generateCrdDocumentation
 
