@@ -5,11 +5,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="../helm-CHANGELOG/" rel="prev"/>
-<link href="../error-pages-static-files/" rel="next"/>
+<link href="../ext-proc-openapi-CHANGELOG/" rel="prev"/>
+<link href="../error-mapping/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.2, mkdocs-material-9.2.3" name="generator"/>
-<title>Custom Resource - USP Core WAAP documentation</title>
+<title>API Reference - USP Core WAAP documentation</title>
 <link href="../assets/stylesheets/main.0e669242.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Custom Resource
+              API Reference
             
           </span>
 </div>
@@ -121,9 +121,9 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../waap-CHANGELOG/">
+<a class="md-nav__link" href="../helm-CHANGELOG/">
 <span class="md-ellipsis">
-    Core WAAP
+    Helm Chart
   </span>
 </a>
 </li>
@@ -135,9 +135,23 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../helm-CHANGELOG/">
+<a class="md-nav__link" href="../waap-CHANGELOG/">
 <span class="md-ellipsis">
-    Helm Chart
+    Core WAAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-icap-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc ICAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-openapi-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc OpenAPI
   </span>
 </a>
 </li>
@@ -162,14 +176,14 @@
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    Custom Resource
+    API Reference
   </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../error-pages-static-files/">
+<a class="md-nav__link" href="../error-mapping/">
 <span class="md-ellipsis">
-    Error Pages / Static Files
+    Error Mapping
   </span>
 </a>
 </li>
@@ -177,6 +191,51 @@
 <a class="md-nav__link" href="../native-config-post-processing/">
 <span class="md-ellipsis">
     Native Config Post-Processing
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Traffic Processing
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            Traffic Processing
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../traffic-processing-overview/">
+<span class="md-ellipsis">
+    Overview
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../icap-antivirus-scanning/">
+<span class="md-ellipsis">
+    ICAP Antivirus Scanning
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi-validation/">
+<span class="md-ellipsis">
+    OpenAPI Validation
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../crs-virtual-patch/">
+<span class="md-ellipsis">
+    Virtual Patch
   </span>
 </a>
 </li>
@@ -201,14 +260,14 @@
 <input class="md-nav__toggle md-toggle" id="__nav_4_1" type="checkbox"/>
 <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
 <span class="md-ellipsis">
-    Operator helm chart
+    Operator Helm Chart
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_4_1">
 <span class="md-nav__icon md-icon"></span>
-            Operator helm chart
+            Operator Helm Chart
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
@@ -238,7 +297,7 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../logs-metrics/">
 <span class="md-ellipsis">
-    Logs and metrics
+    Logs and Metrics
   </span>
 </a>
 </li>
@@ -392,7 +451,7 @@
 <td><b><a href="#corewaapservicespecoperation">operation</a></b></td>
 <td>object</td>
 <td>
-          Operation related settings to be used for the Core WAAP Kubernetes deployment; these settings typically do not affect generated Envoy config (optional, except that the operation's image field must be set in the spec or via default in the operator config) [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec, e.g. resources.limits.cpu could be defined in operator config but resources.requests.cpu in the spec; exception: lists within the config tree are completely overridden by the ones in the spec if present, which affects e.g. tolerations and lists under affinity]<br/>
+          Operation related settings to be used for the Core WAAP Kubernetes deployment; these settings typically do not affect generated Envoy config (optional, except that the operation's image/version fields must be set in the spec or via default in the operator config) [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec, e.g. resources.limits.cpu could be defined in operator config but resources.requests.cpu in the spec; exception: lists within the config tree are completely overridden by the ones in the spec if present, which affects e.g. tolerations and lists under affinity]<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -400,6 +459,13 @@
 <td>object</td>
 <td>
           Origin blocking<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessing">trafficProcessing</a></b></td>
+<td>object</td>
+<td>
+          Traffic processing settings (e.g. for ICAP Anti-Virus scanning)<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -466,6 +532,13 @@
 <td>object</td>
 <td>
           CRS settings per route<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>trafficProcessingRefs</b></td>
+<td>[]string</td>
+<td>
+          References to traffic processing; processing order is OpenAPI, ICAP  (and within each type in the order listed under trafficProcessing)<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -1008,6 +1081,13 @@
 </tr>
 </thead>
 <tbody><tr>
+<td><b><a href="#corewaapservicespeccrscustomrequestblockingrulesindex">customRequestBlockingRules</a></b></td>
+<td>[]object</td>
+<td>
+          Custom request blocking rules<br/>
+</td>
+<td>false</td>
+</tr><tr>
 <td><b>enabledRequestRules</b></td>
 <td>[]enum</td>
 <td>
@@ -1132,6 +1212,33 @@
 <i>Default</i>: true<br/>
 </td>
 <td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespeccrscustomrequestblockingrulesindex">CoreWaapService.spec.crs.customRequestBlockingRules[index]</h3>
+<p><sup><sup><a href="#corewaapservicespeccrs">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+          Rule name <br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b>secLangExpression</b></td>
+<td>string</td>
+<td>
+          SecLang expression. Rule id range must be [300000,399999] <br/>
+</td>
+<td>true</td>
 </tr></tbody>
 </table>
 <h3 id="corewaapservicespeccrsrequestbodyaccessexceptionsindex">CoreWaapService.spec.crs.requestBodyAccessExceptions[index]</h3>
@@ -1538,7 +1645,7 @@
 </table>
 <h3 id="corewaapservicespecoperation">CoreWaapService.spec.operation</h3>
 <p><sup><sup><a href="#corewaapservicespec">↩ Parent</a></sup></sup></p>
-<p>Operation related settings to be used for the Core WAAP Kubernetes deployment; these settings typically do not affect generated Envoy config (optional, except that the operation's image field must be set in the spec or via default in the operator config) [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec, e.g. resources.limits.cpu could be defined in operator config but resources.requests.cpu in the spec; exception: lists within the config tree are completely overridden by the ones in the spec if present, which affects e.g. tolerations and lists under affinity]</p>
+<p>Operation related settings to be used for the Core WAAP Kubernetes deployment; these settings typically do not affect generated Envoy config (optional, except that the operation's image/version fields must be set in the spec or via default in the operator config) [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec, e.g. resources.limits.cpu could be defined in operator config but resources.requests.cpu in the spec; exception: lists within the config tree are completely overridden by the ones in the spec if present, which affects e.g. tolerations and lists under affinity]</p>
 <table>
 <thead>
 <tr>
@@ -1573,7 +1680,7 @@
 <td><b>image</b></td>
 <td>string</td>
 <td>
-          Core WAAP container image, must contain a version (must be defined either in spec or operator defaults)<br/>
+          Core WAAP container image (host+path+name) without version, e.g. 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap' (must be defined either in spec or operator defaults) (DEPRECATED: for backwards compatibility, it is currently still allowed to append a version with ':' and omit a separate version field, but this is deprecated and existing config should be migrated)<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -1632,10 +1739,24 @@
 </td>
 <td>false</td>
 </tr><tr>
+<td><b><a href="#corewaapservicespecoperationstartup">startup</a></b></td>
+<td>object</td>
+<td>
+          Settings for Envoy startup (mostly command line options, see https://www.envoyproxy.io/docs/envoy/latest/operations/cli)<br/>
+</td>
+<td>false</td>
+</tr><tr>
 <td><b><a href="#corewaapservicespecoperationtolerationsindex">tolerations</a></b></td>
 <td>[]object</td>
 <td>
           Kubernetes tolerations for the Core Waap pod<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>version</b></td>
+<td>string</td>
+<td>
+          Core WAAP container (image) version, e.g. '1.1.5' (must be defined either in spec or operator defaults)<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -2904,6 +3025,45 @@
 <td>false</td>
 </tr></tbody>
 </table>
+<h3 id="corewaapservicespecoperationstartup">CoreWaapService.spec.operation.startup</h3>
+<p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a></sup></sup></p>
+<p>Settings for Envoy startup (mostly command line options, see https://www.envoyproxy.io/docs/envoy/latest/operations/cli)</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>componentLogLevel</b></td>
+<td>string</td>
+<td>
+          Envoy log level per component in the form '{comp1}:{level1},{comp2}:{level2}', e.g. 'http:debug,connection:trace', if not set defaults implicitly to empty, command line option '--component-log-level'<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>concurrency</b></td>
+<td>integer</td>
+<td>
+          The number of worker threads to run, if not set defaults implicitly to the number of hardware threads on the machine, command line option '--concurrency'<br/>
+<br/>
+<i>Minimum</i>: 1<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>logLevel</b></td>
+<td>enum</td>
+<td>
+          Envoy global log level; if not set defaults implicitly to level info, command line option '--log-level'<br/>
+<br/>
+<i>Enum</i>: critical, debug, error, info, off, trace, warning<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
 <h3 id="corewaapservicespecoperationtolerationsindex">CoreWaapService.spec.operation.tolerations[index]</h3>
 <p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a></sup></sup></p>
 <table>
@@ -2980,6 +3140,470 @@
 <i>Enum</i>: ALLOW, DENY<br/>
 </td>
 <td>true</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessing">CoreWaapService.spec.trafficProcessing</h3>
+<p><sup><sup><a href="#corewaapservicespec">↩ Parent</a></sup></sup></p>
+<p>Traffic processing settings (e.g. for ICAP Anti-Virus scanning)</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindex">icap</a></b></td>
+<td>[]object</td>
+<td>
+          Traffic processing settings for type ICAP (Internet Content Adaptation Protocol); ICAP is typically used for Anti-Virus scanning of HTTP request bodies; currently only validation of the HTTP request body is supported (ICAP REQMOD) (no modifications to the scanned body, no validation of HTTP responses<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindex">openapi</a></b></td>
+<td>[]object</td>
+<td>
+          Traffic processing settings for type OPENAPI; OPENAPI is used for request/response validation against an OpenAPI schema<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindex">CoreWaapService.spec.trafficProcessing.icap[index]</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessing">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindexconfig">config</a></b></td>
+<td>object</td>
+<td>
+          Validation configuration for the sidecar<br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+          Name to reference in routes under trafficProcessingRefs <br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindexextproc">extProc</a></b></td>
+<td>object</td>
+<td>
+          External processing related settings, i.e. settings for the callout to the ICAP sidecar<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindexoperation">operation</a></b></td>
+<td>object</td>
+<td>
+          Operation related settings to be used for Kubernetes deployment of the respective traffic processing sidecar (optional, except that the operation's image/version fields must be set in the spec at 'trafficProcessing.{type}.operation' or via default in the operator config at 'waapSpecTrafficProcessingDefaults.{type}', where '{type}' is e.g. 'icap') [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec]<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindexconfig">CoreWaapService.spec.trafficProcessing.icap[index].config</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingicapindex">↩ Parent</a></sup></sup></p>
+<p>Validation configuration for the sidecar</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>url</b></td>
+<td>string</td>
+<td>
+          ICAP URL including protocol and port (e.g. 'icap://some.host:1344/some/path', use 'icaps://' for TLS)  <br/>
+</td>
+<td>true</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindexextproc">CoreWaapService.spec.trafficProcessing.icap[index].extProc</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingicapindex">↩ Parent</a></sup></sup></p>
+<p>External processing related settings, i.e. settings for the callout to the ICAP sidecar</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>additionalCliArgs</b></td>
+<td>string</td>
+<td>
+          Additional command line arguments for the external service<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>messageTimeout</b></td>
+<td>string</td>
+<td>
+          Message timeout for extProc callouts essentially in Kubernetes format (e.g. '30s', defaults to Envoy's default of 200ms)<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindexoperation">CoreWaapService.spec.trafficProcessing.icap[index].operation</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingicapindex">↩ Parent</a></sup></sup></p>
+<p>Operation related settings to be used for Kubernetes deployment of the respective traffic processing sidecar (optional, except that the operation's image/version fields must be set in the spec at 'trafficProcessing.{type}.operation' or via default in the operator config at 'waapSpecTrafficProcessingDefaults.{type}', where '{type}' is e.g. 'icap') [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec]</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>image</b></td>
+<td>string</td>
+<td>
+          Traffic processor sidecar container image (host+path+name) without version, e.g. 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap' (must be defined either in spec or operator defaults per traffic processor type) (DEPRECATED: for backwards compatibility, it is currently still allowed to append a version with ':' and omit a separate version field, but this is deprecated and existing config should be migrated)<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindexoperationresources">resources</a></b></td>
+<td>object</td>
+<td>
+          Kubernetes resources for the sidecar container<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>version</b></td>
+<td>string</td>
+<td>
+          Traffic processor sidecar container (image) version, e.g. '1.0.1' (must be defined either in spec or operator defaults per traffic processor type)<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindexoperationresources">CoreWaapService.spec.trafficProcessing.icap[index].operation.resources</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingicapindexoperation">↩ Parent</a></sup></sup></p>
+<p>Kubernetes resources for the sidecar container</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingicapindexoperationresourcesclaimsindex">claims</a></b></td>
+<td>[]object</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>limits</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>requests</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingicapindexoperationresourcesclaimsindex">CoreWaapService.spec.trafficProcessing.icap[index].operation.resources.claims[index]</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingicapindexoperationresources">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindex">CoreWaapService.spec.trafficProcessing.openapi[index]</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessing">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexconfig">config</a></b></td>
+<td>object</td>
+<td>
+          Validation configuration for the sidecar<br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+          Name to reference in routes under trafficProcessingRefs <br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexextproc">extProc</a></b></td>
+<td>object</td>
+<td>
+          External processing related settings, i.e. settings for the callout to the OpenAPI sidecar<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexoperation">operation</a></b></td>
+<td>object</td>
+<td>
+          Operation related settings to be used for Kubernetes deployment of the respective traffic processing sidecar (optional, except that the operation's image/version fields must be set in the spec at 'trafficProcessing.{type}.operation' or via default in the operator config at 'waapSpecTrafficProcessingDefaults.{type}', where '{type}' is 'openapi') [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec]<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexconfig">CoreWaapService.spec.trafficProcessing.openapi[index].config</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindex">↩ Parent</a></sup></sup></p>
+<p>Validation configuration for the sidecar</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexconfigschemasource">schemaSource</a></b></td>
+<td>object</td>
+<td>
+          Source of the schema that will be used for validation <br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexconfigscope">scope</a></b></td>
+<td>object</td>
+<td>
+          Validation scope settings<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexconfigschemasource">CoreWaapService.spec.trafficProcessing.openapi[index].config.schemaSource</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindexconfig">↩ Parent</a></sup></sup></p>
+<p>Source of the schema that will be used for validation </p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>configMap</b></td>
+<td>string</td>
+<td>
+          Name of the config map that contains the schema <br/>
+</td>
+<td>true</td>
+</tr><tr>
+<td><b>key</b></td>
+<td>string</td>
+<td>
+          Key in the config map that contains the schema <br/>
+</td>
+<td>true</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexconfigscope">CoreWaapService.spec.trafficProcessing.openapi[index].config.scope</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindexconfig">↩ Parent</a></sup></sup></p>
+<p>Validation scope settings</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>logOnly</b></td>
+<td>boolean</td>
+<td>
+          Indicates that validation won't fail, but only be logged <br/>
+<br/>
+<i>Default</i>: false<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>requestBody</b></td>
+<td>boolean</td>
+<td>
+          Indicates that request body will be validated <br/>
+<br/>
+<i>Default</i>: true<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>responseBody</b></td>
+<td>boolean</td>
+<td>
+          Indicates that response body will be validated <br/>
+<br/>
+<i>Default</i>: false<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexextproc">CoreWaapService.spec.trafficProcessing.openapi[index].extProc</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindex">↩ Parent</a></sup></sup></p>
+<p>External processing related settings, i.e. settings for the callout to the OpenAPI sidecar</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>additionalCliArgs</b></td>
+<td>string</td>
+<td>
+          Additional command line arguments for the external service<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>messageTimeout</b></td>
+<td>string</td>
+<td>
+          Message timeout for extProc callouts essentially in Kubernetes format (e.g. '30s', defaults to Envoy's default of 200ms)<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexoperation">CoreWaapService.spec.trafficProcessing.openapi[index].operation</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindex">↩ Parent</a></sup></sup></p>
+<p>Operation related settings to be used for Kubernetes deployment of the respective traffic processing sidecar (optional, except that the operation's image/version fields must be set in the spec at 'trafficProcessing.{type}.operation' or via default in the operator config at 'waapSpecTrafficProcessingDefaults.{type}', where '{type}' is 'openapi') [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec]</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>image</b></td>
+<td>string</td>
+<td>
+          Traffic processor sidecar container image (host+path+name) without version, e.g. 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap-ext-proc-icap' (must be defined either in spec or operator defaults per traffic processor type) (DEPRECATED: for backwards compatibility, it is currently still allowed to append a version with ':' and omit a separate version field, but this is deprecated and existing config should be migrated)<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexoperationresources">resources</a></b></td>
+<td>object</td>
+<td>
+          Kubernetes resources for the sidecar container<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>version</b></td>
+<td>string</td>
+<td>
+          Traffic processor sidecar container (image) version, e.g. '1.0.1' (must be defined either in spec or operator defaults per traffic processor type)<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexoperationresources">CoreWaapService.spec.trafficProcessing.openapi[index].operation.resources</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindexoperation">↩ Parent</a></sup></sup></p>
+<p>Kubernetes resources for the sidecar container</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespectrafficprocessingopenapiindexoperationresourcesclaimsindex">claims</a></b></td>
+<td>[]object</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>limits</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>requests</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespectrafficprocessingopenapiindexoperationresourcesclaimsindex">CoreWaapService.spec.trafficProcessing.openapi[index].operation.resources.claims[index]</h3>
+<p><sup><sup><a href="#corewaapservicespectrafficprocessingopenapiindexoperationresources">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
 </tr></tbody>
 </table>
 <h3 id="corewaapservicespecwebresources">CoreWaapService.spec.webResources</h3>

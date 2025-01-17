@@ -121,9 +121,9 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../waap-CHANGELOG/">
+<a class="md-nav__link" href="../helm-CHANGELOG/">
 <span class="md-ellipsis">
-    Core WAAP
+    Helm Chart
   </span>
 </a>
 </li>
@@ -135,9 +135,23 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../helm-CHANGELOG/">
+<a class="md-nav__link" href="../waap-CHANGELOG/">
 <span class="md-ellipsis">
-    Helm Chart
+    Core WAAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-icap-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc ICAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-openapi-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc OpenAPI
   </span>
 </a>
 </li>
@@ -161,14 +175,14 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../crd-doc/">
 <span class="md-ellipsis">
-    Custom Resource
+    API Reference
   </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../error-pages-static-files/">
+<a class="md-nav__link" href="../error-mapping/">
 <span class="md-ellipsis">
-    Error Pages / Static Files
+    Error Mapping
   </span>
 </a>
 </li>
@@ -176,6 +190,51 @@
 <a class="md-nav__link" href="../native-config-post-processing/">
 <span class="md-ellipsis">
     Native Config Post-Processing
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Traffic Processing
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            Traffic Processing
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../traffic-processing-overview/">
+<span class="md-ellipsis">
+    Overview
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../icap-antivirus-scanning/">
+<span class="md-ellipsis">
+    ICAP Antivirus Scanning
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi-validation/">
+<span class="md-ellipsis">
+    OpenAPI Validation
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../crs-virtual-patch/">
+<span class="md-ellipsis">
+    Virtual Patch
   </span>
 </a>
 </li>
@@ -200,14 +259,14 @@
 <input class="md-nav__toggle md-toggle" id="__nav_4_1" type="checkbox"/>
 <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
 <span class="md-ellipsis">
-    Operator helm chart
+    Operator Helm Chart
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_4_1">
 <span class="md-nav__icon md-icon"></span>
-            Operator helm chart
+            Operator Helm Chart
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
@@ -237,7 +296,7 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../logs-metrics/">
 <span class="md-ellipsis">
-    Logs and metrics
+    Logs and Metrics
   </span>
 </a>
 </li>
@@ -278,7 +337,7 @@
 <p>USP Core WAAP provides a command-line tool that allows to apply an automated learning mechanism to generate a set
 of rules for Coraza (ModSecurity/CRS).</p>
 <p>The tool itself is an executable Java archive (jar) and can be <a href="../downloads/">downloaded here</a>.</p>
-<p>Run with <code>java -jar waap-lib-autolearn-cli-1.0.1.jar --help</code> to see usage:</p>
+<p>Run with <code>java -jar waap-lib-autolearn-cli-1.1.0.jar --help</code> to see usage:</p>
 <div class="highlight"><pre><span></span><code>Usage: java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar [-hsV]
        [--reduceconfigured] [--skipmetadataexport] [--skippostparts]
        [--sortexceptions] [-e=&lt;error&gt;] [-i=&lt;specIn&gt;] [-l=&lt;log&gt;]

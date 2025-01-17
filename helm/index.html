@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="../native-config-post-processing/" rel="prev"/>
+<link href="../crs-virtual-patch/" rel="prev"/>
 <link href="../helm-values/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.2, mkdocs-material-9.2.3" name="generator"/>
@@ -121,9 +121,9 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../waap-CHANGELOG/">
+<a class="md-nav__link" href="../helm-CHANGELOG/">
 <span class="md-ellipsis">
-    Core WAAP
+    Helm Chart
   </span>
 </a>
 </li>
@@ -135,9 +135,23 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../helm-CHANGELOG/">
+<a class="md-nav__link" href="../waap-CHANGELOG/">
 <span class="md-ellipsis">
-    Helm Chart
+    Core WAAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-icap-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc ICAP
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ext-proc-openapi-CHANGELOG/">
+<span class="md-ellipsis">
+    extProc OpenAPI
   </span>
 </a>
 </li>
@@ -161,14 +175,14 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../crd-doc/">
 <span class="md-ellipsis">
-    Custom Resource
+    API Reference
   </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../error-pages-static-files/">
+<a class="md-nav__link" href="../error-mapping/">
 <span class="md-ellipsis">
-    Error Pages / Static Files
+    Error Mapping
   </span>
 </a>
 </li>
@@ -176,6 +190,51 @@
 <a class="md-nav__link" href="../native-config-post-processing/">
 <span class="md-ellipsis">
     Native Config Post-Processing
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Traffic Processing
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            Traffic Processing
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../traffic-processing-overview/">
+<span class="md-ellipsis">
+    Overview
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../icap-antivirus-scanning/">
+<span class="md-ellipsis">
+    ICAP Antivirus Scanning
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../openapi-validation/">
+<span class="md-ellipsis">
+    OpenAPI Validation
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../crs-virtual-patch/">
+<span class="md-ellipsis">
+    Virtual Patch
   </span>
 </a>
 </li>
@@ -200,14 +259,14 @@
 <input checked="" class="md-nav__toggle md-toggle" id="__nav_4_1" type="checkbox"/>
 <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
 <span class="md-ellipsis">
-    Operator helm chart
+    Operator Helm Chart
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-expanded="true" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_4_1">
 <span class="md-nav__icon md-icon"></span>
-            Operator helm chart
+            Operator Helm Chart
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active">
@@ -277,7 +336,7 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../logs-metrics/">
 <span class="md-ellipsis">
-    Logs and metrics
+    Logs and Metrics
   </span>
 </a>
 </li>
@@ -355,34 +414,34 @@
 </code></pre></div>
 <h2 id="install-operator">Install operator</h2>
 <p>To install the latest operator release (into existing default namespace) use:</p>
-<div class="highlight"><pre><span></span><code>helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1
+<div class="highlight"><pre><span></span><code>helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0
 </code></pre></div>
 <p>To install the operator into a custom namespace called <code>usp-core-waap-op</code> use:</p>
-<div class="highlight"><pre><span></span><code>helm install --create-namespace --namespace usp-core-waap-operator usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1
+<div class="highlight"><pre><span></span><code>helm install --create-namespace --namespace usp-core-waap-operator usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0
 </code></pre></div>
 <p><strong>Note:</strong> The <code>--create-namespace</code> is required if the namespace does not yet exist but can be also be used if the namespace already exists (helm will then skip namespace creation). Detailed information about <code>--create-namespace</code> and <code>--namespace</code> options are available via <a href="https://helm.sh/docs/helm/helm_install/">helm documentation</a>.</p>
 <p>To override the operator configuration settings in the <code>operator-configuration.yaml</code> Helm template, use a local values
 file, e.g. <code>custom-values.yaml</code> with the <code>-f</code> Helm CLI argument:</p>
-<div class="highlight"><pre><span></span><code>helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1
+<div class="highlight"><pre><span></span><code>helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0
 </code></pre></div>
 <h2 id="extract-operator-custom-resource-definition-crd">Extract Operator Custom Resource Definition (CRD)</h2>
 <p>In order to extract the CRD (Custom Resource Definition) you can use:</p>
-<div class="highlight"><pre><span></span><code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1 &gt; usp-core-waap-crd-1.1.1.yaml
+<div class="highlight"><pre><span></span><code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0 &gt; usp-core-waap-crd-1.2.0.yaml
 </code></pre></div>
 <p><strong>Note:</strong> If you upgrade the operator <strong>you manually have to apply the new CRD definition</strong> prior to the helm upgrade command!</p>
 <h2 id="upgrade-operator">Upgrade operator</h2>
 <p>As <a href="https://helm.sh/docs/chart_best_practices/custom_resource_definitions/">documented by helm</a> version 3 of helm does not yet support CRD upgrades and as such the will be skipped during a <code>helm upgrade</code> command with a warning, which can be prevented using the <code>--skip-crds</code> flag.</p>
 <p>In order to upgrade the current installed CRD <strong>you manually have to upgrade it</strong> otherwise the upgrade will not be successful!</p>
 <ol>
-<li>extract CRD: <code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1 &gt; usp-core-waap-crd-1.1.1.yaml</code></li>
-<li><a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">manually apply</a> new CRD: <code>kubectl apply --server-side -f usp-core-waap-crd-1.1.1.yaml --force-conflicts</code></li>
-<li>upgrade operator: <code>helm upgrade --namespace &lt;operator-namespace&gt; &lt;release-name&gt; oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1</code></li>
+<li>extract CRD: <code>helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0 &gt; usp-core-waap-crd-1.2.0.yaml</code></li>
+<li><a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">manually apply</a> new CRD: <code>kubectl apply --server-side -f usp-core-waap-crd-1.2.0.yaml --force-conflicts</code></li>
+<li>upgrade operator: <code>helm upgrade --namespace &lt;operator-namespace&gt; &lt;release-name&gt; oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0</code></li>
 </ol>
 <p><strong>Note:</strong> This generic procedure does not take into account possible <strong>manual changes to be applied prior to the operator <code>helm upgrade</code> command</strong> as support for automatic migration is not yet provided.</p>
 <h2 id="information">Information</h2>
 <p>You can use <code>helm template</code> to just render the templates to the console in order to look at the contents, before 
 actually installing the operator:</p>
-<div class="highlight"><pre><span></span><code>helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.1.1
+<div class="highlight"><pre><span></span><code>helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 1.2.0
 </code></pre></div>
 </article>
 </div>
