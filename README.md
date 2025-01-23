@@ -1,9 +1,9 @@
 # USP Core WAAP
 
-Welcome to the USP Core WAAP (Web Application and API Protection) customers repository. This repository contains
-the scripts required to build the USP Core WAAP website:
+Welcome to the USP Core WAAP (Web Application and API Protection) customers repository.
+This repository contains the scripts required to build the USP Core WAAP website:
 
-* https://united-security-providers.github.io/usp-core-waap/
+**https://docs.united-security-providers.ch/usp-core-waap/**
 
 ## Requirements
 
@@ -125,3 +125,4 @@ To generate the site and deploy it to GitHub pages, run:
 $ ./release.sh <helm-version> deploy
 ```
 
+The published page should then become available after a few minutes at the link on top of this page.
