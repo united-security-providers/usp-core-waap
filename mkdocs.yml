@@ -46,7 +46,7 @@ nav:
       - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
       - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
-    - Lua Filter: 'lua-filter.md'
+    - Lua Filters: 'lua-filters.md'
   - Operation:
     - Operator Helm Chart:
         - Usage: 'helm.md'

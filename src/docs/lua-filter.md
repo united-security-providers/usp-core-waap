@@ -1,5 +1,0 @@
-# Lua Filter
-
-## TODO
-
-...
