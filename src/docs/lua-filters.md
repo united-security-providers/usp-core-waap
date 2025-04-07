@@ -152,11 +152,12 @@ Some things worth noting:
 * Lua filters and helper files (which are not limited to Lua scripts) are all deployed to the
   directory `/opt/usp/core-waap/lua/filters`; the `require` in the scripts above for
   `opt.usp.core-waap.lua.filters.util` thus refers to the Lua file
-  `/opt/usp/core-waap/lua/filters/util.lua`. Please note that in the example above, this path
-  is not directly relevant - the import will automatically resolve to Lua files from that
-  directory. But if a Lua script attempts to access other files, such as JSON or XML 
-  configuration files etc. that are also deployed in the same config map, the scripts will need
-  to reference those files with the absolute folder path `/opt/usp/core-waap/lua/filters/<file>`.
+  `/opt/usp/core-waap/lua/filters/util.lua`. 
+* Please note that in the example above, this path is not directly relevant - the `require` 
+  will automatically resolve to Lua files from that directory. But if a Lua script attempts to 
+  access other files, such as JSON or XML configuration files etc. that are also deployed in 
+  the same config map, the scripts will need to reference those files with the absolute folder 
+  path `/opt/usp/core-waap/lua/filters/<file>`.
 
 
 This produces the following log entries for a GET request first to `/foo` and then one to `/bar`
