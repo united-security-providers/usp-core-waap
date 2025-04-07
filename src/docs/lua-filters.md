@@ -157,7 +157,7 @@ Some things worth noting:
   will automatically resolve to Lua files from that directory. But if a Lua script attempts to 
   access other files, such as JSON or XML configuration files etc. that are also deployed in 
   the same config map, the scripts will need to reference those files with the absolute folder 
-  path `/opt/usp/core-waap/lua/filters/<file>`.
+  path, e.g. `/opt/usp/core-waap/lua/filters/my-custom-config.xml`.
 
 
 This produces the following log entries for a GET request first to `/foo` and then one to `/bar`
