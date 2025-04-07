@@ -76,7 +76,7 @@ There are two locations:
     * `filter1` and `filter2` referenced as "first" Lua filters
       will be run in that order before all other filters
       (authentication, traffic processing, "last" Lua filters)
-    * `filter3` and `filter2` referenced as "first" Lua filters
+    * `filter3` and `filter2` referenced as "last" Lua filters
       will be run in the order `filter2` then `filter3` after all other filters
       (except the final filter that routes to the backend)
     * **Note** that the order in which filters are run is the order listed at `spec.lua`,
