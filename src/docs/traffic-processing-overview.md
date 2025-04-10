@@ -110,10 +110,20 @@ spec:
       - ...
         extProc:
           messageTimeout: 30s
+          transferMode: STREAMED
     openapi:
       - ...
         extProc:
           messageTimeout: 20s
+          transferMode: BUFFERED
 ```
+
+ICAP supports transferMode `STREAMED` and `BUFFERED`.
+The former has the advantage of being able to process very large payloads,
+but they are also already streamed to the backend while processing,
+hence depending on the implementation of the backend might already be processed and/or stored there.
+OpenAPI currently only supports transferMode `BUFFERED`.
+When using `BUFFERED` also adapt `operation.bufferLimitBytes` if needed,
+and note that also memory and Coraza settings may have to be adapted accordingly.
 
 Finally, the 'config' section contains settings specific to the type of traffic processing, i.e. there are separate [settings for ICAP AV](icap-antivirus-scanning.md) and [for OpenAPI](openapi-validation.md). These settings are described on the respective pages in this documentation (or use the links in this paragraph).
