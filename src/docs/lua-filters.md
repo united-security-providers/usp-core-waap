@@ -1,5 +1,7 @@
 # Lua Filters
 
+Using Lua filters in the USP Core WAAP adds flexibility for custom application integrations.
+
 Filters written in the [Lua programming language](https://www.lua.org/) can be configured to be processed
 as part of the regular request/response processing in the USP Core WAAP,
 both before and after other filters (like filters for authentication, traffic processing, etc.).
@@ -10,15 +12,6 @@ this feature generally adds more flexibility with usually no significant perform
 (Lua is a very performant and sophisticated script language with a tiny footprint,
 also broadly used in computer games for the same reasons,
 and in the case of USP Core WAAP also precompiled with the Lua JIT compiler.)
-
-Using Lua filters in the USP Core WAAP adds flexibility for these use cases:
-
-* **Custom integrations**<br />
-  Allows to integrate without code changes (while generally useful features could later be added to the code),
-  which is useful at many stages from development via PoC and test environments to production.
-* **Workarounds around issues in production**<br />
-  Allows to solve at least an important class of production issues without code changes,
-  thus more quickly and with fewer risks of side effects.
 
 The Envoy Lua filter usage, including what can be done in filter scripts, is generally described here:
 
@@ -233,7 +226,5 @@ Retrieve value with key `myKey` from shared context with id `contextId`:
 local value = util.get(handle, 'contextId', 'myKey')
 ```
 
-Note that this data is stored exclusively per request.
-Other requests have no access to "dynamic metadata" of another request,
-which makes perfectly sense from a security perspective
-because other requests might be by a different client/user.
+Note that this data is stored exclusively per single request/response transaction.
+Other requests have no access to "dynamic metadata" of another request.
