@@ -145,10 +145,10 @@ Some things worth noting:
 * Lua filters and helper files (which are not limited to Lua scripts) are all deployed to the
   directory `/opt/usp/core-waap/lua/filters`.
     * To use a helper Lua script e.g. `util.lua` that implements a Lua module use `require`
-      as in the scripts above with module path `opt.usp.core-waap.lua.filters.util`,
-      which finds the Lua file at `/opt/usp/core-waap/lua/filters/util.lua`.
-    * To read or use the content of a helper file of any kind, use the full path in Lua scripts,
-      e.g. to use a helper file `config.xml` use the path `/opt/usp/core-waap/lua/filters/config.xml`.
+      as in the scripts above with module path of `opt.usp.core-waap.lua.filters.util`,
+      which resolves to the Lua file at `/opt/usp/core-waap/lua/filters/util.lua`.
+    * To read the contents of a helper file e.g. `config.xml` use the full path in Lua scripts,
+      `/opt/usp/core-waap/lua/filters/config.xml`.
 
 This produces the following log entries for a GET request first to `/foo` and then one to `/bar`
 (log prefixes removed below):
