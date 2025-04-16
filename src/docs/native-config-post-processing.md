@@ -1,15 +1,10 @@
 # Native Config Post-Processing (NCPP)
 
-This feature is very helpful in essentially these use cases:
-
-* Quick workarounds for issues in production.
-* Quick and flexible integrations of something new.
-
-Plus generally using features of the underlying Envoy that are not (yet) configurable via the Core WAAP custom resource, for example, for tuning performance or to log extra information in the access log, and so on...
+This feature allows the use of all the underlying Envoy capabilities even if they are not (yet) configurable via the Core WAAP custom resource.
 
 ## Introduction
 
-The Core WAAP Operator translates the Core WAAP custom resource (CR) to native configuration of the Enovy proxy.
+The Core WAAP Operator translates the Core WAAP custom resource (CR) to native configuration of the Envoy proxy.
 The resulting native configuration is also in the form of YAML files.
 
 The "native configuration post-processing" feature allows to adapt the generated Envoy configuration before it is deployed, using JavaScript.
@@ -60,9 +55,9 @@ After that, some general comments about use cases, best practices and potential 
 
 ## Examples
 
-### Example 1 (simple): File upload in large chunks
+### Example: File upload in large chunks
 
-By default, Envoy has a limit on uploads to chunks of maximally 1 MB when in combination with the Coraza WASM filter (CRS enabled). This default behavior can be changed by explicitly setting `perConnectionBufferLimitBytes` on the listener, in the example below set to 10 MB in `lds.yaml`:
+By default, Envoy has a limit on uploads to chunks of maximally 1 MB when in combination with the Coraza filter (CRS enabled). This default behavior can be changed by explicitly setting `perConnectionBufferLimitBytes` on the listener, in the example below set to 10 MB in `lds.yaml`:
 
 ```yaml
 resources:
@@ -84,90 +79,6 @@ nativeConfigPostProcessing:
 - "lds.resources[0].perConnectionBufferLimitBytes = 10485760"
 ```
 
-### Example 2 (complex, with Lua): OpenID Connect login at root location with ACI functionality as Lua filter
-
-This example is around OpenID Connect / OAuth 2.0 login via the corresponding Envoy authentication filter.
-An additional filter in the Lua script language is added via JavaScript which does roughly the following:
-
-* Certain unauthenticated requests receive a HTTP 419 status code instead of the HTTP 302 redirect from the OAuth filter.
-* Certain unauthenticated requests receive a HTTP 403 instead of the redirect and they also receive two additional response headers.
-
-Context is Microsoft Office in combination with WebDAV; ACI = Adaptive Client Integration.
-
-Note that the implementation is split up into two native config post-processing JavaScripts, one that defines the Lua script as a JavaScript variable and a second one that does the changes to the native Envoy config in the `lds.yaml`:
-
-```yaml
-  nativeConfigPostProcessing:
-    - |
-      const luaScript = `
-        function envoy_on_request(request_handle)
-          -- set the route and x_requested_with_header in the dynamic metadata to use later in the response handler
-          local route = request_handle:headers():get(":path")
-          local x_requested_with_header = request_handle:headers():get("x-requested-with")
-          request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.request.path", route)
-          if x_requested_with_header ~= nil and string.lower(x_requested_with_header) == "xmlhttprequest" then
-            request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", true)
-          else
-            request_handle:streamInfo():dynamicMetadata():set("envoy.filters.http.lua", "ACI.XHR", false)
-          end
-        end
-
-        function envoy_on_response(response_handle)
-          local route = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.request.path"]
-          local xhr = response_handle:streamInfo():dynamicMetadata():get("envoy.filters.http.lua")["ACI.XHR"]
-          local status = response_handle:headers():get(":status")
-          local auth_endpoint = "https://oauth-keycloak-10-0-2-15.nip.io:8443/realms/core-waap-testing/protocol/openid-connect/auth"
-
-          -- detect login redirect
-          if status == "302" then
-            local location = response_handle:headers():get("location")
-            if string.find(location, auth_endpoint, 1 , true) ~= nil then
-
-              -- handle XHR requests
-              if xhr then
-                response_handle:headers():replace(":status", "419")
-                return
-              end
-
-              -- handle server sent events
-              if string.find(route, "/sse/") ~= nil then
-                response_handle:headers():replace(":status", "419")
-                return
-              end
-
-              -- special treatment for request of non-browser-clients like Word and Excel
-              if string.find(route,"/webdav") ~= nil then
-                response_handle:headers():replace(":status", "403")
-                response_handle:headers():add("X-FORMS_BASED_AUTH_RETURN_URL", route)
-                response_handle:headers():add("X-FORMS_BASED_AUTH_REQUIRED", auth_endpoint)
-                return
-              end
-            end
-          end
-        end
-      `
-    - |
-      lds.resources[0].filterChains[0].filters[0].typedConfig.httpFilters.unshift({
-        'name': 'envoy.filters.http.lua',
-        'typed_config': {
-          '@type': 'type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua',
-          'source_codes': {
-            'aci.lua': {
-              'inline_string': luaScript
-            }
-          }
-        }
-      });
-      var aciKey = 'envoy.filters.http.lua';
-      var aciValue = {
-          '@type': 'type.googleapis.com/envoy.extensions.filters.http.lua.v3.LuaPerRoute',
-          'name': 'aci.lua'
-      };
-      var routes =
-      lds.resources[0].filterChains[0].filters[0].typedConfig.routeConfig.virtualHosts[0].routes;
-      routes.forEach((r) => { if ( typeof r.typedPerFilterConfig === 'undefined') { r.typedPerFilterConfig = {} }; r.typedPerFilterConfig[aciKey] = aciValue } );
-```
-
 ## General Comments
 
 ### Use cases and best practices
@@ -182,9 +93,9 @@ Obviously, in most cases the idea is to afterward include a corresponding fix in
 
 #### Quick and flexible integrations of something new
 
-A PoC is maybe the most general example for this use case, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release, again also reducing turnaround times in cases where the feature cannot be easily/immediately tested outside the enviroment of the customer.
+A PoC is maybe the most general example for this use case, where integration issues can be solved ad-hoc whenever they occur without immediate need for a release, again also reducing turnaround times in cases where the feature cannot be easily/immediately tested outside the environment of the customer.
 
-Depending on the nature of the integration, it may later make sense to include new features into the Core WAAP that cover the new intergrations, namely if the integrations are of a kind that is generally useful, or are the better choice for other reasons.
+Depending on the nature of the integration, it may later make sense to include new features into the Core WAAP that cover the new integrations, namely if the integrations are of a kind that is generally useful, or are the better choice for other reasons.
 
 Side remark: Note that this use case is often also interesting internally at USP because it allows to explore new settings sometimes more quickly than operating directly with native Envoy config.
 
@@ -202,5 +113,3 @@ Its structure may change, due to changes in the Core WAAP Operator or also due t
 
 As an example of potential future enhancements, JavaScript functions may be offered to get/set the Core Rule Set (CRS) settings of the Coraza filter more easily.
 And/or similar JavaScript functions that make it both more simple and potentially also more robust to get/set some specific or general items in the native Envoy config.
-
-
