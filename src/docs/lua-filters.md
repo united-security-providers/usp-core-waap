@@ -1,5 +1,7 @@
 # Lua Filters
 
+Using Lua filters in the USP Core WAAP adds flexibility for custom application integrations.
+
 Filters written in the [Lua programming language](https://www.lua.org/) can be configured to be processed
 as part of the regular request/response processing in the USP Core WAAP,
 both before and after other filters (like filters for authentication, traffic processing, etc.).
@@ -10,15 +12,6 @@ this feature generally adds more flexibility with usually no significant perform
 (Lua is a very performant and sophisticated script language with a tiny footprint,
 also broadly used in computer games for the same reasons,
 and in the case of USP Core WAAP also precompiled with the Lua JIT compiler.)
-
-Using Lua filters in the USP Core WAAP adds flexibility for these use cases:
-
-* **Custom integrations**<br />
-  Allows to integrate without code changes (while generally useful features could later be added to the code),
-  which is useful at many stages from development via PoC and test environments to production.
-* **Workarounds around issues in production**<br />
-  Allows to solve at least an important class of production issues without code changes,
-  thus more quickly and with fewer risks of side effects.
 
 The Envoy Lua filter usage, including what can be done in filter scripts, is generally described here:
 
@@ -86,7 +79,8 @@ There are two locations:
     * Just `filter1` will be run as first filter.
 
 The Lua filter and helper scripts are defined in a config map named `lua-basic-config-map`.
-They only do some logging but do not modify request/response in this example:
+They only do some logging but do not modify request/response in this example. 
+Besides the simple example in filter1.lua, filter2.lua and filter3.lua illustrate how utility functions from other scripts can be used (Lua module).
 
 ```yaml
 apiVersion: v1
@@ -96,14 +90,13 @@ metadata:
   namespace: {{.Values.namespace}}
 data:
   filter1.lua: |
-    local util = require 'opt.usp.core-waap.lua.filters.util'
     local path
     function envoy_on_request(request_handle)
-        path = util.getPath(request_handle)
-        util.logFilter(request_handle, 'REQ', path, 'filter1')
+        path = request_handle:headers():get(':path')
+        request_handle:logInfo('[REQ] ' .. path .. ' filter1')
     end
     function envoy_on_response(response_handle)
-        util.logFilter(response_handle, 'RES', path, 'filter1')
+        response_handle:logInfo('[RES] ' .. path .. ' filter1')
     end
   filter2.lua: |
     local util = require 'opt.usp.core-waap.lua.filters.util'
@@ -150,15 +143,12 @@ Some things worth noting:
 * Both local and global variables defined that way are not available
   to other filter scripts nor to the same filter when processing a different request/response.
 * Lua filters and helper files (which are not limited to Lua scripts) are all deployed to the
-  directory `/opt/usp/core-waap/lua/filters`; the `require` in the scripts above for
-  `opt.usp.core-waap.lua.filters.util` thus refers to the Lua file
-  `/opt/usp/core-waap/lua/filters/util.lua`. 
-* Please note that in the example above, this path is not directly relevant - the `require` 
-  will automatically resolve to Lua files from that directory. But if a Lua script attempts to 
-  access other files, such as JSON or XML configuration files etc. that are also deployed in 
-  the same config map, the scripts will need to reference those files with the absolute folder 
-  path, e.g. `/opt/usp/core-waap/lua/filters/my-custom-config.xml`.
-
+  directory `/opt/usp/core-waap/lua/filters`.
+    * To use a helper Lua script e.g. `util.lua` that implements a Lua module use `require`
+      as in the scripts above with module path of `opt.usp.core-waap.lua.filters.util`,
+      which resolves to the Lua file at `/opt/usp/core-waap/lua/filters/util.lua`.
+    * To read the contents of a helper file e.g. `config.xml` use the full path in Lua scripts,
+      `/opt/usp/core-waap/lua/filters/config.xml`.
 
 This produces the following log entries for a GET request first to `/foo` and then one to `/bar`
 (log prefixes removed below):
@@ -233,7 +223,5 @@ Retrieve value with key `myKey` from shared context with id `contextId`:
 local value = util.get(handle, 'contextId', 'myKey')
 ```
 
-Note that this data is stored exclusively per request.
-Other requests have no access to "dynamic metadata" of another request,
-which makes perfectly sense from a security perspective
-because other requests might be by a different client/user.
+Note that this data is stored exclusively per single request/response transaction.
+Other requests have no access to "dynamic metadata" of another request.
