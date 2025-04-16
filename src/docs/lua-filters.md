@@ -79,7 +79,8 @@ There are two locations:
     * Just `filter1` will be run as first filter.
 
 The Lua filter and helper scripts are defined in a config map named `lua-basic-config-map`.
-They only do some logging but do not modify request/response in this example:
+They only do some logging but do not modify request/response in this example. 
+Besides the simple example in filter1.lua, filter2.lua and filter3.lua illustrate how utility functions from other scripts can be used (Lua module).
 
 ```yaml
 apiVersion: v1
@@ -89,14 +90,13 @@ metadata:
   namespace: {{.Values.namespace}}
 data:
   filter1.lua: |
-    local util = require 'opt.usp.core-waap.lua.filters.util'
     local path
     function envoy_on_request(request_handle)
-        path = util.getPath(request_handle)
-        util.logFilter(request_handle, 'REQ', path, 'filter1')
+        path = request_handle:headers():get(':path')
+        request_handle:logInfo('[REQ] ' .. path .. ' filter1')
     end
     function envoy_on_response(response_handle)
-        util.logFilter(response_handle, 'RES', path, 'filter1')
+        response_handle:logInfo('[RES] ' .. path .. ' filter1')
     end
   filter2.lua: |
     local util = require 'opt.usp.core-waap.lua.filters.util'
