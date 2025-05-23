@@ -12,6 +12,11 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 1.1.0 to >=1.2.0
+
+The CRS version has been upgraded from 4.3.0 to 4.14.0.
+Accordingly, testing / auto-learning esp. for false positives is recommended.
+
 ### Core WAAP Operator 1.0.0 to >=1.1.0
 
 There are no mandatory migrations, but it is recommended to migrate the following deprecated settings, also in order to avoid deprecation warnings in the operator log:
