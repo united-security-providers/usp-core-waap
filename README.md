@@ -31,11 +31,7 @@ pip install --upgrade pip
 #### Install mkdocs
 
 ```
-pip install mkdocs
-pip install pymdown-extensions
-pip install mkdocs-material
-pip install mkdocs-redirects
-pip install mkdocs-swagger-ui-tag
+pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag
 ```
 
 *NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH. Check by running
