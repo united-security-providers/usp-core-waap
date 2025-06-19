@@ -54,7 +54,7 @@ sudo mv helm-docs /usr/local/bin
 ### crdoc notes
 
 * Download the latest release binary from here: https://github.com/fybrik/crdoc/releases
-* Make sure to download the "Linux x86/64" tar.gz archive
+* Make sure to download the "linux_amd64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
 ```
