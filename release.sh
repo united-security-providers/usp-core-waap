@@ -273,7 +273,7 @@ done
 zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
 zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
-echo "Successfully generated site (Markdown) at docs."
+echo "Successfully generated site (Markdown) in docs folder."
 
 if [ "$2" == "deploy" ]; then
     echo "Deploying to GitHub pages..."
