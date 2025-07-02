@@ -18,6 +18,7 @@ checkbin() {
 prepareChangelog() {
   local sourceFile=$1
   local targetFile=$2
+  local notices=$3
 
   rm -rf changelog-tmp
   mkdir changelog-tmp
@@ -27,7 +28,10 @@ prepareChangelog() {
 
   # Remove all link brackets []
   sed 's|[\[,]||g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
-  sed 's|[],]||g' changelog-tmp/CHANGELOG3.md > $targetFile
+  sed 's|[],]||g' changelog-tmp/CHANGELOG3.md > changelog-tmp/CHANGELOG4.md
+
+  # Add notices (if any)
+  sed "s|# Changelog|# Changelog$notices|g" changelog-tmp/CHANGELOG4.md > $targetFile
 
   rm -rf changelog-tmp
 }
@@ -206,11 +210,6 @@ ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CH
 downloadFromGitLab $ARGS
 EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 
-# Add notice to changelogs that still have versions that are implicitly in "alpha" (0.0.x versions)
-ALPHA_NOTICE="_This component\/feature is in still active development (\"alpha\"); it is not recommended to already use it in productive environments._"
-#sed -i "s/# Changelog/# Changelog\n\n$ALPHA_NOTICE/" $EXT_PROC_ICAP_CHANGELOG
-sed -i "s/# Changelog/# Changelog\n\n$ALPHA_NOTICE/" $EXT_PROC_OPENAPI_CHANGELOG
-
 # Generate CRD documentation
 generateCrdDocumentation
 
@@ -247,11 +246,13 @@ echo "[downloaded here]: /downloads/" >> docs/autolearning.md
 # Generate values documentation Markdown file
 helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
-prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md
-prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md
-prepareChangelog build/$CORE_WAAP_CHANGELOG docs/waap-CHANGELOG.md
-prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md
-prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md
+ALPHA_NOTICE="\n\n_This component\/feature is in still active development (\"alpha\"); it is not recommended to already use it in productive environments._"
+MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing configurations when updating, see [Migration Guide](upgrade.md)."
+prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$CORE_WAAP_CHANGELOG docs/waap-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
