@@ -14,8 +14,13 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ### Core WAAP Operator 1.1.0 to >=1.2.0
 
-The CRS version has been upgraded from 4.3.0 to 4.14.0.
-Accordingly, testing / auto-learning esp. for false positives is recommended.
+- The CRS version has been upgraded from 4.3.0 to 4.14.0.
+  Accordingly, testing / auto-learning esp. for false positives is recommended.
+- In the Helm chart, legacy "image:version" in the `image` field is now disallowed,
+  because it would silently override a separately defined `version` field:
+  Use separate `image` and `version` fields instead.
+- Optional: Use the list of rule ids in CRS rule exception, new field `ruleIds`,
+  instead of the now deprecated field `ruleId` for a single rule id.
 
 ### Core WAAP Operator 1.0.0 to >=1.1.0
 
