@@ -254,6 +254,14 @@
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../lua-filters/">
+<span class="md-ellipsis">
+    Lua Filters
+    
+  </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -335,6 +343,13 @@
 </a>
 <nav aria-label="Core WAAP Migration Guide" class="md-nav">
 <ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-waap-operator-110-to-120">
+<span class="md-ellipsis">
+      Core WAAP Operator 1.1.0 to &gt;=1.2.0
+    </span>
+</a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#core-waap-operator-100-to-110">
 <span class="md-ellipsis">
@@ -430,6 +445,13 @@
 <nav aria-label="Core WAAP Migration Guide" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#core-waap-operator-110-to-120">
+<span class="md-ellipsis">
+      Core WAAP Operator 1.1.0 to &gt;=1.2.0
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#core-waap-operator-100-to-110">
 <span class="md-ellipsis">
       Core WAAP Operator 1.0.0 to &gt;=1.1.0
@@ -489,6 +511,16 @@
 </ol>
 <p><strong>Note:</strong> This procedure should prevent any downtime of a CoreWaapService. In case a new Core WAAP Version is included too, the pods will restart accordingly. <strong>Upgrade from helm chart versions &lt; 1.0.2 will have an increased risk by helm upgrade commands to remove the CRD</strong> (and by this any custom resource) in case the upgrade command fails (due to any not core-waap specific reason like not enough resources to start a POD etc)</p>
 <h2 id="core-waap-migration-guide">Core WAAP Migration Guide</h2>
+<h3 id="core-waap-operator-110-to-120">Core WAAP Operator 1.1.0 to &gt;=1.2.0</h3>
+<ul>
+<li>The CRS version has been upgraded from 4.3.0 to 4.14.0.
+  Accordingly, testing / auto-learning esp. for false positives is recommended.</li>
+<li>In the Helm chart, legacy "image:version" in the <code>image</code> field is now disallowed,
+  because it would silently override a separately defined <code>version</code> field:
+  Use separate <code>image</code> and <code>version</code> fields instead.</li>
+<li>Optional: Use the list of rule ids in CRS rule exception, new field <code>ruleIds</code>,
+  instead of the now deprecated field <code>ruleId</code> for a single rule id.</li>
+</ul>
 <h3 id="core-waap-operator-100-to-110">Core WAAP Operator 1.0.0 to &gt;=1.1.0</h3>
 <p>There are no mandatory migrations, but it is recommended to migrate the following deprecated settings, also in order to avoid deprecation warnings in the operator log:</p>
 <ul>

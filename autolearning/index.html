@@ -254,6 +254,14 @@
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../lua-filters/">
+<span class="md-ellipsis">
+    Lua Filters
+    
+  </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -358,46 +366,58 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="auto-learning">Auto-Learning</h1>
-<p>USP Core WAAP provides a command-line tool that allows to apply an automated learning mechanism to generate a set
-of rules for Coraza (ModSecurity/CRS).</p>
+<p>USP Core WAAP provides a command-line tool that allows to update configuration of an existing USP Core WAAP instance
+based on the information from its runtime log files.</p>
+<p>When 'crs' processor is enabled, it will analyze 'false positives' of Coraza (ModSecurity/CRS) engine and generate rule exceptions to avoid them.</p>
+<p>With 'methods' processor, it will analyze all requests and generate 'allowedMethods' sections for the existing routes.</p>
 <p>The tool itself is an executable Java archive (jar) and can be <a href="../downloads/">downloaded here</a>.</p>
-<p>Run with <code>java -jar waap-lib-autolearn-cli-1.1.0.jar --help</code> to see usage:</p>
-<div class="highlight"><pre><span></span><code>Usage: java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar [-hsV]
-       [--reduceconfigured] [--skipmetadataexport] [--skippostparts]
-       [--sortexceptions] [-e=&lt;error&gt;] [-i=&lt;specIn&gt;] [-l=&lt;log&gt;]
-       [-n=&lt;namespace&gt;] [-o=&lt;specOut&gt;] [-t=&lt;range&gt;] [-w=&lt;instance&gt;]
-Autolearns CRS rule exceptions from USP Core WAAP log files.
+<p>Run with <code>java -jar waap-lib-autolearn-cli-1.2.0.jar --help</code> to see usage:
+<div class="highlight"><pre><span></span><code>Usage: java -jar waap-lib-autolearn-cli-&lt;version&gt;.jar [-hV] ([-i=&lt;specIn&gt;
+       -l=&lt;log&gt;] | [-n=&lt;namespace&gt; -w=&lt;instance&gt;]) [[-o=&lt;specOut&gt;]] [[crs]
+       [methods]] [[-t=&lt;range&gt;] [-e=&lt;errorFile&gt;] [-s]] [[--skippostparts]
+       [--skipmetadataexport] [--sortexceptions] [--reduceconfigured]]
+Autolearns CRS rule exceptions and methods whitelisting from USP Core WAAP log
+files.
 Copyright (c) United Security Providers AG, Switzerland, All rights reserved.
-  -e, --errorfile=&lt;error&gt;    File to write errors to, optional, by default no
-                               file is written.
   -h, --help                 Show this help message and exit.
+  -V, --version              Print version information and exit.
+file input
   -i, --waapspecin=&lt;specIn&gt;  USP Core WAAP spec file (or manifest file) to
                                read, use '-' for stdin, exclusive with -n/-w.
   -l, --log=&lt;log&gt;            USP Core WAAP log file to parse, exclusive with
                                -n/-w.
+k8s instance input
   -n, --namespace=&lt;namespace&gt;
                              Kubernetes namespace with USP Core WAAP, exclusive
                                with -i/-l.
+  -w, --waapinstance=&lt;instance&gt;
+                             Kubernetes USP Core WAAP instance name (app.
+                               kubernetes.io/instance), exclusive with -i/-l.
+output
   -o, --waapspecout=&lt;specOut&gt;
                              USP Core WAAP spec file (or manifest file) to
                                write, defaults to 'waap.yaml', use '-' for
                                stdout (then automatically also -s).
-      --reduceconfigured     Changes already configured exceptions by removing
-                               a) duplicates &amp; b) more specific rules in favor
-                               of more general ones
+processors
+      crs                    Autolearns CRS rule exceptions
+      methods                Autolearns methods whitelisting
+common options
+  -e, --errorfile=&lt;errorFile&gt;
+                             File to write errors to, optional, by default no
+                               file is written.
   -s, --silent               No output to stdout with number of learned rules
                                and errors.
-      --skipmetadataexport   Skip metadata export.
-      --skippostparts        Skip part name parsing for ARGS_POST.
-      --sortexceptions       Sort rule exceptions in the output.
   -t, --timerange=&lt;range&gt;    Optional time range to learn from, e.g.
                                "20231201.1010-20231202.1010" (time with
                                minutes).
-  -V, --version              Print version information and exit.
-  -w, --waapinstance=&lt;instance&gt;
-                             Kubernetes USP Core WAAP instance name (app.
-                               kubernetes.io/instance), exclusive with -i/-l.
-</code></pre></div>
+CRS mode options
+      --reduceconfigured     Changes already configured exceptions by removing
+                               a) duplicates &amp; b) more specific rules in favor
+                               of more general ones
+      --skipmetadataexport   Skip metadata export.
+      --skippostparts        Skip part name parsing for ARGS_POST.
+      --sortexceptions       Sort rule exceptions in the output.
+</code></pre></div></p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>

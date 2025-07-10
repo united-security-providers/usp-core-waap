@@ -255,6 +255,14 @@
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../lua-filters/">
+<span class="md-ellipsis">
+    Lua Filters
+    
+  </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -440,7 +448,7 @@
 <td><b><a href="#corewaapservicespeccrs">crs</a></b></td>
 <td>object</td>
 <td>
-          OWASP Core Rule Set (CRS) settings (version 4.3.0)<br/>
+          OWASP Core Rule Set (CRS) settings (version 4.14.0)<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -462,6 +470,13 @@
 <td>[]string</td>
 <td>
           List of hostnames (append ports with ':', default is wildcard '*')<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespeclua">lua</a></b></td>
+<td>object</td>
+<td>
+          Lua filters settings (filter scripts plus helper scripts/files)<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -559,10 +574,17 @@
 </td>
 <td>false</td>
 </tr><tr>
+<td><b><a href="#corewaapservicespecroutesindexluarefs">luaRefs</a></b></td>
+<td>object</td>
+<td>
+          References to Lua filters<br/>
+</td>
+<td>false</td>
+</tr><tr>
 <td><b>trafficProcessingRefs</b></td>
 <td>[]string</td>
 <td>
-          References to traffic processing; processing order is OpenAPI, ICAP  (and within each type in the order listed under trafficProcessing)<br/>
+          References to traffic processing; processing order is OpenAPI, ICAP  (and within each type in the order listed under spec.trafficProcessing)<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -847,6 +869,16 @@
           Request header value (exact match of full string) <br/>
 </td>
 <td>true</td>
+</tr><tr>
+<td><b>valueType</b></td>
+<td>enum</td>
+<td>
+          Value type <br/>
+<br/>
+<i>Enum</i>: EXACT, REGEX<br/>
+<i>Default</i>: EXACT<br/>
+</td>
+<td>false</td>
 </tr></tbody>
 </table>
 <h3 id="corewaapservicespecroutesindexauth">CoreWaapService.spec.routes[index].auth</h3>
@@ -889,6 +921,34 @@
           Whether to disable all CRS parsing for the route or not <br/>
 <br/>
 <i>Default</i>: false<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespecroutesindexluarefs">CoreWaapService.spec.routes[index].luaRefs</h3>
+<p><sup><sup><a href="#corewaapservicespecroutesindex">↩ Parent</a></sup></sup></p>
+<p>References to Lua filters</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>first</b></td>
+<td>[]string</td>
+<td>
+          Lua filters to run first, i.e. before other types of filters (more precisely, run first for request and run last for response); Lua filters listed here are run in the order defined under spec.lua<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>last</b></td>
+<td>[]string</td>
+<td>
+          Lua filters to run last, i.e. after other types of filters (more precisely, run last for request and run first for response); Lua filters listed here are run in the order defined under spec.lua<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -1096,7 +1156,7 @@
 </table>
 <h3 id="corewaapservicespeccrs">CoreWaapService.spec.crs</h3>
 <p><sup><sup><a href="#corewaapservicespec">↩ Parent</a></sup></sup></p>
-<p>OWASP Core Rule Set (CRS) settings (version 4.3.0)</p>
+<p>OWASP Core Rule Set (CRS) settings (version 4.14.0)</p>
 <table>
 <thead>
 <tr>
@@ -1117,7 +1177,7 @@
 <td><b>enabledRequestRules</b></td>
 <td>[]enum</td>
 <td>
-          Set of request rule classes (default is to include all rules, rules REQUEST_901_INITIALIZATION and REQUEST_949_BLOCKING_EVALUATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.3.0/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
+          Set of request rule classes (default is to include all rules, rules REQUEST_901_INITIALIZATION and REQUEST_949_BLOCKING_EVALUATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.14.0/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
 <br/>
 <i>Enum</i>: REQUEST_913_SCANNER_DETECTION, REQUEST_920_PROTOCOL_ENFORCEMENT, REQUEST_921_PROTOCOL_ATTACK, REQUEST_922_MULTIPART_ATTACK, REQUEST_930_APPLICATION_ATTACK_LFI, REQUEST_931_APPLICATION_ATTACK_RFI, REQUEST_932_APPLICATION_ATTACK_RCE, REQUEST_933_APPLICATION_ATTACK_PHP, REQUEST_934_APPLICATION_ATTACK_GENERIC, REQUEST_941_APPLICATION_ATTACK_XSS, REQUEST_942_APPLICATION_ATTACK_SQLI, REQUEST_943_APPLICATION_ATTACK_SESSION_FIXATION, REQUEST_944_APPLICATION_ATTACK_JAVA<br/>
 </td>
@@ -1126,7 +1186,7 @@
 <td><b>enabledResponseRules</b></td>
 <td>[]enum</td>
 <td>
-          Set of response rule classes (default is to include no rules, rules RESPONSE_959_BLOCKING_EVALUATION and RESPONSE_980_CORRELATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.3.0/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
+          Set of response rule classes (default is to include no rules, rules RESPONSE_959_BLOCKING_EVALUATION and RESPONSE_980_CORRELATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.14.0/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
 <br/>
 <i>Enum</i>: RESPONSE_950_DATA_LEAKAGES, RESPONSE_951_DATA_LEAKAGES_SQL, RESPONSE_952_DATA_LEAKAGES_JAVA, RESPONSE_953_DATA_LEAKAGES_PHP, RESPONSE_954_DATA_LEAKAGES_IIS, RESPONSE_955_WEB_SHELLS<br/>
 </td>
@@ -1321,13 +1381,6 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><b>ruleId</b></td>
-<td>integer</td>
-<td>
-          Rule ID <br/>
-</td>
-<td>true</td>
-</tr><tr>
 <td><b>location</b></td>
 <td>string</td>
 <td>
@@ -1364,6 +1417,20 @@
           Request part type<br/>
 <br/>
 <i>Enum</i>: ARGS, ARGS_COMBINED_SIZE, ARGS_GET, ARGS_GET_NAMES, ARGS_NAMES, ARGS_POST, ARGS_POST_NAMES, AUTH_TYPE, DURATION, ENV, FILES, FILES_COMBINED_SIZE, FILES_NAMES, FILES_SIZES, FILES_TMPNAMES, FILES_TMP_CONTENT, FULL_REQUEST, FULL_REQUEST_LENGTH, GEO, HIGHEST_SEVERITY, INBOUND_DATA_ERROR, MATCHED_VAR, MATCHED_VARS, MATCHED_VARS_NAMES, MATCHED_VAR_NAME, MODSEC_BUILD, MULTIPART_CRLF_LF_LINES, MULTIPART_FILENAME, MULTIPART_NAME, MULTIPART_PART_HEADERS, MULTIPART_STRICT_ERROR, MULTIPART_UNMATCHED_BOUNDARY, OUTBOUND_DATA_ERROR, PATH_INFO, PERF_COMBINED, PERF_GC, PERF_LOGGING, PERF_PHASE1, PERF_PHASE2, PERF_PHASE3, PERF_PHASE4, PERF_PHASE5, PERF_RULES, PERF_SREAD, PERF_SWRITE, QUERY_STRING, REMOTE_ADDR, REMOTE_HOST, REMOTE_PORT, REMOTE_USER, REQBODY_ERROR, REQBODY_ERROR_MSG, REQBODY_PROCESSOR, REQUEST_BASENAME, REQUEST_BODY, REQUEST_BODY_LENGTH, REQUEST_COOKIES, REQUEST_COOKIES_NAMES, REQUEST_FILENAME, REQUEST_HEADERS, REQUEST_HEADERS_NAMES, REQUEST_LINE, REQUEST_METHOD, REQUEST_PROTOCOL, REQUEST_URI, REQUEST_URI_RAW, RESPONSE_BODY, RESPONSE_CONTENT_LENGTH, RESPONSE_CONTENT_TYPE, RESPONSE_HEADERS, RESPONSE_HEADERS_NAMES, RESPONSE_PROTOCOL, RESPONSE_STATUS, RULE, SCRIPT_BASENAME, SCRIPT_FILENAME, SCRIPT_GID, SCRIPT_GROUPNAME, SCRIPT_MODE, SCRIPT_UID, SCRIPT_USERNAME, SDBM_DELETE_ERROR, SERVER_ADDR, SERVER_NAME, SERVER_PORT, SESSION, SESSIONID, STREAM_INPUT_BODY, STREAM_OUTPUT_BODY, TIME, TIME_DAY, TIME_EPOCH, TIME_HOUR, TIME_MIN, TIME_MON, TIME_SEC, TIME_WDAY, TIME_YEAR, TX, UNIQUE_ID, URLENCODED_ERROR, USERAGENT_IP, USERID, WEBAPPID, WEBSERVER_ERROR_LOG, XML<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>ruleId</b></td>
+<td>integer</td>
+<td>
+          (deprecated, use ruleIds instead) Rule ID<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>ruleIds</b></td>
+<td>[]integer</td>
+<td>
+          A list of Rule IDs (required if ruleId is not specified and must then contain at least one rule ID) <br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -1415,13 +1482,6 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><b>ruleId</b></td>
-<td>integer</td>
-<td>
-          Rule ID <br/>
-</td>
-<td>true</td>
-</tr><tr>
 <td><b>location</b></td>
 <td>string</td>
 <td>
@@ -1458,6 +1518,20 @@
           Request part type<br/>
 <br/>
 <i>Enum</i>: ARGS, ARGS_COMBINED_SIZE, ARGS_GET, ARGS_GET_NAMES, ARGS_NAMES, ARGS_POST, ARGS_POST_NAMES, AUTH_TYPE, DURATION, ENV, FILES, FILES_COMBINED_SIZE, FILES_NAMES, FILES_SIZES, FILES_TMPNAMES, FILES_TMP_CONTENT, FULL_REQUEST, FULL_REQUEST_LENGTH, GEO, HIGHEST_SEVERITY, INBOUND_DATA_ERROR, MATCHED_VAR, MATCHED_VARS, MATCHED_VARS_NAMES, MATCHED_VAR_NAME, MODSEC_BUILD, MULTIPART_CRLF_LF_LINES, MULTIPART_FILENAME, MULTIPART_NAME, MULTIPART_PART_HEADERS, MULTIPART_STRICT_ERROR, MULTIPART_UNMATCHED_BOUNDARY, OUTBOUND_DATA_ERROR, PATH_INFO, PERF_COMBINED, PERF_GC, PERF_LOGGING, PERF_PHASE1, PERF_PHASE2, PERF_PHASE3, PERF_PHASE4, PERF_PHASE5, PERF_RULES, PERF_SREAD, PERF_SWRITE, QUERY_STRING, REMOTE_ADDR, REMOTE_HOST, REMOTE_PORT, REMOTE_USER, REQBODY_ERROR, REQBODY_ERROR_MSG, REQBODY_PROCESSOR, REQUEST_BASENAME, REQUEST_BODY, REQUEST_BODY_LENGTH, REQUEST_COOKIES, REQUEST_COOKIES_NAMES, REQUEST_FILENAME, REQUEST_HEADERS, REQUEST_HEADERS_NAMES, REQUEST_LINE, REQUEST_METHOD, REQUEST_PROTOCOL, REQUEST_URI, REQUEST_URI_RAW, RESPONSE_BODY, RESPONSE_CONTENT_LENGTH, RESPONSE_CONTENT_TYPE, RESPONSE_HEADERS, RESPONSE_HEADERS_NAMES, RESPONSE_PROTOCOL, RESPONSE_STATUS, RULE, SCRIPT_BASENAME, SCRIPT_FILENAME, SCRIPT_GID, SCRIPT_GROUPNAME, SCRIPT_MODE, SCRIPT_UID, SCRIPT_USERNAME, SDBM_DELETE_ERROR, SERVER_ADDR, SERVER_NAME, SERVER_PORT, SESSION, SESSIONID, STREAM_INPUT_BODY, STREAM_OUTPUT_BODY, TIME, TIME_DAY, TIME_EPOCH, TIME_HOUR, TIME_MIN, TIME_MON, TIME_SEC, TIME_WDAY, TIME_YEAR, TX, UNIQUE_ID, URLENCODED_ERROR, USERAGENT_IP, USERID, WEBAPPID, WEBSERVER_ERROR_LOG, XML<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>ruleId</b></td>
+<td>integer</td>
+<td>
+          (deprecated, use ruleIds instead) Rule ID<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>ruleIds</b></td>
+<td>[]integer</td>
+<td>
+          A list of Rule IDs (required if ruleId is not specified and must then contain at least one rule ID) <br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -1675,6 +1749,81 @@
 <td>false</td>
 </tr></tbody>
 </table>
+<h3 id="corewaapservicespeclua">CoreWaapService.spec.lua</h3>
+<p><sup><sup><a href="#corewaapservicespec">↩ Parent</a></sup></sup></p>
+<p>Lua filters settings (filter scripts plus helper scripts/files)</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>configMap</b></td>
+<td>string</td>
+<td>
+          Name of the config map that contains the Lua filter scripts and helper files (must be defined if any Lua filters or helper files are defined)<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespecluafiltersindex">filters</a></b></td>
+<td>[]object</td>
+<td>
+          Lua filter scripts; will be run in the order listed here if referenced in routes <br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespecluahelpersindex">helpers</a></b></td>
+<td>[]object</td>
+<td>
+          Helper files that will be mounted in parallel to the Lua filter scripts; usually Lua utility scripts, but can be any file type <br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespecluafiltersindex">CoreWaapService.spec.lua.filters[index]</h3>
+<p><sup><sup><a href="#corewaapservicespeclua">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+          Script name used both to reference in routes and as mounted filename and also the key in the 'spec.lua.configMap', must end with '.lua' <br/>
+</td>
+<td>true</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespecluahelpersindex">CoreWaapService.spec.lua.helpers[index]</h3>
+<p><sup><sup><a href="#corewaapservicespeclua">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+          Name of file to mount in parallel to Lua filter scripts and also the key in the 'spec.lua.configMap' <br/>
+</td>
+<td>true</td>
+</tr></tbody>
+</table>
 <h3 id="corewaapservicespecoperation">CoreWaapService.spec.operation</h3>
 <p><sup><sup><a href="#corewaapservicespec">↩ Parent</a></sup></sup></p>
 <p>Operation related settings to be used for the Core WAAP Kubernetes deployment; these settings typically do not affect generated Envoy config (optional, except that the operation's image/version fields must be set in the spec or via default in the operator config) [merge with operator defaults: config trees are merged in detail with precedence given to values in the spec, e.g. resources.limits.cpu could be defined in operator config but resources.requests.cpu in the spec; exception: lists within the config tree are completely overridden by the ones in the spec if present, which affects e.g. tolerations and lists under affinity]</p>
@@ -1702,6 +1851,15 @@
 </td>
 <td>false</td>
 </tr><tr>
+<td><b>bufferLimitBytes</b></td>
+<td>integer</td>
+<td>
+          Maximal body size for processing requests and responses (Envoy's perConnectionBufferLimitBytes on listener, plus also affects buffers for traffic processing in transferMode BUFFERED)<br/>
+<br/>
+<i>Default</i>: 1048576<br/>
+</td>
+<td>false</td>
+</tr><tr>
 <td><b><a href="#corewaapservicespecoperationcacertificates">caCertificates</a></b></td>
 <td>object</td>
 <td>
@@ -1720,6 +1878,13 @@
 <td>map[string]string</td>
 <td>
           Map of key/value labels for the pod<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespecoperationmetrics">metrics</a></b></td>
+<td>object</td>
+<td>
+          Settings for exposing Metrics endpoint as a Kubernetes service<br/>
 </td>
 <td>false</td>
 </tr><tr>
@@ -2970,6 +3135,127 @@
 <td>true</td>
 </tr></tbody>
 </table>
+<h3 id="corewaapservicespecoperationmetrics">CoreWaapService.spec.operation.metrics</h3>
+<p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a></sup></sup></p>
+<p>Settings for exposing Metrics endpoint as a Kubernetes service</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>enabled</b></td>
+<td>boolean</td>
+<td>
+          Whether metrics sidecar is enabled or not <br/>
+<br/>
+<i>Default</i>: false<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>image</b></td>
+<td>string</td>
+<td>
+          Metrics sidecar container image (host+path+name) without version, e.g. 'uspregistry.azurecr.io/usp/core/waap/usp-core-waap-metrics' (must be defined either in spec or operator defaults per traffic processor type) <br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>pollIntervalSeconds</b></td>
+<td>integer</td>
+<td>
+          Interval (in seconds) between sending metrics requests to the Envoy and traffic processors <br/>
+<br/>
+<i>Default</i>: 60<br/>
+<i>Minimum</i>: 1<br/>
+<i>Maximum</i>: 86400<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>port</b></td>
+<td>integer</td>
+<td>
+          Port of the metrics Kubernetes service <br/>
+<br/>
+<i>Default</i>: 9801<br/>
+<i>Minimum</i>: 1<br/>
+<i>Maximum</i>: 65535<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b><a href="#corewaapservicespecoperationmetricsresources">resources</a></b></td>
+<td>object</td>
+<td>
+          Kubernetes resources for the metrics sidecar container<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>version</b></td>
+<td>string</td>
+<td>
+          Metrics sidecar container (image) version, e.g. '1.0.1' (must be defined either in spec or operator defaults per traffic processor type)<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespecoperationmetricsresources">CoreWaapService.spec.operation.metrics.resources</h3>
+<p><sup><sup><a href="#corewaapservicespecoperationmetrics">↩ Parent</a></sup></sup></p>
+<p>Kubernetes resources for the metrics sidecar container</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b><a href="#corewaapservicespecoperationmetricsresourcesclaimsindex">claims</a></b></td>
+<td>[]object</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>limits</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>requests</b></td>
+<td>map[string]int or string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
+<h3 id="corewaapservicespecoperationmetricsresourcesclaimsindex">CoreWaapService.spec.operation.metrics.resources.claims[index]</h3>
+<p><sup><sup><a href="#corewaapservicespecoperationmetricsresources">↩ Parent</a></sup></sup></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>name</b></td>
+<td>string</td>
+<td>
+<br/>
+</td>
+<td>false</td>
+</tr></tbody>
+</table>
 <h3 id="corewaapservicespecoperationresources">CoreWaapService.spec.operation.resources</h3>
 <p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a></sup></sup></p>
 <p>Kubernetes resources for the Core Waap pod</p>
@@ -3070,6 +3356,13 @@
 </tr>
 </thead>
 <tbody><tr>
+<td><b>additionalCliArgs</b></td>
+<td>string</td>
+<td>
+          Additional command line arguments for Envoy<br/>
+</td>
+<td>false</td>
+</tr><tr>
 <td><b>componentLogLevel</b></td>
 <td>string</td>
 <td>
@@ -3091,7 +3384,7 @@
 <td>
           Envoy global log level; if not set defaults implicitly to level info, command line option '--log-level'<br/>
 <br/>
-<i>Enum</i>: critical, debug, error, info, off, trace, warning<br/>
+<i>Enum</i>: critical, debug, error, info, off, trace, warn, warning<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -3288,6 +3581,16 @@
 <td>string</td>
 <td>
           Message timeout for extProc callouts essentially in Kubernetes format (e.g. '30s', defaults to Envoy's default of 200ms)<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>transferMode</b></td>
+<td>enum</td>
+<td>
+          Transfer mode (icap supports BUFFERED and STREAMED; openapi supports only BUFFERED); in BUFFERED mode body size is limited to operator.bufferLimitBytes, while in STREAMED mode, data is streamed in chunks, which, depending on the backend's specific implementation, might cause data to be processed or stored on the backend, even if validation fails in the end<br/>
+<br/>
+<i>Enum</i>: BUFFERED, STREAMED<br/>
+<i>Default</i>: BUFFERED<br/>
 </td>
 <td>false</td>
 </tr></tbody>
@@ -3544,6 +3847,16 @@
 <td>string</td>
 <td>
           Message timeout for extProc callouts essentially in Kubernetes format (e.g. '30s', defaults to Envoy's default of 200ms)<br/>
+</td>
+<td>false</td>
+</tr><tr>
+<td><b>transferMode</b></td>
+<td>enum</td>
+<td>
+          Transfer mode (icap supports BUFFERED and STREAMED; openapi supports only BUFFERED); in BUFFERED mode body size is limited to operator.bufferLimitBytes, while in STREAMED mode, data is streamed in chunks, which, depending on the backend's specific implementation, might cause data to be processed or stored on the backend, even if validation fails in the end<br/>
+<br/>
+<i>Enum</i>: BUFFERED, STREAMED<br/>
+<i>Default</i>: BUFFERED<br/>
 </td>
 <td>false</td>
 </tr></tbody>
