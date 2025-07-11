@@ -1715,8 +1715,8 @@
 <h2 id="120-2025-07-10">1.2.0 - 2025-07-10</h2>
 <h3 id="contents">Contents</h3>
 <ul>
-<li>Envoy config 1.34.1 CRS 4.14.0</li>
-<li>Core WAAP 1.3.0 (Envoy 1.34.1 CRS 4.14.0)</li>
+<li>Envoy config 1.34.1, CRS 4.14.0</li>
+<li>Core WAAP 1.3.0 (Envoy 1.34.1, CRS 4.14.0)</li>
 </ul>
 <h3 id="changed">Changed</h3>
 <ul>
@@ -1735,7 +1735,7 @@
 <li>Add <code>transferMode</code> setting for traffic processors extProc; icap now supports BUFFERED besides so far implicitly STREAMED; openapi supports BUFFERED as already implicitly (#290589)</li>
 <li>Add <code>operation.bufferLimitBytes</code> for both Envoy's listener setting <code>perConnectionBufferLimitBytes</code> and the buffer limit for traffic processors in <code>transferMode</code> BUFFERED (#290589)</li>
 <li>Add <code>operation.startup.additionalCliArgs</code> for setting additional CLI arguments when starting Envoy (#290914)</li>
-<li>Add regex value match in addition to exact value match at <code>route.match.headers</code>
+<li>Add regex value match in addition to exact value match at <code>route.match.headers</code>,
   new setting <code>valueType</code> with default <code>EXACT</code> for backwards compatibility;
   allows e.g. to match several HTTP methods with header name ':method' and header regex value e.g. '^(POST|PUT)$' (#290517)</li>
 <li>Various OAuth2/OIDC improvements via underlying Envoy upgrade</li>
@@ -1750,12 +1750,12 @@
 <h2 id="110-2025-01-17">1.1.0 - 2025-01-17</h2>
 <h3 id="contents_1">Contents</h3>
 <ul>
-<li>Envoy config 1.32.3 CRS 4.3.0</li>
-<li>Core WAAP 1.2.0 (Envoy 1.32.3 CRS 4.3.0)</li>
+<li>Envoy config 1.32.3, CRS 4.3.0</li>
+<li>Core WAAP 1.2.0 (Envoy 1.32.3, CRS 4.3.0)</li>
 </ul>
 <h3 id="changed_1">Changed</h3>
 <ul>
-<li>Change <code>image</code> field of <code>waapSpecDefaults</code> to NOT include version anymore use new <code>version</code> field instead (while for backwards compatibility the old format is still supported but deprecated and will result in a warn log entry in the operator) (#289927)</li>
+<li>Change <code>image</code> field of <code>waapSpecDefaults</code> to NOT include version anymore, use new <code>version</code> field instead (while for backwards compatibility the old format is still supported, but deprecated and will result in a warn log entry in the operator) (#289927)</li>
 <li>Access log logs <code>http.req_headers.fowarded_host</code> (<code>X-Forwarded-Host</code> header) instead of <code>http.req_headers.authority</code> because the <code>:authority</code> pseudo HTTP header already has a modified value when logged (#290369)</li>
 </ul>
 <h3 id="added_1">Added</h3>
@@ -1773,8 +1773,8 @@
 <h2 id="101-2024-09-13">1.0.1 - 2024-09-13</h2>
 <h3 id="contents_2">Contents</h3>
 <ul>
-<li>Spec library 1.0.1 (Envoy config 1.31.0 CRS 4.3.0)</li>
-<li>Core WAAP 1.1.8 (Envoy 1.31.0 CRS 4.3.0)</li>
+<li>Spec library 1.0.1 (Envoy config 1.31.0, CRS 4.3.0)</li>
+<li>Core WAAP 1.1.8 (Envoy 1.31.0, CRS 4.3.0)</li>
 </ul>
 <h3 id="added_2">Added</h3>
 <ul>
@@ -1787,52 +1787,52 @@
 <h2 id="100-2024-09-05">1.0.0 - 2024-09-05</h2>
 <h3 id="contents_3">Contents</h3>
 <ul>
-<li>Spec library 1.0.0 (Envoy config 1.31.0 CRS 4.3.0)</li>
-<li>Core WAAP 1.1.8 (Envoy 1.31.0 CRS 4.3.0)</li>
+<li>Spec library 1.0.0 (Envoy config 1.31.0, CRS 4.3.0)</li>
+<li>Core WAAP 1.1.8 (Envoy 1.31.0, CRS 4.3.0)</li>
 </ul>
 <h3 id="changed_2">Changed</h3>
 <ul>
 <li><strong>Breaking</strong>: Move almost all operator settings and annotations to Core WAAP spec under <code>operation</code> with default settings definable in the operator config map under <code>config.waapSpecDefaults</code> (#282449)</li>
-<li>Only a single operator config setting remains of the old settings: <code>watchedNamespaces</code> (list of watched namespaces optional default empty which means to watch all namespaces).</li>
+<li>Only a single operator config setting remains of the old settings: <code>watchedNamespaces</code> (list of watched namespaces, optional, default empty, which means to watch all namespaces).</li>
 <li>No annotations remain.</li>
-<li>In the Core WAAP spec under <code>operation</code> as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code> there are also Kubernetes settings (<code>replicas</code> <code>resources</code> <code>tolerations</code> <code>priorityClassName</code> and <code>affinity</code>) see CRD for full detail.</li>
-<li><strong>NOTE</strong>: Previous operator config for <code>resources</code> mistakenly used <code>request</code> (singular) instead of <code>requests</code> (plural) please correct when migrating settings.</li>
+<li>In the Core WAAP spec under <code>operation</code>, as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code>, there are also Kubernetes settings (<code>replicas</code>, <code>resources</code>, <code>tolerations</code>, <code>priorityClassName</code> and <code>affinity</code>), see CRD for full detail.</li>
+<li><strong>NOTE</strong>: Previous operator config for <code>resources</code> mistakenly used <code>request</code> (singular) instead of <code>requests</code> (plural), please correct when migrating settings.</li>
 <li><strong>Breaking</strong>: CRS 4.3.0 (#288942)</li>
 <li><strong>Breaking</strong>: Change various CRS defaults (#287832)</li>
 <li>Change <code>enabledRequestRules</code> and <code>enabledResponseRules</code> now enums instead of numbers</li>
 <li>Rename <code>requestBodyLimit</code> and <code>responseBodyLimit</code> to <code>requestBodyLimitKb</code> resp. <code>responseBodyLimitKb</code> </li>
-<li><code>hostnames</code> setting optional defaults to <code>*</code> (#287832)</li>
+<li><code>hostnames</code> setting optional, defaults to <code>*</code> (#287832)</li>
 </ul>
 <h3 id="added_3">Added</h3>
 <ul>
-<li><strong>Breaking</strong>: Add CSRF protection filter <code>csrfPolicy</code> active by default (#289461)</li>
-<li><strong>Breaking</strong>: Add global HTTP header filtering <code>headerFiltering</code> active by default (#286882)</li>
-<li><strong>Breaking</strong>: Add universal HTTP header validator (UHV) active by default (#289581)</li>
+<li><strong>Breaking</strong>: Add CSRF protection filter <code>csrfPolicy</code>, active by default (#289461)</li>
+<li><strong>Breaking</strong>: Add global HTTP header filtering <code>headerFiltering</code>, active by default (#286882)</li>
+<li><strong>Breaking</strong>: Add universal HTTP header validator (UHV), active by default (#289581)</li>
 <li>Add mappable custom error pages with dynamic content and static file resources <code>webResources</code> (#289442)</li>
 <li>Add settings to expose Envoy admin interface as Kubernetes service <code>operation.adminInterfaceServices</code> (#289346)</li>
 <li>Allow to skip CRS body scanning per location / HTTP methods <code>crs.requestBodyAccessExceptions</code> (#289373)</li>
 <li>Allow to disable the CRS engine per Core WAAP route <code>routesindex.crs</code> (#289373)</li>
-<li>Add Kubernetes scheduling properties (<code>replicas</code> <code>resources</code> <code>tolerations</code> <code>priorityClassName</code> and <code>affinity</code>) to <code>operation</code> as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code> see CRD for full detail (#282449)</li>
+<li>Add Kubernetes scheduling properties (<code>replicas</code>, <code>resources</code>, <code>tolerations</code>, <code>priorityClassName</code> and <code>affinity</code>) to <code>operation</code>, as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code>, see CRD for full detail (#282449)</li>
 </ul>
 <h3 id="fixed_3">Fixed</h3>
 <ul>
 <li>Operator properly compares actual &amp; desired values of cpu &amp; memory resource requests to avoid endless reconcile loop (#289318).</li>
 <li>CRS autolearning removes the query part of the location and URL-decodes the location (#289357)</li>
-<li>CRS settings <code>requestBodyLimit</code> and <code>responseBodyLimit</code> are now interpreted as kb as documented no longer as bytes (plus renamed to <code>requestBodyLimitKb</code> and <code>responseBodyLimitKb</code> for clarity) (#287832)</li>
-<li>If allowed methods are specified and a request comes in with a method that is not allowed no longer responds with 404 (Not Found) but with a 405 (Method not allowed) (#256147)</li>
+<li>CRS settings <code>requestBodyLimit</code> and <code>responseBodyLimit</code> are now interpreted as kb as documented, no longer as bytes (plus renamed to <code>requestBodyLimitKb</code> and <code>responseBodyLimitKb</code> for clarity) (#287832)</li>
+<li>If allowed methods are specified and a request comes in with a method that is not allowed, no longer responds with 404 (Not Found) but with a 405 (Method not allowed) (#256147)</li>
 <li>Fix bug with authentication with public superlocations (#289691)</li>
 </ul>
 <h2 id="0101-2024-08-05">0.10.1 - 2024-08-05</h2>
 <h3 id="contents_4">Contents</h3>
 <ul>
-<li>Spec library 0.8.1 (Envoy config 1.31.0 CRS 4.3.0)</li>
-<li>Core WAAP 1.1.6 (Envoy 1.31.0 CRS 4.3.0)</li>
+<li>Spec library 0.8.1 (Envoy config 1.31.0, CRS 4.3.0)</li>
+<li>Core WAAP 1.1.6 (Envoy 1.31.0, CRS 4.3.0)</li>
 </ul>
 <h2 id="0100-2024-08-05">0.10.0 - 2024-08-05</h2>
 <h3 id="contents_5">Contents</h3>
 <ul>
-<li>Spec library 0.8.0 (Envoy config 1.30.1 CRS 4.3.0)</li>
-<li>Core WAAP 1.1.6 (Envoy 1.31.0 CRS 4.3.0)</li>
+<li>Spec library 0.8.0 (Envoy config 1.30.1, CRS 4.3.0)</li>
+<li>Core WAAP 1.1.6 (Envoy 1.31.0, CRS 4.3.0)</li>
 </ul>
 <h3 id="changed_3">Changed</h3>
 <ul>
@@ -1842,12 +1842,12 @@
 <h3 id="contents_6">Contents</h3>
 <ul>
 <li>Core WAAP 1.1.5 (Envoy 1.30.1)</li>
-<li>Spec library 0.7.0 (Envoy config 1.30.1 CRS 4.0.0-RC2)</li>
+<li>Spec library 0.7.0 (Envoy config 1.30.1, CRS 4.0.0-RC2)</li>
 <li>Helm Charts 0.8.0</li>
 </ul>
 <h3 id="changed_4">Changed</h3>
 <ul>
-<li>Publish to <code>uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator</code> no longer to <code>quay.io/usp/usp-core-waap-operator</code> (#289345)</li>
+<li>Publish to <code>uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator</code>, no longer to <code>quay.io/usp/usp-core-waap-operator</code> (#289345)</li>
 </ul>
 <h3 id="fixed_4">Fixed</h3>
 <ul>
@@ -1861,7 +1861,7 @@
 <h3 id="contents_7">Contents</h3>
 <ul>
 <li>Core WAAP 1.1.5 (Envoy 1.30.1)</li>
-<li>Spec library 0.6.0 (Envoy config 1.30.1 CRS 4.0.0-RC2)</li>
+<li>Spec library 0.6.0 (Envoy config 1.30.1, CRS 4.0.0-RC2)</li>
 <li>Helm Charts 0.7.4</li>
 </ul>
 <h3 id="changed_5">Changed</h3>
@@ -1873,8 +1873,8 @@
 <li>Add "serviceAnnotations" config setting and corresponding "service-annotations" annotation (#285763)</li>
 <li>Add origin IP allow/deny (#286876)</li>
 <li>Add allowed HTTP methods per route (#256147)</li>
-<li>Add autoHostRewrite configurable (if true set X-Forwarded-Host header) (#287831 #288623)</li>
-<li>Add downstream automatic preference of HTTP/2; upstream HTTP/2 (default) HTTP/1.1 or automatic selection via ALPN (requires TLS) (#285763)</li>
+<li>Add autoHostRewrite configurable (if true set X-Forwarded-Host header) (#287831, #288623)</li>
+<li>Add downstream automatic preference of HTTP/2; upstream HTTP/2 (default), HTTP/1.1 or automatic selection via ALPN (requires TLS) (#285763)</li>
 <li>Add features to CRS autolearn CLI (#288611)</li>
 </ul>
 <h3 id="fixed_5">Fixed</h3>
@@ -1891,7 +1891,7 @@
 <h3 id="fixed_6">Fixed</h3>
 <ul>
 <li>Missing version suffix (e.g. ":1.1.2") in the "envoy.image" configuration setting could lead to an invalid version
-  label in the generated ConfigMap object leading to a failed deployment. Now the version will fall back to "latest"
+  label in the generated ConfigMap object, leading to a failed deployment. Now the version will fall back to "latest"
   if no version is specified for the image.</li>
 </ul>
 <h2 id="060-2024-03-25">0.6.0 - 2024-03-25</h2>
@@ -1902,9 +1902,9 @@
 </ul>
 <h3 id="changed_6">Changed</h3>
 <ul>
-<li><strong>Breaking</strong>: Use plural for lists in WAAP Spec (authentications audiences) (#285960)</li>
+<li><strong>Breaking</strong>: Use plural for lists in WAAP Spec (authentications, audiences) (#285960)</li>
 <li><strong>Breaking:</strong> Default for "replicas" is no longer 1 but to not set it so that an HPA (Horizontal Pod Autoscaler) can manage it (#282428)</li>
-<li><strong>Breaking:</strong> The name in the operator CR (custom resource) is ignored as well as the corresponding annotation instead uses the metadata name of the resource "CoreWaapService" (the Core WAAP CR) as name for Pods Service ReplicaSets etc. (#284588)</li>
+<li><strong>Breaking:</strong> The name in the operator CR (custom resource) is ignored, as well as the corresponding annotation, instead uses the metadata name of the resource "CoreWaapService" (the Core WAAP CR) as name for Pods, Service, ReplicaSets, etc. (#284588)</li>
 <li><strong>Breaking</strong>: Replace authentication tokenEndpointAuthType QUERY with BODY (#285777)</li>
 <li>Improve validation of WAAP Spec and more info in generated CRD (#282608)</li>
 </ul>
@@ -1926,7 +1926,7 @@
 </ul>
 <h3 id="changed_7">Changed</h3>
 <ul>
-<li><strong>Breaking:</strong> If <code>caCertificatesConfigMapName</code> is set also <code>caCertificateKeyInConfigMap</code> must be set (or corresponding annotations) (#282762)</li>
+<li><strong>Breaking:</strong> If <code>caCertificatesConfigMapName</code> is set, also <code>caCertificateKeyInConfigMap</code> must be set (or corresponding annotations) (#282762)</li>
 </ul>
 <h3 id="added_7">Added</h3>
 <ul>
@@ -1965,7 +1965,7 @@
 <h3 id="changed_8">Changed</h3>
 <ul>
 <li><strong>Breaking:</strong> The "podName" operator setting has been renamed to just "name". The custom annotation to override 
-  this setting has been adapted accordingly from "core.waap.u-s-p.ch/pod-name" to "core.waap.u-s-p.ch/name".</li>
+  this setting has been adapted accordingly, from "core.waap.u-s-p.ch/pod-name" to "core.waap.u-s-p.ch/name".</li>
 </ul>
 <h3 id="added_9">Added</h3>
 <ul>
@@ -2037,7 +2037,7 @@
 <h3 id="added_13">Added</h3>
 <ul>
 <li>Operator config map template with resources</li>
-<li>Operator config support for envoy resources (cpu memory)</li>
+<li>Operator config support for envoy resources (cpu, memory)</li>
 <li>Operator config support for envoy pod name</li>
 <li>Envoy log format supports auto-learning CLI tool.</li>
 </ul>
