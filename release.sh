@@ -26,9 +26,9 @@ prepareChangelog() {
   # Remove all "[...]: ..." link declarations (typ. at the bottom of the file)
   sed -e "s/^\[[^\]*\]: http.*//g" $sourceFile > changelog-tmp/CHANGELOG2.md
 
-  # Remove all link brackets []
-  sed 's|[\[,]||g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
-  sed 's|[],]||g' changelog-tmp/CHANGELOG3.md > changelog-tmp/CHANGELOG4.md
+  # Remove brackets for internal links [...], but not for links with [...](...)
+  sed -E 's|\[([^]]+)]([^(])|\1\2|g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
+  sed -E 's|\[([^]]+)]$|\1|g' changelog-tmp/CHANGELOG3.md > changelog-tmp/CHANGELOG4.md
 
   # Add notices (if any)
   sed "s|# Changelog|# Changelog$notices|g" changelog-tmp/CHANGELOG4.md > $targetFile
