@@ -2,7 +2,9 @@
 
 In USP Core WAAP, [OWASP CRS](https://owasp.org/www-project-modsecurity-core-rule-set) attack detection and prevention capabilities are provided by the [Coraza Web Application Firewall (WAF)](https://coraza.io). This WAF is deployed as an [Envoy Golang Filter](https://github.com/united-security-providers/coraza-envoy-go-filter), which, contingent on its specific configuration, necessitates data buffering to perform thorough analysis of requests and responses for potential attack vectors.
 
-For the WAF to effectively inspect substantial data volumes, including extensive request bodies and large file uploads, precise configuration is paramount. Misconfigured limits can result in the erroneous blocking of legitimate requests, whereas excessively high thresholds can cause significant memory overhead, elevated CPU utilization, and a heightened risk of performance bottlenecks or denial-of-service (DoS) vulnerabilities. Optimizing these settings is crucial to maintain both security efficacy and system stability.
+For the WAF to effectively inspect substantial data volumes, including extensive request bodies and large file uploads, precise configuration is paramount. Misconfigured limits can result in the erroneous blocking of legitimate requests, whereas excessively high thresholds can cause significant memory overhead, elevated CPU utilization, and a heightened risk of performance bottlenecks or denial-of-service (DoS) vulnerabilities. The same considerations apply to handling responses with large bodies.
+
+Optimizing WAF settings is crucial to maintain both security efficacy and system stability.
 
 ## Settings
 
@@ -76,25 +78,117 @@ Setting the action to *Reject* immediately blocks any payload data that exceeds 
 
 However, adopting this *Reject* behavior means operators must set more precise and adequate payload limits. If the limits are too low, legitimate traffic might be unnecessarily blocked, leading to service disruption. Conversely, overly generous limits could still allow very large, albeit ultimately rejected, payloads to consume resources.
 
-## Scenarios
+##  Common use cases
 
-* inspection-req-on-resp-off
+Next, typical use cases are shown to illustrate how the settings mentioned above interact.
 
-| spec.operation.bufferLimitBytes | spec.crs.requestBodyAccess | spec.crs.requestBodyLimitKb | spec.crs.responseBodyAccess | spec.crs.responseBodyLimitKb | request payload| response payload | HTTP status code | backend | explanation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1024 | true | 1 | - | - | payload < spec.crs.requestBodyLimitKb | - |  200 | backend receives full request payload ||
-| 1024 | true | 1 | - | - | payload >= spec.crs.requestBodyLimitKb | - |  200 | backend receives full request payload | SecResonseBodyLimitAction set to ProcessPartial by default |
-| 1024 | true | 1 | - | - | payload contains malicious content with spec.crs.requestBodyLimitKb bytes| backend receives no request payload |  403 | | SecResonseBodyLimitAction set to ProcessPartial by default |
-| 1024 | true | 1 | - | - | payload contains malicious after spec.crs.requestBodyLimitKb bytes| backend receives full request payload |  200| | SecResonseBodyLimitAction set to ProcessPartial by default |
+### No request and reponse inspection
 
+In the following use case, both scanning of requests and responses is disabled. For illustrative purposes, the default buffer size limit is reduced to 1023 bytes.
 
+| **Setting** | **Value** |
+| --- | --- |
+| spec.operation.bufferLimitBytes | 1024 |
+| spec.crs.requestBodyAccess | false |
+| spec.crs.requestBodyLimitKb | - |
+| spec.crs.responseBodyAccess | false |
+| spec.crs.responseBodyLimitKb | - |
 
+When either the request or response payload exceed the 1024 byte buffer limit, the transaction still proceeds successfully as the WAF is not configured to access any data. Core WAAP processes the large payloads by streaming them directly between the client and the backend, without attempting to hold the entire body in memory, thus avoiding any size-based limitations that would otherwise apply if accessing were enabled.
 
+| request payload | response payload | HTTP status code | result/explanation |
+| --- | --- | --- | --- |
+| ```payload <= spec.operation.bufferLimitBytes``` | ```payload <= spec.operation.bufferLimitBytes``` |  200 OK | • backend receives full request payload | |
+| ```payload > spec.operation.bufferLimitBytes``` | ```payload > spec.operation.bufferLimitBytes``` |  200 OK | • payload size is not limited as no buffering needed |
 
+### Request inspection with partial processing mode
 
+In the next use case, scanning of up to 1024 bytes is enabled, with a maximum allowable payload size of 10 KB. The “_SecRequesteBodyLimitAction_” option is set to “_ProcessPartial_” by default. Response scanning is deactivated.
 
+| **Setting** | **Value** |
+| --- | --- |
+| spec.operation.bufferLimitBytes | 10240 |
+| spec.crs.requestBodyAccess | true |
+| spec.crs.requestBodyLimitKb | 1 |
+| spec.crs.responseBodyAccess | false |
+| spec.crs.responseBodyLimitKb | - |
+| SecRequesteBodyLimitAction | ProcessPartial (default) |
 
+With these configurations options provided, the WAF is configured to partially inspect request payloads, scanning only the first 1024 bytes for threats. While it blocks any malicious requests found within that initial section, larger payloads are forwarded to the backend without scanning the rest of the content. Any threat located beyond the first 1024 bytes is missed. The WAF rejects any request that exceeds the overall 10 KB buffer limit.
 
+| request payload | HTTP status code | result/explanation |
+| --- | --- | --- |
+| ```payload <= spec.crs.requestBodyLimitKb``` | 200 OK | • backend receives full request payload | |
+| ```payload > spec.crs.requestBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 200 OK | • ProcessPartial does not reject </br>• backend receives full request payload |
+| ```payload > spec.operation.bufferLimitBytes``` | 413 Payload Too Large | • insufficient buffer capacity to fully store the incomfing request payload |
+| ```payload > spec.crs.requestBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.requestBodyLimitKb bytes```| 403 Forbidden | • backend receives no request payload </br>• malicious content found within first 1024 bytes |
+| ```payload > spec.crs.requestBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious after spec.crs.requestBodyLimitKb bytes```| 200 OK | • only first 1024 bytes are scanned </br>• backend receives full request payload |
+
+### Request inspection with reject processing mode
+
+The following use case is similar to the previous one, with the difference that the action for requests whose payload exceeds the WAF body limit is set to _Reject_.
+
+| **Setting** | **Value** |
+| --- | --- |
+| spec.operation.bufferLimitBytes | 10240 |
+| spec.crs.requestBodyAccess | true |
+| spec.crs.requestBodyLimitKb | 1 |
+| spec.crs.responseBodyAccess | false |
+| spec.crs.responseBodyLimitKb | - |
+| SecRequesteBodyLimitAction | Reject |
+
+With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content, it is immediately blocked with a 403 Forbidden error. Crucially, if a request payload exceeds the 1024 bytes inspection limit, it is rejected with a 500 Internal Server Error. Any request with a payload exceeding the larger 10 KB buffer limit will be rejected with a 413 Payload Too Large error.
+
+| request payload | HTTP status code | result/explanation |
+| --- | --- | --- |
+| ```payload <= spec.crs.requestBodyLimitKb``` | 200 OK | • backend receives full request payload | |
+| ```payload > spec.crs.requestBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • request is rejected as limit of *spec.crs.requestBodyLimitKb* is exceeded |
+| ```payload > spec.operation.bufferLimitBytes``` | 413 Payload Too Large | • insufficient buffer capacity to fully store the incomfing request payload |
+| ```payload < spec.crs.requestBodyLimitKb``` </br>and</br>```payload contains malicious content```| 403 Forbidden | • backend receives no request payload </br>• malicious content found |
+
+### Response inspection with partial processing mode
+
+The next use case deals exclusively with response inspection and is subject to the same restrictions as the previous cases for scanning requests.
+
+| **Setting** | **Value** |
+| --- | --- |
+| spec.operation.bufferLimitBytes | 10240 |
+| spec.crs.requestBodyAccess | false |
+| spec.crs.requestBodyLimitKb | - |
+| spec.crs.responseBodyAccess | true |
+| spec.crs.responseBodyLimitKb | 1 |
+| SecReponseBodyLimitAction | ProcessPartial (default) |
+
+| response payload | HTTP status code | result/explanation |
+| --- | --- | --- |
+| ```payload <= spec.crs.responseBodyLimitKb``` | 200 OK | • client receives full response payload | |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 200 OK | • ProcessPartial does not reject </br>• client receives full response payload |
+| ```payload > spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • insufficient buffer capacity to fully store the outgoing response payload |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 403 Forbidden | • malicious content found within first 1024 bytes |
+
+The WAF scans the first 1024 bytes of any response for malicious content. If a response is within this 1 KB limit and is safe, it's passed on to the client. Similarly, for larger responses up to the 10 KB buffer limit, the WAF scans the initial 1 KB and, finding no threats, allows the entire response to pass through. If malicious content is found within that initial 1 KB section, the WAF blocks the response and returns a 403 Forbidden error to the client. Any response payload exceeding the overall 10 KB buffer limit causes the WAF to abort, resulting in a 500 Internal Server Error.
+
+### Response inspection with reject processing mode
+
+And finally, the use case for response inspection with action _Reject_ for oversized response data.
+
+| **Setting** | **Value** |
+| --- | --- |
+| spec.operation.bufferLimitBytes | 10240 |
+| spec.crs.requestBodyAccess | false |
+| spec.crs.requestBodyLimitKb | - |
+| spec.crs.responseBodyAccess | true |
+| spec.crs.responseBodyLimitKb | 1 |
+| SecReponseBodyLimitAction | Reject |
+
+If a response is within this 1 KB limit and is clean, it is successfully delivered to the client. However, if a response exceeds this 1 KB limit, the WAF will reject it with a 500 Internal Server Error, as it is not configured to handle responses larger than its inspection threshold. This also happens if a response payload is larger than the overarching 10 KB buffer limit, indicating a failure due to insufficient capacity. Finally, if the WAF detects malicious content within a response that is under the 1 KB inspection limit, it will block the response and return a 403 Forbidden error to the client. The core behavior here is that the WAF will not process or allow any response that is larger than the 1 KB inspection size.
+
+| response payload | HTTP status code | result/explanation |
+| --- | --- | --- |
+| ```payload <= spec.crs.responseBodyLimitKb``` | 200 OK | • client receives full response payload | |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • request is rejected as limit of *spec.crs.responseBodyLimitKb* is exceeded |
+| ```payload > spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • insufficient buffer capacity to fully store the outgoing response payload |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 403 Forbidden | • malicious content found within first 1024 bytes |
 
 
 
