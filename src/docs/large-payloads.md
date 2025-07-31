@@ -56,7 +56,7 @@ It is recommended to configure *CoreWaapService.spec.crs.requestBodyLimitKb* bas
 
 ### Changing partial processing of oversized payload to rejection
 
-*CoreWaapService.spec.crs.requestBodyLimitKb* and *CoreWaapService.spec.crs.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the [Native Config Post Processing (NCPP)](https://github.com/united-security-providers/usp-core-waap/blob/main/src/docs/native-config-post-processing.md) feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from ProcessPartial to Reject, as outlined in the subsequent example.
+*CoreWaapService.spec.crs.requestBodyLimitKb* and *CoreWaapService.spec.crs.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the [Native Config Post Processing (NCPP)](https://github.com/united-security-providers/usp-core-waap/blob/main/src/docs/native-config-post-processing.md) feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from *ProcessPartial* to *Reject*, as outlined in the subsequent example.
 
 <pre>
 spec:
@@ -72,7 +72,7 @@ spec:
       }
 </pre>
 	  
-Setting the action to Reject immediately blocks any payload data that exceeds the limits defined by *CoreWaapService.spec.crs.requestBodyLimitKb* or *CoreWaapService.spec.crs.responseBodyLimitKb*, respectively. This is a significant security improvement as it prevents attackers from embedding threats in the remaining, unprocessed part of an oversized payload.
+Setting the action to *Reject* immediately blocks any payload data that exceeds the limits defined by *CoreWaapService.spec.crs.requestBodyLimitKb* or *CoreWaapService.spec.crs.responseBodyLimitKb*, respectively. This is a significant security improvement as it prevents attackers from embedding threats in the remaining, unprocessed part of an oversized payload.
 
 However, adopting this "reject" behavior means operators must set more precise and adequate payload limits. If the limits are too low, legitimate traffic might be unnecessarily blocked, leading to service disruption. Conversely, overly generous limits could still allow very large, albeit rejected, payloads to consume resources.
 
