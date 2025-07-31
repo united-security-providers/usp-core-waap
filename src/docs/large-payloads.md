@@ -74,7 +74,7 @@ spec:
 	  
 Setting the action to *Reject* immediately blocks any payload data that exceeds the limits defined by *CoreWaapService.spec.crs.requestBodyLimitKb* or *CoreWaapService.spec.crs.responseBodyLimitKb*, respectively. This is a significant security improvement as it prevents attackers from embedding threats in the remaining, unprocessed part of an oversized payload.
 
-However, adopting this "reject" behavior means operators must set more precise and adequate payload limits. If the limits are too low, legitimate traffic might be unnecessarily blocked, leading to service disruption. Conversely, overly generous limits could still allow very large, albeit rejected, payloads to consume resources.
+However, adopting this *Reject* behavior means operators must set more precise and adequate payload limits. If the limits are too low, legitimate traffic might be unnecessarily blocked, leading to service disruption. Conversely, overly generous limits could still allow very large, albeit rejected, payloads to consume resources.
 
 ## Scenarios
 
