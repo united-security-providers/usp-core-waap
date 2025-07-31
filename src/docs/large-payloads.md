@@ -1,6 +1,6 @@
 # Handling large request and response payloads with OWASP CRS attack detection
 
-In USP Core WAAP, OWASP CRS attack detection and prevention capabilities are provided by the [Coraza Web Application Firewall (WAF)](https://coraza.io). This WAF is deployed as an [Envoy Golang Filter](https://github.com/united-security-providers/coraza-envoy-go-filter), which, contingent on its specific configuration, necessitates data buffering to perform thorough analysis of requests and responses for potential attack vectors.
+In USP Core WAAP, [OWASP CRS](https://owasp.org/www-project-modsecurity-core-rule-set) attack detection and prevention capabilities are provided by the [Coraza Web Application Firewall (WAF)](https://coraza.io). This WAF is deployed as an [Envoy Golang Filter](https://github.com/united-security-providers/coraza-envoy-go-filter), which, contingent on its specific configuration, necessitates data buffering to perform thorough analysis of requests and responses for potential attack vectors.
 
 For the WAF to effectively inspect substantial data volumes, including extensive request bodies and large file uploads, precise configuration is paramount. Misconfigured limits can result in the erroneous blocking of legitimate requests, whereas excessively high thresholds can cause significant memory overhead, elevated CPU utilization, and a heightened risk of performance bottlenecks or denial-of-service (DoS) vulnerabilities. Optimizing these settings is crucial to maintain both security efficacy and system stability.
 
