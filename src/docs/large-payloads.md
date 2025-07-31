@@ -6,6 +6,8 @@ For the WAF to effectively inspect substantial data volumes, including extensive
 
 ## Settings
 
+This section details the specific Core WAAP settings that impact the handling of large payloads. For a comprehensive description of all available settings, please refer to the [Core WAAP API Reference](https://docs.united-security-providers.ch/usp-core-waap/crd-doc).
+
 ### CoreWaapService.spec.crs.mode
 
 Coraza Web Application Firewall functionality within Core WAAP is governed by the CoreWaapService.spec.crs.mode setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.
