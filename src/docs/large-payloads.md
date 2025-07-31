@@ -81,6 +81,7 @@ However, adopting this *Reject* behavior means operators must set more precise a
 * inspection-req-on-resp-off
 
 | spec.operation.bufferLimitBytes | spec.crs.requestBodyAccess | spec.crs.requestBodyLimitKb | spec.crs.responseBodyAccess | spec.crs.responseBodyLimitKb | request payload| response payload | HTTP status code | backend | explanation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1024 | true | 1 | - | - | payload < spec.crs.requestBodyLimitKb | - |  200 | backend receives full request payload ||
 | 1024 | true | 1 | - | - | payload >= spec.crs.requestBodyLimitKb | - |  200 | backend receives full request payload | SecResonseBodyLimitAction set to ProcessPartial by default |
 | 1024 | true | 1 | - | - | payload contains malicious content with spec.crs.requestBodyLimitKb bytes| backend receives no request payload |  403 | | SecResonseBodyLimitAction set to ProcessPartial by default |
