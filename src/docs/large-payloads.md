@@ -48,7 +48,7 @@ A low limit may create security blind spots. Larger, legitimate request payloads
 
 It is recommended to configure *CoreWaapService.spec.crs.requestBodyLimitKb* based on a thorough understanding of the typical and maximum expected sizes of legitimate request payloads within the application landscape. This should be balanced against the available memory and processing capabilities of the Core WAAP deployment. Continuous monitoring of memory usage and performance metrics after adjusting this setting is advisable.
 
-Please note that *CoreWaapService.spec.crs.requestBodyLimitKb* is limited by the *CoreWaapService.spec.operation.bufferlimitbytes* setting. Therefore, any value set for requestBodyLimitKb that is higher than the bufferlimitbytes is ineffective, as requests with payloads exceeding the buffer limit will be rejected before the requestBodyLimitKb can be applied.
+> Please note that *CoreWaapService.spec.crs.requestBodyLimitKb* is limited by the *CoreWaapService.spec.operation.bufferlimitbytes* setting. Therefore, any value set for requestBodyLimitKb that is higher than the bufferlimitbytes is ineffective, as requests with payloads exceeding the buffer limit will be rejected before the requestBodyLimitKb can be applied.
 
 ### CoreWaapService.spec.crs.responseBodyLimitKb
 
