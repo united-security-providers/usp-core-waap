@@ -10,7 +10,7 @@ This section details the specific Core WAAP settings that impact the handling of
 
 ### CoreWaapService.spec.crs.mode
 
-Coraza Web Application Firewall functionality within Core WAAP is governed by the CoreWaapService.spec.crs.mode setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.
+Coraza Web Application Firewall functionality within Core WAAP is governed by the _CoreWaapService.spec.crs.mode_ setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.
 
 ### CoreWaapService.spec.crs.requestBodyAccess, CoreWaapService.spec.crs.responseBodyAccess
 
