@@ -10,7 +10,7 @@ For the WAF to effectively inspect substantial data volumes, including extensive
 
 Coraza Web Application Firewall functionality within Core WAAP is governed by the CoreWaapService.spec.crs.mode setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.
 
-h3. CoreWaapService.spec.crs.requestBodyAccess, CoreWaapService.spec.crs.responseBodyAccess
+### CoreWaapService.spec.crs.requestBodyAccess, CoreWaapService.spec.crs.responseBodyAccess
 
 The CoreWaapService.spec.crs.requestBodyAccess and CoreWaapService.spec.crs.responseBodyAccess settings provide control over whether Core WAAP performs scanning of incoming request payloads and outgoing response payloads, respectively. Data buffering is only activated if the corresponding access setting is enabled: CoreWaapService.spec.crs.requestBodyAccess for incoming data, and CoreWaapService.spec.crs.responseBodyAccess for outgoing data.
 
