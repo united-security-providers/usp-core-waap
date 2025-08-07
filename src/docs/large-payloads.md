@@ -84,7 +84,7 @@ Next, typical use cases are shown to illustrate how the settings mentioned above
 
 ### No request and reponse inspection
 
-In the following use case, both scanning of requests and responses is disabled. For illustrative purposes, the default buffer size limit is reduced to 1023 bytes.
+In the following use case, both scanning of requests and responses is disabled. For illustrative purposes, the default buffer size limit is reduced to 1024 bytes.
 
 | **Setting** | **Value** |
 | --- | --- |
