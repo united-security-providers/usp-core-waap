@@ -14,11 +14,13 @@ This section details the specific Core WAAP settings that impact the handling of
 
 Coraza Web Application Firewall functionality within Core WAAP is governed by the *CoreWaapService.spec.crs.mode* setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.
 
-### CoreWaapService.spec.crs.requestBodyAccess, CoreWaapService.spec.crs.responseBodyAccess
+### CoreWaapService.spec.crs.requestBodyAccess
 
-The *CoreWaapService.spec.crs.requestBodyAccess* and *CoreWaapService.spec.crs.responseBodyAccess* settings provide control over whether Core WAAP performs scanning of incoming request payloads and outgoing response payloads, respectively.
+The *CoreWaapService.spec.crs.requestBodyAccess* setting provides control over whether Core WAAP performs scanning of incoming request payloads. Data buffering is only activated if this setting is enabled.
 
-Data buffering is only activated if the corresponding access setting is enabled: *CoreWaapService.spec.crs.requestBodyAccess* for incoming data, and *CoreWaapService.spec.crs.responseBodyAccess* for outgoing data.
+### CoreWaapService.spec.crs.enabledResponseRules
+
+The *CoreWaapService.spec.crs.enabledResponseRules* parameter allows to specify the response rule classes used to scan response payloads. Response data buffering is only enabled if at least one rule class is specified. If this setting is left undefined, no response rules will be included.
 
 ### CoreWaapService.spec.operation.bufferlimitbytes
 
