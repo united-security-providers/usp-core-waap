@@ -93,7 +93,7 @@ In the following use case, both scanning of requests and responses is disabled. 
 | spec.operation.bufferLimitBytes | 1024 |
 | spec.crs.requestBodyAccess | false |
 | spec.crs.requestBodyLimitKb | - |
-| spec.crs.enabledResponseRules | not set |
+| spec.crs.enabledResponseRules | not set (default) |
 | spec.crs.responseBodyLimitKb | - |
 
 When either the request or response payload exceed the 1024 byte buffer limit, the transaction still proceeds successfully as the WAF is not configured to access any data. Core WAAP processes the large payloads by streaming them directly between the client and the backend, without attempting to hold the entire body in memory, thus avoiding any size-based limitations that would otherwise apply if accessing were enabled.
@@ -112,7 +112,7 @@ In the next use case, scanning of up to 1024 bytes is enabled, with a maximum al
 | spec.operation.bufferLimitBytes | 10240 |
 | spec.crs.requestBodyAccess | true |
 | spec.crs.requestBodyLimitKb | 1 |
-| spec.crs.enabledResponseRules | not set |
+| spec.crs.enabledResponseRules | not set (default) |
 | spec.crs.responseBodyLimitKb | - |
 | SecRequesteBodyLimitAction | ProcessPartial (default) |
 
@@ -135,7 +135,7 @@ The following use case is similar to the previous one, with the difference that 
 | spec.operation.bufferLimitBytes | 10240 |
 | spec.crs.requestBodyAccess | true |
 | spec.crs.requestBodyLimitKb | 1 |
-| spec.crs.enabledResponseRules | not set |
+| spec.crs.enabledResponseRules | not set (default) |
 | spec.crs.responseBodyLimitKb | - |
 | SecRequesteBodyLimitAction | Reject |
 
