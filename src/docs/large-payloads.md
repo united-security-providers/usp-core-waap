@@ -44,7 +44,7 @@ Therefore, while aiming to support larger payloads, it is crucial to balance the
 
 *CoreWaapService.spec.crs.requestBodyLimitKb* defines the maximum size (in kilobytes) of an incoming HTTP request body that Core WAAP's WAF is aiming to buffer and scan for security threats.
 
-* Within Limit: If an incoming request payload's size is less than or equal to the configured limit, the entire request data is buffered and subjected to comprehensive WAF scanning. This behavior is contingent on response rules being enabled using *CoreWaapService.spec.crs.enabledResponseRules*.
+* Within Limit: If an incoming request payload's size is less than or equal to the configured limit, the entire request data is buffered and subjected to comprehensive WAF scanning. This behavior is contingent on *CoreWaapService.spec.crs.requestBodyAccess* being enabled.
 
 * Exceeding Limit: If an incoming request payload's size exceeds this defined limit, Core WAAP does not buffer or scan the portion of the request body that extends beyond the limit. This implies that any potential security threats or malicious content present in the truncated part of the request can bypass inspection.
 
@@ -56,7 +56,7 @@ It is recommended to configure *CoreWaapService.spec.crs.requestBodyLimitKb* bas
 
 ### CoreWaapService.spec.crs.responseBodyLimitKb
 
-*CoreWaapService.spec.crs.responseBodyLimitKb* functions similarly to *CoreWaapService.spec.crs.requestBodyLimitKb*, but its application is specifically for outgoing response data.
+*CoreWaapService.spec.crs.responseBodyLimitKb* functions similarly to *CoreWaapService.spec.crs.requestBodyLimitKb*, but its application is specifically for outgoing response data. This limit is only taken into account if there are response rules that have been enabled by using *CoreWaapService.spec.crs.enabledResponseRules*.
 
 ### Changing partial processing of oversized payload to rejection
 
