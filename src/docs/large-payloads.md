@@ -183,11 +183,11 @@ And finally, the use case for response inspection with action _Reject_ for overs
 | spec.crs.responseBodyLimitKb | 1 |
 | SecReponseBodyLimitAction | Reject |
 
-If a response is within this 1 KB limit and is clean, it is successfully delivered to the client. However, if a response exceeds this 1 KB limit, the WAF will reject it with a 500 Internal Server Error, as it is not configured to handle responses larger than its inspection threshold. This also happens if a response payload is larger than the overarching 10 KB buffer limit, indicating a failure due to insufficient capacity. Finally, if the WAF detects malicious content within a response that is under the 1 KB inspection limit, it will block the response and return a 403 Forbidden error to the client. The core behavior here is that the WAF will not process or allow any response that is larger than the 1 KB inspection size.
+If a response is under the 1 KB limit and is found to be clean, it's delivered to the client without issue. However, if a response exceeds this limit, the WAF immediately rejects it with a 500 Internal Server Error. The WAF won't process or allow any response larger than its 1 KB inspection size, regardless of whether it contains malicious content or not.
 
 | response payload | HTTP status code | result/explanation |
 | --- | --- | --- |
 | ```payload <= spec.crs.responseBodyLimitKb``` | 200 OK | • client receives full response payload | |
 | ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • request is rejected as limit of *spec.crs.responseBodyLimitKb* is exceeded |
-| ```payload > spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • insufficient buffer capacity to fully store the outgoing response payload |
-| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 403 Forbidden | • malicious content found within first 1024 bytes |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 500 Internal Server Error | • request is rejected as limit of *spec.crs.responseBodyLimitKb* is exceeded |
+| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content after spec.crs.responseBodyLimitKb bytes```| 500 Internal Server Error | • request is rejected as limit of *spec.crs.responseBodyLimitKb* is exceeded |
