@@ -139,14 +139,14 @@ The following use case is similar to the previous one, with the difference that 
 | spec.crs.responseBodyLimitKb | - |
 | SecRequesteBodyLimitAction | Reject |
 
-With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content, it is immediately blocked with a 403 Forbidden error. Crucially, if a request payload exceeds the 1024 bytes inspection limit, it is rejected with a 500 Internal Server Error. Any request with a payload exceeding the larger 10 KB buffer limit will be rejected with a 413 Payload Too Large error.
+With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content within this limit, it is immediately blocked with a 403 Forbidden error. Any request with a payload exceeding the 1 KB request body limit will be rejected with a 413 Payload Too Large error.
 
 | request payload | HTTP status code | result/explanation |
 | --- | --- | --- |
 | ```payload <= spec.crs.requestBodyLimitKb``` | 200 OK | • backend receives full request payload | |
-| ```payload > spec.crs.requestBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • request is rejected as limit of *spec.crs.requestBodyLimitKb* is exceeded |
-| ```payload > spec.operation.bufferLimitBytes``` | 413 Payload Too Large | • insufficient buffer capacity to fully store the incoming request payload |
-| ```payload < spec.crs.requestBodyLimitKb``` </br>and</br>```payload contains malicious content```| 403 Forbidden | • backend receives no request payload </br>• malicious content found |
+| ```payload > spec.crs.requestBodyLimitKb``` | 413 Payload Too Large | • request is rejected as limit of *spec.crs.requestBodyLimitKb* is exceeded |
+| ```payload < spec.crs.requestBodyLimitKb``` </br>and</br>```payload contains malicious content within spec.crs.requestBodyLimitKb```| 403 Forbidden | • backend receives no request payload </br>• malicious content found |
+| ```payload > spec.operation.bufferLimitBytes```</br>and</br>```payload contains malicious content after spec.crs.requestBodyLimitKb``` | 413 Payload Too Large | • insufficient buffer capacity to fully store the incoming request payload and to detect the malicious content  |
 
 ### Response inspection with partial processing mode
 
