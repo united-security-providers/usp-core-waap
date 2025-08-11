@@ -164,9 +164,9 @@ The next use case deals exclusively with response inspection and is subject to t
 | response payload | HTTP status code | result/explanation |
 | --- | --- | --- |
 | ```payload <= spec.crs.responseBodyLimitKb``` | 200 OK | • client receives full response payload | |
+| ```payload < spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 403 Forbidden | • malicious content found within first 1024 bytes |
 | ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` | 200 OK | • ProcessPartial does not reject </br>• client receives full response payload |
 | ```payload > spec.operation.bufferLimitBytes``` | 500 Internal Server Error | • insufficient buffer capacity to fully store the outgoing response payload |
-| ```payload > spec.crs.responseBodyLimitKb``` </br>and</br> ```payload <= spec.operation.bufferLimitBytes``` </br>and</br>```payload contains malicious content within spec.crs.responseBodyLimitKb bytes```| 403 Forbidden | • malicious content found within first 1024 bytes |
 
 The WAF scans the first 1024 bytes of any response for malicious content. If a response is within this 1 KB limit and is safe, it's passed on to the client. Similarly, for larger responses up to the 10 KB buffer limit, the WAF scans the initial 1 KB and, finding no threats, allows the entire response to pass through. If malicious content is found within that initial 1 KB section, the WAF blocks the response and returns a 403 Forbidden error to the client. Any response payload exceeding the overall 10 KB buffer limit causes the WAF to abort, resulting in a 500 Internal Server Error.
 
