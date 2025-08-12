@@ -1,0 +1,1721 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../autolearning/">
+      
+      
+        <link rel="next" href="../downloads/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Large Payloads - USP Core WAAP documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#handling-large-request-and-response-payloads-with-owasp-crs-attack-detection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="USP Core WAAP documentation" class="md-header__button md-logo" aria-label="USP Core WAAP documentation" data-md-component="logo">
+      
+  <img src="../assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            USP Core WAAP documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Large Payloads
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="USP Core WAAP documentation" class="md-nav__button md-logo" aria-label="USP Core WAAP documentation" data-md-component="logo">
+      
+  <img src="../assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="logo">
+
+    </a>
+    USP Core WAAP documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Release Notes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Release Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm-CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Chart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operator-CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../waap-CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core WAAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext-proc-icap-CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    extProc ICAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext-proc-openapi-CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    extProc OpenAPI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crd-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error Mapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../native-config-post-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Native Config Post-Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Traffic Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Traffic Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../traffic-processing-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../icap-antivirus-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ICAP Antivirus Scanning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openapi-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenAPI Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crs-virtual-patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Virtual Patch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lua-filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lua Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Operation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operator Helm Chart
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Operator Helm Chart
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Values
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core WAAP Upgrade
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logs-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logs and Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autolearning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auto-Learning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Large Payloads
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Large Payloads
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsrequestbodyaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.requestBodyAccess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsenabledresponserules" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.enabledResponseRules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespecoperationbufferlimitbytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.operation.bufferLimitBytes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsrequestbodylimitkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.requestBodyLimitKb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsresponsebodylimitkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.responseBodyLimitKb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-partial-processing-of-oversized-payload-to-rejection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing partial processing of oversized payload to rejection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common use cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common use cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-request-and-response-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      No request and response inspection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-inspection-with-partial-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request inspection with partial processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-inspection-with-reject-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request inspection with reject processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-inspection-with-partial-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response inspection with partial processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-inspection-with-reject-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response inspection with reject processing mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Downloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsrequestbodyaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.requestBodyAccess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsenabledresponserules" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.enabledResponseRules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespecoperationbufferlimitbytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.operation.bufferLimitBytes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsrequestbodylimitkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.requestBodyLimitKb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corewaapservicespeccrsresponsebodylimitkb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoreWaapService.spec.crs.responseBodyLimitKb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-partial-processing-of-oversized-payload-to-rejection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing partial processing of oversized payload to rejection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common use cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common use cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-request-and-response-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      No request and response inspection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-inspection-with-partial-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request inspection with partial processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-inspection-with-reject-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request inspection with reject processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-inspection-with-partial-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response inspection with partial processing mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-inspection-with-reject-processing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response inspection with reject processing mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="handling-large-request-and-response-payloads-with-owasp-crs-attack-detection">Handling large request and response payloads with OWASP CRS attack detection</h1>
+<p>In USP Core WAAP, <a href="https://owasp.org/www-project-modsecurity-core-rule-set">OWASP CRS</a> attack detection and prevention capabilities are provided by the <a href="https://coraza.io">Coraza Web Application Firewall (WAF)</a>. This WAF is deployed as an <a href="https://github.com/united-security-providers/coraza-envoy-go-filter">Envoy Golang Filter</a> which, contingent on its specific configuration, necessitates data buffering to perform thorough analysis of requests and responses for potential attack vectors.</p>
+<p>For the WAF to effectively inspect substantial data volumes, including extensive request bodies and large file uploads, precise configuration is paramount. Misconfigured limits can result in the erroneous blocking of legitimate requests, whereas excessively high thresholds can cause significant memory overhead, elevated CPU utilization, and a heightened risk of performance bottlenecks or denial-of-service (DoS) vulnerabilities. The same considerations apply to handling responses with large bodies.</p>
+<p>Optimizing WAF settings is crucial to maintain both security efficacy and system stability.</p>
+<h2 id="settings">Settings</h2>
+<p>This section details the specific Core WAAP settings that impact the handling of large payloads. For a comprehensive description of all available settings, please refer to the <a href="../crd-doc/">Core WAAP API Reference</a>.</p>
+<h3 id="corewaapservicespeccrsmode">CoreWaapService.spec.crs.mode</h3>
+<p>Coraza Web Application Firewall functionality within Core WAAP is governed by the <em>CoreWaapService.spec.crs.mode</em> setting. Request and/or response payload scanning, and subsequent data buffering, are only enabled when the mode is set to BLOCK or DETECT.</p>
+<h3 id="corewaapservicespeccrsrequestbodyaccess">CoreWaapService.spec.crs.requestBodyAccess</h3>
+<p>The <em>CoreWaapService.spec.crs.requestBodyAccess</em> setting provides control over whether Core WAAP performs scanning of incoming request payloads. Data buffering is only activated if this setting is enabled.</p>
+<h3 id="corewaapservicespeccrsenabledresponserules">CoreWaapService.spec.crs.enabledResponseRules</h3>
+<p>The <em>CoreWaapService.spec.crs.enabledResponseRules</em> parameter allows to specify the response rule classes used to scan response payloads. Response data buffering is only enabled if at least one rule class is specified. If this setting is left undefined, no response rules will be included.</p>
+<h3 id="corewaapservicespecoperationbufferlimitbytes">CoreWaapService.spec.operation.bufferLimitBytes</h3>
+<p>The parameter <em>CoreWaapService.spec.operation.bufferLimitBytes</em> sets the upper limit for the size of both request and response payloads handled by Core WAAP. Specifically:</p>
+<ul>
+<li>
+<p>When an incoming request body surpasses this configured limit, Core WAAP will promptly reject the request and return a 413 (Payload Too Large) HTTP status code.</p>
+</li>
+<li>
+<p>Conversely, if the response data being processed exceeds the defined limit, the operation is terminated, leading to an internal server error (500).</p>
+</li>
+</ul>
+<p>The default of <em>CoreWaapService.spec.operation.bufferLimitBytes</em> is 1 MB. While increasing this limit can accommodate larger data transfers, it introduces the significant risk of extensive memory consumption. Setting this limit excessively high can lead to Core WAAP allocating and holding large amounts of memory when processing substantial request or response payloads. This increased memory usage can, in turn, result in:</p>
+<ul>
+<li>
+<p>Degraded Performance: The system may slow down due to increased paging, garbage collection, or a general strain on available RAM.</p>
+</li>
+<li>
+<p>Resource Exhaustion: In severe cases, the Core WAAP service (or even the underlying system) could run out of memory, leading to crashes, instability, or other critical failures.</p>
+</li>
+<li>
+<p>Increased Latency: Larger buffer sizes can mean that more data needs to be processed and held in memory before the scanning can complete, potentially increasing the time taken for requests and responses.</p>
+</li>
+</ul>
+<p>Therefore, while aiming to support larger payloads, it is crucial to balance the limit with available system resources and typical data processing patterns to prevent detrimental memory-related issues.</p>
+<h3 id="corewaapservicespeccrsrequestbodylimitkb">CoreWaapService.spec.crs.requestBodyLimitKb</h3>
+<p><em>CoreWaapService.spec.crs.requestBodyLimitKb</em> defines the maximum size (in kilobytes) of an incoming HTTP request body that Core WAAP's WAF is aiming to buffer and scan for security threats.</p>
+<ul>
+<li>
+<p>Within Limit: If an incoming request payload's size is less than or equal to the configured limit, the entire request data is buffered and subjected to comprehensive WAF scanning. This behavior is contingent on <em>CoreWaapService.spec.crs.requestBodyAccess</em> being enabled.</p>
+</li>
+<li>
+<p>Exceeding Limit: If an incoming request payload's size exceeds this defined limit, Core WAAP does not buffer or scan the portion of the request body that extends beyond the limit. This implies that any potential security threats or malicious content present in the truncated part of the request can bypass inspection.</p>
+</li>
+</ul>
+<p>A low limit may create security blind spots. Larger, legitimate request payloads that might contain embedded threats (e.g., in JSON or XML payloads) are not be fully scanned if they exceed the configured size, allowing potential malicious content to pass undetected. Whereas a high limit ensures more comprehensive scanning of very large responses, it can significantly increase the memory consumption within the Core WAAP service.</p>
+<p>It is recommended to configure <em>CoreWaapService.spec.crs.requestBodyLimitKb</em> based on a thorough understanding of the typical and maximum expected sizes of legitimate request payloads within the application landscape. This should be balanced against the available memory and processing capabilities of the Core WAAP deployment. Continuous monitoring of memory usage and performance metrics after adjusting this setting is advisable.</p>
+<blockquote>
+<p>Please note that <em>CoreWaapService.spec.crs.requestBodyLimitKb</em> is limited by the <em>CoreWaapService.spec.operation.bufferLimitBytes</em> setting. Therefore, any value set for requestBodyLimitKb that is higher than the bufferlimitbytes is ineffective, as requests with payloads exceeding the buffer limit will be rejected before the requestBodyLimitKb can be applied.</p>
+</blockquote>
+<h3 id="corewaapservicespeccrsresponsebodylimitkb">CoreWaapService.spec.crs.responseBodyLimitKb</h3>
+<p><em>CoreWaapService.spec.crs.responseBodyLimitKb</em> functions similarly to <em>CoreWaapService.spec.crs.requestBodyLimitKb</em>, but its application is specifically for outgoing response data. This limit is only taken into account if there are response rules that have been enabled by using <em>CoreWaapService.spec.crs.enabledResponseRules</em>.</p>
+<h3 id="changing-partial-processing-of-oversized-payload-to-rejection">Changing partial processing of oversized payload to rejection</h3>
+<p><em>CoreWaapService.spec.crs.requestBodyLimitKb</em> and <em>CoreWaapService.spec.crs.responseBodyLimitKb</em> are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the <a href="../native-config-post-processing/">Native Config Post Processing (NCPP)</a> feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from <em>ProcessPartial</em> to <em>Reject</em>, as outlined in the subsequent example.</p>
+<pre>
+spec:
+  nativeConfigPostProcessing:
+    - |
+      const httpFilters = lds.resources[0].filterChains[0].filters[0].typedConfig.httpFilters
+      for (var i = 0; i < httpFilters.length; i++) {
+        var httpFilter = httpFilters[i]
+        if (httpFilter.name === 'core.waap.listener.filters.http.httpFilter.golang.coraza') {
+          var updatedDirectives = httpFilter.typedConfig.pluginConfig.value.directives.replace("SecRequestBodyLimitAction ProcessPartial", "SecRequestBodyLimitAction Reject")
+          httpFilter.typedConfig.pluginConfig.value.directives = updatedDirectives
+        }
+      }
+</pre>
+
+<p>Setting the action to <em>Reject</em> immediately blocks any payload data that exceeds the limits defined by <em>CoreWaapService.spec.crs.requestBodyLimitKb</em> or <em>CoreWaapService.spec.crs.responseBodyLimitKb</em>, respectively. This is a significant security improvement as it prevents attackers from embedding threats in the remaining, unprocessed part of an oversized payload.</p>
+<p>However, adopting this <em>Reject</em> behavior means operators must set more precise and adequate payload limits. If the limits are too low, legitimate traffic might be unnecessarily blocked, leading to service disruption. Conversely, overly generous limits could still allow very large, albeit ultimately rejected, payloads to consume resources.</p>
+<h2 id="common-use-cases">Common use cases</h2>
+<p>Next, typical use cases are shown to illustrate how the settings mentioned above interact.</p>
+<h3 id="no-request-and-response-inspection">No request and response inspection</h3>
+<p>In the following use case, both scanning of requests and responses is disabled. For illustrative purposes, the default buffer size limit is reduced to 1024 bytes.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec.operation.bufferLimitBytes</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyAccess</td>
+<td>false</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyLimitKb</td>
+<td>-</td>
+</tr>
+<tr>
+<td>spec.crs.enabledResponseRules</td>
+<td>not set (default)</td>
+</tr>
+<tr>
+<td>spec.crs.responseBodyLimitKb</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>When either the request or response payload exceed the 1024 byte buffer limit, the transaction still proceeds successfully as the WAF is not configured to access any data. Core WAAP processes the large payloads by streaming them directly between the client and the backend, without attempting to hold the entire body in memory, thus avoiding any size-based limitations that would otherwise apply if accessing were enabled.</p>
+<table>
+<thead>
+<tr>
+<th>request payload</th>
+<th>response payload</th>
+<th>HTTP status code</th>
+<th>result/explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+<td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+<td>200 OK</td>
+<td>• backend receives full request payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+<td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+<td>200 OK</td>
+<td>• payload size is not limited as no buffering needed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request-inspection-with-partial-processing-mode">Request inspection with partial processing mode</h3>
+<p>In the next use case, scanning of up to 1024 bytes is enabled, with a maximum allowable payload size of 10 KB. The “<em>SecRequesteBodyLimitAction</em>” option is set to “<em>ProcessPartial</em>” by default. Response scanning is deactivated.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec.operation.bufferLimitBytes</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyAccess</td>
+<td>true</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyLimitKb</td>
+<td>1</td>
+</tr>
+<tr>
+<td>spec.crs.enabledResponseRules</td>
+<td>not set (default)</td>
+</tr>
+<tr>
+<td>spec.crs.responseBodyLimitKb</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SecRequesteBodyLimitAction</td>
+<td>ProcessPartial (default)</td>
+</tr>
+</tbody>
+</table>
+<p>With these configurations options provided, the WAF is configured to partially inspect request payloads, scanning only the first 1024 bytes for threats. While it blocks any malicious requests found within that initial section, larger payloads are forwarded to the backend without scanning the rest of the content. Any threat located beyond the first 1024 bytes is missed. The WAF rejects any request that exceeds the overall 10 KB buffer limit.</p>
+<table>
+<thead>
+<tr>
+<th>request payload</th>
+<th>HTTP status code</th>
+<th>result/explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>payload &lt;= spec.crs.requestBodyLimitKb</code></td>
+<td>200 OK</td>
+<td>• backend receives full request payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+<td>200 OK</td>
+<td>• ProcessPartial does not reject </br>• backend receives full request payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+<td>413 Payload Too Large</td>
+<td>• insufficient buffer capacity to fully store the incoming request payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.crs.requestBodyLimitKb bytes</code></td>
+<td>403 Forbidden</td>
+<td>• backend receives no request payload </br>• malicious content found within first 1024 bytes</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious after spec.crs.requestBodyLimitKb bytes</code></td>
+<td>200 OK</td>
+<td>• only first 1024 bytes are scanned </br>• backend receives full request payload</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request-inspection-with-reject-processing-mode">Request inspection with reject processing mode</h3>
+<p>The following use case is similar to the previous one, with the difference that the action for requests whose payload exceeds the WAF body limit is set to <em>Reject</em>.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec.operation.bufferLimitBytes</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyAccess</td>
+<td>true</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyLimitKb</td>
+<td>1</td>
+</tr>
+<tr>
+<td>spec.crs.enabledResponseRules</td>
+<td>not set (default)</td>
+</tr>
+<tr>
+<td>spec.crs.responseBodyLimitKb</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SecRequesteBodyLimitAction</td>
+<td>Reject</td>
+</tr>
+</tbody>
+</table>
+<p>With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content within this limit, it is immediately blocked with a 403 Forbidden error. Any request with a payload exceeding the 1 KB request body limit will be rejected with a 413 Payload Too Large error.</p>
+<table>
+<thead>
+<tr>
+<th>request payload</th>
+<th>HTTP status code</th>
+<th>result/explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>payload &lt;= spec.crs.requestBodyLimitKb</code></td>
+<td>200 OK</td>
+<td>• backend receives full request payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.requestBodyLimitKb</code></td>
+<td>413 Payload Too Large</td>
+<td>• request is rejected as limit of <em>spec.crs.requestBodyLimitKb</em> is exceeded</td>
+</tr>
+<tr>
+<td><code>payload &lt; spec.crs.requestBodyLimitKb</code> </br>and</br><code>payload contains malicious content within spec.crs.requestBodyLimitKb</code></td>
+<td>403 Forbidden</td>
+<td>• backend receives no request payload </br>• malicious content found</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.operation.bufferLimitBytes</code></br>and</br><code>payload contains malicious content after spec.crs.requestBodyLimitKb</code></td>
+<td>413 Payload Too Large</td>
+<td>• insufficient buffer capacity to fully store the incoming request payload and to detect the malicious content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-inspection-with-partial-processing-mode">Response inspection with partial processing mode</h3>
+<p>The next use case deals exclusively with response inspection and is subject to the same restrictions as the previous cases for scanning requests.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec.operation.bufferLimitBytes</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyAccess</td>
+<td>false</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyLimitKb</td>
+<td>-</td>
+</tr>
+<tr>
+<td>spec.crs.enabledResponseRules</td>
+<td>- RESPONSE_950_DATA_LEAKAGES</td>
+</tr>
+<tr>
+<td>spec.crs.responseBodyLimitKb</td>
+<td>1</td>
+</tr>
+<tr>
+<td>SecReponseBodyLimitAction</td>
+<td>ProcessPartial (default)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>response payload</th>
+<th>HTTP status code</th>
+<th>result/explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>payload &lt;= spec.crs.responseBodyLimitKb</code></td>
+<td>200 OK</td>
+<td>• client receives full response payload</td>
+</tr>
+<tr>
+<td><code>payload &lt; spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.crs.responseBodyLimitKb bytes</code></td>
+<td>403 Forbidden</td>
+<td>• malicious content found within first 1024 bytes</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+<td>200 OK</td>
+<td>• ProcessPartial does not reject </br>• client receives full response payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+<td>500 Internal Server Error</td>
+<td>• insufficient buffer capacity to fully store the outgoing response payload</td>
+</tr>
+</tbody>
+</table>
+<p>The WAF scans the first 1024 bytes of any response for malicious content. If a response is within this 1 KB limit and is safe, it's passed on to the client. Similarly, for larger responses up to the 10 KB buffer limit, the WAF scans the initial 1 KB and, finding no threats, allows the entire response to pass through. If malicious content is found within that initial 1 KB section, the WAF blocks the response and returns a 403 Forbidden error to the client. Any response payload exceeding the overall 10 KB buffer limit causes the WAF to abort, resulting in a 500 Internal Server Error.</p>
+<h3 id="response-inspection-with-reject-processing-mode">Response inspection with reject processing mode</h3>
+<p>And finally, the use case for response inspection with action <em>Reject</em> for oversized response data.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec.operation.bufferLimitBytes</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyAccess</td>
+<td>false</td>
+</tr>
+<tr>
+<td>spec.crs.requestBodyLimitKb</td>
+<td>-</td>
+</tr>
+<tr>
+<td>spec.crs.enabledResponseRules</td>
+<td>- RESPONSE_950_DATA_LEAKAGES</td>
+</tr>
+<tr>
+<td>spec.crs.responseBodyLimitKb</td>
+<td>1</td>
+</tr>
+<tr>
+<td>SecReponseBodyLimitAction</td>
+<td>Reject</td>
+</tr>
+</tbody>
+</table>
+<p>If a response is under the 1 KB limit and is found to be clean, it's delivered to the client without issue. However, if a response exceeds this limit, the WAF immediately rejects it with a 500 Internal Server Error. The WAF won't process or allow any response larger than its 1 KB inspection size, regardless of whether it contains malicious content or not.</p>
+<table>
+<thead>
+<tr>
+<th>response payload</th>
+<th>HTTP status code</th>
+<th>result/explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>payload &lt;= spec.crs.responseBodyLimitKb</code></td>
+<td>200 OK</td>
+<td>• client receives full response payload</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+<td>500 Internal Server Error</td>
+<td>• request is rejected as limit of <em>spec.crs.responseBodyLimitKb</em> is exceeded</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.crs.responseBodyLimitKb bytes</code></td>
+<td>500 Internal Server Error</td>
+<td>• request is rejected as limit of <em>spec.crs.responseBodyLimitKb</em> is exceeded</td>
+</tr>
+<tr>
+<td><code>payload &gt; spec.crs.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content after spec.crs.responseBodyLimitKb bytes</code></td>
+<td>500 Internal Server Error</td>
+<td>• request is rejected as limit of <em>spec.crs.responseBodyLimitKb</em> is exceeded</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
