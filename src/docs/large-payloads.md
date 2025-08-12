@@ -60,7 +60,7 @@ It is recommended to configure *CoreWaapService.spec.crs.requestBodyLimitKb* bas
 
 ### Changing partial processing of oversized payload to rejection
 
-*CoreWaapService.spec.crs.requestBodyLimitKb* and *CoreWaapService.spec.crs.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the [Native Config Post Processing (NCPP)](https://github.com/united-security-providers/usp-core-waap/blob/main/src/docs/native-config-post-processing.md) feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from *ProcessPartial* to *Reject*, as outlined in the subsequent example.
+*CoreWaapService.spec.crs.requestBodyLimitKb* and *CoreWaapService.spec.crs.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the [Native Config Post Processing (NCPP)](./native-config-post-processing.md) feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from *ProcessPartial* to *Reject*, as outlined in the subsequent example.
 
 <pre>
 spec:
