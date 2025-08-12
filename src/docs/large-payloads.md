@@ -22,15 +22,15 @@ The *CoreWaapService.spec.crs.requestBodyAccess* setting provides control over w
 
 The *CoreWaapService.spec.crs.enabledResponseRules* parameter allows to specify the response rule classes used to scan response payloads. Response data buffering is only enabled if at least one rule class is specified. If this setting is left undefined, no response rules will be included.
 
-### CoreWaapService.spec.operation.bufferlimitbytes
+### CoreWaapService.spec.operation.bufferLimitBytes
 
-The parameter *CoreWaapService.spec.operation.bufferlimitbytes* sets the upper limit for the size of both request and response payloads handled by Core WAAP. Specifically:
+The parameter *CoreWaapService.spec.operation.bufferLimitBytes* sets the upper limit for the size of both request and response payloads handled by Core WAAP. Specifically:
 
 * When an incoming request body surpasses this configured limit, Core WAAP will promptly reject the request and return a 413 (Payload Too Large) HTTP status code.
 
 * Conversely, if the response data being processed exceeds the defined limit, the operation is terminated, leading to an internal server error (500).
 
-The default of *CoreWaapService.spec.operation.bufferlimitbytes* is 1 MB. While increasing this limit can accommodate larger data transfers, it introduces the significant risk of extensive memory consumption. Setting this limit excessively high can lead to Core WAAP allocating and holding large amounts of memory when processing substantial request or response payloads. This increased memory usage can, in turn, result in:
+The default of *CoreWaapService.spec.operation.bufferLimitBytes* is 1 MB. While increasing this limit can accommodate larger data transfers, it introduces the significant risk of extensive memory consumption. Setting this limit excessively high can lead to Core WAAP allocating and holding large amounts of memory when processing substantial request or response payloads. This increased memory usage can, in turn, result in:
 
 * Degraded Performance: The system may slow down due to increased paging, garbage collection, or a general strain on available RAM.
 
@@ -52,7 +52,7 @@ A low limit may create security blind spots. Larger, legitimate request payloads
 
 It is recommended to configure *CoreWaapService.spec.crs.requestBodyLimitKb* based on a thorough understanding of the typical and maximum expected sizes of legitimate request payloads within the application landscape. This should be balanced against the available memory and processing capabilities of the Core WAAP deployment. Continuous monitoring of memory usage and performance metrics after adjusting this setting is advisable.
 
-> Please note that *CoreWaapService.spec.crs.requestBodyLimitKb* is limited by the *CoreWaapService.spec.operation.bufferlimitbytes* setting. Therefore, any value set for requestBodyLimitKb that is higher than the bufferlimitbytes is ineffective, as requests with payloads exceeding the buffer limit will be rejected before the requestBodyLimitKb can be applied.
+> Please note that *CoreWaapService.spec.crs.requestBodyLimitKb* is limited by the *CoreWaapService.spec.operation.bufferLimitBytes* setting. Therefore, any value set for requestBodyLimitKb that is higher than the bufferlimitbytes is ineffective, as requests with payloads exceeding the buffer limit will be rejected before the requestBodyLimitKb can be applied.
 
 ### CoreWaapService.spec.crs.responseBodyLimitKb
 
