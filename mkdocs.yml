@@ -54,4 +54,5 @@ nav:
     - Core WAAP Upgrade: 'upgrade.md'
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
+    - Large Payloads: 'large-payloads.md'
   - Downloads: 'downloads.md'
