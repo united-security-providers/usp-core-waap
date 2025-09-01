@@ -40,7 +40,7 @@ nav:
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
-      - Coraza: "coraza.md"
+      - What is Coraza?: "what-is-coraza.md"
       - CRS: "coraza-crs.md"
       - Graphql: "coraza-graphql.md"
     - Error Mapping: 'error-mapping.md'
