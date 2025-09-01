@@ -59,4 +59,5 @@ nav:
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
+    - Large Payloads (Legacy): 'large-payloads-legacy.md'
   - Downloads: 'downloads.md'
