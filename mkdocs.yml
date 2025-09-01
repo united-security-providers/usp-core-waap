@@ -42,7 +42,7 @@ nav:
     - Coraza:
       - What is Coraza?: "what-is-coraza.md"
       - CRS: "coraza-crs.md"
-      - Graphql: "coraza-graphql.md"
+      - GraphQL: "coraza-graphql.md"
     - Error Mapping: 'error-mapping.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
     - Traffic Processing:
