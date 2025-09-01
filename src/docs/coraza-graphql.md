@@ -11,7 +11,7 @@
   a config and then reference it at a route,
   see the above settings.
 * You can turn GraphQL validation off and on in various ways,
-  by disabling Coraza and/or GraphQK globally or per route,
+  by disabling Coraza and/or GraphQL globally or per route,
   see the above settings.
 * You can configure limits for complexity, depth and batch size,
   and allow introspection or not,
