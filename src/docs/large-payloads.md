@@ -60,21 +60,7 @@ It is recommended to configure *CoreWaapService.spec.coraza.requestBodyLimitKb* 
 
 ### Changing partial processing of oversized payload to rejection
 
-*CoreWaapService.spec.coraza.requestBodyLimitKb* and *CoreWaapService.spec.coraza.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. While Core WAAP does not offer a direct setting to alter this, the [Native Config Post Processing (NCPP)](./native-config-post-processing.md) feature can be leveraged to modify the Coraza WAF's behavior to outright rejection. Specifically, the SecRequestBodyLimitAction and SecResponseBodyLimitAction settings of Coraza WAF must be changed from *ProcessPartial* to *Reject*, as outlined in the subsequent example.
-
-<pre>
-spec:
-  nativeConfigPostProcessing:
-    - |
-      const httpFilters = lds.resources[0].filterChains[0].filters[0].typedConfig.httpFilters
-      for (var i = 0; i < httpFilters.length; i++) {
-        var httpFilter = httpFilters[i]
-        if (httpFilter.name === 'core.waap.listener.filters.http.httpFilter.golang.coraza') {
-          var updatedDirectives = httpFilter.typedConfig.pluginConfig.value.directives.replace("SecRequestBodyLimitAction ProcessPartial", "SecRequestBodyLimitAction Reject")
-          httpFilter.typedConfig.pluginConfig.value.directives = updatedDirectives
-        }
-      }
-</pre>
+*CoreWaapService.spec.coraza.requestBodyLimitKb* and *CoreWaapService.spec.coraza.responseBodyLimitKb* are configured by default to perform partial processing of oversized payloads. This can be changed by explicitly setting *CoreWaapService.spec.coraza.requestBodyLimitAction* resp. *CoreWaapService.spec.coraza.responseBodyLimitAction* to *Reject*.
 	  
 Setting the action to *Reject* immediately blocks any payload data that exceeds the limits defined by *CoreWaapService.spec.crs.requestBodyLimitKb* or *CoreWaapService.spec.crs.responseBodyLimitKb*, respectively. This is a significant security improvement as it prevents attackers from embedding threats in the remaining, unprocessed part of an oversized payload.
 
@@ -114,7 +100,7 @@ In the next use case, scanning of up to 1024 bytes is enabled, with a maximum al
 | spec.coraza.requestBodyLimitKb  | 1                        |
 | spec.coraza.responseBodyAccess  | false                    |
 | spec.coraza.responseBodyLimitKb | -                        |
-| SecRequesteBodyLimitAction      | ProcessPartial (default) |
+| spec.coraza.requestBodyLimitAction      | ProcessPartial (default) |
 
 With these configurations options provided, the WAF is configured to partially inspect request payloads, scanning only the first 1024 bytes for threats. While it blocks any malicious requests found within that initial section, larger payloads are forwarded to the backend without scanning the rest of the content. Any threat located beyond the first 1024 bytes is missed. The WAF rejects any request that exceeds the overall 10 KB buffer limit.
 
@@ -137,7 +123,7 @@ The following use case is similar to the previous one, with the difference that 
 | spec.coraza.requestBodyLimitKb  | 1         |
 | spec.coraza.responseBodyAccess  | false     |
 | spec.coraza.responseBodyLimitKb | -         |
-| SecRequesteBodyLimitAction      | Reject    |
+| spec.coraza.requestBodyLimitAction      | Reject    |
 
 With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content within this limit, it is immediately blocked with a 403 Forbidden error. Any request with a payload exceeding the 1 KB request body limit will be rejected with a 413 Payload Too Large error.
 
@@ -160,7 +146,7 @@ The next use case deals exclusively with response inspection and is subject to t
 | spec.coraza.responseBodyAccess       | true                         |
 | spec.coraza.crs.enabledResponseRules | - RESPONSE_950_DATA_LEAKAGES |
 | spec.coraza.responseBodyLimitKb      | 1                            |
-| SecReponseBodyLimitAction            | ProcessPartial (default)     |
+| spec.coraza.reponseBodyLimitAction            | ProcessPartial (default)     |
 
 | response payload                                                                                                                                | HTTP status code | result/explanation |
 |-------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- |
@@ -183,7 +169,7 @@ And finally, the use case for response inspection with action _Reject_ for overs
 | spec.coraza.responseBodyAccess       | true                         |
 | spec.coraza.crs.enabledResponseRules | - RESPONSE_950_DATA_LEAKAGES |
 | spec.coraza.responseBodyLimitKb | 1 |
-| SecReponseBodyLimitAction | Reject |
+| spec.coraza.reponseBodyLimitAction | Reject |
 
 If a response is under the 1 KB limit and is found to be clean, it's delivered to the client without issue. However, if a response exceeds this limit, the WAF immediately rejects it with a 500 Internal Server Error. The WAF won't process or allow any response larger than its 1 KB inspection size, regardless of whether it contains malicious content or not.
 
