@@ -12,6 +12,15 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 1.2.0 to >=1.3.0
+
+- The CRS version has been upgraded from 4.14.0 to 4.17.1.
+  Accordingly, testing / auto-learning esp. for false positives is recommended.
+- Optional but recommended:
+  The `spec.crs` settings are now marked as deprecated (resulting also in a warn log entry if still used);
+  they are still fully supported, but should be migrated to the new `spec.coraza` settings as soon as possible,
+  because upcoming minor releases might no longer support them.
+
 ### Core WAAP Operator 1.1.0 to >=1.2.0
 
 - The CRS version has been upgraded from 4.3.0 to 4.14.0.
