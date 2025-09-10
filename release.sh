@@ -287,4 +287,6 @@ else
     echo "Website generated."
 fi
 
+mike set-default latest
+
 trap - ERR

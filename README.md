@@ -3,7 +3,7 @@
 Welcome to the USP Core WAAP (Web Application and API Protection) customers repository.
 This repository contains the scripts required to build the USP Core WAAP website:
 
-**https://docs.united-security-providers.ch/usp-core-waap/latest/**
+**https://docs.united-security-providers.ch/usp-core-waap/**
 
 ## Requirements
 
