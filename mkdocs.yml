@@ -1,7 +1,7 @@
 site_name: 'USP Core WAAP documentation'
 docs_dir: './docs'                        # Where to find the English markdown files
 site_dir: './generated'                      # Where to put the English HTML files
-#site_url: 'https://github.com/waf'
+site_url: 'https://docs.united-security-providers.ch/usp-core-waap/'
 
 theme:
   name: material
@@ -12,12 +12,20 @@ theme:
 extra_css:
   - assets/stylesheets/extra.css
 
+extra:
+  version:
+    provider: mike
+    default: latest
+
 plugins:
   - search:
       lang: en                                      # Set language for search
   - swagger-ui-tag:
       supportedSubmitMethods: []
       validatorUrl: none
+  - mike:
+      canonical_version: latest
+      version_selector: true
 
 markdown_extensions:
   - pymdownx.superfences:

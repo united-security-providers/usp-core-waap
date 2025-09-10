@@ -133,6 +133,7 @@ generateCrdDocumentation() {
 }
 
 checkbin mkdocs
+checkbin mike
 checkbin helm
 checkbin wget
 checkbin crdoc
@@ -278,11 +279,11 @@ echo "Successfully generated site (Markdown) in docs folder."
 
 if [ "$2" == "deploy" ]; then
     echo "Deploying to GitHub pages..."
-    mkdocs gh-deploy
+    mike deploy --update-aliases --push "${CHARTS_VERSION}" latest
     echo "Successfully deployed to to GitHub pages"
 else
     echo "Building website locally in 'generated' subfolder..."
-    mkdocs build
+    mike deploy --update-aliases "${CHARTS_VERSION}" latest
     echo "Website generated."
 fi
 
