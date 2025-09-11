@@ -287,11 +287,11 @@ if [ $DEPLOY ]; then
     echo "Successfully deployed to to GitHub pages"
 else
     echo "Building website locally in 'generated' subfolder..."
-    mike deploy --update-aliases "${CHARTS_VERSION}" $RELEASE_ALIAS
+    mkdocs build
     echo "Website generated."
 fi
 
-if [ "${RELEASE_ALIAS}" == "latest" ]; then
+if [[ $DEPLOY && "${RELEASE_ALIAS}" == "latest" ]]; then
     mike set-default "${RELEASE_ALIAS}"
 fi
 
