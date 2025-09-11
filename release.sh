@@ -142,9 +142,10 @@ if [ "$#" -lt 1 ]
 then
   echo "Not enough arguments supplied. Usage:"
   echo ""
-  echo "./release.sh <helm-chart-version, e.g. 1.0.0> [deploy]"
+  echo "./release.sh <helm-chart-version, e.g. 1.0.0> [deploy] [--latest] "
   echo ""
   echo "If the optional 'deploy' argument is set, the website will be deployed to Github and made public!"
+  echo "If the optional 'latest' flag is set, then the specified version will become the latest version"
   echo ""
   echo "Example for creating the website without deployment:"
   echo ""
@@ -277,16 +278,21 @@ zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
 echo "Successfully generated site (Markdown) in docs folder."
 
-if [ "$2" == "deploy" ]; then
+[ "$2" == "deploy" ] && DEPLOY=true && shift
+[ "$2" == "--latest" ] && RELEASE_ALIAS=latest && shift
+
+if [ $DEPLOY ]; then
     echo "Deploying to GitHub pages..."
-    mike deploy --update-aliases --push "${CHARTS_VERSION}" latest
+    mike deploy --update-aliases --push "${CHARTS_VERSION}" $RELEASE_ALIAS
     echo "Successfully deployed to to GitHub pages"
 else
     echo "Building website locally in 'generated' subfolder..."
-    mike deploy --update-aliases "${CHARTS_VERSION}" latest
+    mike deploy --update-aliases "${CHARTS_VERSION}" $RELEASE_ALIAS
     echo "Website generated."
 fi
 
-mike set-default latest
+if [ "${RELEASE_ALIAS}" == "latest" ]; then
+    mike set-default "${RELEASE_ALIAS}"
+fi
 
 trap - ERR
