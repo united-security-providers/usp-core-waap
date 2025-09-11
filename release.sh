@@ -292,7 +292,7 @@ else
 fi
 
 if [[ $DEPLOY && "${RELEASE_ALIAS}" == "latest" ]]; then
-    mike set-default "${RELEASE_ALIAS}"
+    mike set-default --push "${RELEASE_ALIAS}"
 fi
 
 trap - ERR
