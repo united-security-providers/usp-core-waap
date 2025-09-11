@@ -31,7 +31,7 @@ pip install --upgrade pip
 #### Install mkdocs
 
 ```
-pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag
+pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag mike
 ```
 
 *NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH. Check by running
@@ -122,3 +122,5 @@ $ ./release.sh <helm-version> deploy
 ```
 
 The published page should then become available after a few minutes at the link on top of this page.
+
+*NOTE*: When releasing the documentation for the latest version, you need to add the `--latest` flag to the `release.sh` script.
