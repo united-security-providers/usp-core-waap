@@ -122,3 +122,5 @@ $ ./release.sh <helm-version> deploy
 ```
 
 The published page should then become available after a few minutes at the link on top of this page.
+
+*NOTE*: When releasing the documentation for the latest version, you need to add the `--latest` flag to the `release.sh` script.
