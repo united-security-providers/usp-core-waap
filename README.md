@@ -124,3 +124,10 @@ $ ./release.sh <helm-version> deploy
 The published page should then become available after a few minutes at the link on top of this page.
 
 *NOTE*: When releasing the documentation for the latest version, you need to add the `--latest` flag to the `release.sh` script.
+
+### Multi version support
+
+We use `mike` to support multiple versions of the documentation at the same time.
+The `release.sh` script will therefore always only add the newly published version to the `gh-pages` branch.
+Old published versions of the documentation are kept in `gh-pages` and are accessible until someone deletes them
+from the branch.
