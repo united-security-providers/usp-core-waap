@@ -15,9 +15,9 @@ and use them to login without having to present user credentials.
 
 !!! danger
 
-    We advise against using **long lived refresh tokens**.
-    Even if the ID token and access token are short lived,
-    a long lived refresh token kept client-side (even encrypted)
+    We advise against using **long-lived refresh tokens**.
+    Even if the ID token and access token are short-lived,
+    a long-lived refresh token kept client-side (even encrypted)
     can be stolen and later used to obtain new tokens.
 
 ## Token cookies encryption
