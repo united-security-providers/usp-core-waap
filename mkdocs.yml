@@ -63,5 +63,5 @@ nav:
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
-    - OAuth2 / OIDC: 'oidc_features.md'
+    - OAuth2 / OIDC: 'oidc-operation.md'
   - Downloads: 'downloads.md'
