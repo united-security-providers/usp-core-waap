@@ -11,6 +11,7 @@ checkbin() {
   local cmd=$1
   if ! command -v $cmd &> /dev/null; then
     echo "$cmd command could not be found"
+    echo "HINT: If you are using a python virtual environment then you need to active it before running this script"
     exit
   fi
 }
