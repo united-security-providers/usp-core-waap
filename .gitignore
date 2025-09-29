@@ -24,4 +24,5 @@
 *.iws
 out/
 
-
+# Virtual Python environment
+.venv

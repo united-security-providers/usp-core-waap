@@ -31,14 +31,23 @@ pip install --upgrade pip
 #### Install mkdocs
 
 ```
+# This will create a local directory called ".venv"
+python3 -m venv .venv
+source .venv/bin/activate
 pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag mike
 ```
 
-*NOTE:* You may need to log out and log in again to get the mkdocs executable in your PATH. Check by running
+Now you should be able to run the `mkdocs` command and see something similiar to:
 
 ```
 mkdocs --version
-mkdocs, version 1.5.3 from /home/<myuser>/.local/lib/python3.10/site-packages/mkdocs (Python 3.10)
+mkdocs, version 1.6.1 from /home/<myuser>/usp-core-waap/.venv/lib/python3.12/site-packages/mkdocs (Python 3.12)
+```
+
+To deactivate the virtual environment again, simply run:
+
+```
+deactivate
 ```
 
 ### helm-docs notes
