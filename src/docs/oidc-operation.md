@@ -40,8 +40,8 @@ during integration and to resolve issues during operation.
 
 Logout is initiated with a GET request to `https://{host}/core-waap/oauth/{realm}/signout'`.
 
-By default, logout is only performed on the OAuth2/OIDC client/RP, i.e. only on the Core WAAP,
-but not on the OP.
+By default, logout is only performed on the OAuth2/OIDC client/RP,
+i.e. only on the Core WAAP, but not on the OP.
 More precisely, session cookies are deleted
 and the HTTP client receives a redirect to the root location `/` on the Core WAAP.
 
