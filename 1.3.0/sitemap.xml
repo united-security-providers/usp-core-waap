@@ -2,86 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/autolearning/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/crd-doc/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/crs-virtual-patch/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/downloads/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/error-mapping/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/ext-proc-icap-CHANGELOG/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/ext-proc-openapi-CHANGELOG/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/helm-CHANGELOG/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/helm-values/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/helm/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/icap-antivirus-scanning/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/large-payloads/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/logs-metrics/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/lua-filters/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/native-config-post-processing/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/openapi-validation/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operator-CHANGELOG/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/traffic-processing-overview/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/upgrade/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/waap-CHANGELOG/</loc>
-         <lastmod>2025-09-11</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
 </urlset>
