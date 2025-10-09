@@ -68,4 +68,5 @@ nav:
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
     - Large Payloads (Legacy): 'large-payloads-legacy.md'
+    - OAuth2 / OIDC: 'oidc-operation.md'
   - Downloads: 'downloads.md'

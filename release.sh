@@ -86,8 +86,7 @@ downloadFromGitLab() {
   local outfile
   outfile=$(getGitLabOutfile $@)
 
-  git clone git@git.u-s-p.local:$repoPath/$repoName.git
-  (cd ${repoName} && git checkout --quiet $version)
+  git clone --depth 1 --branch $version git@git.u-s-p.local:$repoPath/$repoName.git
   cp $repoName/$file $outfile
 }
 
@@ -228,7 +227,7 @@ AUTOLEARN_CLI_JAR=$(getNexusOutfile $ARGS)
 
 # TO CHECK ---------------->>>>>>>>>>>>>>>> REALLY GET DEMO APPS FROM CI PROJECT? TBD
 # clone ci project
-git clone git@git.u-s-p.local:core-waap/core-waap-ci.git
+git clone  --depth 1 git@git.u-s-p.local:core-waap/core-waap-ci.git
 # checkout tag matching the helm charts release
 #(cd core-waap-ci && git checkout --quiet helm$CHARTS_VERSION)
 
