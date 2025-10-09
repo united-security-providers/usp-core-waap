@@ -47,6 +47,10 @@ nav:
       - extProc OpenAPI: 'ext-proc-openapi-CHANGELOG.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
+    - Coraza:
+      - What is Coraza?: "what-is-coraza.md"
+      - CRS: "coraza-crs.md"
+      - GraphQL: "coraza-graphql.md"
     - Error Mapping: 'error-mapping.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
     - Traffic Processing:
@@ -63,4 +67,5 @@ nav:
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
+    - Large Payloads (Legacy): 'large-payloads-legacy.md'
   - Downloads: 'downloads.md'
