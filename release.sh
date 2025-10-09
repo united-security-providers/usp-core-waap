@@ -11,6 +11,7 @@ checkbin() {
   local cmd=$1
   if ! command -v $cmd &> /dev/null; then
     echo "$cmd command could not be found"
+    echo "HINT: If you are using a python virtual environment then you need to active it before running this script"
     exit
   fi
 }
@@ -189,6 +190,11 @@ echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
 echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
 echo "-------------------------------------------------------------"
 
+# Adapt for change of tagged version in https://git.u-s-p.local/core-waap/core-waap-build/-/tags (up to 1.3.0 "v1.3.0", from 1.4.0 "1.4.0")
+if [[ $CHARTS_VERSION =~ ^1.[0-3].* ]]; then
+  export CORE_WAAP_VERSION="v$CORE_WAAP_VERSION"
+fi
+
 # Get changelogs from Nexus or GitLab
 
 ARGS="$CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog"
@@ -199,7 +205,7 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
 downloadFromNexus $ARGS
 OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 
-ARGS="v$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
+ARGS="$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
 downloadFromGitLab $ARGS
 CORE_WAAP_CHANGELOG=$(getGitLabOutfile $ARGS)
 
