@@ -288,7 +288,8 @@ echo "Successfully generated site (Markdown) in docs folder."
 
 if [ $DEPLOY ]; then
     echo "Deploying to GitHub pages..."
-    mike deploy --update-aliases --push "${CHARTS_VERSION}" $RELEASE_ALIAS
+    version=$(echo "$CHARTS_VERSION" | sed -E 's/^v?([0-9]+)\.([0-9]+)\.[0-9]+$/\1.\2.x/')
+    mike deploy --update-aliases --push "${version}" $RELEASE_ALIAS
     echo "Successfully deployed to to GitHub pages"
 else
     echo "Building website locally in 'generated' subfolder..."
