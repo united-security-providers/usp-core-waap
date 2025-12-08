@@ -12,6 +12,13 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 1.3.x to >=1.4.0
+
+- The field `spec.operation.startup.additionalCliArgs` has changed from a single `string` to `[]string`.
+  To migrate existing configurations, split the `string` into individual arguments and specify them in a an array.
+  Example: `additionalCliArgs: "--service-cluster cluster-name --base-id-path 5 --log-format-escaped"`
+  becomes `additionalCliArgs: ["--service-cluster", "cluster-name", "--base-id-path", "5", "--log-format-escaped"]`
+
 ### Core WAAP Operator 1.2.0 to >=1.3.0
 
 - The CRS version has been upgraded from 4.14.0 to 4.17.1.
