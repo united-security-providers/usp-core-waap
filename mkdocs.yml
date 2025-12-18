@@ -69,4 +69,5 @@ nav:
     - Large Payloads: 'large-payloads.md'
     - Large Payloads (Legacy): 'large-payloads-legacy.md'
     - OAuth2 / OIDC: 'oidc-operation.md'
+    - Debugging: 'debugging.md'
   - Downloads: 'downloads.md'
