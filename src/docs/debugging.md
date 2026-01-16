@@ -2,6 +2,14 @@
 
 This chapter describes the recommended approach for debugging crashes, segmentation faults and other issues you might encounter.
 
+!!! tip
+
+    A core dump file can get very big depending on how long Envoy was running. Make sure that you have at least 10G of disk space available to the Core Waap container.
+
+!!! warning
+
+    The debugging image should **never** be used in production.
+
 ## Segmentation faults
 
 When a segmentation fault occurs, the first thing to do is to check the logs and the backtrace.
