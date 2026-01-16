@@ -8,7 +8,7 @@ This chapter describes the recommended approach for debugging crashes, segmentat
 
 !!! warning
 
-    The debugging image should **never** be used in production.
+    The debugging image should **never** be used in production. The used Envoy binary was built in debug mode which means it contains zero optimizations. This has a big impact on performance.
 
 ## Segmentation faults
 
@@ -20,7 +20,7 @@ The debug version contains debug symbols, which make stack traces and crash anal
 To switch to the debug version, you need to make the follwing changes:
 
 1. Add the "-debug" suffix to the used Core WAAP version in `CoreWaapService.spec.operation.version`.
-   For example if you are using version `1.4.1` then the debug version is `1.4.1-debug`.
+   For example if you are using version `2.0.0` then the debug version is `2.0.0-debug`.
 2. Optionally, if you also want to enable generating core dumps then you need to update the security context (`CoreWaapService.spec.operation.securityContext`) and add the `SYS_PTRACE` capability.
 
 ## Core dumps
