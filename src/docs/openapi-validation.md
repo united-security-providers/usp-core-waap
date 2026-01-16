@@ -54,3 +54,44 @@ spec:
 The 'schemaSource' section specifies a Kubernetes ConfigMap resource that contains the OAS schema that will be used for validation.
 
 The 'scope' section allows to turn on or off the validation for request and/or response bodies. Request headers are always validated. Optionally, the 'logOnly' mode can be activated, in which case the validation won't fail, but only be logged upon an error.
+
+### Exceptions
+
+Sometimes, you may want certain subpaths of a route to skip OpenAPI validation.
+For example when the OpenAPI specification has not yet been updated, or
+you still need to support some deprecated endpoints temporarily.
+
+To make such an exception you have to:
+
+1. Duplicate the existing route configuration for the path you want to exempt
+2. Remove the OpenAPI validation settings in that duplicate
+3. Place the duplicate route before the original route (order matters)
+
+Here is an example of how this could look like:
+
+```yaml
+spec:
+  routes:
+    # Match all requests that go through /path1 and /path2 (including subpaths)
+    # and forward them to the backend
+    - match:
+        path: ^/(path1|path2)(?:\?.*)$
+        pathType: REGEX
+      backend:
+        address: backend
+        port: 4433
+        protocol:
+          selection: h1
+    # Match all remaining requests, run the openapi validation and forward all
+    # valid requests to the backend
+    - match:
+        path: /
+        pathType: PREFIX
+      trafficProcessingRefs:
+          - backend-openapi
+      backend:
+        address: backend
+        port: 4433
+        protocol:
+          selection: h1
+```
