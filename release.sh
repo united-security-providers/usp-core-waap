@@ -205,9 +205,9 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
 downloadFromNexus $ARGS
 OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 
-ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-build CHANGELOG.md"
+ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
 downloadFromGitLab $ARGS
-CORE_WAAP_CHANGELOG=$(getGitLabOutfile $ARGS)
+CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
 
 ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
 downloadFromGitLab $ARGS
@@ -257,7 +257,7 @@ ALPHA_NOTICE="\n\n_This component\/feature is in still active development (\"alp
 MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing configurations when updating, see [Migration Guide](upgrade.md)."
 prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$CORE_WAAP_CHANGELOG docs/waap-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
