@@ -171,7 +171,7 @@ else
 fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
-export CORE_WAAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecDefaults.version'`
+export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecDefaults.version'`
 export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
 export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
@@ -185,14 +185,14 @@ fi
 echo "-------------------------------------------------------------"
 echo "Selected Helm chart release:             $CHARTS_VERSION"
 echo "- Operator release in Helm chart:        $OPERATOR_VERSION"
-echo "- Core WAAP release in Helm chart:       $CORE_WAAP_VERSION"
+echo "- Core WAAP Proxy release in Helm chart: $CORE_WAAP_PROXY_VERSION"
 echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
 echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
 echo "-------------------------------------------------------------"
 
-# Adapt for change of tagged version in https://git.u-s-p.local/core-waap/core-waap-build/-/tags (up to 1.3.0 "v1.3.0", from 1.4.0 "1.4.0")
+# Adapt for change of tagged version in https://git.u-s-p.local/core-waap/core-waap-proxy-build/-/tags (up to 1.3.0 "v1.3.0", from 1.4.0 "1.4.0")
 if [[ $CHARTS_VERSION =~ ^1.[0-3].* ]]; then
-  export CORE_WAAP_VERSION="v$CORE_WAAP_VERSION"
+  export CORE_WAAP_PROXY_VERSION="v$CORE_WAAP_PROXY_VERSION"
 fi
 
 # Get changelogs from Nexus or GitLab
@@ -205,7 +205,7 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
 downloadFromNexus $ARGS
 OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 
-ARGS="$CORE_WAAP_VERSION core-waap core-waap-build CHANGELOG.md"
+ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-build CHANGELOG.md"
 downloadFromGitLab $ARGS
 CORE_WAAP_CHANGELOG=$(getGitLabOutfile $ARGS)
 
@@ -271,7 +271,7 @@ for file in docs/*; do
     if [ -f "$file" ]; then
         sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
-        sed -i -e 's/%CORE_WAAP_VERSION%/'$CORE_WAAP_VERSION'/g' $file
+        sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
         sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
         sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file
     fi
