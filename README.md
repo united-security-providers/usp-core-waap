@@ -97,6 +97,8 @@ $ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <p
 
 and/or for snapshots and RCs:
 
+* PasswordSafe link: ps8://MDpEU3ZLN2kySkVlLTRWZ0JRVnJjWXZ3
+
 ```
 $ helm registry login devuspregistry.azurecr.io --username usp-ci-bob --password <dev-password>
 ```
