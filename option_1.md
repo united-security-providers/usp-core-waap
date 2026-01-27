@@ -22,5 +22,5 @@ _The docker image has been renamed to **usp-core-waap-proxy** in this release._
 - Integrate ICAP AV golang filter
 - Integrate OpenAPI validation golang filter
 - Introduce a debug image with a debug build of envoy
-- *OpenAPI Validation Filter:* Allows to validate OpenAPI requests and responses
-- *Coraza Filter*: Now supports OWASP CRS 3.3.8
+- **OpenAPI Validation Filter:** Allows to validate OpenAPI requests and responses
+- **Coraza Filter**: Now supports OWASP CRS 3.3.8
