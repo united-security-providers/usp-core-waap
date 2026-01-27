@@ -12,6 +12,10 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 1.4.x to >=2.0.0
+
+- TODO
+
 ### Core WAAP Operator 1.3.x to >=1.4.0
 
 - The field `spec.operation.startup.additionalCliArgs` has changed from a single `string` to `[]string`.

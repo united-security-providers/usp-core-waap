@@ -12,6 +12,8 @@ checkbin() {
   if ! command -v $cmd &> /dev/null; then
     echo "$cmd command could not be found"
     echo "HINT: If you are using a python virtual environment then you need to active it before running this script"
+    echo "possibly with this command or a similar one (depending on how you created your venv):"
+    echo "$ source .venv/bin/activate"
     exit
   fi
 }
@@ -175,6 +177,20 @@ export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '
 export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
 export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
+export CORE_WAAP_PROXY_VERSION=main-SNAPSHOT
+
+# Extract Go filter versions from proxy docker image
+export PROXY_IMG=reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-proxy:$CORE_WAAP_PROXY_VERSION
+echo "Pull proxy image: $PROXY_IMG"
+docker pull $PROXY_IMG
+echo "Inspect proxy image..."
+
+export IMG_JSON=`docker image inspect $PROXY_IMG`
+export FILTER_CORAZA_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.coraza-envoy-go-filter.version"'`
+export FILTER_DOS_PREVENTION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.dos-prevention-envoy-go-filter.version"'`
+export FILTER_ICAP_AV_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.icap-av-envoy-go-filter.version"'`
+export FILTER_OPENAPI_VALIDATION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.openapi-validation-envoy-go-filter.version"'`
+
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
 if [[ $OPERATOR_VERSION =~ "SNAPSHOT" && "$2" == "deploy" ]]; then
@@ -186,9 +202,13 @@ echo "-------------------------------------------------------------"
 echo "Selected Helm chart release:             $CHARTS_VERSION"
 echo "- Operator release in Helm chart:        $OPERATOR_VERSION"
 echo "- Core WAAP Proxy release in Helm chart: $CORE_WAAP_PROXY_VERSION"
-echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
-echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
+echo "- Coraza filter release:                 $FILTER_CORAZA_VERSION"
+echo "- DOS prevention filter release:         $FILTER_DOS_PREVENTION_VERSION"
+echo "- ICAP AV filter release:                $FILTER_ICAP_AV_VERSION"
+echo "- OpenAPI Validation filter release:     $FILTER_OPENAPI_VALIDATION_VERSION"
 echo "-------------------------------------------------------------"
+
+exit -1
 
 # Adapt for change of tagged version in https://git.u-s-p.local/core-waap/core-waap-proxy-build/-/tags (up to 1.3.0 "v1.3.0", from 1.4.0 "1.4.0")
 if [[ $CHARTS_VERSION =~ ^1.[0-3].* ]]; then
