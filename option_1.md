@@ -16,11 +16,15 @@ _The docker image has been renamed to **usp-core-waap-proxy** in this release._
 
 ### Changed
 - Improve image security by migrating the base image from alpine to distroless
+- **dos_prevention**: Changed to Go filter
+- **openapi_validation**: Changed to Go filter
+- **openapi_validation**: Simplified configuration
 
 ### Added
 - Integrate DoS prevention golang filter
 - Integrate ICAP AV golang filter
 - Integrate OpenAPI validation golang filter
 - Introduce a debug image with a debug build of envoy
-- **OpenAPI Validation Filter:** Allows to validate OpenAPI requests and responses
-- **Coraza Filter**: Now supports OWASP CRS 3.3.8
+- **coraza**: Now supports OWASP CRS 3.3.8
+- **dos_prevention**: New super-duper feature
+- **openapi_validation:** Allows to validate OpenAPI requests and responses
