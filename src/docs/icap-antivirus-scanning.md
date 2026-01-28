@@ -24,20 +24,4 @@ spec:
         config: ...
 ```
 
-The 'config' section contains the ICAP-specific configuration:
-
-```yaml
-spec:
-  trafficProcessing:
-    icap:
-      - ...
-        config:
-          url: "icap://some.host:1344/some/path"
-```
-
-The 'url' setting defines:
-
-- Whether to use TLS to the ICAP server ("icaps://") or not ("icap://")
-- Host, port and location to send the ICAP request to
-
-TLS uses the same CA certificates as for HTTP backend routes, i.e. the settings under 'spec.operation.caCertificates' (and corresponding operator defaults).
+See the [API reference](crd-doc.md#corewaapservicespectrafficprocessingicapindexconfig) for more information on how the config looks like.

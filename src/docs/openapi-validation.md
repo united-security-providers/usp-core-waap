@@ -30,27 +30,6 @@ spec:
         config: ...
 ```
 
-The 'config' section contains the OpenAPI-specific configuration:
-
-```yaml
-spec:
-  trafficProcessing:
-    openapi:
-      - ...
-        config:
-          schemaSource:
-            configMap: openapi-petstore-v3
-            key: openapi-petstore-v3.json
-          scope:
-            requestBody: true
-            responseBody: false
-            logOnly: true
-```
-
-The 'schemaSource' section specifies a Kubernetes ConfigMap resource that contains the OAS schema that will be used for validation.
-
-The 'scope' section allows to turn on or off the validation for request and/or response bodies. Request headers are always validated. Optionally, the 'logOnly' mode can be activated, in which case the validation won't fail, but only be logged upon an error.
-
 ### Exceptions
 
 Sometimes, you may want certain subpaths of a route to skip OpenAPI validation.
@@ -91,3 +70,5 @@ spec:
         protocol:
           selection: h1
 ```
+
+See the [API reference](crd-doc.md#corewaapservicespectrafficprocessingopenapiindexconfig) for more information on how the config looks like.
