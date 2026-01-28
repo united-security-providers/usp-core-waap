@@ -4,12 +4,6 @@ USP Core WAAP (Web Application and API Protection) provides secure access to web
 while simplifying the process of configuration and deployment.
 
 * Helm chart version for USP Core WAAP operator : [%CHARTS_VERSION%](helm-CHANGELOG.md)
-  * USP Core WAAP operator release version: [%OPERATOR_VERSION%](operator-CHANGELOG.md)
-  * USP Core WAAP Proxy image: [%CORE_WAAP_PROXY_VERSION%](waap-proxy-CHANGELOG.md)
-    * Coraza Go Filter: [%FILTER_CORAZA_VERSION%](waap-proxy-CHANGELOG.md)
-    * DOS Prevention Go Filter: [%FILTER_DOS_PREVENTION_VERSION%](waap-proxy-CHANGELOG.md)
-    * ICAP AV Go Filter: [%FILTER_ICAP_AV_VERSION%](waap-proxy-CHANGELOG.md)
-    * OpenAPI Validation Go Filter: [%FILTER_OPENAPI_VALIDATION_VERSION%](waap-proxy-CHANGELOG.md)
 
 ## Overview
 

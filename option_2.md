@@ -29,17 +29,13 @@ _The docker image has been renamed to **usp-core-waap-proxy** in this release._
 - Supports OpenAPI 3.0 now
 
 #### Changed
-- Migrate to Go filter
- 
+- Migrate to Go filter 
 
 ### DOS Prevention
 
 #### Added
 - Simplified configuration
 - New super duper feature enabled
-
-
-
 
 ## [1.4.1] - 2025-10-22
 ### Contents

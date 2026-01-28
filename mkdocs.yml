@@ -43,8 +43,6 @@ nav:
       - Helm Chart: 'helm-CHANGELOG.md'
       - Operator: 'operator-CHANGELOG.md'
       - Core WAAP Proxy: 'waap-proxy-CHANGELOG.md'
-      - extProc ICAP: 'ext-proc-icap-CHANGELOG.md'
-      - extProc OpenAPI: 'ext-proc-openapi-CHANGELOG.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
