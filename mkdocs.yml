@@ -53,10 +53,8 @@ nav:
       - GraphQL: "coraza-graphql.md"
     - Error Mapping: 'error-mapping.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
-    - Traffic Processing:
-      - Overview: 'traffic-processing-overview.md'
-      - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
-      - OpenAPI Validation: 'openapi-validation.md'
+    - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
+    - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
     - Lua Filters: 'lua-filters.md'
   - Operation:

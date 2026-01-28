@@ -172,8 +172,6 @@ fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecDefaults.version'`
-export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
-export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
