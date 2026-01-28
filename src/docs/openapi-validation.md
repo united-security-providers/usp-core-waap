@@ -26,13 +26,9 @@ OpenAPI validation is a part of the more general Traffic Processing of Core WAAP
 spec:
   trafficProcessing:
     openapi:
-      - name: "openapi-petstore-v3" 
-        operation: ...
-        extProc: ...
+      - name: "openapi-petstore-v3"
         config: ...
 ```
-
-See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'extProc' above.
 
 The 'config' section contains the OpenAPI-specific configuration:
 
@@ -40,7 +36,7 @@ The 'config' section contains the OpenAPI-specific configuration:
 spec:
   trafficProcessing:
     openapi:
-      - ... 
+      - ...
         config:
           schemaSource:
             configMap: openapi-petstore-v3
