@@ -10,7 +10,7 @@ ICAP has practically never been widely used in its full flexibility and would te
 
 The Core WAAP allows to send HTTP requests via ICAP to an ICAP server, typically to make sure that uploaded content does not contain any viruses or similar malware. (Modification of HTTP requests or scanning/modification of HTTP responses is, however, not a common use case and is currently not supported.)
 
-Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP requests to the ICAP server, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware. 
+Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP requests to the ICAP server, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware.
 
 ## Configuration
 
@@ -20,13 +20,9 @@ Providing ICAP AV scanning via an external ICAP server is a part of the more gen
 spec:
   trafficProcessing:
     icap:
-      - name: "icap-trendmicro-2" 
-        operation: ...
-        extProc: ...
+      - name: "icap-trendmicro-2"
         config: ...
 ```
-
-See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'extProc' above.
 
 The 'config' section contains the ICAP-specific configuration:
 
@@ -34,7 +30,7 @@ The 'config' section contains the ICAP-specific configuration:
 spec:
   trafficProcessing:
     icap:
-      - ... 
+      - ...
         config:
           url: "icap://some.host:1344/some/path"
 ```
