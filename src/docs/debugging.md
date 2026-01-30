@@ -30,6 +30,38 @@ After the core dump has been written, Core WAAP proxy is restarted automatically
 3. Add the `SYS_PTRACE` capability to (`CoreWaapService.spec.operation.securityContext`)
 4. Apply or save the new configuration
 
+Example:
+
+```diff
+apiVersion: waap.core.u-s-p.ch/v1alpha1
+kind: CoreWaapService
+metadata:
+  namespace: backend-httpbin
+  name: httpbin-core-waap
+spec:
+  operation:
+-   version: 2.0.0
++   version: 2.0.0-debug
+  securityContext:
+    allowPrivilegeEscalation: false
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65533
+    runAsNonRoot: true
+    runAsUser: 185
++   capabilities:
++     add: ["SYS_PTRACE"]
+  routes:
+    - backend:
+        address: httpbin
+        port: 8000
+        protocol:
+          selection: h1
+      match:
+        path: /
+        pathType: PREFIX
+```
+
 Now the Core WAAP operator should recreated the Core WAAP proxy deployment using the debug version.
 
 ## Core dump file analysis
