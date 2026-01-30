@@ -20,40 +20,12 @@ Currently supported formats of the specification are JSON and YAML.
 
 ## Configuration
 
-OpenAPI validation is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'openapi' section of 'spec.trafficProcessing':
-
 ```yaml
 spec:
-  trafficProcessing:
-    openapi:
-      - name: "openapi-petstore-v3" 
-        operation: ...
-        extProc: ...
-        config: ...
+  openapi:
+    - name: "openapi-petstore-v3"
+      config: ...
 ```
-
-See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'extProc' above.
-
-The 'config' section contains the OpenAPI-specific configuration:
-
-```yaml
-spec:
-  trafficProcessing:
-    openapi:
-      - ... 
-        config:
-          schemaSource:
-            configMap: openapi-petstore-v3
-            key: openapi-petstore-v3.json
-          scope:
-            requestBody: true
-            responseBody: false
-            logOnly: true
-```
-
-The 'schemaSource' section specifies a Kubernetes ConfigMap resource that contains the OAS schema that will be used for validation.
-
-The 'scope' section allows to turn on or off the validation for request and/or response bodies. Request headers are always validated. Optionally, the 'logOnly' mode can be activated, in which case the validation won't fail, but only be logged upon an error.
 
 ### Exceptions
 
@@ -87,11 +59,13 @@ spec:
     - match:
         path: /
         pathType: PREFIX
-      trafficProcessingRefs:
-          - backend-openapi
+      openapiRefs:
+        - backend-openapi
       backend:
         address: backend
         port: 4433
         protocol:
           selection: h1
 ```
+
+See the [API reference](crd-doc.md#corewaapservicespecopenapiindexconfig) for more information on how the config looks like.
