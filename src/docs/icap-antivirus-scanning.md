@@ -14,14 +14,12 @@ Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP request
 
 ## Configuration
 
-Providing ICAP AV scanning via an external ICAP server is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'icap' section of 'spec.trafficProcessing':
 
 ```yaml
 spec:
-  trafficProcessing:
-    icap:
-      - name: "icap-trendmicro-2"
-        config: ...
+  icap:
+    - name: "icap-trendmicro-2"
+      config: ...
 ```
 
-See the [API reference](crd-doc.md#corewaapservicespectrafficprocessingicapindexconfig) for more information on how the config looks like.
+See the [API reference](crd-doc.md#corewaapservicespecicapindexconfig) for more information on how the config looks like.

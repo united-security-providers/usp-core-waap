@@ -20,14 +20,11 @@ Currently supported formats of the specification are JSON and YAML.
 
 ## Configuration
 
-OpenAPI validation is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'openapi' section of 'spec.trafficProcessing':
-
 ```yaml
 spec:
-  trafficProcessing:
-    openapi:
-      - name: "openapi-petstore-v3"
-        config: ...
+  openapi:
+    - name: "openapi-petstore-v3"
+      config: ...
 ```
 
 ### Exceptions
@@ -62,8 +59,8 @@ spec:
     - match:
         path: /
         pathType: PREFIX
-      trafficProcessingRefs:
-          - backend-openapi
+      openapiRefs:
+        - backend-openapi
       backend:
         address: backend
         port: 4433
@@ -71,4 +68,4 @@ spec:
           selection: h1
 ```
 
-See the [API reference](crd-doc.md#corewaapservicespectrafficprocessingopenapiindexconfig) for more information on how the config looks like.
+See the [API reference](crd-doc.md#corewaapservicespecopenapiindexconfig) for more information on how the config looks like.
