@@ -20,18 +20,21 @@ The debug version contains debug symbols, which make stack traces and crash anal
 In addition, a core dump is always generated whenever a crash happens.
 You can find the generated file at `/coredumps/envoy.<UNIX_TIMESTAMP>`.
 After the core dump has been written, Core WAAP proxy is restarted automatically.
-To switch to the debug version (step 1) and enable the generation of core dump files (step 2),
-you need to make the follwing changes:
 
-1. Add the "-debug" suffix to the used Core WAAP proxy version in `CoreWaapService.spec.operation.version`.
+## How to switch to the debug version
+
+1. Open the Core WAAP configuration file or edit it directly in kubernetes with `kubectl edit corewaapservices.waap.core.u-s-p.ch ...`
+2. Add the "-debug" suffix to the used version in `CoreWaapService.spec.operation.version`.
    For example if you are using version `2.0.0` then the debug version is `2.0.0-debug`.
-2. Update the security context (`CoreWaapService.spec.operation.securityContext`) and add the `SYS_PTRACE` capability.
+   If you don't have a version specified, then you can check the default version with `kubectl get configmaps --namespace OPERATOR_NAMESPACE usp-core-waap-operator-config -ojsonpath='{.data.operator-config\.yaml}'`
+3. Add the `SYS_PTRACE` capability to (`CoreWaapService.spec.operation.securityContext`)
+4. Apply or save the new configuration
 
-Now Core WAAP proxy should be recreated using the debug version.
+Now the Core WAAP operator should recreated the Core WAAP proxy deployment using the debug version.
 
-### Core dump file analysis
+## Core dump file analysis
 
-You can either analyze the core dump file directly in the container using:
+The core dump file can either be analyzed directly in the container:
 
 ```bash
 kubectl exec -it -n NAMESPACE CORE_WAAP_POD envoy -- bash
