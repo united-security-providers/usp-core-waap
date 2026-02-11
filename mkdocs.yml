@@ -55,6 +55,7 @@ nav:
     - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
     - Lua Filters: 'lua-filters.md'
+    - Header Filtering: 'header-filtering.md'
   - Operation:
     - Operator Helm Chart:
         - Usage: 'helm.md'
