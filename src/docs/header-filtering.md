@@ -298,7 +298,7 @@ For request headers the following allow classes can be selected:
 * `x-request-id`
 
 For response headers there is currently a single implicit allow class
-that is always used when response filtering is enabled.
+that is always used when response filtering is enabled:
 
 ### Response (implicitly)
 
