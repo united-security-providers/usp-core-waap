@@ -11,11 +11,6 @@ Header filters can be configured globally and per route, which allows to modify
 the above two main functionalities per route without having to list everything that
 is  already defined globally.
 
-The merge options are versatile and will be described in detail further below.
-
-Note that it is also possible to only log which filters would be filtered out
-without actually doing so, which is useful for initial setup.
-
 ## Basic config structure
 
 Header filtering is configured at two places, under `spec.headerFilter`
@@ -36,24 +31,27 @@ routes:
 - match:
     path: /one
     pathType: PREFIX
+  ...
   headerFilterRef: "routes-a"
 - match:
     path: /two
     pathType: PREFIX
+  ...
   headerFilterRef: "routes-a"
 - match:
     path: /three
     pathType: PREFIX
+  ...
   headerFilterRef: "routes-a"
 ```
 
-Both the default filter ref and refs per route are optional;
+Both the default filter ref and per-route filter refs are optional;
 if no default filter is referenced and no filter on the route,
 header filtering is completely off.
 
 ## Filter config settings and basic filtering
 
-Here is a filter config where all items are set:
+Here is a filter config where all individual settings are configured:
 
 ```yaml
 logOnly: false
@@ -73,14 +71,14 @@ request:
 response:
   enabled: true
   # no allowClass for response, there is currently only a single implicit allowClass
-  allow:       # same as for request
-  deny:        # same as for request
-  denyPattern: # same as for request
+  allow:       # same structure as for request
+  deny:        # same structure as for request
+  denyPattern: # same structure as for request
 ```
 
-See the documentation of the individual items for what they basically do.
+See the documentation of the individual settings for what they basically do.
 
-The set of effectively allowed headers is informally (merging between per-route and default to be described later):
+The set of effectively allowed headers is informally as follows:
 
 * `allowPattern` + `allow` - `deny`
 
@@ -93,22 +91,59 @@ With the above example config and assuming a request with the following request 
 * `X-Forwarded-For: 1.2.3.4`
 * `X-Myapp1: Harmless`
 * `X-Myapp2: EVIL`
-* (some more headers of STANDARD)
+* (more headers from `STANDARD`)
 
-Then the following headers are handled as follows:
+headers are filtered as follows:
 
 * `X-Unknown` - Filtered out, not in STANDARD and not additionally allowed
 * `X-Forwarded-For` - Filterered out, would be in STANDARD, but was explicitly denied
 * `X-Myapp1: Harmless` - Not filtered out, not in STANDARD, but additionally allowed and not denied by name or regex pattern
 * `X-Myapp2: EVIL` - Filtered out, not in STANDARD, additionally allowed and not denied by name, but matched the deny pattern with "*" wildcard header name
-* (some more headers of STANDARD) - Only filtered out if matched the deny pattern with "*" wildcard header name
+* (more headers from `STANDARD`) - Only filtered out if matched the deny pattern with "*" wildcard header name
 
-Which headers exactly are in which allow class is specied at the bottom
-of this page.
+Which headers are contained in which allow class
+is specied at the bottom of this page.
 
 ## Merge behavior between per-route and default in detail
 
+If filtering is defined both per-route and as default,
+many useful combinations are possible;
+these are described in the following.
 
+For the following settings the logic is the same:
+
+* `logOnly`
+* `enabled` (request+response)
+* `allowClass`
+* `denyPattern` (request+response)
+
+Namely:
+
+* Set per route => pre-route setting is effective (for the matching route)
+* Not set per route and set in default => default setting is effective
+* Neither set per route nor in default => implicit defaults:
+  * `logOnly`: `false`
+  * `enabled`: `true`
+  * `allowClass`: `STANDARD`
+  * `denyPattern`: empty (none)
+
+A special case is if `enabled` is explicitly set to `false` on a route,
+then `allow`, `deny` and `denyPatter` are treated as not set.
+
+For `allow` and `deny` not set is treated the same way as set to an empty set.
+
+The complete filter logic with per-route and default settings is then:
+
+* If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`), skip to last step here.
+* Start with an empty set of headers.
+* If request, add headers from `allowClass` (from per-route if set, else from default if set, else `STANDARD`) to set.
+* If response, add headers from implicit allow class to set.
+* Add headers from default `allow` to set.
+* Remove headers from default `deny` from set.
+* Add headers from per-route `allow` to set.
+* Remove headers from per-route `deny` from set.
+* Remove headers not in the set of headers from request resp. response.
+* Remove  headers that match the effective `denyPattern` (from per-route if set, else from default if set, else none) from request resp. response.
 
 ## Allow classes
 
