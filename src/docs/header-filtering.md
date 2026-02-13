@@ -132,7 +132,7 @@ then `allow`, `deny` and `denyPatter` are treated as not set.
 
 For `allow` and `deny` not set is treated the same way as set to an empty set.
 
-The complete filter logic with per-route and default settings is then:
+The complete filter logic with per-route and default settings is:
 
 * If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`), skip to last step here.
 * Start with an empty set of headers.
