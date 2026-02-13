@@ -128,7 +128,7 @@ Namely:
   * `denyPattern`: empty (none)
 
 A special case is if `enabled` is explicitly set to `false` on a route,
-then `allow`, `deny` and `denyPatter` are treated as not set.
+then `allow`, `deny` and `denyPattern` are treated as not set.
 
 For `allow` and `deny` not set is treated the same way as set to an empty set.
 
