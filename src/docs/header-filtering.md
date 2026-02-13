@@ -96,10 +96,10 @@ With the above example config and assuming a request with the following request 
 
 headers are filtered as follows:
 
-* `X-Unknown` - Filtered out, not in STANDARD and not additionally allowed
-* `X-Forwarded-For` - Filterered out, would be in STANDARD, but was explicitly denied
-* `X-Myapp1: Harmless` - Not filtered out, not in STANDARD, but additionally allowed and not denied by name or regex pattern
-* `X-Myapp2: EVIL` - Filtered out, not in STANDARD, additionally allowed and not denied by name, but matched the deny pattern with "*" wildcard header name
+* `X-Unknown` - Filtered out, not in `STANDARD` and not additionally allowed
+* `X-Forwarded-For` - Filterered out, would be in `STANDARD`, but was explicitly denied
+* `X-Myapp1: Harmless` - Not filtered out, not in `STANDARD`, but additionally allowed and not denied by name or regex pattern
+* `X-Myapp2: EVIL` - Filtered out, not in `STANDARD`, additionally allowed and not denied by name, but matched the deny pattern with "*" wildcard header name
 * (more headers from `STANDARD`) - Only filtered out if matched the deny pattern with "*" wildcard header name
 
 Which headers are contained in which allow class
@@ -123,10 +123,10 @@ Namely:
 * Set per route => pre-route setting is effective (for the matching route)
 * Not set per route and set in default => default setting is effective
 * Neither set per route nor in default => implicit defaults:
-  * `logOnly`: `false`
-  * `enabled`: `true`
-  * `allowClass`: `STANDARD`
-  * `denyPattern`: empty (none)
+    * `logOnly`: `false`
+    * `enabled`: `true`
+    * `allowClass`: `STANDARD`
+    * `denyPattern`: empty (none)
 
 A special case is if `enabled` is explicitly set to `false` on a route,
 then `allow`, `deny` and `denyPattern` are treated as not set.
@@ -204,9 +204,9 @@ Request header filtering:
 
 ## Allow classes
 
-For request headers the following allow classes are defined:
+For request headers the following allow classes can be selected:
 
-### Request MINIMAL
+### Request `MINIMAL`
 
 * `:path`
 * `:method`
@@ -220,7 +220,7 @@ For request headers the following allow classes are defined:
 * `expect`
 * `x-request-id`
 
-### Request RESTRICTED
+### Request `RESTRICTED`
 
 * `:path`
 * `:method`
@@ -241,7 +241,7 @@ For request headers the following allow classes are defined:
 * `accept-charset`
 * `x-request-id`
 
-### Request STANDARD
+### Request `STANDARD`
 
 * `:path`
 * `:method`
@@ -296,6 +296,9 @@ For request headers the following allow classes are defined:
 * `sec-websocket-protocol`
 * `sec-websocket-version`
 * `x-request-id`
+
+For response headers there is currently a single implicit allow class
+that is always used when response filtering is enabled.
 
 ### Response (implicitly)
 
