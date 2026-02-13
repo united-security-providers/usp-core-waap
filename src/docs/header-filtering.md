@@ -20,7 +20,7 @@ plus a single setting `spec.routes[].headerFilterRef`:
 spec:
   headerFilter:
     defaultFilterRef: "my-default"
-    routeFilters:
+    filters:
     - name: "my-default"
       # settings...
     - name: "routes-a"
@@ -76,7 +76,8 @@ response:
   denyPattern: # same structure as for request
 ```
 
-See the documentation of the individual settings for what they basically do.
+See the [API Reference](crd-doc.md#corewaapservicespecheaderfilter)
+of the individual settings for what their basic function is.
 
 The set of effectively allowed headers is informally as follows:
 
