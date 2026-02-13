@@ -145,6 +145,62 @@ The complete filter logic with per-route and default settings is:
 * Remove headers not in the set of headers from request resp. response.
 * Remove  headers that match the effective `denyPattern` (from per-route if set, else from default if set, else none) from request resp. response.
 
+## Example for filtering when both default and per route are defined
+
+Configuration:
+
+```yaml
+spec:
+  headerFilter:
+    defaultFilterRef: "default"
+    filters:
+    - name: "default"
+      logOnly: false
+      request:
+        enabled: true
+        allow:
+        - "x-req-2"
+        - "x-req-3"
+        deny:
+        - "x-req-4"
+        denyPatterns:
+        - name: "*"
+          pattern: "^possibly-evil$"
+    - name: "per-route"
+      logOnly: false
+      request:
+        enabled: true
+        allow:
+        - "x-req-1"
+        - "x-req-3"
+        - "x-req-4"
+        deny:
+        - "x-req-2"
+  routes:
+  - match:
+      path: "/"
+      pathType: "PREFIX"
+    headerFilterRef: "per-route"
+```
+
+Request headers in request to `/filter`:
+
+```
+X-Req-1: always-ok
+X-Req-2: maybe-evil
+X-Req-3: possibly-evil
+X-Req-4: ok
+Cookie: possibly-evil
+```
+
+Request header filtering:
+
+* `x-req-1`: Not filtered out (allowed on route, nowhere denied)
+* `x-req-2`: Filtered out (allowed by default, but denied on route)
+* `x-req-3`: Filtered out (allowed on route and by default, but denied by pattern)
+* `x-req-4`: Not filtered out (denied by default, but allowed on route)
+* `cookie`: Filtered out (part of `STANDARD` set, but denied by pattern)
+
 ## Allow classes
 
 For request headers the following allow classes are defined:
