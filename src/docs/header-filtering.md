@@ -31,17 +31,17 @@ routes:
 - match:
     path: /one
     pathType: PREFIX
-  ...
+  ...: ...
   headerFilterRef: "routes-a"
 - match:
     path: /two
     pathType: PREFIX
-  ...
+  ...: ...
   headerFilterRef: "routes-a"
 - match:
     path: /three
     pathType: PREFIX
-  ...
+  ...: ...
   headerFilterRef: "routes-a"
 ```
 
