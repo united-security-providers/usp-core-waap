@@ -55,7 +55,6 @@ Changes expected to improve the state of the world and are unlikely to have nega
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
 
-- _The Core-WAAP docker image has been renamed to **usp-core-waap-proxy** in this release._
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
 - **helmchart**: Removed all traffic processing related settings.
 - **helmchart**: Removed all metrics related settings.
@@ -73,25 +72,6 @@ Changes that are expected to cause an incompatibility if applicable; deployment 
   It will only bind to 0.0.0.0 when explicitly enabled.
 - **operator**: Removed metrics sidecar and all related settings; all metrics are now handled in the main container.
 
-
-## Minor behavior changes
-
-Changes that may cause incompatibilities for some users, but should not for most.
-
-- ...
-
-
-## Deprecated
-
-Typically marked for removal in a future release. Customers are advised to migrate to a newer alternative.
-
-- ...
-
-## Removed config or runtime
-
-Normally occurs at the end of the deprecation period.
-
-- ...
 
 ## Known Issues
 
