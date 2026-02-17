@@ -22,4 +22,4 @@ spec:
       config: ...
 ```
 
-See the [API reference](crd-doc.md#corewaapservicespecicapindexconfig) for more information on how the config looks like.
+See the [API reference](crd-doc.md#corewaapservicespecicapindex) for more information on how the config looks like.

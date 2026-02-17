@@ -68,4 +68,4 @@ spec:
           selection: h1
 ```
 
-See the [API reference](crd-doc.md#corewaapservicespecopenapiindexconfig) for more information on how the config looks like.
+See the [API reference](crd-doc.md#corewaapservicespecopenapiindex) for more information on how the config looks like.
