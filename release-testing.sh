@@ -175,8 +175,6 @@ tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecDefaults.version'`
 
-export CORE_WAAP_PROXY_VERSION=main-SNAPSHOT
-
 # Extract Go filter versions from proxy docker image
 export PROXY_IMG=reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-proxy:$CORE_WAAP_PROXY_VERSION
 echo "Pull proxy image: $PROXY_IMG"
