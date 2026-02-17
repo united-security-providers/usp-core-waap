@@ -48,8 +48,7 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   spec:
   icap:
     - name: "icap-trendmicro"
-      config:
-        url: "icap://some.host:1344/some/path"
+      url: "icap://some.host:1344/some/path"
   ```
   and new reference via `icapRefs`:
   ```yaml
