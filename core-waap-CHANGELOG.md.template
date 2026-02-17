@@ -1,27 +1,55 @@
-# \<Product Name\> \<SemVer\> \<YYYY.MM.DD\>
+# Changelog
+
+## [2.0.0] - 2025-XX-XX
+
+_The docker image has been renamed to **usp-core-waap-proxy** in this release._
+
+### Contents
+- base image: gcr.io/distroless/cc-debian13
+- envoy version: 1.37.0
+- coraza version: 3.3.3
+- coreruleset version: 4.18.0
+- coraza filter version: 1.1.1
+- header filter version: 1.0.2
+- openapi filter version: 1.0.0
+- icap av filter version: 2.0.0
+- DoS prevention filter version: 1.0.0
 
 ## New features and improvements
+
 Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
-- **icap_antivirus**: Migration to Go filter
-- **identifier / feature name**: Description of change
+
+- some base core-waap proxy feature here
+- *coraza* / some coraza-filter specific change
+- *openapi* / some open-api filter specific change
+
+
 ## Bug fixes
+
 Changes expected to improve the state of the world and are unlikely to have negative effects.
-**feature name**: Description of change
-- **identifier / feature name**: Description of change
-- **identifier / feature name**: Description of change
+
+- ...
+
 ## Incompatible behavior changes
+
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
-- **identifier / feature name**: Description of change
-- **identifier / feature name**: Description of change
+
+- ...
+
 ## Minor behavior changes
+
 Changes that may cause incompatibilities for some users, but should not for most.
-- **identifier / feature name**: Description of change
-- **identifier / feature name**: Description of change
+
+- ...
+
 ## Deprecated
+
 Typically marked for removal in a future release. Customers are advised to migrate to a newer alternative.
-- **identifier / feature name**: Description of change
-- **identifier / feature name**: Description of change
+
+- ...
+
 ## Removed config or runtime
+
 Normally occurs at the end of the deprecation period.
-- **identifier / feature name**: Description of change
-- **identifier / feature name**: Description of change
+
+- ...
