@@ -87,15 +87,15 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   it used to be referenced via `trafficProcessingRefs` on route level:
   ```yaml
   spec:
-  routes:
-    - match:
-        path: /
-        pathType: PREFIX
-      trafficProcessingRefs:
-      - "icap-trendmicro"
-      backend:
-        address: backend
-        port: 4433
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        trafficProcessingRefs:
+        - "icap-trendmicro"
+        backend:
+          address: backend
+          port: 4433
   ```
   Corresponding migrated config:
   ```yaml
