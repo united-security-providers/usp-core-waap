@@ -89,6 +89,7 @@ downloadFromGitLab() {
   local outfile
   outfile=$(getGitLabOutfile $@)
 
+  echo "Clone GIT repo: git@git.u-s-p.local:$repoPath/$repoName.git"
   git clone --depth 1 --branch $version git@git.u-s-p.local:$repoPath/$repoName.git
   cp $repoName/$file $outfile
 }
@@ -208,14 +209,6 @@ ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
 downloadFromGitLab $ARGS
 CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
 
-ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_ICAP_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
-
 
 # Generate CRD documentation
 generateCrdDocumentation
@@ -258,8 +251,6 @@ MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing c
 prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
