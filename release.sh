@@ -204,6 +204,19 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
 downloadFromNexus $ARGS
 OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 
+ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
+downloadFromGitLab $ARGS
+CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
+
+ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
+downloadFromGitLab $ARGS
+EXT_PROC_ICAP_CHANGELOG=$(getGitLabOutfile $ARGS)
+
+ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CHANGELOG.md"
+downloadFromGitLab $ARGS
+EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
+
+
 # Generate CRD documentation
 generateCrdDocumentation
 
@@ -244,6 +257,9 @@ ALPHA_NOTICE="\n\n_This component\/feature is in still active development (\"alp
 MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing configurations when updating, see [Migration Guide](upgrade.md)."
 prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
+prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
@@ -256,7 +272,8 @@ for file in docs/*; do
         sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
-    fi
+        sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
+        sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file    fi
 done
 
 # Prepare file downloads
