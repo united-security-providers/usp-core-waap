@@ -29,7 +29,7 @@ spec:
         port: 4433
   icap:
     - name: "c-icap-echo-tls"
-    url: "icaps://c-icap:1345/echo?{{ .Values.chart.testrunid }}"
+      url: "icaps://c-icap:1345/echo?{{ .Values.chart.testrunid }}"
 ```
 
 See the [API reference](crd-doc.md#corewaapservicespecicapindexconfig) for more information on how the config looks like.
