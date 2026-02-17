@@ -15,6 +15,55 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 ### Core WAAP Operator 1.4.x to >=2.0.0
 
 - TODO other migrations...
+- **ICAP Antivirus (AV) Scanning**<br/>
+  Migration is easy. The settings stay the same, but `trafficProcessing` is no longer needed.
+  External processing related settings (operation, extProc) are no longer needed/available.
+  Example old configuration:
+  ```yaml
+  spec:
+  trafficProcessing:
+    icap:
+      - name: "icap-trendmicro"
+        operation: ...
+        extProc: ...
+        config:
+          url: "icap://some.host:1344/some/path"
+
+  ```
+  it used to be referenced via `trafficProcessingRefs` on route level:
+  ```yaml
+  spec:
+  routes:
+    - match:
+        path: /
+        pathType: PREFIX
+      trafficProcessingRefs:
+      - "icap-trendmicro"
+      backend:
+        address: backend
+        port: 4433
+  ```
+  Corresponding migrated config:
+  ```yaml
+  spec:
+  icap:
+    - name: "icap-trendmicro"
+      config:
+        url: "icap://some.host:1344/some/path"
+  ```
+  and new reference via `icapRefs`:
+  ```yaml
+  spec:
+  routes:
+    - match:
+        path: /
+        pathType: PREFIX
+      icapRefs:
+        - "icap-trendmicro"
+      backend:
+        address: backend
+        port: 4433
+  ```
 - **Header filtering**<br/>
   Migration is quite straightforward, only tiny changes,
   except that value patterns have to be converted from Lua patterns
