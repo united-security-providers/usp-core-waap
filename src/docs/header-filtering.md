@@ -160,10 +160,10 @@ spec:
       request:
         enabled: true
         allow:
-        - "x-req-2"
-        - "x-req-3"
+        - "X-Req-2"
+        - "X-Req-3"
         deny:
-        - "x-req-4"
+        - "X-Req-4"
         denyPatterns:
         - name: "*"
           pattern: "^possibly-evil$"
@@ -172,11 +172,11 @@ spec:
       request:
         enabled: true
         allow:
-        - "x-req-1"
-        - "x-req-3"
-        - "x-req-4"
+        - "X-Req-1"
+        - "X-Req-3"
+        - "X-Req-4"
         deny:
-        - "x-req-2"
+        - "X-Req-2"
   routes:
   - match:
       path: "/"
@@ -196,13 +196,15 @@ Cookie: possibly-evil
 
 Request header filtering:
 
-* `x-req-1`: Not filtered out (allowed on route, nowhere denied)
-* `x-req-2`: Filtered out (allowed by default, but denied on route)
-* `x-req-3`: Filtered out (allowed on route and by default, but denied by pattern)
-* `x-req-4`: Not filtered out (denied by default, but allowed on route)
+* `X-Req-1`: Not filtered out (allowed on route, nowhere denied)
+* `X-Req-2`: Filtered out (allowed by default, but denied on route)
+* `X-Req-3`: Filtered out (allowed on route and by default, but denied by pattern)
+* `X-Req-4`: Not filtered out (denied by default, but allowed on route)
 * `cookie`: Filtered out (part of `STANDARD` set, but denied by pattern)
 
 ## Allow classes
+
+(Note that HTTP headers are case-insensitive; listed lower-case below.)
 
 For request headers the following allow classes can be selected:
 
