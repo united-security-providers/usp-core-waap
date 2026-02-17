@@ -16,7 +16,7 @@ _The docker image has been renamed to **usp-core-waap-proxy** in this release._
 
 ### Changed
 - Improve image security by migrating the base image from alpine to distroless
-- **dos_prevention**: Changed to Go filter
+- **dos_prevention** / : Changed to Go filter
 - **openapi_validation**: Changed to Go filter
 - **openapi_validation**: Simplified configuration
 
