@@ -204,7 +204,7 @@ Request header filtering:
 
 ## Allow classes
 
-(Note that HTTP headers are case-insensitive; listed lower-case below.)
+(Note that HTTP headers are case-insensitive; listed lowercase below.)
 
 For request headers the following allow classes can be selected:
 
