@@ -60,15 +60,15 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   and new reference via `openapiRefs`:
   ```yaml
   spec:
-  routes:
-    - match:
-        path: /
-        pathType: PREFIX
-      openapiRefs:
-        - "openapi-pets-v3"
-      backend:
-        address: backend
-        port: 4433
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        openapiRefs:
+          - "openapi-pets-v3"
+        backend:
+          address: backend
+          port: 4433
   ```
 - **ICAP Antivirus (AV) Scanning**<br/>
   Migration is easy. The settings stay the same, but `trafficProcessing` is no longer needed.
