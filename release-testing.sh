@@ -174,8 +174,6 @@ fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecDefaults.version'`
-export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
-export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
 export CORE_WAAP_PROXY_VERSION=main-SNAPSHOT
 
@@ -186,10 +184,11 @@ docker pull $PROXY_IMG
 echo "Inspect proxy image..."
 
 export IMG_JSON=`docker image inspect $PROXY_IMG`
-export FILTER_CORAZA_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.coraza-envoy-go-filter.version"'`
-export FILTER_DOS_PREVENTION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.dos-prevention-envoy-go-filter.version"'`
-export FILTER_ICAP_AV_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.icap-av-envoy-go-filter.version"'`
-export FILTER_OPENAPI_VALIDATION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.openapi-validation-envoy-go-filter.version"'`
+export FILTER_CORAZA_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.coraza-filter.version"'`
+export FILTER_DOS_PREVENTION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.dos-prevention-filter.version"'`
+export FILTER_ICAP_AV_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.icap-av-filter.version"'`
+export FILTER_OPENAPI_VALIDATION_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.openapi-validation-filter.version"'`
+export FILTER_HEADER_VERSION=`echo $IMG_JSON | jq -r '.[].Config.Labels."component.header-filter.version"'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
@@ -206,6 +205,7 @@ echo "- Coraza filter release:                 $FILTER_CORAZA_VERSION"
 echo "- DOS prevention filter release:         $FILTER_DOS_PREVENTION_VERSION"
 echo "- ICAP AV filter release:                $FILTER_ICAP_AV_VERSION"
 echo "- OpenAPI Validation filter release:     $FILTER_OPENAPI_VALIDATION_VERSION"
+echo "- Header filter release:                 $FILTER_HEADER_VERSION"
 echo "-------------------------------------------------------------"
 
 exit -1
@@ -228,14 +228,6 @@ OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
 ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
 downloadFromGitLab $ARGS
 CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_ICAP_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 
 # Generate CRD documentation
 generateCrdDocumentation
@@ -278,8 +270,6 @@ MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing c
 prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
 prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
@@ -292,8 +282,6 @@ for file in docs/*; do
         sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file
     fi
 done
 

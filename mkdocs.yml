@@ -39,10 +39,8 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Release Notes:
-      - Helm Chart: 'helm-CHANGELOG.md'
-      - Operator: 'operator-CHANGELOG.md'
-      - Core WAAP Proxy: 'waap-proxy-CHANGELOG.md'
+  - Release Notes: 'release-notes.md'
+  - Changelog: 'CHANGELOG.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
