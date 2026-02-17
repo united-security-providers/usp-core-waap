@@ -131,7 +131,7 @@ Namely:
 A special case is if `enabled` is explicitly set to `false` on a route,
 then `allow`, `deny` and `denyPattern` are treated as not set.
 
-For `allow` and `deny` not set is treated the same way as set to an empty set.
+If `allow` or `deny` are not set, this is treated the same way as set to an empty set.
 
 The complete filter logic with per-route and default settings is:
 
