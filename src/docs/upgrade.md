@@ -48,14 +48,14 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   Corresponding migrated config:
   ```yaml
   spec:
-  openapi:
-    - name: "openapi-pets-v3"
-      schemaSource:
-        configMap: test-data
-        key: pet_store_v3.json
-      scope:
-        requestBody: true
-        responseBody: true
+    openapi:
+      - name: "openapi-pets-v3"
+        schemaSource:
+          configMap: test-data
+          key: pet_store_v3.json
+        scope:
+          requestBody: true
+          responseBody: true
   ```
   and new reference via `openapiRefs`:
   ```yaml
