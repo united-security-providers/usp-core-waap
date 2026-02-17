@@ -107,15 +107,15 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   and new reference via `icapRefs`:
   ```yaml
   spec:
-  routes:
-    - match:
-        path: /
-        pathType: PREFIX
-      icapRefs:
-        - "icap-trendmicro"
-      backend:
-        address: backend
-        port: 4433
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        icapRefs:
+          - "icap-trendmicro"
+        backend:
+          address: backend
+          port: 4433
   ```
 - **Header filtering**<br/>
   Migration is quite straightforward, only tiny changes,
