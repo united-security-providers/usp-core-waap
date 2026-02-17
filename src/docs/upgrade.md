@@ -21,16 +21,16 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   Example old configuration:
   ```yaml
   spec:
-  trafficProcessing:
-    openapi:
-      - name: "openapi-pets-v3"
-        config:
-          schemaSource:
-            configMap: test-data
-            key: pet_store_v3.json
-          scope:
-            requestBody: true
-            responseBody: true
+    trafficProcessing:
+      openapi:
+        - name: "openapi-pets-v3"
+          config:
+            schemaSource:
+              configMap: test-data
+              key: pet_store_v3.json
+            scope:
+              requestBody: true
+              responseBody: true
   ```
   it used to be referenced via `trafficProcessingRefs` on route level:
   ```yaml
