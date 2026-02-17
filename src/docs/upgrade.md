@@ -14,7 +14,64 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ### Core WAAP Operator 1.4.x to >=2.0.0
 
-- TODO
+- TODO other migrations...
+- **Header filtering**<br/>
+  Migration is quite straightforward, only tiny changes,
+  except that value patterns have to be converted from Lua patterns
+  to Regular Expression (regex) patterns.<br/>
+  Example old config:<br/>
+  ```yaml
+  spec:
+    headerFiltering:
+      logOnly: false
+      request:
+        enabled: true
+        allowClass: STANDARD
+        allow:
+        - X-Header-1
+        - X-Header-2
+        deny:
+        - Content-Md5
+        - name: X-Evil
+          valuePattern: "^evil%d+$" # NOTE: Lua pattern
+      response:
+        enabled: true
+        allow:
+        - X-Header-1
+        - X-Header-2
+        deny:
+        - X-Evil
+  ```
+  Corresponding migrated config:<br/>
+  ```yaml
+  spec:
+  headerFilter:
+    defaultFilterRef: "default"
+    filters:
+    - name: "default" # NOTE: name can be freely chosen, but ref above must match
+      logOnly: false
+      request:
+        enabled: true
+        allowClass: STANDARD
+        allow:
+        - X-Header-1
+        - X-Header-2
+        deny:
+        - Content-Md5
+        denyPatterns:
+        - name: X-Evil
+          pattern: "^evil\\d+$" # NOTE: converted to corresponding regex
+      reponse:
+        enabled: true
+        allow:
+        - X-Header-1
+        - X-Header-2
+        deny:
+        - X-Evil
+  ```
+  Note that the new implementation has additional features,
+  esp. header filtering can now also be adjusted on route level,
+  see [Header filtering](header-filtering.md).
 
 ### Core WAAP Operator 1.3.x to >=1.4.0
 

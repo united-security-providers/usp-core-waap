@@ -39,8 +39,7 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Release Notes: 'release-notes.md'
-  - Changelog: 'CHANGELOG.md'
+  - Release Notes: 'core-waap-CHANGELOG.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
