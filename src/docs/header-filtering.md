@@ -135,7 +135,7 @@ If `allow` or `deny` are not set, this is treated the same way as set to an empt
 
 The complete filter logic with per-route and default settings is:
 
-* If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`), skip to last step here.
+* If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`), no header filtering is done.
 * Start with an empty set of headers.
 * If request, add headers from `allowClass` (from per-route if set, else from default if set, else `STANDARD`) to set.
 * If response, add headers from implicit allow class to set.
