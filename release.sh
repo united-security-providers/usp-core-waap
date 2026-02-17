@@ -263,8 +263,7 @@ for file in docs/*; do
         sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file    fi
+    fi
 done
 
 # Prepare file downloads
