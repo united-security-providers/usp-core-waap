@@ -100,9 +100,9 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   Corresponding migrated config:
   ```yaml
   spec:
-  icap:
-    - name: "icap-trendmicro"
-      url: "icap://some.host:1344/some/path"
+    icap:
+      - name: "icap-trendmicro"
+        url: "icap://some.host:1344/some/path"
   ```
   and new reference via `icapRefs`:
   ```yaml
