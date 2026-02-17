@@ -76,14 +76,13 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   Example old configuration:
   ```yaml
   spec:
-  trafficProcessing:
-    icap:
-      - name: "icap-trendmicro"
-        operation: ...
-        extProc: ...
-        config:
-          url: "icap://some.host:1344/some/path"
-
+    trafficProcessing:
+      icap:
+        - name: "icap-trendmicro"
+          operation: ...
+          extProc: ...
+          config:
+            url: "icap://some.host:1344/some/path"
   ```
   it used to be referenced via `trafficProcessingRefs` on route level:
   ```yaml
