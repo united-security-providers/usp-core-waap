@@ -74,7 +74,6 @@ Normally occurs at the end of the deprecation period. It is advised to read the
 **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **helmchart**: Traffic related settings have been removed from the Helm chart.
-- **operator**: In the CRD, all legacy CRS settings under `spec.crs` were removed and replaced by the newer `spec.coraza.crs` settings instead.
 - **operator**: In the CRD, all `extProc` nodes have been removed since sidecars are no longer used for the filters.
 
 
