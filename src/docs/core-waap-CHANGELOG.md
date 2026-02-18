@@ -3,6 +3,7 @@
 ## [2.0.0] - 2025-MM-DD
 
 ### Contents
+- 
 - base image: gcr.io/distroless/cc-debian13
 - envoy version: 1.37.0
 - helm chart version: 2.0.0 
@@ -47,7 +48,7 @@ Changes expected to improve the state of the world and are unlikely to have nega
 ## Incompatible behavior changes
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
-Read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
 - **helmchart**: Removed all traffic processing related settings.
@@ -69,9 +70,13 @@ Read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled conf
 
 ## Removed config or runtime
 
-Normally occurs at the end of the deprecation period.
+Normally occurs at the end of the deprecation period. It is advised to read the  
+**[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
-- CRD removals (check with hussein)
+- **helmchart**: Traffic related settings have been removed from the Helm chart.
+- **operator**: In the CRD, all legacy CRS settings under `spec.crs` were removed and replaced by the newer `spec.coraza.crs` settings instead.
+- **operator**: In the CRD, all `extProc` nodes have been removed since sidecars are no longer used for the filters.
+
 
 ## Known Issues
 

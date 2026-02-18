@@ -18,7 +18,7 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 - In an existing Helm chart, remove all traffic processing related settings from the Helm chart (file `values.yaml`,
   keys `waapSpecDefaults.metrics` and `waapSpecTrafficProcessingDefaults`)
 - In the operator CRD, removed all legacy CRS settings under `spec.crs`;
-  use the newer `spec.coraza.crs` settings instead
+  use the newer `spec.coraza.crs` settings instead.
 - In the operator CRD, `spec.trafficProcessing` has been removed and replaced by separate nodes for OpenAPI, ICAP
   etc. (see below). All `extProc` nodes have been removed, as the new implementation does not use sidecars anymore.
 - In the operator CRD, the type of `spec.operation.startup.additionalCliArgs` changed from `string` to `[]string`
