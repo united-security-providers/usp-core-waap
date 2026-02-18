@@ -28,8 +28,8 @@ spec:
         address: backend
         port: 4433
   icap:
-    - name: "c-icap-echo-tls"
-      url: "icaps://c-icap:1345/echo?{{ .Values.chart.testrunid }}"
+    - name: "icap-trendmicro"
+      url: "icap://some.host:1344/some/path"
 ```
 
 See the [API reference](crd-doc.md#corewaapservicespecicapindexconfig) for more information on how the config looks like.
