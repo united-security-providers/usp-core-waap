@@ -49,7 +49,6 @@ Changes expected to improve the state of the world and are unlikely to have nega
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
 Read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
-
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
 - **helmchart**: Removed all traffic processing related settings.
 - **helmchart**: Removed all metrics related settings.
@@ -73,7 +72,6 @@ Read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled conf
 Normally occurs at the end of the deprecation period.
 
 - CRD removals (check with hussein)
-- 
 
 ## Known Issues
 

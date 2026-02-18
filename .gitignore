@@ -26,3 +26,5 @@ out/
 
 # Virtual Python environment
 .venv
+/charts/
+/crds/
