@@ -18,27 +18,6 @@ checkbin() {
   fi
 }
 
-prepareChangelog() {
-  local sourceFile=$1
-  local targetFile=$2
-  local notices=$3
-
-  rm -rf changelog-tmp
-  mkdir changelog-tmp
-
-  # Remove all "[...]: ..." link declarations (typ. at the bottom of the file)
-  sed -e "s/^\[[^\]*\]: http.*//g" $sourceFile > changelog-tmp/CHANGELOG2.md
-
-  # Remove brackets for internal links [...], but not for links with [...](...)
-  sed -E 's|\[([^]]+)]([^(])|\1\2|g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
-  sed -E 's|\[([^]]+)]$|\1|g' changelog-tmp/CHANGELOG3.md > changelog-tmp/CHANGELOG4.md
-
-  # Add notices (if any)
-  sed "s|# Changelog|# Changelog$notices|g" changelog-tmp/CHANGELOG4.md > $targetFile
-
-  rm -rf changelog-tmp
-}
-
 getNexusOutfile() {
   local version=$1
   local groupId=$2
@@ -70,28 +49,6 @@ downloadFromNexus() {
   echo "Nexus download URL: $downloadUrl"
   rm info.json
   wget -O $outfile $downloadUrl
-}
-
-getGitLabOutfile() {
-  local version=$1
-  local repoPath=$2
-  local repoName=$3
-  local file=$4
-  echo "$repoName-$version-$file"
-}
-
-# PROBABLY OBSOLETE / TODO: REMOVE
-downloadFromGitLab() {
-  local version=$1
-  local repoPath=$2
-  local repoName=$3
-  local file=$4
-  local outfile
-  outfile=$(getGitLabOutfile $@)
-
-  echo "Clone GIT repo: git@git.u-s-p.local:$repoPath/$repoName.git"
-  git clone --depth 1 --branch $version git@git.u-s-p.local:$repoPath/$repoName.git
-  cp $repoName/$file $outfile
 }
 
 # Remove extra info in CRD description fields from incl. "||" to before "</br>"
@@ -195,21 +152,6 @@ if [[ $CHARTS_VERSION =~ ^1.[0-3].* ]]; then
   export CORE_WAAP_PROXY_VERSION="v$CORE_WAAP_PROXY_VERSION"
 fi
 
-# Get changelogs from Nexus or GitLab
-
-ARGS="$CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog"
-downloadFromNexus $ARGS
-CHARTS_CHANGELOG=$(getNexusOutfile $ARGS)
-
-ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
-downloadFromNexus $ARGS
-OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
-
-ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
-downloadFromGitLab $ARGS
-CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-
 # Generate CRD documentation
 generateCrdDocumentation
 
@@ -248,9 +190,6 @@ helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
 ALPHA_NOTICE="\n\n_This component\/feature is in still active development (\"alpha\"); it is not recommended to already use it in productive environments._"
 MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing configurations when updating, see [Migration Guide](upgrade.md)."
-prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/

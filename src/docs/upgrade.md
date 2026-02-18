@@ -14,7 +14,7 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ### Core WAAP Operator 1.4.x to >=2.0.0
 
-- In an existing Helm chart, rename the docker image from **usp-core-waap** to **usp-core-waap-proxy**.
+- In an existing Helm chart, rename the docker image from `usp-core-waap` to `usp-core-waap-proxy`.
 - In an existing Helm chart, remove all traffic processing related settings from the Helm chart (file `values.yaml`,
   keys `waapSpecDefaults.metrics` and `waapSpecTrafficProcessingDefaults`)
 - In the operator CRD, remove all legacy CRS settings under `spec.crs`; use the newer `spec.coraza.crs` settings instead.
