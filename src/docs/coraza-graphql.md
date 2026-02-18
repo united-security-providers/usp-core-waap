@@ -6,7 +6,7 @@
 * GraphQL related settings are at `spec.coraza.graphql` and
   `spec.routes[].coraza.graphql`, plus general Coraza settings
   at `spec.coraza` and `spec.routes[].coraza`
-  in the [API Reference](crd-doc.md).
+  in the [API Reference](crd-doc.md#corewaapservicespeccoraza).
 * To activate GraphQL on a route, you have to first define
   a config and then reference it at a route,
   see the above settings.
