@@ -39,7 +39,7 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Release Notes: 'core-waap-CHANGELOG.md'
+  - Release Notes: 'core-waap-releasenotes.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
@@ -61,7 +61,6 @@ nav:
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
-    - Large Payloads (Legacy): 'large-payloads-legacy.md'
     - OAuth2 / OIDC: 'oidc-operation.md'
     - Debugging: 'debugging.md'
   - Downloads: 'downloads.md'
