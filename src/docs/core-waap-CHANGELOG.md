@@ -7,15 +7,8 @@
 - envoy version: 1.37.0
 - helm chart version: 2.0.0 
 - operator version: 2.0.0
-  - Envoy config 1.37.0, 
-  - CRS 4.18.0
-- coraza version: 3.3.3
 - coreruleset version: 4.18.0
-- coraza filter version: 1.2.1
-- header filter version: 1.0.2
-- openapi filter version: 1.0.0
-- icap av filter version: 2.0.0
-- DoS prevention filter version: 1.0.0
+- coraza version: 3.3.3
 
 ## New features and improvements
 
@@ -54,6 +47,8 @@ Changes expected to improve the state of the world and are unlikely to have nega
 ## Incompatible behavior changes
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
+Read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+
 
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
 - **helmchart**: Removed all traffic processing related settings.
@@ -63,7 +58,7 @@ Changes that are expected to cause an incompatibility if applicable; deployment 
 - **operator**: ICAP and OpenAPI validations have been improved:
   No longer need to create sidecar containers and accordingly configuration
   has been simplified, performance and memory footprint have been improved,
-  see the [Core WAAP Migration Guide](https://docs.united-security-providers.ch/usp-core-waap/2.0.x/upgrade/) for details
+  see the [Core WAAP Migration Guide](upgrade.md) for details
 - **operator**: Improved and extended header filtering, now also configurable per route.
   See the new settings under `spec.headerFilter` and per-route references at `spec.routes[].headerFilterRef`.
   Please consult the documentation for details on filter operation and merge behavior.
@@ -72,6 +67,13 @@ Changes that are expected to cause an incompatibility if applicable; deployment 
   It will only bind to 0.0.0.0 when explicitly enabled.
 - **operator**: Removed metrics sidecar and all related settings; all metrics are now handled in the main container.
 
+
+## Removed config or runtime
+
+Normally occurs at the end of the deprecation period.
+
+- CRD removals (check with hussein)
+- 
 
 ## Known Issues
 
