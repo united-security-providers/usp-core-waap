@@ -14,12 +14,22 @@ Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP request
 
 ## Configuration
 
+Example Configuration:
 
 ```yaml
 spec:
+  routes:
+    - match:
+        path: /
+        pathType: PREFIX
+      icapRefs:
+        - "icap-trendmicro"
+      backend:
+        address: backend
+        port: 4433
   icap:
-    - name: "icap-trendmicro-2"
-      config: ...
+    - name: "icap-trendmicro"
+      url: "icap://some.host:1344/some/path"
 ```
 
 See the [API reference](crd-doc.md#corewaapservicespecicapindex) for more information on how the config looks like.

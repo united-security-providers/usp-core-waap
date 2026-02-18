@@ -16,27 +16,117 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 - In an existing Helm chart, rename the docker image from **usp-core-waap** to **usp-core-waap-proxy**.
 - In an existing Helm chart, remove all traffic processing related settings from the Helm chart (file `values.yaml`,
-  keys `waapSpecDefaults.metrics` and `waapSpecTrafficProcessingDefaults`) 
+  keys `waapSpecDefaults.metrics` and `waapSpecTrafficProcessingDefaults`)
 - In the operator CRD, removed all legacy CRS settings under `spec.crs`;
   use the newer `spec.coraza.crs` settings instead
 - In the operator CRD, `spec.trafficProcessing` has been removed and replaced by separate nodes for OpenAPI, ICAP
   etc. (see below). All `extProc` nodes have been removed, as the new implementation does not use sidecars anymore.
-- In the operator CRD, OpenAPI validations configuration has changed:
-    - `spec.trafficProcessing.openapi` has been replaced by `spec.openapi` 
-    - The old `spec.trafficProcessing.openapi.items.properties.config` is now `spec.openapi.items.properties`
-    - `spec.openapi.items.properties` contains an additional new field `name`
-    - See the [API docs](crd-doc.md#corewaapservicespecopenapiindex) for details on how the new settings are structured.
-- In the operator CRD, ICAP validations configuration has changed:
-    - `spec.trafficProcessing.icap` has been replaced by `spec.icap`
-    - The ICAP settings structure has changed entirely, so it is advised to remove the old ones and replace them
-      with new settings as described in [API docs](crd-doc.md#corewaapservicespecicapindex)
-- In the operator CRD, improved and extended header filtering, now also configurable per route.
-  See the new settings under `spec.headerFilter` and per-route references at `spec.routes[].headerFilterRef`.
-  _Please consult the documentation for details on filter operation and merge behavior._
 - In the operator CRD, the type of `spec.operation.startup.additionalCliArgs` changed from `string` to `[]string`
 - The envoy admin interface now binds to localhost (127.0.0.1) by default. It will only bind to 0.0.0.0 when explicitly enabled.
 - In the operator CRD, all settings related to the metrics sidecar must be removed: `spec.metrics.image`,
   `spec.metrics.version`, `spec.metrics.resources` and `spec.metrics.pollIntervalSeconds`
+- **OpenAPI Validation**<br/>
+  Migration is easy. The settings stay the same, but `trafficProcessing` is no longer needed.
+  External processing related settings (operation, extProc) are no longer needed/available.
+  Example old configuration:
+  ```yaml
+  spec:
+    trafficProcessing:
+      openapi:
+        - name: "openapi-pets-v3"
+          config:
+            schemaSource:
+              configMap: test-data
+              key: pet_store_v3.json
+            scope:
+              requestBody: true
+              responseBody: true
+  ```
+  it used to be referenced via `trafficProcessingRefs` on route level:
+  ```yaml
+  spec:
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        trafficProcessingRefs:
+        - "openapi-pets-v3"
+        backend:
+          address: backend
+          port: 4433
+  ```
+  Corresponding migrated config:
+  ```yaml
+  spec:
+    openapi:
+      - name: "openapi-pets-v3"
+        schemaSource:
+          configMap: test-data
+          key: pet_store_v3.json
+        scope:
+          requestBody: true
+          responseBody: true
+  ```
+  and new reference via `openapiRefs`:
+  ```yaml
+  spec:
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        openapiRefs:
+          - "openapi-pets-v3"
+        backend:
+          address: backend
+          port: 4433
+  ```
+- **ICAP Antivirus (AV) Scanning**<br/>
+  Migration is easy. The settings stay the same, but `trafficProcessing` is no longer needed.
+  External processing related settings (operation, extProc) are no longer needed/available.
+  Example old configuration:
+  ```yaml
+  spec:
+    trafficProcessing:
+      icap:
+        - name: "icap-trendmicro"
+          operation: ...
+          extProc: ...
+          config:
+            url: "icap://some.host:1344/some/path"
+  ```
+  it used to be referenced via `trafficProcessingRefs` on route level:
+  ```yaml
+  spec:
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        trafficProcessingRefs:
+        - "icap-trendmicro"
+        backend:
+          address: backend
+          port: 4433
+  ```
+  Corresponding migrated config:
+  ```yaml
+  spec:
+    icap:
+      - name: "icap-trendmicro"
+        url: "icap://some.host:1344/some/path"
+  ```
+  and new reference via `icapRefs`:
+  ```yaml
+  spec:
+    routes:
+      - match:
+          path: /
+          pathType: PREFIX
+        icapRefs:
+          - "icap-trendmicro"
+        backend:
+          address: backend
+          port: 4433
+  ```
 - **Header filtering**<br/>
   Migration is quite straightforward, only tiny changes,
   except that value patterns have to be converted from Lua patterns

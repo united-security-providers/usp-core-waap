@@ -20,11 +20,27 @@ Currently supported formats of the specification are JSON and YAML.
 
 ## Configuration
 
+Example Configuration:
+
 ```yaml
 spec:
+  routes:
+    - match:
+        path: /
+        pathType: PREFIX
+      openapiRefs:
+        - "openapi-pets-v3"
+      backend:
+        address: backend
+        port: 4433
   openapi:
-    - name: "openapi-petstore-v3"
-      config: ...
+    - name: "openapi-pets-v3"
+      schemaSource:
+        configMap: test-data
+        key: pet_store_v3.json
+      scope:
+        requestBody: true
+        responseBody: true
 ```
 
 ### Exceptions
