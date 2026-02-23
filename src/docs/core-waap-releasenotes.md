@@ -7,7 +7,7 @@
 - base image: gcr.io/distroless/cc-debian13
 - envoy version: 1.37.0
 - core-waap proxy version: 2.0.0
-- helm chart version: 2.0.0 
+- helm chart version: 2.0.0
 - operator version: 2.0.0
 - coreruleset version: 4.18.0
 - coraza version: 3.3.3
@@ -70,7 +70,7 @@ It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document f
 
 ## Removed config or runtime
 
-Normally occurs at the end of the deprecation period. It is advised to read the  
+Normally occurs at the end of the deprecation period. It is advised to read the
 **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **helmchart**: Traffic related settings have been removed from the Helm chart.
@@ -79,6 +79,6 @@ Normally occurs at the end of the deprecation period. It is advised to read the
 
 ## Known Issues
 
-- **coraza**: A bug in Coraza results in a wrong HTTP status code returned, if `SecResponseBodyLimit` is reached and 
+- **coraza**: A bug in Coraza results in a wrong HTTP status code returned, if `SecResponseBodyLimit` is reached and
 `SecResponseBodyLimitAction` is set to `Reject`. Coraza incorrectly returns HTTP 413 instead of HTTP 500.
 
