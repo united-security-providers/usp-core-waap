@@ -200,6 +200,8 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
   The `spec.crs` settings are now marked as deprecated (resulting also in a warn log entry if still used);
   they are still fully supported, but should be migrated to the new `spec.coraza` settings as soon as possible,
   because upcoming minor releases might no longer support them.
+- Replace `spec.crs.enabled` with `spec.coraza.enabled` to retain the same behavior.
+  `spec.coraza.crs.enabled` is not the correct replacement, it only disables CRS and not the whole coraza filter.
 
 ### Core WAAP Operator 1.1.0 to >=1.2.0
 
