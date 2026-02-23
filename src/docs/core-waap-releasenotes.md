@@ -58,10 +58,6 @@ It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document f
 - **helmchart**: Removed all metrics related settings.
 - **operator**: Removed legacy CRS settings under `spec.crs`;
   use the newer `spec.coraza.crs` settings instead.
-- **operator**: ICAP and OpenAPI validations have been improved:
-  No longer need to create sidecar containers and accordingly configuration
-  has been simplified, performance and memory footprint have been improved,
-  see the [Core WAAP Migration Guide](upgrade.md) for details.
 - **operator**: Improved and extended header filtering, now also configurable per route.
   See the new settings under `spec.headerFilter` and per-route references at `spec.routes[].headerFilterRef`.
   Please consult the documentation for details on filter operation and merge behavior.
