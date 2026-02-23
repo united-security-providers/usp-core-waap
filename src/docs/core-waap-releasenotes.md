@@ -65,6 +65,7 @@ It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document f
 - **operator**: The envoy admin interface now binds to localhost (127.0.0.1) by default.
   It will only bind to 0.0.0.0 when explicitly enabled.
 - **operator**: Removed metrics sidecar and all related settings; all metrics are now handled in the main container.
+- **openapi**: Return 403 instead of a 400 when a request fails validation
 
 
 ## Removed config or runtime
