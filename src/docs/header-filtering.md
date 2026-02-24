@@ -13,7 +13,7 @@ is  already defined globally.
 
 ## Basic config structure
 
-Header filtering is configured at two places, under `spec.headerFilter`
+Header filtering is configured in two places, under `spec.headerFilter`
 plus a single setting `spec.routes[].headerFilterRef`:
 
 ```yaml
