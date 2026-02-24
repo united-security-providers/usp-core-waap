@@ -52,10 +52,9 @@ Changes that are expected to cause an incompatibility if applicable; deployment 
 It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
-- **helmchart**: Removed all traffic processing related settings.
-- **helmchart**: Removed all metrics related settings.
-- **operator**: Removed legacy CRS settings under `spec.crs`;
-  use the newer `spec.coraza.crs` settings instead.
+- **helmchart**: Removed all traffic processing related settings; there are no longer sidecars for ICAP and OpenAPI.
+- **helmchart**: Removed all metrics related settings; all metrics are now handled in the main container
+- **operator**: Removed legacy CRS settings under `spec.crs`; use the newer `spec.coraza.crs` settings instead.
 - **operator**: Improved and extended header filtering, now also configurable per route.
   See the new settings under `spec.headerFilter` and per-route references at `spec.routes[].headerFilterRef`.
   Please consult the documentation for details on filter operation and merge behavior.
@@ -71,9 +70,12 @@ It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document f
 Normally occurs at the end of the deprecation period. It is advised to read the
 **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
-- **helmchart**: Traffic related settings have been removed from the Helm chart.
-- **operator**: In the CRD, all `extProc` nodes have been removed since sidecars are no longer used for the filters.
-
+- **helmchart**: Removed all traffic processing related settings; there are no longer sidecars for ICAP and OpenAPI.
+- **helmchart**: Removed all metrics related settings; all metrics are now handled in the main container.
+- **operator**: Removed legacy CRS settings under `spec.crs`; use the newer `spec.coraza.crs` settings instead.
+- **operator**: Removed `spec.trafficProcessing` settings; ICAP and OpenAPI settings are now under `spec.icap` resp. `spec.openapi`.
+- **operator**: Removed all metrics related settings; all metrics are now handled in the main container.
+- **operator**: Replaced `spec.headerFiltering` with `spec.headerFilter` with slightly changed settings.
 
 ## Known Issues
 
