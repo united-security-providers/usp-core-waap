@@ -81,7 +81,7 @@ of the individual settings for what their basic function is.
 
 The set of effectively allowed headers is informally as follows:
 
-* `allowPattern` + `allow` - `deny`
+* `allowClass` + `allow` - `deny`
 
 Plus if `denyPattern` is set, headers that match the regex
 are additionally filtered out.
