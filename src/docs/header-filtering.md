@@ -103,7 +103,7 @@ headers are filtered as follows:
 * (more headers from `STANDARD`) - Only filtered out if matched the deny pattern with "*" wildcard header name
 
 Which headers are contained in which allow class
-is specied at the bottom of this page.
+is specified at the bottom of this page.
 
 ## Merge behavior between per-route and default in detail
 
