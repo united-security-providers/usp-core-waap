@@ -16,9 +16,7 @@
 
 Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
 
-- Improve image security by migrating the base image from alpine to distroless.
-- Use envoy binary as entrypoint instead of hot-restarter python script as entrypoint and use envoy binary directly.
-- Replace external filters (Coraza, DoS, ICAP AV, OpenAPI, headers) with internal Go filters to reduce memory footprint and improve performance.
+- Changed extension mechanism and optimized all features internally to reduce memory requirements and improve performance.
 - **proxy**: Add new optional proxy executable with debug support. See [debugging](debugging.md) for details on how to use it.
 - **documentation**: Add new documentation for [debugging](debugging.md) which describes the recommended approach for debugging crashes, segmentation faults and other issues you might encounter.
 - **helmchart**: Reduce permissions for the default `ClusterRole` used by the operator to enhance security and align
