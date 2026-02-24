@@ -47,7 +47,9 @@ routes:
 
 Both the default filter ref and per-route filter refs are optional;
 if no default filter is referenced and no filter on the route,
-header filtering is completely off.
+header filtering is enabled for requests with allow class `STANDARD`
+and enabled for responses with the implicit default set of allowed
+response headers, see further below for details.
 
 ## Filter config settings and basic filtering
 
@@ -135,7 +137,9 @@ If `allow` or `deny` are not set, this is treated the same way as set to an empt
 
 The complete filter logic with per-route and default settings is:
 
-* If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`), no header filtering is done.
+* If not `enabled` for request resp. response (from per-route if set, else from default if set, else `true`),
+  request header filtering is enabled with allow class `STANDARD`
+  and response header filtering is enabled with the default set of allowed response headers.
 * Start with an empty set of headers.
 * If request, add headers from `allowClass` (from per-route if set, else from default if set, else `STANDARD`) to set.
 * If response, add headers from implicit allow class to set.
