@@ -1,6 +1,6 @@
 # Header Filtering
 
-The header filtering feature allows to filter both request and response header filters.
+The header filtering feature allows to filter both request and response headers.
 
 The two main functionalities are:
 
