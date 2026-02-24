@@ -1,4 +1,6 @@
-# What is Coraza?
+# Coraza
+
+## What is Coraza?
 
 Roughly speaking, Coraza is the same as ModSecurity / OWASP CRS except
 for some technical implementation details.
@@ -70,6 +72,15 @@ thus reducing memory and CPU footprint.
 
 In the future further dedicated validations might be added,
 with potentially similar benfits.
+
+!!! tip
+
+We have implemented performance optimizations in the Coraza filter
+compared to the general Coraza implementation.
+Even though we test compatibility with CRS rules in detail (FTW test suite),
+it is possible to turn off these optimizations in case there would be
+compatibility problems in practice, using the settings
+`spec.coraza.useRe2` and `spec.coraza.useLibinjection`.
 
 ## Core WAAP Coraza Settings
 

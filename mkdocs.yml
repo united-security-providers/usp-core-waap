@@ -43,7 +43,7 @@ nav:
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
-      - What is Coraza?: "what-is-coraza.md"
+      - Coraza: "coraza.md"
       - CRS: "coraza-crs.md"
       - GraphQL: "coraza-graphql.md"
     - Header Filtering: 'header-filtering.md'
