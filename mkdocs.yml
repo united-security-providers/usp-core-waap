@@ -53,6 +53,7 @@ nav:
     - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
     - Lua Filters: 'lua-filters.md'
+    - Rate Limiting: 'rate-limiting.md'
   - Operation:
     - Operator Helm Chart:
         - Usage: 'helm.md'
