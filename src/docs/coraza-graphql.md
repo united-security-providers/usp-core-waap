@@ -1,6 +1,6 @@
 # GraphQL Basic Usage
 
-(This section assumes you have read the section [What is Coraza?](what-is-coraza.md))
+(This section assumes you have read the section [What is Coraza?](coraza.md#what-is-coraza))
 
 * By default, GraphQL validation is not active on any route.
 * GraphQL related settings are at `spec.coraza.graphql` and

@@ -1,6 +1,6 @@
 # CRS Basic Usage
 
-(This section assumes you have read the section [What is Coraza?](what-is-coraza.md))
+(This section assumes you have read the section [What is Coraza?](coraza.md#what-is-coraza))
 
 * By default, CRS is active on all routes,
   with OWASP CRS rule sets for request validation,
