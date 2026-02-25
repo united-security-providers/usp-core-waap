@@ -7,7 +7,10 @@ that needs to be updated is this one:
     src/core-waap-releasenotes.md
 ----
 
-* Create a new level-2 heading for the new version, with release date field, e.g.
+The new information is always inserted at the top of the file, right after the main
+title "Core WAAP Release Notes".
+
+- Create a new level-2 heading for the new version, with release date field, e.g.
 
 ----
     ## 1.2.3 - 2026-07-25
