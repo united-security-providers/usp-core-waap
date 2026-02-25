@@ -12,29 +12,10 @@ checkbin() {
   if ! command -v $cmd &> /dev/null; then
     echo "$cmd command could not be found"
     echo "HINT: If you are using a python virtual environment then you need to active it before running this script"
+    echo "possibly with this command or a similar one (depending on how you created your venv):"
+    echo "$ source .venv/bin/activate"
     exit
   fi
-}
-
-prepareChangelog() {
-  local sourceFile=$1
-  local targetFile=$2
-  local notices=$3
-
-  rm -rf changelog-tmp
-  mkdir changelog-tmp
-
-  # Remove all "[...]: ..." link declarations (typ. at the bottom of the file)
-  sed -e "s/^\[[^\]*\]: http.*//g" $sourceFile > changelog-tmp/CHANGELOG2.md
-
-  # Remove brackets for internal links [...], but not for links with [...](...)
-  sed -E 's|\[([^]]+)]([^(])|\1\2|g' changelog-tmp/CHANGELOG2.md > changelog-tmp/CHANGELOG3.md
-  sed -E 's|\[([^]]+)]$|\1|g' changelog-tmp/CHANGELOG3.md > changelog-tmp/CHANGELOG4.md
-
-  # Add notices (if any)
-  sed "s|# Changelog|# Changelog$notices|g" changelog-tmp/CHANGELOG4.md > $targetFile
-
-  rm -rf changelog-tmp
 }
 
 getNexusOutfile() {
@@ -68,26 +49,6 @@ downloadFromNexus() {
   echo "Nexus download URL: $downloadUrl"
   rm info.json
   wget -O $outfile $downloadUrl
-}
-
-getGitLabOutfile() {
-  local version=$1
-  local repoPath=$2
-  local repoName=$3
-  local file=$4
-  echo "$repoName-$version-$file"
-}
-
-downloadFromGitLab() {
-  local version=$1
-  local repoPath=$2
-  local repoName=$3
-  local file=$4
-  local outfile
-  outfile=$(getGitLabOutfile $@)
-
-  git clone --depth 1 --branch $version git@git.u-s-p.local:$repoPath/$repoName.git
-  cp $repoName/$file $outfile
 }
 
 # Remove extra info in CRD description fields from incl. "||" to before "</br>"
@@ -172,8 +133,6 @@ fi
 tar xzf usp-core-waap-operator-$CHARTS_VERSION.tgz
 export OPERATOR_VERSION=`grep 'Operator version:' usp-core-waap-operator/crds/crd-core-waap.yaml | cut -d ':' -f 2 | tr -d ' '`
 export CORE_WAAP_PROXY_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecDefaults.version'`
-export EXT_PROC_ICAP_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.icap.version'`
-export EXT_PROC_OPENAPI_VERSION=`cat usp-core-waap-operator/values.yaml | yq -r '.operator.config.waapSpecTrafficProcessingDefaults.openapi.version'`
 
 # Perform quick check here - we NEVER want a snapshot documented on the website, so make
 # sure that the Helm chart contains a reference to a fixed operator release
@@ -186,36 +145,12 @@ echo "-------------------------------------------------------------"
 echo "Selected Helm chart release:             $CHARTS_VERSION"
 echo "- Operator release in Helm chart:        $OPERATOR_VERSION"
 echo "- Core WAAP Proxy release in Helm chart: $CORE_WAAP_PROXY_VERSION"
-echo "- extProc ICAP release in Helm chart:    $EXT_PROC_ICAP_VERSION"
-echo "- extProc OpenAPI release in Helm chart: $EXT_PROC_OPENAPI_VERSION"
 echo "-------------------------------------------------------------"
 
 # Adapt for change of tagged version in https://git.u-s-p.local/core-waap/core-waap-proxy-build/-/tags (up to 1.3.0 "v1.3.0", from 1.4.0 "1.4.0")
 if [[ $CHARTS_VERSION =~ ^1.[0-3].* ]]; then
   export CORE_WAAP_PROXY_VERSION="v$CORE_WAAP_PROXY_VERSION"
 fi
-
-# Get changelogs from Nexus or GitLab
-
-ARGS="$CHARTS_VERSION ch.u-s-p.core.waap waap-operator-helm md changelog"
-downloadFromNexus $ARGS
-CHARTS_CHANGELOG=$(getNexusOutfile $ARGS)
-
-ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-operator md changelog"
-downloadFromNexus $ARGS
-OPERATOR_CHANGELOG=$(getNexusOutfile $ARGS)
-
-ARGS="$CORE_WAAP_PROXY_VERSION core-waap core-waap-proxy-build CHANGELOG.md"
-downloadFromGitLab $ARGS
-CORE_WAAP_PROXY_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-ARGS="$EXT_PROC_ICAP_VERSION core-waap/ext-proc core-waap-ext-proc-icap CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_ICAP_CHANGELOG=$(getGitLabOutfile $ARGS)
-
-ARGS="$EXT_PROC_OPENAPI_VERSION core-waap/ext-proc core-waap-ext-proc-openapi CHANGELOG.md"
-downloadFromGitLab $ARGS
-EXT_PROC_OPENAPI_CHANGELOG=$(getGitLabOutfile $ARGS)
 
 # Generate CRD documentation
 generateCrdDocumentation
@@ -255,11 +190,6 @@ helm-docs --chart-search-root=build/usp-core-waap-operator -o helm-values.md
 
 ALPHA_NOTICE="\n\n_This component\/feature is in still active development (\"alpha\"); it is not recommended to already use it in productive environments._"
 MIGRATION_NOTICE="\n\nBreaking changes/additions may require to adapt existing configurations when updating, see [Migration Guide](upgrade.md)."
-prepareChangelog build/$CHARTS_CHANGELOG docs/helm-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$OPERATOR_CHANGELOG docs/operator-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$CORE_WAAP_PROXY_CHANGELOG docs/waap-proxy-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_ICAP_CHANGELOG docs/ext-proc-icap-CHANGELOG.md "$MIGRATION_NOTICE"
-prepareChangelog build/$EXT_PROC_OPENAPI_CHANGELOG docs/ext-proc-openapi-CHANGELOG.md "$ALPHA_NOTICE$MIGRATION_NOTICE"
 
 mkdir -p docs/files
 ######cp build/usp-core-waap-operator/values.yaml docs/files/
@@ -272,8 +202,6 @@ for file in docs/*; do
         sed -i -e 's/%OPERATOR_VERSION%/'$OPERATOR_VERSION'/g' $file
         sed -i -e 's/%CHARTS_VERSION%/'$CHARTS_VERSION'/g' $file
         sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_ICAP_VERSION%/'$EXT_PROC_ICAP_VERSION'/g' $file
-        sed -i -e 's/%EXT_PROC_OPENAPI_VERSION%/'$EXT_PROC_OPENAPI_VERSION'/g' $file
     fi
 done
 

@@ -4,7 +4,7 @@ Using Lua filters in the USP Core WAAP adds flexibility for custom application i
 
 Filters written in the [Lua programming language](https://www.lua.org/) can be configured to be processed
 as part of the regular request/response processing in the USP Core WAAP,
-both before and after other filters (like filters for authentication, traffic processing, etc.).
+both before and after other filters (like filters for authentication, openapi validation, etc.).
 
 Since the corresponding filter scripts are part of the configuration
 of the USP Core WAAP — as opposed to part of a USP Core WAAP binary or release —,
@@ -68,7 +68,7 @@ There are two locations:
 * `/foo`
     * `filter1` and `filter2` referenced as "first" Lua filters
       will be run in that order before all other filters
-      (authentication, traffic processing, "last" Lua filters)
+      (authentication, openapi validation, "last" Lua filters)
     * `filter3` and `filter2` referenced as "last" Lua filters
       will be run in the order `filter2` then `filter3` after all other filters
       (except the final filter that routes to the backend)
@@ -79,7 +79,7 @@ There are two locations:
     * Just `filter1` will be run as first filter.
 
 The Lua filter and helper scripts are defined in a config map named `lua-basic-config-map`.
-They only do some logging but do not modify request/response in this example. 
+They only do some logging but do not modify request/response in this example.
 Besides the simple example in filter1.lua, filter2.lua and filter3.lua illustrate how utility functions from other scripts can be used (Lua module).
 
 ```yaml

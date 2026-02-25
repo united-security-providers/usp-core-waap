@@ -10,38 +10,26 @@ ICAP has practically never been widely used in its full flexibility and would te
 
 The Core WAAP allows to send HTTP requests via ICAP to an ICAP server, typically to make sure that uploaded content does not contain any viruses or similar malware. (Modification of HTTP requests or scanning/modification of HTTP responses is, however, not a common use case and is currently not supported.)
 
-Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP requests to the ICAP server, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware. 
+Technically, the Core WAAP ICAP AV scanning uses OPTIONS and REQMOD ICAP requests to the ICAP server, the former to query abilities/preferences of the ICAP server, the latter to scan HTTP requests for viruses and similar malware.
 
 ## Configuration
 
-Providing ICAP AV scanning via an external ICAP server is a part of the more general Traffic Processing of Core WAAP. As such, its configuration is located in the 'icap' section of 'spec.trafficProcessing':
+Example Configuration:
 
 ```yaml
 spec:
-  trafficProcessing:
-    icap:
-      - name: "icap-trendmicro-2" 
-        operation: ...
-        extProc: ...
-        config: ...
+  routes:
+    - match:
+        path: /
+        pathType: PREFIX
+      icapRefs:
+        - "icap-trendmicro"
+      backend:
+        address: backend
+        port: 4433
+  icap:
+    - name: "icap-trendmicro"
+      url: "icap://some.host:1344/some/path"
 ```
 
-See the Traffic Processing [Overview](traffic-processing-overview.md) for settings that have the same structure for all types of traffic processing, namely 'operation' and 'extProc' above.
-
-The 'config' section contains the ICAP-specific configuration:
-
-```yaml
-spec:
-  trafficProcessing:
-    icap:
-      - ... 
-        config:
-          url: "icap://some.host:1344/some/path"
-```
-
-The 'url' setting defines:
-
-- Whether to use TLS to the ICAP server ("icaps://") or not ("icap://")
-- Host, port and location to send the ICAP request to
-
-TLS uses the same CA certificates as for HTTP backend routes, i.e. the settings under 'spec.operation.caCertificates' (and corresponding operator defaults).
+See the [API reference](crd-doc.md#corewaapservicespecicapindex) for more information on how the config looks like.

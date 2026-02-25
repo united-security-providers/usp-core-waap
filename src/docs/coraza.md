@@ -1,4 +1,6 @@
-# What is Coraza?
+# Coraza
+
+## What is Coraza?
 
 Roughly speaking, Coraza is the same as ModSecurity / OWASP CRS except
 for some technical implementation details.
@@ -71,6 +73,15 @@ thus reducing memory and CPU footprint.
 In the future further dedicated validations might be added,
 with potentially similar benfits.
 
+!!! tip
+
+We have implemented performance optimizations in the Coraza filter
+compared to the general Coraza implementation.
+Even though we test compatibility with CRS rules in detail (FTW test suite),
+it is possible to turn off these optimizations in case there would be
+compatibility problems in practice, using the settings
+`spec.coraza.useRe2` and `spec.coraza.useLibinjection`.
+
 ## Core WAAP Coraza Settings
 
 * Settings regarding Coraza in general (e.g. activation or request size limits)
@@ -84,3 +95,13 @@ with potentially similar benfits.
   are specified at `spec.coraza.graphql` and `spec.routes[].coraza.graphql`
   in the [API Reference](crd-doc.md),
   plus there is a basic overview in the section [*GraphQL*](coraza-graphql.md).
+
+!!! tip
+
+Note that `spec.coraza.enabled` and per route `spec.routes[].coraza.enabled`
+decide whether the Coraza filter is inserted at all at a given route.
+The Coraza filter needs to be inserted if either CRS or GraphQL validations are to be done.
+Whether CRS is active on a route is defined by `spec.coraza.defaultEnabled`
+and `spec.routes[].coraza.crs.enabled`.
+Whether GraphQL validation is active on a route is defined by
+`spec.routes[].coraza.graphql.enabled`.

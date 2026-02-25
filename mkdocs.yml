@@ -39,24 +39,18 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Welcome: 'index.md'
-  - Release Notes:
-      - Helm Chart: 'helm-CHANGELOG.md'
-      - Operator: 'operator-CHANGELOG.md'
-      - Core WAAP Proxy: 'waap-proxy-CHANGELOG.md'
-      - extProc ICAP: 'ext-proc-icap-CHANGELOG.md'
-      - extProc OpenAPI: 'ext-proc-openapi-CHANGELOG.md'
+  - Release Notes: 'core-waap-releasenotes.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
     - Coraza:
-      - What is Coraza?: "what-is-coraza.md"
+      - Coraza: "coraza.md"
       - CRS: "coraza-crs.md"
       - GraphQL: "coraza-graphql.md"
+    - Header Filtering: 'header-filtering.md'
     - Error Mapping: 'error-mapping.md'
     - Native Config Post-Processing: 'native-config-post-processing.md'
-    - Traffic Processing:
-      - Overview: 'traffic-processing-overview.md'
-      - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
-      - OpenAPI Validation: 'openapi-validation.md'
+    - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
+    - OpenAPI Validation: 'openapi-validation.md'
     - Virtual Patch: 'crs-virtual-patch.md'
     - Lua Filters: 'lua-filters.md'
   - Operation:
@@ -67,7 +61,6 @@ nav:
     - Logs and Metrics: 'logs-metrics.md'
     - Auto-Learning: 'autolearning.md'
     - Large Payloads: 'large-payloads.md'
-    - Large Payloads (Legacy): 'large-payloads-legacy.md'
     - OAuth2 / OIDC: 'oidc-operation.md'
     - Debugging: 'debugging.md'
   - Downloads: 'downloads.md'
