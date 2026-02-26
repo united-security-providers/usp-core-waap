@@ -13,7 +13,7 @@ checkbin() {
     echo "$cmd command could not be found"
     echo "HINT: If you are using a python virtual environment then you need to active it before running this script"
     echo "possibly with this command or a similar one (depending on how you created your venv):"
-    echo "$ source .venv/bin/activate"
+    echo "$ source ~/.venv/bin/activate"
     exit
   fi
 }
