@@ -160,12 +160,6 @@ ARGS="$OPERATOR_VERSION ch.u-s-p.core.waap waap-lib-autolearn-cli jar"
 downloadFromNexus $ARGS
 AUTOLEARN_CLI_JAR=$(getNexusOutfile $ARGS)
 
-# TO CHECK ---------------->>>>>>>>>>>>>>>> REALLY GET DEMO APPS FROM CI PROJECT? TBD
-# clone ci project
-git clone  --depth 1 git@git.u-s-p.local:core-waap/core-waap-ci.git
-# checkout tag matching the helm charts release
-#(cd core-waap-ci && git checkout --quiet helm$CHARTS_VERSION)
-
 # =====================================================================
 # Begin site build
 # =====================================================================
@@ -204,10 +198,6 @@ for file in docs/*; do
         sed -i -e 's/%CORE_WAAP_PROXY_VERSION%/'$CORE_WAAP_PROXY_VERSION'/g' $file
     fi
 done
-
-# Prepare file downloads
-zip -q -r docs/files/juiceshop.zip build/core-waap-ci/demo/juiceshop
-zip -q -r docs/files/httpbin.zip build/core-waap-ci/demo/httpbin
 
 echo "Successfully generated site (Markdown) in docs folder."
 
