@@ -12,3 +12,24 @@ after Core WAAP CRD with `metrics-` prefix. Service's port can be configured in 
 CRD (see [API Description](crd-doc.md#corewaapservicespecoperationmetrics) for it). The URL is `/metrics`.
 
 How the log and monitoring stack can look like is beyond the scope of this documentation.
+
+## Core WAAP filter metrics
+
+The following metrics are exposed to help you monitor and observe the behavior of several filters. Each metric captures a specific aspect of traffic processing giving you full visibility into both allowed and blocked transactions across all policy layers.
+
+| Metric | Description |
+|--------|-------------|
+| `header_filter_tx_total` | Total number of requests processed by the header filter. |
+| `header_filter_request_headers_removed_total` | Total number of request headers removed by the header filter. |
+| `header_filter_response_headers_removed_total` | Total number of response headers removed by the header filter. |
+| `icap_tx_allowed` | Total number of requests allowed after ICAP inspection. |
+| `icap_tx_blocked` | Total number of requests blocked by ICAP inspection. |
+| `icap_tx_processing_errors` | Total number of errors encountered during ICAP processing. |
+| `icap_tx_total` | Total number of requests submitted for ICAP inspection. |
+| `dos_tx_total` | Total number of requests evaluated by the DoS protection policy. |
+| `dos_blocked_tx_total` | Total number of requests blocked by the DoS protection policy. |
+| `openapi_tx_allowed` | Total number of requests allowed after OpenAPI schema validation. |
+| `openapi_tx_blocked` | Total number of requests blocked by OpenAPI schema validation. |
+| `openapi_responses_tx_allowed` | Total number of responses allowed after OpenAPI schema validation. |
+| `openapi_responses_tx_blocked` | Total number of responses blocked by OpenAPI schema validation. |
+| `openapi_tx_total` | Total number of requests evaluated against the OpenAPI schema. |
