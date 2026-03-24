@@ -1,21 +1,23 @@
 # Logs and Metrics
 
-Logs about Core WAAP's http request/response processing and possible security policy violation events are crucial for the
+Logs about Core WAAP's http request / response processing and possible security policy violation events are crucial for the
 visibility of the target web application or API operation.
 Core WAAP Operator logs allow to monitor configuration change events. Besides logs, metrics offer quantitative data on
 aspects like traffic volume, response times, and blocked threats, enabling the monitoring of Core WAAP effectiveness over
 time and identifying trends or anomalies.
 
-The Core WAAP components log to the standard out in JSON format and can be used by customers log stack for further
-processing and visualization. Metrics are exposed in Prometheus format via a dedicated Kubernetes service which named
-after Core WAAP CRD with `metrics-` prefix. Service's port can be configured in `spec.operation.metrics` section of the
+All Core WAAP components log to standard error in either JSON format for text format.
+To process logs via a dedicated log stack for further processing and visualization, it is recommended to use the JSON format.
+Metrics are exposed in Prometheus format via a dedicated Kubernetes service which is named after Core WAAP CRD with `metrics-` prefix.
+The port of this service can be configured in `spec.operation.metrics` section of the
 CRD (see [API Description](crd-doc.md#corewaapservicespecoperationmetrics) for it). The URL is `/metrics`.
 
 How the log and monitoring stack can look like is beyond the scope of this documentation.
 
 ## Core WAAP filter metrics
 
-The following metrics are exposed to help you monitor and observe the behavior of several filters. Each metric captures a specific aspect of traffic processing giving you full visibility into both allowed and blocked transactions across all policy layers.
+The following metrics are exposed to help you monitor and observe the behavior of several filters.
+Each metric captures a specific aspect of traffic processing giving you full visibility into both allowed and blocked transactions across all policy layers.
 
 | Metric | Description |
 |--------|-------------|
