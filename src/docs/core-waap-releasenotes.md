@@ -1,16 +1,14 @@
 # Core WAAP Release Notes
 
-## 2.0.0 - 2025-MM-DD
+## 2.0.0 - 2026-04-02
 
 ### Contents
 
-- base image: gcr.io/distroless/cc-debian13
-- envoy version: 1.37.0
 - core-waap proxy version: 2.0.0
 - helm chart version: 2.0.0
 - operator version: 2.0.0
 - coreruleset version: 4.18.0
-- coraza version: 3.3.3
+
 
 ## New features and improvements
 
@@ -33,10 +31,8 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 - **header_filter**: Add support for per-route filter configuration.
 - **header_filter**: Add option to explicitly deny headers for requests / responses.
 - **header_filter**: Add option to deny header values by pattern for responses.
-- **header_filter**: Make global header filter optional (default is off).
 - **dos_prevention**: First release.
 - **coraza**: Improve performance when dealing with larger HTTP bodies.
-- **coraza**: Update go to version 1.25.7.
 
 
 ## Bug fixes
@@ -51,6 +47,7 @@ Changes expected to improve the state of the world and are unlikely to have nega
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
 It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
+- **proxy**: Authentication cookies will now include a unique suffix to prevent them from overwriting one another.
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
 - **helmchart**: Removed all traffic processing related settings; there are no longer sidecars for ICAP and OpenAPI.
 - **helmchart**: Removed all metrics related settings; all metrics are now handled in the main container
@@ -76,9 +73,3 @@ Normally occurs at the end of the deprecation period. It is advised to read the
 - **operator**: Removed `spec.trafficProcessing` settings; ICAP and OpenAPI settings are now under `spec.icap` resp. `spec.openapi`.
 - **operator**: Removed all metrics related settings; all metrics are now handled in the main container.
 - **operator**: Replaced `spec.headerFiltering` with `spec.headerFilter` with slightly changed settings.
-
-## Known Issues
-
-- **coraza**: A bug in Coraza results in a wrong HTTP status code returned, if `SecResponseBodyLimit` is reached and
-`SecResponseBodyLimitAction` is set to `Reject`. Coraza incorrectly returns HTTP 413 instead of HTTP 500.
-
