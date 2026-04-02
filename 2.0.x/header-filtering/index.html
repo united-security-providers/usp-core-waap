@@ -1,0 +1,1771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/latest/header-filtering/">
+      
+      
+        <link rel="prev" href="../coraza-graphql/">
+      
+      
+        <link rel="next" href="../error-mapping/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Header Filtering - USP Core WAAP documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#header-filtering" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="USP Core WAAP documentation" class="md-header__button md-logo" aria-label="USP Core WAAP documentation" data-md-component="logo">
+      
+  <img src="../assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            USP Core WAAP documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Header Filtering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="USP Core WAAP documentation" class="md-nav__button md-logo" aria-label="USP Core WAAP documentation" data-md-component="logo">
+      
+  <img src="../assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="logo">
+
+    </a>
+    USP Core WAAP documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core-waap-releasenotes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crd-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coraza
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Coraza
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coraza/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coraza
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coraza-crs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coraza-graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Header Filtering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Header Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-config-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic config structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-config-settings-and-basic-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter config settings and basic filtering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge-behavior-between-per-route-and-default-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge behavior between per-route and default in detail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-for-filtering-when-both-default-and-per-route-are-defined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example for filtering when both default and per route are defined
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allow-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allow classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allow classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request MINIMAL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request RESTRICTED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request STANDARD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-implicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response (implicitly)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../native-config-post-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native Config Post-Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../icap-antivirus-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ICAP Antivirus Scanning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openapi-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAPI Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crs-virtual-patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Patch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lua-filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operator Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operator Helm Chart
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core WAAP Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logs-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs and Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autolearning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto-Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../large-payloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Large Payloads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oidc-operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OAuth2 / OIDC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-config-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic config structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-config-settings-and-basic-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter config settings and basic filtering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge-behavior-between-per-route-and-default-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge behavior between per-route and default in detail
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-for-filtering-when-both-default-and-per-route-are-defined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example for filtering when both default and per route are defined
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allow-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allow classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allow classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request MINIMAL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request RESTRICTED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request STANDARD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-implicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response (implicitly)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="header-filtering">Header Filtering</h1>
+<p>The header filtering feature allows to filter both request and response headers.</p>
+<p>The two main functionalities are:</p>
+<ul>
+<li>Define a set of header names that are allowed through, while all other headers are removed.</li>
+<li>Define a set of rules to additionally remove headers by regex on the header value.</li>
+</ul>
+<p>Header filters can be configured globally and per route, which allows to modify
+the above two main functionalities per route without having to list everything that
+is  already defined globally.</p>
+<h2 id="basic-config-structure">Basic config structure</h2>
+<p>Header filtering is configured in two places, under <code>spec.headerFilter</code>
+plus a single setting <code>spec.routes[].headerFilterRef</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">headerFilter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">defaultFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-default&quot;</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-default&quot;</span>
+<span class="w">      </span><span class="c1"># settings...</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routes-a&quot;</span>
+<span class="w">      </span><span class="c1"># settings...</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routes-b&quot;</span>
+<span class="w">      </span><span class="c1"># settings...</span>
+<span class="nt">routes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">match</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/one</span>
+<span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PREFIX</span>
+<span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routes-a&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">match</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/two</span>
+<span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PREFIX</span>
+<span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routes-a&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">match</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/three</span>
+<span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PREFIX</span>
+<span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routes-a&quot;</span>
+</code></pre></div>
+<p>Both the default filter ref and per-route filter refs are optional;
+if no default filter is referenced and no filter on the route,
+header filtering is enabled for requests with allow class <code>STANDARD</code>
+and enabled for responses with the implicit default set of allowed
+response headers, see further below for details.</p>
+<h2 id="filter-config-settings-and-basic-filtering">Filter config settings and basic filtering</h2>
+<p>Here is a filter config where all individual settings are configured:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">request</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">allowClass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">STANDARD</span>
+<span class="w">  </span><span class="nt">allow</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Myapp-1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Myapp-2</span>
+<span class="w">  </span><span class="nt">deny</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Forwarded-For</span>
+<span class="w">  </span><span class="nt">denyPattern</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Myapp-1</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^evil-.*$&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^EVIL.*$&quot;</span>
+<span class="nt">response</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="c1"># no allowClass for response, there is currently only a single implicit allowClass</span>
+<span class="w">  </span><span class="nt">allow</span><span class="p">:</span><span class="w">       </span><span class="c1"># same structure as for request</span>
+<span class="w">  </span><span class="nt">deny</span><span class="p">:</span><span class="w">        </span><span class="c1"># same structure as for request</span>
+<span class="w">  </span><span class="nt">denyPattern</span><span class="p">:</span><span class="w"> </span><span class="c1"># same structure as for request</span>
+</code></pre></div>
+<p>See the <a href="../crd-doc/#corewaapservicespecheaderfilter">API Reference</a>
+of the individual settings for what their basic function is.</p>
+<p>The set of effectively allowed headers is informally as follows:</p>
+<ul>
+<li><code>allowClass</code> + <code>allow</code> - <code>deny</code></li>
+</ul>
+<p>Plus if <code>denyPattern</code> is set, headers that match the regex
+are additionally filtered out.</p>
+<p>With the above example config and assuming a request with the following request headers:</p>
+<ul>
+<li><code>X-Unknown: Hello</code></li>
+<li><code>X-Forwarded-For: 1.2.3.4</code></li>
+<li><code>X-Myapp1: Harmless</code></li>
+<li><code>X-Myapp2: EVIL</code></li>
+<li>(more headers from <code>STANDARD</code>)</li>
+</ul>
+<p>headers are filtered as follows:</p>
+<ul>
+<li><code>X-Unknown</code> - Filtered out, not in <code>STANDARD</code> and not additionally allowed</li>
+<li><code>X-Forwarded-For</code> - Filterered out, would be in <code>STANDARD</code>, but was explicitly denied</li>
+<li><code>X-Myapp1: Harmless</code> - Not filtered out, not in <code>STANDARD</code>, but additionally allowed and not denied by name or regex pattern</li>
+<li><code>X-Myapp2: EVIL</code> - Filtered out, not in <code>STANDARD</code>, additionally allowed and not denied by name, but matched the deny pattern with "*" wildcard header name</li>
+<li>(more headers from <code>STANDARD</code>) - Only filtered out if matched the deny pattern with "*" wildcard header name</li>
+</ul>
+<p>Which headers are contained in which allow class
+is specified at the bottom of this page.</p>
+<h2 id="merge-behavior-between-per-route-and-default-in-detail">Merge behavior between per-route and default in detail</h2>
+<p>If filtering is defined both per-route and as default,
+many useful combinations are possible;
+these are described in the following.</p>
+<p>For the following settings the logic is the same:</p>
+<ul>
+<li><code>logOnly</code></li>
+<li><code>enabled</code> (request+response)</li>
+<li><code>allowClass</code></li>
+<li><code>denyPattern</code> (request+response)</li>
+</ul>
+<p>Namely:</p>
+<ul>
+<li>Set per route =&gt; pre-route setting is effective (for the matching route)</li>
+<li>Not set per route and set in default =&gt; default setting is effective</li>
+<li>Neither set per route nor in default =&gt; implicit defaults:<ul>
+<li><code>logOnly</code>: <code>false</code></li>
+<li><code>enabled</code>: <code>true</code></li>
+<li><code>allowClass</code>: <code>STANDARD</code></li>
+<li><code>denyPattern</code>: empty (none)</li>
+</ul>
+</li>
+</ul>
+<p>A special case is if <code>enabled</code> is explicitly set to <code>false</code> on a route,
+then <code>allow</code>, <code>deny</code> and <code>denyPattern</code> are treated as not set.</p>
+<p>If <code>allow</code> or <code>deny</code> are not set, this is treated the same way as set to an empty set.</p>
+<p>The complete filter logic with per-route and default settings is:</p>
+<ul>
+<li>If not <code>enabled</code> for request resp. response (from per-route if set, else from default if set, else <code>true</code>),
+  request header filtering is enabled with allow class <code>STANDARD</code>
+  and response header filtering is enabled with the default set of allowed response headers.</li>
+<li>Start with an empty set of headers.</li>
+<li>If request, add headers from <code>allowClass</code> (from per-route if set, else from default if set, else <code>STANDARD</code>) to set.</li>
+<li>If response, add headers from implicit allow class to set.</li>
+<li>Add headers from default <code>allow</code> to set.</li>
+<li>Remove headers from default <code>deny</code> from set.</li>
+<li>Add headers from per-route <code>allow</code> to set.</li>
+<li>Remove headers from per-route <code>deny</code> from set.</li>
+<li>Remove headers not in the set of headers from request resp. response.</li>
+<li>Remove  headers that match the effective <code>denyPattern</code> (from per-route if set, else from default if set, else none) from request resp. response.</li>
+</ul>
+<h2 id="example-for-filtering-when-both-default-and-per-route-are-defined">Example for filtering when both default and per route are defined</h2>
+<p>Configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">headerFilter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">defaultFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;default&quot;</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;default&quot;</span>
+<span class="w">      </span><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">request</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">allow</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-2&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-3&quot;</span>
+<span class="w">        </span><span class="nt">deny</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-4&quot;</span>
+<span class="w">        </span><span class="nt">denyPatterns</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
+<span class="w">          </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^possibly-evil$&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;per-route&quot;</span>
+<span class="w">      </span><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">request</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">allow</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-1&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-3&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-4&quot;</span>
+<span class="w">        </span><span class="nt">deny</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;X-Req-2&quot;</span>
+<span class="w">  </span><span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">match</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+<span class="w">      </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PREFIX&quot;</span>
+<span class="w">    </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;per-route&quot;</span>
+</code></pre></div>
+<p>Request headers in request to <code>/filter</code>:</p>
+<div class="highlight"><pre><span></span><code>X-Req-1: always-ok
+X-Req-2: maybe-evil
+X-Req-3: possibly-evil
+X-Req-4: ok
+Cookie: possibly-evil
+</code></pre></div>
+<p>Request header filtering:</p>
+<ul>
+<li><code>X-Req-1</code>: Not filtered out (allowed on route, nowhere denied)</li>
+<li><code>X-Req-2</code>: Filtered out (allowed by default, but denied on route)</li>
+<li><code>X-Req-3</code>: Filtered out (allowed on route and by default, but denied by pattern)</li>
+<li><code>X-Req-4</code>: Not filtered out (denied by default, but allowed on route)</li>
+<li><code>cookie</code>: Filtered out (part of <code>STANDARD</code> set, but denied by pattern)</li>
+</ul>
+<h2 id="allow-classes">Allow classes</h2>
+<p>(Note that HTTP headers are case-insensitive; listed lowercase below.)</p>
+<p>For request headers the following allow classes can be selected:</p>
+<h3 id="request-minimal">Request <code>MINIMAL</code></h3>
+<ul>
+<li><code>:path</code></li>
+<li><code>:method</code></li>
+<li><code>:authority</code></li>
+<li><code>:scheme</code></li>
+<li><code>x-forwarded-proto</code></li>
+<li><code>connection</code></li>
+<li><code>content-type</code></li>
+<li><code>content-length</code></li>
+<li><code>transfer-encoding</code></li>
+<li><code>expect</code></li>
+<li><code>x-request-id</code></li>
+</ul>
+<h3 id="request-restricted">Request <code>RESTRICTED</code></h3>
+<ul>
+<li><code>:path</code></li>
+<li><code>:method</code></li>
+<li><code>:authority</code></li>
+<li><code>:scheme</code></li>
+<li><code>x-forwarded-proto</code></li>
+<li><code>connection</code></li>
+<li><code>content-type</code></li>
+<li><code>content-length</code></li>
+<li><code>transfer-encoding</code></li>
+<li><code>expect</code></li>
+<li><code>cookie</code></li>
+<li><code>user-agent</code></li>
+<li><code>referer</code></li>
+<li><code>accept</code></li>
+<li><code>accept-encoding</code></li>
+<li><code>accept-language</code></li>
+<li><code>accept-charset</code></li>
+<li><code>x-request-id</code></li>
+</ul>
+<h3 id="request-standard">Request <code>STANDARD</code></h3>
+<ul>
+<li><code>:path</code></li>
+<li><code>:method</code></li>
+<li><code>:authority</code></li>
+<li><code>:scheme</code></li>
+<li><code>x-forwarded-proto</code></li>
+<li><code>accept</code></li>
+<li><code>accept-charset</code></li>
+<li><code>accept-encoding</code></li>
+<li><code>accept-language</code></li>
+<li><code>accept-ranges</code></li>
+<li><code>access-control-request-headers</code></li>
+<li><code>access-control-request-method</code></li>
+<li><code>allow</code></li>
+<li><code>authorization</code></li>
+<li><code>cache-control</code></li>
+<li><code>connection</code></li>
+<li><code>content-encoding</code></li>
+<li><code>content-language</code></li>
+<li><code>content-length</code></li>
+<li><code>content-location</code></li>
+<li><code>content-md5</code></li>
+<li><code>content-range</code></li>
+<li><code>content-type</code></li>
+<li><code>date</code></li>
+<li><code>expect</code></li>
+<li><code>from</code></li>
+<li><code>if-match</code></li>
+<li><code>if-modified-since</code></li>
+<li><code>if-none-match</code></li>
+<li><code>if-range</code></li>
+<li><code>if-unmodified-since</code></li>
+<li><code>last-modified</code></li>
+<li><code>location</code></li>
+<li><code>max-forwards</code></li>
+<li><code>origin</code></li>
+<li><code>pragma</code></li>
+<li><code>proxy-authorization</code></li>
+<li><code>range</code></li>
+<li><code>referer</code></li>
+<li><code>user-agent</code></li>
+<li><code>transfer-encoding</code></li>
+<li><code>upgrade</code></li>
+<li><code>vary</code></li>
+<li><code>via</code></li>
+<li><code>warning</code></li>
+<li><code>www-authenticate</code></li>
+<li><code>x-requested-with</code></li>
+<li><code>cookie</code></li>
+<li><code>sec-websocket-key</code></li>
+<li><code>sec-websocket-extensions</code></li>
+<li><code>sec-websocket-protocol</code></li>
+<li><code>sec-websocket-version</code></li>
+<li><code>x-request-id</code></li>
+</ul>
+<p>For response headers there is currently a single implicit allow class
+that is always used when response filtering is enabled:</p>
+<h3 id="response-implicitly">Response (implicitly)</h3>
+<ul>
+<li><code>:status</code></li>
+<li><code>accept-ranges</code></li>
+<li><code>access-control-allow-credentials</code></li>
+<li><code>access-control-allow-headers</code></li>
+<li><code>access-control-allow-methods</code></li>
+<li><code>access-control-allow-origin</code></li>
+<li><code>access-control-expose-headers</code></li>
+<li><code>access-control-max-age</code></li>
+<li><code>age</code></li>
+<li><code>allow</code></li>
+<li><code>cache-control</code></li>
+<li><code>connection</code></li>
+<li><code>content-disposition</code></li>
+<li><code>content-encoding</code></li>
+<li><code>content-language</code></li>
+<li><code>content-length</code></li>
+<li><code>content-location</code></li>
+<li><code>content-md5</code></li>
+<li><code>content-range</code></li>
+<li><code>content-security-policy</code></li>
+<li><code>content-security-policy-report-only</code></li>
+<li><code>content-type</code></li>
+<li><code>date</code></li>
+<li><code>etag</code></li>
+<li><code>expect</code></li>
+<li><code>upgrade</code></li>
+<li><code>expect-ct</code></li>
+<li><code>expires</code></li>
+<li><code>feature-policy</code></li>
+<li><code>frame-options</code></li>
+<li><code>keep-alive</code></li>
+<li><code>last-modified</code></li>
+<li><code>location</code></li>
+<li><code>pragma</code></li>
+<li><code>proxy-authenticate</code></li>
+<li><code>public-key-pins</code></li>
+<li><code>referrer-policy</code></li>
+<li><code>retry-after</code></li>
+<li><code>server</code></li>
+<li><code>set-cookie</code></li>
+<li><code>strict-transport-security</code></li>
+<li><code>vary</code></li>
+<li><code>www-authenticate</code></li>
+<li><code>x-content-security-policy</code></li>
+<li><code>x-content-type-options</code></li>
+<li><code>x-frame-options</code></li>
+<li><code>x-webkit-csp</code></li>
+<li><code>sec-websocket-accept</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 United Security Providers AG. All Rights Reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
