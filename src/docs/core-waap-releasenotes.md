@@ -23,7 +23,7 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 - **operator**: Add the ability to configure `securityContext` for all containers through
   the operator's YAML configuration file.
 - **operator**: Add rate limiting feature for repeat offenders,
-  see `spec.operation.rateLimiting.repeatOffender`.
+  see `spec.rateLimiting.repeatOffender`.
 - **operator**: Add support for Core WAAP debug image.
 - **operator**: Add support for disabling performance optimizations for coraza.
 - **openapi**: Add support for OpenAPI 3.2 and OpenAPI Overlays 1.1.0.
