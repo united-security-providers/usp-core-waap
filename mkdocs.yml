@@ -8,8 +8,10 @@ theme:
   name: material
   custom_dir: './overrides/'                  # This is where the customization of the theme lives
   logo: assets/images/USP-Logo-2023-ohne-claim-lang-white1.webp                 # The logo is shared by all languages
-  favicon: assets/images/favicon.png              # The favicon is shared by all languages
+  favicon: favicon.ico              # The favicon is shared by all languages
   language: en                                    # The build's language
+  static_templates:
+    - 404.html   # 404 page
 extra_css:
   - assets/stylesheets/extra.css
 

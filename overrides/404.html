@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+
+{% block extrahead %}
+<style>
+
+.md-main {
+    /* The image used */
+    background-image: url("/assets/images/404-error-space.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+</style>
+{% endblock %}
+
+{% block site_nav %}
+{% endblock %}
+<!-- Content -->
+{% block content %}
+<div>
+<h1 class="usp" style="color: #fff">
+    <span style="color: #ff33ff;">404 - ERROR</span><br />
+    EXPEDITION DESTINATION UNKNOWN
+</h1>
+<h3 class="usp" style="color: #fff">
+    Incorrect coordinates
+</h3>
+</div>
+{% endblock %}
