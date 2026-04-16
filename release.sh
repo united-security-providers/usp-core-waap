@@ -209,6 +209,9 @@ if [ $DEPLOY ]; then
     version=$(echo "$CHARTS_VERSION" | sed -E 's/^v?([0-9]+)\.([0-9]+)\.[0-9]+$/\1.\2.x/')
     mike deploy --update-aliases --push "${version}" $RELEASE_ALIAS
     echo "Successfully deployed to to GitHub pages"
+
+    git tag -f ${version}
+    git push -f --tags
 else
     echo "Building website locally in 'generated' subfolder..."
     mkdocs build
