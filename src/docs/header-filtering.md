@@ -65,7 +65,7 @@ request:
   - X-Myapp-2
   deny:
   - X-Forwarded-For
-  denyPattern: 
+  denyPattern:
   - name: X-Myapp-1
     pattern: "^evil-.*$"
   - name: "*"
@@ -219,12 +219,11 @@ For request headers the following allow classes can be selected:
 * `:authority`
 * `:scheme`
 * `x-forwarded-proto`
-* `connection`
 * `content-type`
 * `content-length`
-* `transfer-encoding`
 * `expect`
 * `x-request-id`
+* `x-forwarded-for`
 
 ### Request `RESTRICTED`
 
@@ -233,10 +232,8 @@ For request headers the following allow classes can be selected:
 * `:authority`
 * `:scheme`
 * `x-forwarded-proto`
-* `connection`
 * `content-type`
 * `content-length`
-* `transfer-encoding`
 * `expect`
 * `cookie`
 * `user-agent`
@@ -244,8 +241,8 @@ For request headers the following allow classes can be selected:
 * `accept`
 * `accept-encoding`
 * `accept-language`
-* `accept-charset`
 * `x-request-id`
+* `x-forwarded-for`
 
 ### Request `STANDARD`
 
@@ -253,55 +250,50 @@ For request headers the following allow classes can be selected:
 * `:method`
 * `:authority`
 * `:scheme`
-* `x-forwarded-proto`
 * `accept`
-* `accept-charset`
 * `accept-encoding`
 * `accept-language`
 * `accept-ranges`
 * `access-control-request-headers`
 * `access-control-request-method`
-* `allow`
 * `authorization`
 * `cache-control`
-* `connection`
 * `content-encoding`
 * `content-language`
 * `content-length`
 * `content-location`
 * `content-md5`
-* `content-range`
+* `x-forwarded-proto`
 * `content-type`
 * `date`
 * `expect`
-* `from`
 * `if-match`
 * `if-modified-since`
 * `if-none-match`
 * `if-range`
 * `if-unmodified-since`
-* `last-modified`
-* `location`
 * `max-forwards`
 * `origin`
-* `pragma`
-* `proxy-authorization`
 * `range`
+* `host`
 * `referer`
 * `user-agent`
-* `transfer-encoding`
+* `traceparent`
+* `tracestate`
+* `te`
 * `upgrade`
-* `vary`
 * `via`
-* `warning`
-* `www-authenticate`
 * `x-requested-with`
 * `cookie`
+* `sec-fetch-dest`
+* `sec-fetch-mode`
+* `sec-fetch-site`
 * `sec-websocket-key`
 * `sec-websocket-extensions`
 * `sec-websocket-protocol`
 * `sec-websocket-version`
 * `x-request-id`
+* `x-forwarded-for`
 
 For response headers there is currently a single implicit allow class
 that is always used when response filtering is enabled:
@@ -316,10 +308,12 @@ that is always used when response filtering is enabled:
 * `access-control-allow-origin`
 * `access-control-expose-headers`
 * `access-control-max-age`
+* `cross-origin-opener-policy`
+* `cross-origin-embedder-policy`
+* `cross-origin-resource-policy`
 * `age`
 * `allow`
 * `cache-control`
-* `connection`
 * `content-disposition`
 * `content-encoding`
 * `content-language`
@@ -332,32 +326,18 @@ that is always used when response filtering is enabled:
 * `content-type`
 * `date`
 * `etag`
-* `expect`
 * `upgrade`
-* `expect-ct`
 * `expires`
 * `feature-policy`
-* `frame-options`
-* `keep-alive`
 * `last-modified`
 * `location`
-* `pragma`
 * `proxy-authenticate`
-* `public-key-pins`
 * `referrer-policy`
 * `retry-after`
-* `server`
 * `set-cookie`
 * `strict-transport-security`
 * `vary`
 * `www-authenticate`
-* `x-content-security-policy`
 * `x-content-type-options`
 * `x-frame-options`
-* `x-webkit-csp`
 * `sec-websocket-accept`
-
-
-
-
-
