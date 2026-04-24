@@ -73,3 +73,7 @@ Normally occurs at the end of the deprecation period. It is advised to read the
 - **operator**: Removed `spec.trafficProcessing` settings; ICAP and OpenAPI settings are now under `spec.icap` resp. `spec.openapi`.
 - **operator**: Removed all metrics related settings; all metrics are now handled in the main container.
 - **operator**: Replaced `spec.headerFiltering` with `spec.headerFilter` with slightly changed settings.
+
+## Known issues
+
+- **coraza**: There is a [known issue](https://github.com/corazawaf/coraza/issues/1611) regarding `ProcessPartial` and body validation.
