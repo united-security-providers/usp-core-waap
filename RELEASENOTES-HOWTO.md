@@ -4,7 +4,7 @@ When the website for a new Core-WAAP release is published, the release notes mus
 that needs to be updated is this one:
 
 ----
-    src/core-waap-releasenotes.md
+    src/docs/core-waap-releasenotes.md
 ----
 
 The new information is always inserted at the top of the file, right after the main
