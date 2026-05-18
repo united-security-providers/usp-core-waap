@@ -52,6 +52,7 @@ nav:
   - Release Notes: 'core-waap-releasenotes.md'
   - Configuration:
     - API Reference: 'crd-doc.md'
+    - Processing Order: 'processing-order.md'
     - Coraza:
       - Coraza: "coraza.md"
       - CRS: "coraza-crs.md"
