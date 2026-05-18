@@ -32,7 +32,7 @@ CORS Filter
 CSRF Filter
   │
   ▼
-Coraza / CRS
+Coraza / CRS / GraphQl
   │
   ▼
 Origin Blocking
@@ -84,7 +84,7 @@ Header Filtering
 Custom Error Pages
   │
   ▼
-Coraza / CRS
+Coraza / CRS / GraphQl
   │
   ▼
 CSRF Filter
