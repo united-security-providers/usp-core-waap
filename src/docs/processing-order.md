@@ -14,7 +14,7 @@ The same logic applies in reverse on the way back, an early response phase featu
 
 This page documents the order in which features run during the request phase and the response phase.
 
-Request phase (notice that we start with the client):
+Request phase (note that we start with the client):
 
 ```
 Client
@@ -59,7 +59,7 @@ Lua Filters (last)
 Backend
 ```
 
-Response phase (notice that we start with the backend):
+Response phase (note that we start with the backend):
 
 
 ```
