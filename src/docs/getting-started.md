@@ -56,7 +56,7 @@ For other ways how to create such a secret see [Kubernetes.io - Pull an Image fr
 To use the created pull secret you need to create a local helm values file:
 
 ```shell
-cat >custom-values.yaml <<EOL
+cat > custom-values.yaml <<EOL
 operator:
   imagePullSecretName: uspregistry
 EOL
@@ -71,7 +71,7 @@ helm install -f custom-values.yaml usp-core-waap-operator \
   --namespace usp-core-waap-operator
 ```
 
-Verify the operator pod is running:
+Verify that the operator pod is running:
 
 ```shell
 kubectl get pods -n usp-core-waap-operator
@@ -99,7 +99,7 @@ kubectl create namespace juiceshop
 ```
 
 ```yaml
-cat >juiceshop.yaml <<EOL
+cat > juiceshop.yaml <<EOL
 # juiceshop.yaml
 apiVersion: v1
 kind: Pod
@@ -145,7 +145,7 @@ protected** by USP Core WAAP.
 Create a `CoreWaapService` resource that puts USP Core WAAP in front of the Juice Shop service:
 
 ```yaml
-cat >juiceshop-core-waap.yaml <<EOL
+cat > juiceshop-core-waap.yaml <<EOL
 # juiceshop-core-waap.yaml
 apiVersion: waap.core.u-s-p.ch/v1alpha1
 kind: CoreWaapService
@@ -187,8 +187,6 @@ Before we can apply the `CoreWaapService` resource, we need to ensure that the u
 Therefore we create a pull secret in the `juiceshop` namespace and patch the `default` service account to use it:
 ```shell
  kubectl -n juiceshop create secret docker-registry uspregistry --docker-server=uspregistry.azurecr.io --docker-username=<your-username> --docker-password=<your-password>
-```
-```shell
 kubectl patch serviceaccount default -n juiceshop --type=json \
   -p='[{"op": "add", "path": "/imagePullSecrets/-", "value": {"name": "uspregistry"}}]'
 ```
@@ -204,7 +202,7 @@ kubectl wait pods \
   --for=condition=Ready --timeout=300s
 ```
 
-Verify the resources are in place:
+Verify that the resources are in place:
 
 ```shell
 kubectl get corewaapservices -n juiceshop
