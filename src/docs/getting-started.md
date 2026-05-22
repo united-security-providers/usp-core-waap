@@ -195,16 +195,15 @@ Apply the resource and wait for the proxy pod to come up:
 
 ```shell
 kubectl apply -f juiceshop-core-waap.yaml
-
-kubectl wait pods \
-  -l app.kubernetes.io/name=usp-core-waap-proxy \
-  -n juiceshop \
-  --for=condition=Ready --timeout=300s
 ```
 
 Verify that the resources are in place:
 
 ```shell
+kubectl wait pods \
+  -l app.kubernetes.io/name=usp-core-waap-proxy \
+  -n juiceshop \
+  --for=condition=Ready --timeout=300s
 kubectl get corewaapservices -n juiceshop
 kubectl get pods -l app.kubernetes.io/name=usp-core-waap-proxy -n juiceshop
 ```
@@ -219,7 +218,7 @@ kubectl port-forward -n juiceshop svc/juiceshop-usp-core-waap 8080:8080
 
 Open a browser and visit `http://localhost:8080` and you should see the OWASP Juice Shop.
 
-To verify if 
+To verify that the WAF actually blocks, you can send the following request from an other terminal: 
 ```shell
 curl -i -X POST http://localhost:8080/rest/user/login \
   -H 'Origin: http://localhost:8080' \
