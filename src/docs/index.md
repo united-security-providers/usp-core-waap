@@ -23,6 +23,9 @@ A basic Core WAAP configuration looks as follows.
 
 ## Getting Started
 
+New to Core WAAP? The **[Getting Started guide](getting-started.md)** walks you through installing the operator and
+protecting an example application (OWASP Juice Shop) with a `CoreWaapService` custom resource.
+
 To pull the Operator helm chart and corresponding container images you need a key. Get in contact with us, we are looking forward to support you.
 [Web Application &#038; API Protection (WAAP) &#8211; United Security Providers AG](https://www.united-security-providers.ch/technology/application-security/web-application-api-protection-waap/#more)
 

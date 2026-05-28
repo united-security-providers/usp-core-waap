@@ -23,30 +23,33 @@ it with the Python package manager "pip" instead. Also, install all the required
 
 #### Install / upgrade pip
 
-```
+```shell
 python get-pip.py
 pip install --upgrade pip
 ```
 
 #### Install mkdocs
 
-```
+```shell
 # This will create a local directory called ".venv"
 python3 -m venv .venv
 source .venv/bin/activate
 pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag mike
 ```
 
-Now you should be able to run the `mkdocs` command and see something similiar to:
+Now you should be able to run the `mkdocs` command and see something similar to:
 
-```
+```shell
 mkdocs --version
+```
+The output should be something like this:
+```
 mkdocs, version 1.6.1 from /home/<myuser>/usp-core-waap/.venv/lib/python3.12/site-packages/mkdocs (Python 3.12)
 ```
 
 To deactivate the virtual environment again, simply run:
 
-```
+```shell
 deactivate
 ```
 
@@ -56,7 +59,7 @@ deactivate
 * Make sure to download the "Linux x86/64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
-```
+```shell
 sudo mv helm-docs /usr/local/bin
 ```
 
@@ -66,21 +69,27 @@ sudo mv helm-docs /usr/local/bin
 * Make sure to download the "linux_amd64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
-```
+```shell
 sudo mv crdoc /usr/local/bin
 ```
 
 ### yq notes
 
+#### Option 1 - Download and install manually
 * Download the latest release binary from here: https://github.com/mikefarah/yq/releases/latest
 * Make sure to download the "Linux amd64" tar.gz archive
 * Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
 
-```
+```shell
 sudo mv yq_linux_amd64 /usr/local/bin/yq
 ```
 
-(ast: I installed it via snap instead.)
+#### Option 2 - Install via snap
+
+```shell
+sudo snap install yq
+```
+
 
 ## Generate site locally
 
@@ -91,22 +100,22 @@ the "helm" tool. Get the password for user "usp-ci-bob" from the Password Safe (
 
 Helm login with:
 
-```
-$ helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
+```shell
+helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
 ```
 
 and/or for snapshots and RCs:
 
 * PasswordSafe link: ps8://MDpEU3ZLN2kySkVlLTRWZ0JRVnJjWXZ3
 
-```
-$ helm registry login devuspregistry.azurecr.io --username usp-ci-bob --password <dev-password>
+```shell
+helm registry login devuspregistry.azurecr.io --username usp-ci-bob --password <dev-password>
 ```
 
 To just generate the site locally, run:
 
-```
-$ ./release.sh <helm-version>
+```shell
+./release.sh <helm-version>
 ```
 
 ***TODO*** For releases is clear what to indicate and works, but support of snapshots seems to be only partial (e.g. giving `0.0.0-main-SNAPSHOT` as {helm-version} produced at least when I tried an outdated version of the operator changelog).
@@ -117,9 +126,9 @@ The site has then been generated within the "build" directory (Markdown source f
 
 Generate the site locally as described above, then run `mkdocs` to serve it locally:
 
-```
-$ ./release.sh <helm-version>
-$ mkdocs serve
+```shell
+./release.sh <helm-version>
+mike serve
 ```
 
 This will make it available locally (URL visible in output on the shell, typically http://127.0.0.1:8000/).
@@ -128,8 +137,8 @@ This will make it available locally (URL visible in output on the shell, typical
 
 To generate the site and deploy it to GitHub pages, run:
 
-```
-$ ./release.sh <helm-version> deploy
+```shell
+./release.sh <helm-version> deploy
 ```
 
 The published page should then become available after a few minutes at the link on top of this page.
