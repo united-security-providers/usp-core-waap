@@ -1,5 +1,26 @@
 # Core WAAP Release Notes
 
+## 2.0.1 - 2026-06-04
+
+This is a security release that updates core-waap proxy.
+
+### Contents
+
+- core-waap proxy version: 2.0.1
+- helm chart version: 2.0.1
+- operator version: 2.0.0
+- coreruleset version: 4.18.0
+
+## Bug fixes
+
+Changes expected to improve the state of the world and are unlikely to have negative effects.
+
+- **autolearning**: Fix CLI not finding the right resource when a kubernetes source was used.
+
+## Known issues
+
+- **coraza**: There is a [known issue](https://github.com/corazawaf/coraza/issues/1611) regarding `ProcessPartial` and body validation.
+
 ## 2.0.0 - 2026-04-02
 
 ### Contents
