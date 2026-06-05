@@ -16,6 +16,7 @@ This is a security release that updates core-waap proxy.
 Changes expected to improve the state of the world and are unlikely to have negative effects.
 
 - **autolearning**: Fix CLI not finding the right resource when a kubernetes source was used.
+- **proxy**: Updating envoy proxy to version 1.37.3, addressing CVE-2026-47774 HTTP/2 bomb
 
 ## Known issues
 
