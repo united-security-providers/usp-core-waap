@@ -4,7 +4,7 @@ Core WAAP processes traffic through a fixed pipeline of security features.
 Each request from a client passes through the configured features in a defined order before reaching your backend.
 Each response passes back through (a subset of) those features on the way out.
 
-The order matters. A feature that runs earlier can block, transform, or short-circuit traffic before later features ever see it.
+The order is deterministic and important. Any feature that runs earlier can block, transform, or short‑circuit traffic so later features may never see the original request or response. 
 For example:
 
 * [Rate Limiting](rate-limiting.md) rejecting a flood of requests means [OpenAPI Validation](openapi-validation.md) never has to parse them
