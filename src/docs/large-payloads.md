@@ -10,9 +10,9 @@ Optimizing WAF settings is crucial to maintain both security efficacy and system
 
 Core WAAP applies payload limits at three distinct levels. They are complementary and serve different purposes, so it is important to understand which one applies to a given situation and how they interact:
 
-1. **Envoy connection buffer limit** *(applies to requests and responses)*: the outermost limit. It is configured through `spec.operation.bufferLimitBytes` and is rendered as Envoy's [`perConnectionBufferLimitBytes`](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/listener/v3/listener.proto) on the listener. This is a *soft limit* (a high-watermark) on the size of the connection's read and write buffers, used by Envoy for flow control and backpressure; it is **not** in itself a hard request-size limit. For payloads that stream straight through, exceeding it merely applies backpressure (Envoy pauses reading until the buffer drains). It becomes a hard ceiling only for filters that must buffer the *full* body before they can act, such as the WAF body inspection or OpenAPI request body validation: a buffered **request** body that exceeds the limit is rejected with a 413 (Payload Too Large), and a buffered **response** body that exceeds it fails with a 500 (Internal Server Error). The default is 1 MiB. Because every buffering filter is bounded by this limit, it effectively bounds the two levels below it: the WAF can never scan more of a body than fits within this buffer. It is described in [`CoreWaapService.spec.operation.bufferLimitBytes`](#corewaapservicespecoperationbufferlimitbytes) below.
+1. **Core WAAP proxy connection buffer limit** *(applies to requests and responses)*: the outermost limit. It is configured through `spec.operation.bufferLimitBytes` and is rendered as Envoy's [`perConnectionBufferLimitBytes`](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/listener/v3/listener.proto) on the listener. This is a *soft limit* (a high-watermark) on the size of the connection's read and write buffers, used for flow control and backpressure; it is **not** in itself a hard request-size limit. For payloads that stream straight through, exceeding it merely applies backpressure (Core WAAP proxy pauses reading until the buffer drains). It becomes a hard ceiling only for filters that must buffer the *full* body before they can act, such as the WAF body inspection or OpenAPI request body validation: a buffered **request** body that exceeds the limit is rejected with a 413 (Payload Too Large), and a buffered **response** body that exceeds it fails with a 500 (Internal Server Error). The default is 1 MiB. Because every buffering filter is bounded by this limit, it effectively bounds the two levels below it: the WAF can never scan more of a body than fits within this buffer. It is described in [`CoreWaapService.spec.operation.bufferLimitBytes`](#corewaapservicespecoperationbufferlimitbytes) below.
 
-2. **WAF (Coraza) body scanning limits** *(applies to requests and responses)*: these settings govern *how much* of a payload the Coraza WAF parses and scans for threats. They are configured through `spec.coraza.requestBodyLimitKb` / `spec.coraza.responseBodyLimitKb` (default 128 KB resp. 256 KB) and the corresponding `spec.coraza.requestBodyLimitAction` / `spec.coraza.responseBodyLimitAction`, which decide whether bytes beyond the limit are let through unscanned (`ProcessPartial`) or cause the payload to be rejected (`Reject`). These limits operate *within* the Envoy connection buffer limit and therefore cannot exceed it effectively. They are described in [Level 2: WAF body scanning limits](#level-2-waf-body-scanning-limits) below.
+2. **WAF (Coraza) body scanning limits** *(applies to requests and responses)*: these settings govern *how much* of a payload the Coraza WAF parses and scans for threats. They are configured through `spec.coraza.requestBodyLimitKb` / `spec.coraza.responseBodyLimitKb` (default 128 KB resp. 256 KB) and the corresponding `spec.coraza.requestBodyLimitAction` / `spec.coraza.responseBodyLimitAction`, which decide whether bytes beyond the limit are let through unscanned (`ProcessPartial`) or cause the payload to be rejected (`Reject`). These limits operate *within* the Core WAAP proxy connection buffer limit and therefore cannot exceed it effectively. They are described in [Level 2: WAF body scanning limits](#level-2-waf-body-scanning-limits) below.
 
 3. **Route-level request size enforcement** *(applies to requests only)*: a hard, per-route cap on the request body size, configured through `spec.routes[].sizeEnforcement`. It enforces a maximum request body size with a configurable HTTP status code and a `DETECT` or `REJECT` behaviour, and is independent of whether the WAF is enabled on the route. Crucially, it can enforce the limit by *streaming* (counting bytes as they pass) without buffering the body, so, unlike the two levels above, it does not incur the per-connection memory cost. It is described in [Level 3: Route-level request size enforcement](#level-3-route-level-request-size-enforcement) below.
 
@@ -20,15 +20,15 @@ Levels 1 and 2 are about *inspecting* payloads safely within a memory budget; le
 
 The three chapters below detail the Core WAAP settings behind each level, in the same order. For a comprehensive description of all available settings, please refer to the [Core WAAP API Reference](./crd-doc.md).
 
-## Level 1: Envoy connection buffer limit
+## Level 1: Core WAAP proxy connection buffer limit
 
 ### CoreWaapService.spec.operation.bufferLimitBytes
 
-The parameter *CoreWaapService.spec.operation.bufferLimitBytes* is rendered as Envoy's *perConnectionBufferLimitBytes* on the listener and is the outermost of the [three levels of limits](#three-levels-of-limits). It is a *soft limit* (a high-watermark) on the size of each connection's read and write buffers: Envoy uses it for flow control, applying backpressure (pausing reads until the buffer drains) rather than rejecting data outright. As long as no filter needs to buffer the body, payloads of any size stream through without being limited by this setting.
+The parameter *CoreWaapService.spec.operation.bufferLimitBytes* is rendered as Envoy's *perConnectionBufferLimitBytes* on the listener and is the outermost of the [three levels of limits](#three-levels-of-limits). It is a *soft limit* (a high-watermark) on the size of each connection's read and write buffers: Core WAAP proxy uses it for flow control, applying backpressure (pausing reads until the buffer drains) rather than rejecting data outright. As long as no filter needs to buffer the body, payloads of any size stream through without being limited by this setting.
 
 It only becomes an effective size ceiling when a filter must buffer the *full* body before it can act, such as the WAF body inspection (`spec.coraza` with body access) or OpenAPI request body validation. In that case, such a filter cannot complete once the buffered body exceeds the limit, so Core WAAP returns a local reply:
 
-* When an incoming request body that must be buffered surpasses this configured limit, Core WAAP rejects the request and returns a 413 (Payload Too Large) HTTP status code (Envoy also increments the *downstream_rq_too_large* metric).
+* When an incoming request body that must be buffered surpasses this configured limit, Core WAAP rejects the request and returns a 413 (Payload Too Large) HTTP status code (also increments the *downstream_rq_too_large* metric).
 
 * Conversely, if a response body that must be buffered exceeds the limit, the operation is terminated, leading to an internal server error (500).
 
@@ -44,7 +44,7 @@ Therefore, while aiming to support larger payloads, it is crucial to balance the
 
 ## Level 2: WAF body scanning limits
 
-The Coraza WAF body scanning limits operate *within* the Envoy connection buffer limit (level 1) and govern whether (and how much of) a request or response body is parsed and scanned for threats.
+The Coraza WAF body scanning limits operate *within* the Core WAAP proxy connection buffer limit (level 1) and govern whether (and how much of) a request or response body is parsed and scanned for threats.
 
 ### CoreWaapService.spec.coraza.enabled
 
@@ -86,7 +86,7 @@ However, adopting this *Reject* behavior means operators must set more precise a
 
 ## Level 3: Route-level request size enforcement
 
-In addition to the Envoy connection buffer limit and the WAF body scanning limits described above, Core WAAP can enforce a hard limit on the request body size *per route*, independently of whether the WAF is enabled on that route. This is configured under `spec.routes[].sizeEnforcement` and applies to **request bodies only** (there is no response size enforcement).
+In addition to the proxy connection buffer limit and the WAF body scanning limits described above, Core WAAP can enforce a hard limit on the request body size *per route*, independently of whether the WAF is enabled on that route. This is configured under `spec.routes[].sizeEnforcement` and applies to **request bodies only** (there is no response size enforcement).
 
 The limit is enforced in two stages:
 
