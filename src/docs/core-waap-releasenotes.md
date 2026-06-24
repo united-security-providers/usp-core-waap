@@ -7,7 +7,7 @@ This is a security release that updates core-waap proxy.
 ### Contents
 
 - core-waap proxy version: 2.0.2
-- helm chart version: 2.0.1
+- helm chart version: 2.0.2
 - operator version: 2.0.0
 - coreruleset version: 4.18.0
 
