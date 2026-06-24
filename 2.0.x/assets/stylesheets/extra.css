@@ -1,8 +1,63 @@
 .md-header {
     color: white;
-    background-color: black
+    background-color: black;
 }
 
-.md-grid {
-    max-width: 100%;
+.md-header__button.md-logo img {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 40px;
 }
+
+.md-header__topic {
+	position: absolute;
+	right: auto;
+}
+
+:root {
+    --md-text-font: "montserrat-2";
+}
+
+h1.usp {
+    font-family: "montserrat-2";	font-weight:100;
+    letter-spacing:-1px;
+    font-size:90px;
+    line-height:96px;
+    text-transform:uppercase;
+}
+h2.usp {
+    font-family: "montserrat-2";	font-weight:100;
+    letter-spacing:-1px;
+    font-size:65px;
+    text-transform:uppercase;
+}
+h3.usp {
+    font-family: "montserrat-2";	font-weight:200;
+    font-size:42px;
+    line-height:60px;
+
+}
+
+@font-face{
+    font-family:'montserrat-2';
+    font-style:normal;
+    font-weight:200;
+    font-display:swap;
+    src:url('/assets/fonts/Montserrat-Regular.ttf') format('truetype')
+}
+@font-face{
+    font-family:'montserrat-2';
+    font-style:normal;
+    font-weight:100;
+    font-display:swap;
+    src:url('/assets/fonts/Montserrat-Light.ttf') format('truetype')
+}
+@font-face{
+    font-family:'montserrat-2';
+    font-style:normal;
+    font-weight:300;
+    font-display:swap;
+    src:url('/assets/fonts/Montserrat-Medium.ttf') format('truetype')
+}
+
+
