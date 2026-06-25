@@ -102,7 +102,7 @@ Unlike the WAF body scanning limits, route-level size enforcement does not norma
 
 ### CoreWaapService.spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode
 
-*maxSizeStatusCode* defines the HTTP status code that Core WAAP returns when a request body exceeds *maxSize* and *limitBehaviour* is *REJECT*. It is a required field and must be a valid HTTP error status code between 400 and 599. A typical value is 413 (Payload Too Large).
+*maxSizeStatusCode* defines the HTTP status code that Core WAAP returns when a request body exceeds *maxSize* and *limitBehaviour* is *REJECT*. It is a required field and must be a valid HTTP error status code between 400 and 599. The default is 413 (Payload Too Large).
 
 ### CoreWaapService.spec.routes[].sizeEnforcement.request.limitBehaviour
 
