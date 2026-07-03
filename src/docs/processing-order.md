@@ -23,7 +23,13 @@ Client
 Lua Filters (first)
   │
   ▼
+Origin Blocking
+  │
+  ▼
 Rate Limiting
+  │
+  ▼
+Header Filtering
   │
   ▼
 CORS Filter
@@ -32,13 +38,10 @@ CORS Filter
 CSRF Filter
   │
   ▼
+Request Size Enforcement
+  │
+  ▼
 Coraza / CRS / GraphQl
-  │
-  ▼
-Origin Blocking
-  │
-  ▼
-Header Filtering
   │
   ▼
 Auth
@@ -48,6 +51,9 @@ OpenAPI
   │
   ▼
 ICAP
+  │
+  ▼
+Cookie Manipulation
   │
   ▼
 Header Manipulation
@@ -72,31 +78,31 @@ Lua Filters (last)
 Header Manipulation
   │
   ▼
+Cookie Manipulation
+  │
+  ▼
 OpenAPI
   │
   ▼
 Auth
   │
   ▼
-Header Filtering
-  │
-  ▼
-Custom Error Pages
-  │
-  ▼
 Coraza / CRS / GraphQl
   │
   ▼
-CSRF Filter
+CORS Filter
   │
   ▼
-CORS Filter
+Header Filtering
   │
   ▼
 Rate Limiting
   │
   ▼
 Lua Filters (first)
+  │
+  ▼
+Custom Error Pages
   │
   ▼
 Client
