@@ -18,20 +18,13 @@ Accordingly, the autolearning tool strips the following from CRs:
 * `metadata.resourceVersion`
 * `metadata.uid`
 * `metadata.managedFields`
-* `metadata.creationTimestamp`, `metadata.generation`, `metadata.selfLink`:
-  These would generally do not harm but there is also no reason to send them back.
+* `metadata.creationTimestamp`, `metadata.generation`, `metadata.selfLink`
 * `status`
-* `metadata.annotations."kubectl.kubernetes.io/last-applied-configuration"`:
-  This is kubectl's private state for its 3-way merge; playing back a stale copy
- can make a later `kubectl apply` compute the wrong diff (e.g., wrongly pruning fields). If the user re-applies with kubectl, kubectl will regenerate it anyway.
+* `metadata.annotations."kubectl.kubernetes.io/last-applied-configuration"`
 
 Everything else in `metadata` is left untouched.
-That includes name, namespace, labels, finalizers, and third-party annotations
-like the ArgoCD tracking-id. Stripping the ArgoCD annotation would actually be
-worse than keeping it, and keeping it is harmless, since ArgoCD rewrites it on
-sync anyway.
 
-Note also that edits by tje Autolearning CLI in the spec part are "surgical"
+Note also that edits by the Autolearning CLI in the spec part are "surgical"
 in the sense that they only add/modify what was learned, but do not turn
 implicit defaults into explicit settings (like older versions first did).
 
