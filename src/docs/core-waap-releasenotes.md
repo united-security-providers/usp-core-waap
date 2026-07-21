@@ -1,5 +1,52 @@
 # Core WAAP Release Notes
 
+## 2.1.0 - 2026-XX-YY **TODO date**
+
+### Contents
+
+- core-waap proxy version: **TODO**
+- helm chart version: **TODO**
+- operator version: **TODO**
+- coreruleset version: **TODO**
+
+## New features and improvements
+
+Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
+
+- **operator**: Add support for using a newer CRS version via OCI images, as well as loading OpenAPI and GraphQL schemas from OCI images.
+- **operator**: Add support for multiple log formats (text / JSON) and allow setting them under `spec.operation.startup.logFormat`.
+- **operator**: Add ability to manipulate headers and cookies.
+- **operator**: Add support for additional request size enforcement per route.
+- **operator**: Add `timeout` setting for routes
+- **operator**: Add possibility to set the location to redirect to after OpenID Connect / OAuth2 logout.
+- **autolearning**: The processed CR is stripped of server-side fields that should not be sent back to Kubernetes.
+- **autolearning**: The CLI allows mixed modes with log and/or CR/spec from file or Kubernetes.
+
+## Bug fixes
+
+Changes expected to improve the state of the world and are unlikely to have negative effects.
+
+- **TOOD**
+
+## Incompatible behavior changes
+
+Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
+It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+
+- **operator**: Change default of `spec.coraza.requestBodyLimitAction` and `spec.coraza.responseBodyLimitAction` to `Reject`.
+
+## Removed config or runtime
+
+Normally occurs at the end of the deprecation period. It is advised to read the
+**[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+
+- **TODO (if any)**
+
+## Known issues
+
+* **TODO (if any)**
+
+
 ## 2.0.2 - 2026-06-24
 
 This is a security release that updates core-waap proxy.
