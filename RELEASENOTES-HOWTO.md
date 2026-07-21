@@ -26,7 +26,7 @@ title "Core WAAP Release Notes".
   or monitoring integration etc.
 - Following these entries, add the changelog entries from all sub-components, such as
   each filter, the operator, the helm chart etc.
-- For each sub-component, add a bold prefix to the changelog entry copied from the
+- For each subcomponent, add a bold prefix to the changelog entry copied from the
   component changelog.
 
 Example changelog entry from the operators own changelog:
