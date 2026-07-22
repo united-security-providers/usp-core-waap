@@ -113,6 +113,7 @@ The fields are:
 | Field | Description |
 |-------|-------------|
 | `time` | Start time of the request. |
+| `component` | Access log entries always use 'access' as the component value. |
 | `request.id` | Request id (`X-Request-ID` header). |
 | `request.protocol` | Request protocol, e.g. `HTTP/1.1`. |
 | `request.method` | HTTP request method. |
