@@ -1,7 +1,7 @@
 # OCI Image Sources
 
-Some Core WAAP resources — the CRS rule set as well as OpenAPI and GraphQL
-schemas — can be loaded from an **OCI image** instead of being bundled with the
+Some Core WAAP resources - the CRS rule set as well as OpenAPI and GraphQL
+schemas - can be loaded from an **OCI image** instead of being bundled with the
 proxy or provided through a `ConfigMap`. The referenced image is mounted as a
 read-only volume into the Core WAAP deployment, and Core WAAP reads the rules or
 schema from a path inside it.
