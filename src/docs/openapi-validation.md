@@ -43,6 +43,9 @@ spec:
         responseBody: true
 ```
 
+The schema can be provided either from a `ConfigMap` (`schemaSource`, as above)
+or from an OCI image (`ociImageSource`); see [OCI Image Sources](oci-image-sources.md).
+
 ### Exceptions
 
 Sometimes, you may want certain subpaths of a route to skip OpenAPI validation.

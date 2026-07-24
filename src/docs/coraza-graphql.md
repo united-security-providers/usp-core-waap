@@ -10,6 +10,8 @@
 * To activate GraphQL on a route, you have to first define
   a config and then reference it at a route,
   see the above settings.
+* The GraphQL schema can be provided from a ConfigMap or from an OCI image,
+  see [OCI Image Sources](oci-image-sources.md).
 * You can turn GraphQL validation off and on in various ways,
   by disabling Coraza and/or GraphQL globally or per route,
   see the above settings.

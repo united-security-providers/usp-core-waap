@@ -15,6 +15,8 @@
   see the above settings.
 * And you can configure various limits and features
   with also the above settings.
+* You can load a different (e.g. newer) CRS version from an OCI image,
+  see [OCI Image Sources](oci-image-sources.md).
 * Regarding size limits,
   see also the section [Large Payloads](large-payloads.md).
 * To use auto-learning,

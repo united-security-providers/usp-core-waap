@@ -6,13 +6,24 @@ Core WAAP Operator logs allow to monitor configuration change events. Besides lo
 aspects like traffic volume, response times, and blocked threats, enabling the monitoring of Core WAAP effectiveness over
 time and identifying trends or anomalies.
 
-All Core WAAP components log to standard error in either JSON format for text format.
+All Core WAAP components log to standard error in either JSON or text format.
 To process logs via a dedicated log stack for further processing and visualization, it is recommended to use the JSON format.
 Metrics are exposed in Prometheus format via a dedicated Kubernetes service which is named after Core WAAP CRD with `metrics-` prefix.
 The port of this service can be configured in `spec.operation.metrics` section of the
 CRD (see [API Description](crd-doc.md#corewaapservicespecoperationmetrics) for it). The URL is `/metrics`.
 
 How the log and monitoring stack can look like is beyond the scope of this documentation.
+
+## Log format
+
+All Core WAAP components (the Envoy proxy, its access log, and the Coraza and ICAP filters) write their logs
+in a common format, controlled by `spec.operation.startup.logFormat`:
+
+* `text` (the default): human-readable plain text, convenient for reading logs directly, e.g. with `kubectl logs`.
+* `json`: structured JSON, one object per line, recommended when logs are collected and processed by a dedicated log stack.
+
+If the setting is not present, the format defaults to `text`.
+The [Auto-Learning CLI](autolearning.md) can process logs in either format.
 
 ## Core WAAP filter metrics
 
