@@ -19,14 +19,16 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 - **operator**: Add support for additional request size enforcement per route.
 - **operator**: Add `timeout` setting for routes
 - **operator**: Add possibility to set the location to redirect to after OpenID Connect / OAuth2 logout.
+- **operator**: Deprecate `spec.coraza.validateJson` in favor of `spec.coraza.validateParsedBody`.
 - **autolearning**: The processed CR is stripped of server-side fields that should not be sent back to Kubernetes.
 - **autolearning**: The CLI allows mixed modes with log and/or CR/spec from file or Kubernetes.
+- **autolearning**: The processed spec only adds/modifies what was learned and no longer turns implicit defaults into explicit settings.
 
 ## Bug fixes
 
 Changes expected to improve the state of the world and are unlikely to have negative effects.
 
-- **TOOD**
+- **TODO**
 
 ## Incompatible behavior changes
 
