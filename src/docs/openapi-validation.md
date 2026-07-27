@@ -44,7 +44,7 @@ spec:
 ```
 
 The schema can be provided either from a `ConfigMap` (`schemaSource`, as above)
-or from an OCI image (`ociImageSource`); see [OCI Image Sources](oci-image-sources.md).
+or from an OCI image (`ociImageSource`).
 
 ### Exceptions
 

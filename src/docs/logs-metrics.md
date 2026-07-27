@@ -12,6 +12,8 @@ Metrics are exposed in Prometheus format via a dedicated Kubernetes service whic
 The port of this service can be configured in `spec.operation.metrics` section of the
 CRD (see [API Description](crd-doc.md#corewaapservicespecoperationmetrics) for it). The URL is `/metrics`.
 
+Note that the [Auto-Learning CLI](autolearning.md) can process logs in either format.
+
 How the log and monitoring stack can look like is beyond the scope of this documentation.
 
 ## Log format
