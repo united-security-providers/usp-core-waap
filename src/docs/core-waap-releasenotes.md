@@ -31,9 +31,10 @@ Changes that are expected to cause an incompatibility if applicable; deployment 
 It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **operator**: Change default of `spec.coraza.requestBodyLimitAction` and `spec.coraza.responseBodyLimitAction` to `Reject`.
-- **operator**: Header filter classes have changed. The class `MINIMAL` has been deprecated and instead the new class `RESTRICTED` is used.
-  The headers contained in the other classes have also partially changed. For what changed in detail see the
-  **[Core WAAP Migration Guide](upgrade.md)**
+- **operator**: Header filter classes have changed. The class `MINIMAL` has been deprecated and is mapped
+  to a new and slightly less restrictive class `RESTRICTED`. A new, more permissive class `EXTENDED` has been added.
+  The headers contained in the existing classes (`RESTRICTED`, `STANDARD` and the response class) have also
+  partially changed. For what changed in detail see the **[Core WAAP Migration Guide](upgrade.md)**.
 
 ## 2.0.2 - 2026-06-24
 
