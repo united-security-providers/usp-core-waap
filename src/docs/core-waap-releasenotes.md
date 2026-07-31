@@ -1,13 +1,13 @@
 # Core WAAP Release Notes
 
-## 2.1.0 - 2026-XX-YY **TODO date**
+## 2.1.0 - 2026-07-31
 
 ### Contents
 
-- core-waap proxy version: **TODO**
-- helm chart version: **TODO**
-- operator version: **TODO**
-- coreruleset version: **TODO**
+- core-waap proxy version: 2.1.0
+- helm chart version: 2.1.0
+- operator version: 2.1.0
+- coreruleset version: 4.25.1
 
 ## New features and improvements
 
@@ -25,30 +25,12 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 - **autolearning**: The CLI allows mixed modes with log and/or CR/spec from file or Kubernetes.
 - **autolearning**: The processed spec only adds/modifies what was learned and no longer turns implicit defaults into explicit settings.
 
-## Bug fixes
-
-Changes expected to improve the state of the world and are unlikely to have negative effects.
-
-- **TODO**
-
 ## Incompatible behavior changes
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
 It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
 
 - **operator**: Change default of `spec.coraza.requestBodyLimitAction` and `spec.coraza.responseBodyLimitAction` to `Reject`.
-
-## Removed config or runtime
-
-Normally occurs at the end of the deprecation period. It is advised to read the
-**[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
-
-- **TODO (if any)**
-
-## Known issues
-
-* **TODO (if any)**
-
 
 ## 2.0.2 - 2026-06-24
 
