@@ -17,7 +17,7 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 - The predefined header allow classes have changed. See
   [Header filtering](header-filtering.md) for the full, current contents of each class.
-  - **`requestAllowClass: MINIMAL`** is deprecated and mapped to a new class `RESTRICTED`.
+  - **`CoreWaapService.spec.headerFilter.filters[index].request.allowClass: MINIMAL`** is deprecated and mapped to a new class `RESTRICTED`.
     Settings should be migrated, but note that `RESTRICTED` allows additional browser headers
     (`cookie`, `user-agent`, `referer`, `accept`, ...).
     If you relied on the old minimal set, review whether `RESTRICTED` is acceptable;
