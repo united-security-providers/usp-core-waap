@@ -65,6 +65,7 @@ nav:
     - Native Config Post-Processing: 'native-config-post-processing.md'
     - ICAP Antivirus Scanning: 'icap-antivirus-scanning.md'
     - OpenAPI Validation: 'openapi-validation.md'
+    - OCI Image Sources: 'oci-image-sources.md'
     - Virtual Patch: 'crs-virtual-patch.md'
     - Lua Filters: 'lua-filters.md'
     - Rate Limiting: 'rate-limiting.md'

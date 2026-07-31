@@ -13,6 +13,41 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 2.0.x to >=2.1.0
+
+- The predefined header allow classes have changed. See
+  [Header filtering](header-filtering.md) for the full, current contents of each class.
+  - **`CoreWaapService.spec.headerFilter.filters[index].request.allowClass: MINIMAL`** is deprecated and mapped to a new class `RESTRICTED`.
+    Settings should be migrated, but note that `RESTRICTED` allows additional browser headers
+    (`cookie`, `user-agent`, `referer`, `accept`, ...).
+    If you relied on the old minimal set, review whether `RESTRICTED` is acceptable;
+    there is no drop-in replacement for the previous `MINIMAL` list.
+  - The following changes to the existing classes were made:
+      - `RESTRICTED`/`MINIMAL`
+        - _added_ (8): accept, accept-encoding, accept-language, cookie, host, referer,
+          upgrade-insecure-requests, user-agent
+        - _removed_ (1): connection
+      - `STANDARD`
+        - _added_ (11): dpop, host, priority, sec-fetch-dest, sec-fetch-mode, sec-fetch-site,
+          sec-fetch-storage-access, sec-fetch-user, sec-purpose, te, upgrade-insecure-requests
+        - _removed_ (14): accept-charset, accept-ranges, allow, content-md5, content-range, from,
+          last-modified, location, pragma, proxy-authorization, vary, via, warning, www-authenticate
+      - `RESPONSE`
+        - _added_ (49): accept-ch, accept-patch, accept-post, activate-storage-access,
+          attribution-reporting-register-source, attribution-reporting-register-trigger,
+          cache-group-invalidation, cache-groups, clear-site-data, content-digest, critical-ch,
+          cross-origin-embedder-policy, cross-origin-embedder-policy-report-only,
+          cross-origin-opener-policy, cross-origin-opener-policy-report-only, cross-origin-resource-policy,
+          deprecation, dpop-nonce, integrity-policy, integrity-policy-report-only, link, nel, no-vary-search,
+          origin-agent-cluster, permissions-policy, prefer, preference-applied, priority, ratelimit,
+          ratelimit-limit, ratelimit-policy, ratelimit-remaining, ratelimit-reset, refresh,
+          reporting-endpoints, repr-digest, sec-websocket-extensions, sec-websocket-protocol,
+          sec-websocket-version, service-worker-allowed, speculation-rules, sunset, supports-loading-mode,
+          timing-allow-origin, transfer-encoding, use-as-dictionary, x-dns-prefetch-control,
+          x-permitted-cross-domain-policies, x-robots-tag
+        - _removed_ (10): content-md5, expect, expect-ct, feature-policy, frame-options, pragma,
+          proxy-authenticate, public-key-pins, x-content-security-policy, x-webkit-csp
+
 ### Core WAAP Operator 1.4.x to >=2.0.0
 
 - In an existing Helm chart, rename the docker image from `usp-core-waap` to `usp-core-waap-proxy`.

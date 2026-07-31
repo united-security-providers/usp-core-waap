@@ -1,5 +1,41 @@
 # Core WAAP Release Notes
 
+## 2.1.0 - 2026-07-31
+
+### Contents
+
+- core-waap proxy version: 2.1.0
+- helm chart version: 2.1.0
+- operator version: 2.1.0
+- coreruleset version: 4.25.1
+
+## New features and improvements
+
+Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
+
+- **operator**: Add support for using a newer CRS version via OCI images, as well as loading OpenAPI and GraphQL schemas from OCI images.
+- **operator**: Add support for multiple log formats (text / JSON) and allow setting them under `spec.operation.startup.logFormat`.
+- **operator**: Add ability to manipulate headers.
+- **operator**: Add ability to manipulate cookies.
+- **operator**: Add support for additional request size enforcement per route.
+- **operator**: Add `timeout` setting for routes
+- **operator**: Add possibility to set the location to redirect to after OpenID Connect / OAuth2 logout.
+- **operator**: Deprecate `spec.coraza.validateJson` in favor of `spec.coraza.validateParsedBody`.
+- **autolearning**: The processed CR is stripped of server-side fields that should not be sent back to Kubernetes.
+- **autolearning**: The CLI allows mixed modes with log and/or CR/spec from file or Kubernetes.
+- **autolearning**: The processed spec only adds/modifies what was learned and no longer turns implicit defaults into explicit settings.
+
+## Incompatible behavior changes
+
+Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
+It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+
+- **operator**: Change default of `spec.coraza.requestBodyLimitAction` and `spec.coraza.responseBodyLimitAction` to `Reject`.
+- **operator**: Header filter classes have changed. The class `MINIMAL` has been deprecated and is mapped
+  to a new and slightly less restrictive class `RESTRICTED`. A new, more permissive class `EXTENDED` has been added.
+  The headers contained in the existing classes (`RESTRICTED`, `STANDARD` and the response class) have also
+  partially changed. For what changed in detail see the **[Core WAAP Migration Guide](upgrade.md)**.
+
 ## 2.0.2 - 2026-06-24
 
 This is a security release that updates core-waap proxy.

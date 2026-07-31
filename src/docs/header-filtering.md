@@ -64,7 +64,7 @@ request:
   - X-Myapp-1
   - X-Myapp-2
   deny:
-  - X-Forwarded-For
+  - X-Forwarded-Proto
   denyPattern:
   - name: X-Myapp-1
     pattern: "^evil-.*$"
@@ -91,7 +91,7 @@ are additionally filtered out.
 With the above example config and assuming a request with the following request headers:
 
 * `X-Unknown: Hello`
-* `X-Forwarded-For: 1.2.3.4`
+* `X-Forwarded-Proto: https`
 * `X-Myapp1: Harmless`
 * `X-Myapp2: EVIL`
 * (more headers from `STANDARD`)
@@ -99,7 +99,7 @@ With the above example config and assuming a request with the following request 
 headers are filtered as follows:
 
 * `X-Unknown` - Filtered out, not in `STANDARD` and not additionally allowed
-* `X-Forwarded-For` - Filterered out, would be in `STANDARD`, but was explicitly denied
+* `X-Forwarded-Proto` - Filtered out, is in `STANDARD`, but was explicitly denied
 * `X-Myapp1: Harmless` - Not filtered out, not in `STANDARD`, but additionally allowed and not denied by name or regex pattern
 * `X-Myapp2: EVIL` - Filtered out, not in `STANDARD`, additionally allowed and not denied by name, but matched the deny pattern with "*" wildcard header name
 * (more headers from `STANDARD`) - Only filtered out if matched the deny pattern with "*" wildcard header name
@@ -210,63 +210,51 @@ Request header filtering:
 
 (Note that HTTP headers are case-insensitive; listed lowercase below.)
 
-For request headers the following allow classes can be selected:
-
-### Request `MINIMAL`
-
-* `:path`
-* `:method`
-* `:authority`
-* `:scheme`
-* `x-forwarded-proto`
-* `content-type`
-* `content-length`
-* `expect`
-* `x-request-id`
-* `x-forwarded-for`
+For request headers one of the following allow classes can be selected via
+`request.allowClass`. The classes are cumulative, each one being a superset of
+the previous: `EXTENDED` ⊇ `STANDARD` ⊇ `RESTRICTED`. If no class is selected,
+the default is `STANDARD`.
 
 ### Request `RESTRICTED`
 
+The smallest class: the HTTP/2 pseudo-headers plus the most common browser
+request headers.
+
 * `:path`
 * `:method`
 * `:authority`
 * `:scheme`
-* `x-forwarded-proto`
-* `content-type`
-* `content-length`
-* `expect`
-* `cookie`
-* `user-agent`
-* `referer`
 * `accept`
 * `accept-encoding`
 * `accept-language`
+* `content-length`
+* `content-type`
+* `cookie`
+* `expect`
+* `host`
+* `referer`
+* `transfer-encoding`
+* `upgrade-insecure-requests`
+* `user-agent`
+* `x-forwarded-proto`
 * `x-request-id`
-* `x-forwarded-for`
 
 ### Request `STANDARD`
 
-* `:path`
-* `:method`
-* `:authority`
-* `:scheme`
-* `accept`
-* `accept-encoding`
-* `accept-language`
-* `accept-ranges`
+`RESTRICTED` plus the full set of standard web request headers. This is the default.
+
+All headers from `RESTRICTED`, plus:
+
 * `access-control-request-headers`
 * `access-control-request-method`
 * `authorization`
 * `cache-control`
+* `connection`
 * `content-encoding`
 * `content-language`
-* `content-length`
 * `content-location`
-* `content-md5`
-* `x-forwarded-proto`
-* `content-type`
 * `date`
-* `expect`
+* `dpop`
 * `if-match`
 * `if-modified-since`
 * `if-none-match`
@@ -274,26 +262,62 @@ For request headers the following allow classes can be selected:
 * `if-unmodified-since`
 * `max-forwards`
 * `origin`
+* `priority`
 * `range`
-* `host`
-* `referer`
-* `user-agent`
-* `traceparent`
-* `tracestate`
-* `te`
-* `upgrade`
-* `via`
-* `x-requested-with`
-* `cookie`
 * `sec-fetch-dest`
 * `sec-fetch-mode`
 * `sec-fetch-site`
-* `sec-websocket-key`
+* `sec-fetch-storage-access`
+* `sec-fetch-user`
+* `sec-purpose`
 * `sec-websocket-extensions`
+* `sec-websocket-key`
 * `sec-websocket-protocol`
 * `sec-websocket-version`
-* `x-request-id`
-* `x-forwarded-for`
+* `te`
+* `upgrade`
+* `x-requested-with`
+
+### Request `EXTENDED`
+
+`STANDARD` plus client hints and other modern browser/SPA/mobile request headers.
+
+All headers from `STANDARD`, plus:
+
+* `available-dictionary`
+* `content-digest`
+* `dictionary-id`
+* `downlink`
+* `ect`
+* `from`
+* `idempotency-key`
+* `last-event-id`
+* `prefer`
+* `repr-digest`
+* `rtt`
+* `save-data`
+* `sec-ch-device-memory`
+* `sec-ch-dpr`
+* `sec-ch-prefers-color-scheme`
+* `sec-ch-prefers-reduced-motion`
+* `sec-ch-prefers-reduced-transparency`
+* `sec-ch-ua`
+* `sec-ch-ua-arch`
+* `sec-ch-ua-bitness`
+* `sec-ch-ua-form-factors`
+* `sec-ch-ua-full-version-list`
+* `sec-ch-ua-mobile`
+* `sec-ch-ua-model`
+* `sec-ch-ua-platform`
+* `sec-ch-ua-platform-version`
+* `sec-ch-ua-wow64`
+* `sec-ch-viewport-height`
+* `sec-ch-viewport-width`
+* `sec-ch-width`
+* `sec-gpc`
+* `service-worker-navigation-preload`
+* `want-content-digest`
+* `want-repr-digest`
 
 For response headers there is currently a single implicit allow class
 that is always used when response filtering is enabled:
@@ -301,6 +325,9 @@ that is always used when response filtering is enabled:
 ### Response (implicitly)
 
 * `:status`
+* `accept-ch`
+* `accept-patch`
+* `accept-post`
 * `accept-ranges`
 * `access-control-allow-credentials`
 * `access-control-allow-headers`
@@ -308,36 +335,79 @@ that is always used when response filtering is enabled:
 * `access-control-allow-origin`
 * `access-control-expose-headers`
 * `access-control-max-age`
-* `cross-origin-opener-policy`
-* `cross-origin-embedder-policy`
-* `cross-origin-resource-policy`
+* `activate-storage-access`
 * `age`
 * `allow`
+* `attribution-reporting-register-source`
+* `attribution-reporting-register-trigger`
 * `cache-control`
+* `cache-group-invalidation`
+* `cache-groups`
+* `clear-site-data`
+* `connection`
+* `content-digest`
 * `content-disposition`
 * `content-encoding`
 * `content-language`
 * `content-length`
 * `content-location`
-* `content-md5`
 * `content-range`
 * `content-security-policy`
 * `content-security-policy-report-only`
 * `content-type`
+* `critical-ch`
+* `cross-origin-embedder-policy`
+* `cross-origin-embedder-policy-report-only`
+* `cross-origin-opener-policy`
+* `cross-origin-opener-policy-report-only`
+* `cross-origin-resource-policy`
 * `date`
+* `deprecation`
+* `dpop-nonce`
 * `etag`
-* `upgrade`
 * `expires`
-* `feature-policy`
+* `integrity-policy`
+* `integrity-policy-report-only`
+* `keep-alive`
 * `last-modified`
+* `link`
 * `location`
-* `proxy-authenticate`
+* `nel`
+* `no-vary-search`
+* `origin-agent-cluster`
+* `permissions-policy`
+* `prefer`
+* `preference-applied`
+* `priority`
+* `ratelimit`
+* `ratelimit-limit`
+* `ratelimit-policy`
+* `ratelimit-remaining`
+* `ratelimit-reset`
 * `referrer-policy`
+* `refresh`
+* `reporting-endpoints`
+* `repr-digest`
 * `retry-after`
+* `sec-websocket-accept`
+* `sec-websocket-extensions`
+* `sec-websocket-protocol`
+* `sec-websocket-version`
+* `server`
+* `service-worker-allowed`
 * `set-cookie`
+* `speculation-rules`
 * `strict-transport-security`
+* `sunset`
+* `supports-loading-mode`
+* `timing-allow-origin`
+* `transfer-encoding`
+* `upgrade`
+* `use-as-dictionary`
 * `vary`
 * `www-authenticate`
 * `x-content-type-options`
+* `x-dns-prefetch-control`
 * `x-frame-options`
-* `sec-websocket-accept`
+* `x-permitted-cross-domain-policies`
+* `x-robots-tag`
