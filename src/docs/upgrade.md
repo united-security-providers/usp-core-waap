@@ -13,6 +13,26 @@ To run a newer version of the Core WAAP Operator the corresponding helm chart ca
 
 ## Core WAAP Migration Guide
 
+### Core WAAP Operator 2.0.x to >=2.1.0
+- **`requestAllowClass: MINIMAL`** should be replaced with `RESTRICTED` instead. `RESTRICTED` **allows** additional browser headers (`cookie`, `user-agent`, `referer`, `accept`, …). If you relied on the old minimal set, review whether `RESTRICTED` is acceptable; there is no drop-in replacement for the previous `MINIMAL` list.
+- The following changes to the existing classes were made:
+    - `RESTRICTED`
+        - _added_ (3): host, transfer-encoding, upgrade-insecure-requests
+    - `STANDARD`
+        - _added_ (8): connection, dpop, priority, sec-fetch-storage-access, sec-fetch-user, sec-purpose, transfer-encoding, upgrade-insecure-requests
+        - _removed_ (6): accept-ranges, content-md5, via
+    - `RESPONSE`
+        - _added_ (49): accept-ch, accept-patch, accept-post, activate-storage-access, attribution-reporting-register-source,
+          attribution-reporting-register-trigger, cache-group-invalidation, cache-groups, clear-site-data, connection,
+          content-digest, critical-ch, cross-origin-embedder-policy-report-only, cross-origin-opener-policy-report-only,
+          deprecation, dpop-nonce, integrity-policy, integrity-policy-report-only, keep-alive, link, nel, no-vary-search,
+          origin-agent-cluster, permissions-policy, prefer, preference-applied, priority, ratelimit, ratelimit-limit,
+          ratelimit-policy, ratelimit-remaining, ratelimit-reset, refresh, reporting-endpoints, repr-digest,
+          sec-websocket-extensions, sec-websocket-protocol, sec-websocket-version, server, service-worker-allowed,
+          speculation-rules, sunset, supports-loading-mode, timing-allow-origin, transfer-encoding, use-as-dictionary,
+          x-dns-prefetch-control, x-permitted-cross-domain-policies, x-robots-tag
+        - _removed_ (3): content-md5, feature-policy, proxy-authenticate
+
 ### Core WAAP Operator 1.4.x to >=2.0.0
 
 - In an existing Helm chart, rename the docker image from `usp-core-waap` to `usp-core-waap-proxy`.
