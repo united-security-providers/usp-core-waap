@@ -13,10 +13,10 @@
 
 Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
 
-- **operator**: Add support for using a newer CRS version via OCI images, as well as loading OpenAPI and GraphQL schemas from OCI images.
-- **operator**: Add support for multiple log formats (text / JSON) and allow setting them under `spec.operation.startup.logFormat`.
-- **operator**: Add ability to manipulate headers.
-- **operator**: Add ability to manipulate cookies.
+- **operator**: Add support for using a alternative CRS version via OCI images, as well as loading OpenAPI and GraphQL schemas from OCI images.
+- **operator**: Add support for multiple log formats (text / JSON) with customization options under `spec.operation.startup.logFormat`.
+- **operator**: Add header manipulation capabilities.
+- **operator**: Add cookies manipulation capabilities.
 - **operator**: Add support for additional request size enforcement per route.
 - **operator**: Add `timeout` setting for routes
 - **operator**: Add possibility to set the location to redirect to after OpenID Connect / OAuth2 logout.
