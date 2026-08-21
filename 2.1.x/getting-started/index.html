@@ -1591,7 +1591,7 @@ protected</strong> by USP Core WAAP.</p>
 <p class="admonition-title">Note</p>
 <p>This example raises the default <a href="https://coreruleset.org/docs/2-how-crs-works/2-2-paranoia_levels/">Paranoia Level</a>
 from 1 to 2 and adds a
-<a href="../crd-doc/#corewaapservicespeccrsrequestruleexceptionsindex">requestRuleException</a> so legitimate basket checkouts
+<a href="../crd-doc/#corewaapservicespeccorazacrsrequestruleexceptionsindex">requestRuleException</a> so legitimate basket checkouts
 are not blocked as false positives.</p>
 </div>
 <p>Before we can apply the <code>CoreWaapService</code> resource, we need to ensure that the used service account can pull the container image.
@@ -1616,7 +1616,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>juiceshop<span class="w"> </span>svc/juiceshop-usp-core-waap<span class="w"> </span><span class="m">8080</span>:8080
 </code></pre></div>
 <p>Open a browser and visit <code>http://localhost:8080</code> and you should see the OWASP Juice Shop.</p>
-<p>To verify that the WAF actually blocks, you can send the following request from an other terminal: 
+<p>To verify that the WAF actually blocks, you can send the following request from an other terminal:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8080/rest/user/login<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Origin: http://localhost:8080&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
