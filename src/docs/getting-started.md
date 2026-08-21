@@ -180,7 +180,7 @@ EOL
 
     This example raises the default [Paranoia Level](https://coreruleset.org/docs/2-how-crs-works/2-2-paranoia_levels/)
     from 1 to 2 and adds a
-    [requestRuleException](crd-doc.md#corewaapservicespeccrsrequestruleexceptionsindex) so legitimate basket checkouts
+    [requestRuleException](crd-doc.md#corewaapservicespeccorazacrsrequestruleexceptionsindex) so legitimate basket checkouts
     are not blocked as false positives.
 
 Before we can apply the `CoreWaapService` resource, we need to ensure that the used service account can pull the container image.
@@ -218,7 +218,7 @@ kubectl port-forward -n juiceshop svc/juiceshop-usp-core-waap 8080:8080
 
 Open a browser and visit `http://localhost:8080` and you should see the OWASP Juice Shop.
 
-To verify that the WAF actually blocks, you can send the following request from an other terminal: 
+To verify that the WAF actually blocks, you can send the following request from an other terminal:
 ```shell
 curl -i -X POST http://localhost:8080/rest/user/login \
   -H 'Origin: http://localhost:8080' \
