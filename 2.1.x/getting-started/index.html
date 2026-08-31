@@ -1461,7 +1461,7 @@ cluster and protect an example backend application — the intentionally vulnera
 <a href="https://killercoda.com/united-security-providers">Killercoda Core WAAP scenarios</a> instead.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The steps below use the latest Helm chart version: <strong>2.1.0</strong>.</p>
+<p>The steps below use the latest Helm chart version: <strong>2.1.1</strong>.</p>
 </div>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before you start, make sure you have:</p>
@@ -1501,7 +1501,7 @@ For other ways how to create such a secret see <a href="https://kubernetes.io/do
 <p>Install the operator into its own namespace <code>usp-core-waap-operator</code>.</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>-f<span class="w"> </span>custom-values.yaml<span class="w"> </span>usp-core-waap-operator<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--version<span class="w"> </span><span class="m">2</span>.1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span><span class="m">2</span>.1.1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>usp-core-waap-operator
 </code></pre></div>
 <p>Verify that the operator pod is running:</p>
