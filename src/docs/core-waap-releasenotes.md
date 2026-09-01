@@ -15,7 +15,7 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 
 * **proxy**: Upgrade from Envoy proxy 1.39.0 to [1.39.1](https://github.com/envoyproxy/envoy/releases/tag/v1.39.1).
 
-## 2.1.0 - 2026-07-31
+## 2.1.0 - 2026-08-24
 
 ### Contents
 
