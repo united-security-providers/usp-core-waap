@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - run: make build
+
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: .publish
+
+      - name: Replace the published site with the build
+        run: |
+          find .publish -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R public/. .publish/
+          touch .publish/.nojekyll
+
+      - name: Commit and push
+        working-directory: .publish
+        run: |
+          git config user.name "${{ github.event.head_commit.author.name || github.actor }}"
+          git config user.email "${{ github.event.head_commit.author.email || format('{0}+{1}@users.noreply.github.com', github.actor_id, github.actor) }}"
+          git add -A
+          git diff --quiet --cached || git commit -m "Publish documentation from $GITHUB_SHA"
+          git push
