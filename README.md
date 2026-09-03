@@ -47,13 +47,13 @@ workflow, which checks that the site still builds.
 Four things on a version's pages do not come from this repository and have to be
 refreshed when a release is prepared, before `make prepare-release` freezes them:
 
-- `crd-doc.md`, the API reference, generated from the operator CRD with
+- `configuration/crd-doc.md`, the API reference, generated from the operator CRD with
   [crdoc](https://github.com/fybrik/crdoc). It is the only page that carries raw HTML.
-- `helm-values.md`, generated from the operator chart's `values.yaml` with
+- `operation/helm/values.md`, generated from the operator chart's `values.yaml` with
   [helm-docs](https://github.com/norwoodj/helm-docs).
-- The `--help` output of the Auto-Learning CLI at the end of `autolearning.md`.
-- The version numbers named in `_index.md`, `getting-started.md`, `helm.md`,
-  `autolearning.md` and `downloads.md`, plus the CLI jar under `latest/files/`.
+- The `--help` output of the Auto-Learning CLI at the end of `operation/autolearning.md`.
+- The version numbers named in `_index.md`, `getting-started.md`, `operation/helm/usage.md`,
+  `operation/autolearning.md` and `downloads.md`, plus the CLI jar under `latest/files/`.
 
 ## Retiring a release
 

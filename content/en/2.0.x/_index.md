@@ -7,7 +7,7 @@ USP Core WAAP (Web Application and API Protection) provides secure access to web
 while simplifying the process of configuration and deployment.
 
 > [!TIP]
-> The current **[Helm chart](helm.md)** version for the **[USP Core WAAP operator](helm/#install-operator)** is : **2.0.2**
+> The current **[Helm chart](operation/helm/usage.md)** version for the **[USP Core WAAP operator](operation/helm/usage/#install-operator)** is : **2.0.2**
 
 ## Overview
 

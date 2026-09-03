@@ -90,7 +90,7 @@ The operator now watches for resources of kind `CoreWaapService`. As soon as suc
 operator deploys a USP Core WAAP instance that protects the configured backend.
 
 For more options (custom values, namespace layout, upgrades, CRD extraction) see the
-[Helm Charts](helm.md) page.
+[Helm Charts](operation/helm/usage.md) page.
 
 ## 5. Deploy the Juice Shop example application
 
@@ -181,7 +181,7 @@ EOL
 > [!NOTE]
 > This example raises the default [Paranoia Level](https://coreruleset.org/docs/2-how-crs-works/2-2-paranoia_levels/)
 > from 1 to 2 and adds a
-> [requestRuleException](crd-doc/#corewaapservicespeccrsrequestruleexceptionsindex) so legitimate basket checkouts
+> [requestRuleException](configuration/crd-doc/#corewaapservicespeccorazacrsrequestruleexceptionsindex) so legitimate basket checkouts
 > are not blocked as false positives.
 
 Before we can apply the `CoreWaapService` resource, we need to ensure that the used service account can pull the container image.
@@ -239,9 +239,9 @@ kubectl logs -f \
 
 ## Next steps
 
-- Explore the full [API reference](crd-doc.md) for `CoreWaapService`.
-- Start tuning [Coraza CRS integration](coraza-crs.md)
-- Configure additional protections such as [header filtering](header-filtering.md),
-  [OpenAPI validation](openapi-validation.md), or [rate limiting](rate-limiting.md).
-- Learn about [logs and metrics](logs-metrics.md) for day-2 operations.
+- Explore the full [API reference](configuration/crd-doc.md) for `CoreWaapService`.
+- Start tuning [Coraza CRS integration](configuration/coraza/coraza-crs.md)
+- Configure additional protections such as [header filtering](configuration/header-filtering.md),
+  [OpenAPI validation](configuration/openapi-validation.md), or [rate limiting](configuration/rate-limiting.md).
+- Learn about [logs and metrics](operation/logs-metrics.md) for day-2 operations.
 - Try the hands-on [Killercoda scenarios](https://killercoda.com/united-security-providers) for guided exercises.

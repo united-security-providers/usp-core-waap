@@ -47,13 +47,13 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 ## Incompatible behavior changes
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
-It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+It is advised to read the **[Core WAAP Migration Guide](operation/upgrade.md)** document for detailled configuration migration instructions.
 
 - **operator**: Change default of `spec.coraza.requestBodyLimitAction` and `spec.coraza.responseBodyLimitAction` to `Reject`.
 - **operator**: Header filter classes have changed. The class `MINIMAL` has been deprecated and is mapped
   to a new and slightly less restrictive class `RESTRICTED`. A new, more permissive class `EXTENDED` has been added.
   The headers contained in the existing classes (`RESTRICTED`, `STANDARD` and the response class) have also
-  partially changed. For what changed in detail see the **[Core WAAP Migration Guide](upgrade.md)**.
+  partially changed. For what changed in detail see the **[Core WAAP Migration Guide](operation/upgrade.md)**.
 
 ## 2.0.2 - 2026-06-24
 
@@ -113,8 +113,8 @@ Changes expected to improve the state of the world and are unlikely to have nega
 Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
 
 - Changed extension mechanism and optimized all features internally to reduce memory requirements and improve performance.
-- **proxy**: Add new optional proxy executable with debug support. See [debugging](debugging.md) for details on how to use it.
-- **documentation**: Add new documentation for [debugging](debugging.md) which describes the recommended approach for debugging crashes, segmentation faults and other issues you might encounter.
+- **proxy**: Add new optional proxy executable with debug support. See [debugging](operation/debugging.md) for details on how to use it.
+- **documentation**: Add new documentation for [debugging](operation/debugging.md) which describes the recommended approach for debugging crashes, segmentation faults and other issues you might encounter.
 - **helmchart**: Reduce permissions for the default `ClusterRole` used by the operator to enhance security and align
   with the principle of least privilege.
 - **helmchart**: Add the ability to configure `securityContext` for the operator.
@@ -143,7 +143,7 @@ Changes expected to improve the state of the world and are unlikely to have nega
 ## Incompatible behavior changes
 
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
-It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+It is advised to read the **[Core WAAP Migration Guide](operation/upgrade.md)** document for detailled configuration migration instructions.
 
 - **proxy**: Authentication cookies will now include a unique suffix to prevent them from overwriting one another.
 - **helmchart**: The docker image has been renamed to **usp-core-waap-proxy**.
@@ -163,7 +163,7 @@ It is advised to read the **[Core WAAP Migration Guide](upgrade.md)** document f
 ## Removed config or runtime
 
 Normally occurs at the end of the deprecation period. It is advised to read the
-**[Core WAAP Migration Guide](upgrade.md)** document for detailled configuration migration instructions.
+**[Core WAAP Migration Guide](operation/upgrade.md)** document for detailled configuration migration instructions.
 
 - **helmchart**: Removed all traffic processing related settings; there are no longer sidecars for ICAP and OpenAPI.
 - **helmchart**: Removed all metrics related settings; all metrics are now handled in the main container.
