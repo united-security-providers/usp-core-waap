@@ -17,7 +17,7 @@ The following manipulation actions are supported:
 * `REMOVE`: Search for the specified header and remove it
 
 For more information about these actions, please check the
-[api reference](https://docs.united-security-providers.ch/usp-core-waap/latest/crd-doc/#corewaapservicespecheadermanipulationconfigurationsindexrequestindexaction).
+[api reference](crd-doc.md#corewaapservicespecheadermanipulationconfigurationsindexrequestindex).
 
 ## Basic config structure
 

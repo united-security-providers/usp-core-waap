@@ -26,8 +26,8 @@ The same manipulation actions except `MODIFY_ATTRIBUTES_IF_COOKIE_PRESENT`
 also exist for the cookie attributes.
 
 For more information about these actions, please check the api_reference for
-[cookies](https://docs.united-security-providers.ch/usp-core-waap/latest/crd-doc/#corewaapservicespeccookiemanipulationconfigurationsindexrequestindexaction)
-and [attributes](https://docs.united-security-providers.ch/usp-core-waap/latest/crd-doc/#corewaapservicespeccookiemanipulationconfigurationsindexrequestindexattributesindexaction).
+[cookies](crd-doc.md#corewaapservicespeccookiemanipulationconfigurationsindexrequestindex)
+and [attributes](crd-doc.md#corewaapservicespeccookiemanipulationconfigurationsindexrequestindexattributesindex).
 
 ## Basic config structure
 

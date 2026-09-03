@@ -10,6 +10,9 @@ HUGO_ASSET := hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz
 PAGEFIND_BASE := https://github.com/Pagefind/pagefind/releases/download/v$(PAGEFIND_VERSION)
 PAGEFIND_ASSET := pagefind_extended-v$(PAGEFIND_VERSION)-x86_64-unknown-linux-musl.tar.gz
 
+THEME := github.com/united-security-providers/usp-docs-hugo-theme
+THEME_VERSION ?= latest
+
 DEV_VERSION := latest
 RELEASE_VERSION = $(firstword $(subst /, ,$(RELEASE)))
 RELEASE_EXTRA = $(word 2,$(subst /, ,$(RELEASE)))
@@ -51,6 +54,11 @@ build: download-tools
 .PHONY: serve
 serve: build
 	$(HUGO) server
+
+.PHONY: update-theme
+update-theme: $(HUGO)
+	$(HUGO) mod get $(THEME)@$(THEME_VERSION)
+	$(HUGO) mod tidy
 
 .PHONY: prepare-release
 prepare-release:

@@ -11,12 +11,25 @@ There are no required dependencies.
 Hugo and Pagefind will always be downloaded with the make target `download-tools` on first use.
 
 ```bash
-make serve           # build, then http://localhost:1313/ with live reload
+make serve           # build, then http://localhost:1313/usp-core-waap/ with live reload
 make build           # build into public/, search index included
+make update-theme    # move to the newest theme release
 make clean           # remove the build output; bin/ stays
 make download-tools  # fetch the toolchain without building
 make clean-tools     # remove the toolchain from bin/
 ```
+
+## Updating the theme
+
+The theme is a Hugo module. One command moves it to the newest release and
+writes `go.mod` and `go.sum`:
+
+```bash
+make update-theme                        # newest release
+make update-theme THEME_VERSION=v0.3.0   # a specific one
+```
+
+Review the resulting diff, build once, and commit `go.mod` and `go.sum`.
 
 ## Making a release
 

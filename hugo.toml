@@ -2,8 +2,7 @@ title = 'USP Core WAAP documentation'
 theme = 'github.com/united-security-providers/usp-docs-hugo-theme'
 copyright = '&copy; 2026 United Security Providers AG. All Rights Reserved.'
 
-baseURL = 'https://docs.united-security-providers.ch/'
-relativeURLs = true
+baseURL = 'https://docs.united-security-providers.ch/usp-core-waap/'
 
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = false
@@ -47,7 +46,6 @@ noClasses = false
 
 [params]
 description = 'Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).'
-canonicalBase = 'https://docs.united-security-providers.ch/usp-core-waap/'
 logo = 'images/USP-Logo-2023-ohne-claim-lang-white1.webp'
 eol = []
 
