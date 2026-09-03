@@ -1,9 +1,11 @@
-/site
-/build
-/MANIFEST
-/dist
-/generated
-/docs
+/bin
+/public
+/static/pagefind
+/.publish
+/resources
+.hugo_build.lock
+
+.cache
 
 *.log
 

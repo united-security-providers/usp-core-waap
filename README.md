@@ -1,153 +1,84 @@
-# USP Core WAAP
+# USP Core WAAP documentation
 
-Welcome to the USP Core WAAP (Web Application and API Protection) customers repository.
-This repository contains the scripts required to build the USP Core WAAP website:
+This repository contains the USP Core WAAP (Web Application and API Protection) documentation,
+published under https://docs.united-security-providers.ch/usp-core-waap/.
+The content is in `content/en/<version>/`, and the site is built with Hugo and the
+[USP Docs theme](https://github.com/united-security-providers/usp-docs-hugo-theme).
 
-**https://docs.united-security-providers.ch/usp-core-waap/**
+## Building
 
-## Requirements
+There are no required dependencies.
+Hugo and Pagefind will always be downloaded with the make target `download-tools` on first use.
 
-- `mkdocs` to generate the website and deploy it to GitHub pages.
-- `helm` command used for pulling the Helm charts to process the "values.yaml" file.
-- `helm-docs` to generate markdown from a values YAML file: https://github.com/norwoodj/helm-docs
-- `crdoc` to generate the CRD documentation: https://github.com/fybrik/crdoc
-- `yq` to query values from yaml files: https://mikefarah.gitbook.io/yq
-
-
-### mkdocs notes
-
-* Do NOT install mkdocs as a system package (e.g. Debian package). Those are often older releases. Install
-it with the Python package manager "pip" instead. Also, install all the required Python packages as well.
-
-* mkdocs installation guide: https://www.mkdocs.org/user-guide/installation/#installing-mkdocs
-
-#### Install / upgrade pip
-
-```shell
-python get-pip.py
-pip install --upgrade pip
+```bash
+make serve           # build, then http://localhost:1313/usp-core-waap/ with live reload
+make build           # build into public/, search index included
+make update-theme    # move to the newest theme release
+make clean           # remove the build output; bin/ stays
+make download-tools  # fetch the toolchain without building
+make clean-tools     # remove the toolchain from bin/
 ```
 
-#### Install mkdocs
+## Updating the theme
 
-```shell
-# This will create a local directory called ".venv"
-python3 -m venv .venv
-source .venv/bin/activate
-pip install mkdocs pymdown-extensions mkdocs-material mkdocs-redirects mkdocs-swagger-ui-tag mike
+The theme is a Hugo module. One command moves it to the newest release and
+writes `go.mod` and `go.sum`:
+
+```bash
+make update-theme                        # newest release
+make update-theme THEME_VERSION=v0.3.0   # a specific one
 ```
 
-Now you should be able to run the `mkdocs` command and see something similar to:
+Review the resulting diff, build once, and commit `go.mod` and `go.sum`.
 
-```shell
-mkdocs --version
-```
-The output should be something like this:
-```
-mkdocs, version 1.6.1 from /home/<myuser>/usp-core-waap/.venv/lib/python3.12/site-packages/mkdocs (Python 3.12)
-```
+## Making a release
 
-To deactivate the virtual environment again, simply run:
+A version is a directory. `latest` is the documentation under development, and a
+release is a frozen copy of it beside it, named after the release. The version
+selector in the header is built from the directories that exist.
 
-```shell
-deactivate
+1. Freeze the current documentation as the release:
+
+```bash
+make prepare-release RELEASE=2.2.x
 ```
 
-### helm-docs notes
+2. Review the changes and then commit it to `main`:
 
-* Download the latest release binary from here: https://github.com/norwoodj/helm-docs/releases
-* Make sure to download the "Linux x86/64" tar.gz archive
-* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
-
-```shell
-sudo mv helm-docs /usr/local/bin
+```bash
+git add content/en/2.2.x
+git commit -m "Release the documentation as 2.2.x"
+git push
 ```
 
-### crdoc notes
+Every push to `main` runs the `Publish` workflow, which builds the site and replaces the
+`gh-pages` branch with it. Pull requests and pushes to other branches only run the `Build`
+workflow, which checks that the site still builds.
 
-* Download the latest release binary from here: https://github.com/fybrik/crdoc/releases
-* Make sure to download the "linux_amd64" tar.gz archive
-* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
+## Generated content
 
-```shell
-sudo mv crdoc /usr/local/bin
+Four things on a version's pages do not come from this repository and have to be
+refreshed when a release is prepared, before `make prepare-release` freezes them:
+
+- `configuration/crd-doc.md`, the API reference, generated from the operator CRD with
+  [crdoc](https://github.com/fybrik/crdoc). It is the only page that carries raw HTML.
+- `operation/helm/values.md`, generated from the operator chart's `values.yaml` with
+  [helm-docs](https://github.com/norwoodj/helm-docs).
+- The `--help` output of the Auto-Learning CLI at the end of `operation/autolearning.md`.
+- The version numbers named in `_index.md`, `getting-started.md`, `operation/helm/usage.md`,
+  `operation/autolearning.md` and `downloads.md`, plus the CLI jar under `latest/files/`.
+
+## Retiring a release
+
+`latest` always carries a banner saying that it is not a release, linking to the
+newest one that is. Releases carry no banner until they reach their end of life,
+which is a list in `hugo.toml`:
+
+```toml
+[params]
+eol = ['1.2.x', '1.3.x']
 ```
 
-### yq notes
-
-#### Option 1 - Download and install manually
-* Download the latest release binary from here: https://github.com/mikefarah/yq/releases/latest
-* Make sure to download the "Linux amd64" tar.gz archive
-* Then unpack the archive (`tar xzf <filename>`) and just move the executable to a directory in your PATH, e.g.:
-
-```shell
-sudo mv yq_linux_amd64 /usr/local/bin/yq
-```
-
-#### Option 2 - Install via snap
-
-```shell
-sudo snap install yq
-```
-
-
-## Generate site locally
-
-Before running the script which generates the site, you need to log in _once_ manually with
-the "helm" tool. Get the password for user "usp-ci-bob" from the Password Safe (search for "usp-ci-bob").
-
-* PasswordSafe link: ps8://MDpPaERzLTlHYUVlNjRVUUJRVnJjWXZ3
-
-Helm login with:
-
-```shell
-helm registry login uspregistry.azurecr.io --username usp-ci-bob --password <password>
-```
-
-and/or for snapshots and RCs:
-
-* PasswordSafe link: ps8://MDpEU3ZLN2kySkVlLTRWZ0JRVnJjWXZ3
-
-```shell
-helm registry login devuspregistry.azurecr.io --username usp-ci-bob --password <dev-password>
-```
-
-To just generate the site locally, run:
-
-```shell
-./release.sh <helm-version>
-```
-
-***TODO*** For releases is clear what to indicate and works, but support of snapshots seems to be only partial (e.g. giving `0.0.0-main-SNAPSHOT` as {helm-version} produced at least when I tried an outdated version of the operator changelog).
-
-The site has then been generated within the "build" directory (Markdown source for mkdocs, not yet HTML).
-
-## Test site locally
-
-Generate the site locally as described above, then run `mkdocs` to serve it locally:
-
-```shell
-./release.sh <helm-version>
-mike serve
-```
-
-This will make it available locally (URL visible in output on the shell, typically http://127.0.0.1:8000/).
-
-## Generate site and publish it via GitHub
-
-To generate the site and deploy it to GitHub pages, run:
-
-```shell
-./release.sh <helm-version> deploy
-```
-
-The published page should then become available after a few minutes at the link on top of this page.
-
-*NOTE*: When releasing the documentation for the latest version, you need to add the `--latest` flag to the `release.sh` script (at the end, after `deploy`).
-
-### Multi version support
-
-We use `mike` to support multiple versions of the documentation at the same time.
-The `release.sh` script will therefore always only add the newly published version to the `gh-pages` branch.
-Old published versions of the documentation are kept in `gh-pages` and are accessible until someone deletes them
-from the branch.
+Those versions show a banner saying they are no longer maintained, linking to the
+current documentation, and visitors who arrive without naming a version are no
+longer sent to them.
