@@ -1,8 +1,6 @@
 ---
 title: 'Large Payloads (Legacy)'
 weight: 230
-aliases:
-  - '../large-payloads-legacy/'
 ---
 # Legacy Settings: Handling large request and response payloads with OWASP CRS attack detection
 

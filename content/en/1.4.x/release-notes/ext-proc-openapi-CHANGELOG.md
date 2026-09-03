@@ -2,8 +2,6 @@
 title: 'extProc OpenAPI Changelog'
 linkTitle: 'extProc OpenAPI'
 weight: 50
-aliases:
-  - '../ext-proc-openapi-CHANGELOG/'
 ---
 # Changelog {#changelog}
 

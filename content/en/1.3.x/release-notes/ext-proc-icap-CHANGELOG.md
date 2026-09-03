@@ -2,8 +2,6 @@
 title: 'extProc ICAP Changelog'
 linkTitle: 'extProc ICAP'
 weight: 40
-aliases:
-  - '../ext-proc-icap-CHANGELOG/'
 ---
 # Changelog {#changelog}
 

@@ -1,8 +1,6 @@
 ---
 title: 'Core WAAP Upgrade'
 weight: 190
-aliases:
-  - '../upgrade/'
 ---
 # Updating Core WAAP Operator
 

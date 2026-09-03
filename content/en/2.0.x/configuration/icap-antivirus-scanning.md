@@ -1,8 +1,6 @@
 ---
 title: 'ICAP Antivirus Scanning'
 weight: 130
-aliases:
-  - '../icap-antivirus-scanning/'
 ---
 # ICAP Antivirus Scanning
 

@@ -1,8 +1,6 @@
 ---
 title: 'Logs and Metrics'
 weight: 200
-aliases:
-  - '../logs-metrics/'
 ---
 # Logs and Metrics {#logs-and-metrics}
 

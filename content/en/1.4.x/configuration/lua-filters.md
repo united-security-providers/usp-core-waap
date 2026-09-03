@@ -1,8 +1,6 @@
 ---
 title: 'Lua Filters'
 weight: 160
-aliases:
-  - '../lua-filters/'
 ---
 # Lua Filters
 

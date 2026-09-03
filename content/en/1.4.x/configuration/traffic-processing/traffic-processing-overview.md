@@ -2,8 +2,6 @@
 title: 'Traffic Processing Overview'
 linkTitle: 'Overview'
 weight: 120
-aliases:
-  - '../../traffic-processing-overview/'
 ---
 # Traffic Processing
 

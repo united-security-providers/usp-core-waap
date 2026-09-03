@@ -1,8 +1,6 @@
 ---
 title: 'API Reference'
 weight: 60
-aliases:
-  - '../crd-doc/'
 ---
 # API Reference {#api-reference}
 

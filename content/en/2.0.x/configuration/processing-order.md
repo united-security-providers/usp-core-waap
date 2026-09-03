@@ -1,8 +1,6 @@
 ---
 title: 'Processing Order'
 weight: 40
-aliases:
-  - '../processing-order/'
 ---
 # Processing Order
 

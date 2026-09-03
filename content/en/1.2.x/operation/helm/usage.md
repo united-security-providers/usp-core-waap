@@ -2,8 +2,6 @@
 title: 'Operator Helm Chart'
 linkTitle: 'Usage'
 weight: 170
-aliases:
-  - '../../helm/'
 ---
 # Helm Charts
 

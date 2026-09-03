@@ -1,8 +1,6 @@
 ---
 title: 'Coraza'
 weight: 50
-aliases:
-  - '../../coraza/'
 ---
 # Coraza
 

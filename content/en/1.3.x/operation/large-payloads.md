@@ -1,8 +1,6 @@
 ---
 title: 'Large Payloads'
 weight: 220
-aliases:
-  - '../large-payloads/'
 ---
 # Handling large request and response payloads with OWASP CRS attack detection
 

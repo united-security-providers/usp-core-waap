@@ -1,8 +1,6 @@
 ---
 title: 'Auto-Learning'
 weight: 210
-aliases:
-  - '../autolearning/'
 ---
 # Auto-Learning
 

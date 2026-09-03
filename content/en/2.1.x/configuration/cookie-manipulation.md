@@ -1,8 +1,6 @@
 ---
 title: 'Cookie Manipulation'
 weight: 100
-aliases:
-  - '../cookie-manipulation/'
 ---
 # Cookie Manipulation
 

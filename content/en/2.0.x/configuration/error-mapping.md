@@ -1,8 +1,6 @@
 ---
 title: 'Error Mapping'
 weight: 110
-aliases:
-  - '../error-mapping/'
 ---
 # Error Mapping
 

@@ -1,8 +1,6 @@
 ---
 title: 'Debugging'
 weight: 250
-aliases:
-  - '../debugging/'
 ---
 # Debugging
 

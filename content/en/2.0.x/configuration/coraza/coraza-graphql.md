@@ -2,8 +2,6 @@
 title: 'Coraza GraphQL'
 linkTitle: 'GraphQL'
 weight: 70
-aliases:
-  - '../../coraza-graphql/'
 ---
 # GraphQL Basic Usage
 

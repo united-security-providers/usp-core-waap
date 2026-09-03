@@ -2,8 +2,6 @@
 title: 'Coraza CRS'
 linkTitle: 'CRS'
 weight: 80
-aliases:
-  - '../../coraza-crs/'
 ---
 # CRS Basic Usage
 

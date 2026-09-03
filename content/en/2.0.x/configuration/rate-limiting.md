@@ -1,8 +1,6 @@
 ---
 title: 'Rate Limiting'
 weight: 170
-aliases:
-  - '../rate-limiting/'
 ---
 # Rate Limiting
 

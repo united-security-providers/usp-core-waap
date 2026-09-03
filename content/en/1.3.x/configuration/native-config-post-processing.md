@@ -1,8 +1,6 @@
 ---
 title: 'Native Config Post-Processing'
 weight: 110
-aliases:
-  - '../native-config-post-processing/'
 ---
 # Native Config Post-Processing (NCPP)
 

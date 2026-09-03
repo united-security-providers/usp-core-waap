@@ -2,8 +2,6 @@
 title: 'Helm Chart Values'
 linkTitle: 'Values'
 weight: 180
-aliases:
-  - '../../helm-values/'
 ---
 # usp-core-waap-operator {#usp-core-waap-operator}
 

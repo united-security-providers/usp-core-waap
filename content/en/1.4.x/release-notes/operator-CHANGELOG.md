@@ -2,8 +2,6 @@
 title: 'Operator Changelog'
 linkTitle: 'Operator'
 weight: 20
-aliases:
-  - '../operator-CHANGELOG/'
 ---
 # Changelog {#changelog}
 

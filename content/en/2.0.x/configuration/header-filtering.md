@@ -1,8 +1,6 @@
 ---
 title: 'Header Filtering'
 weight: 80
-aliases:
-  - '../header-filtering/'
 ---
 # Header Filtering
 

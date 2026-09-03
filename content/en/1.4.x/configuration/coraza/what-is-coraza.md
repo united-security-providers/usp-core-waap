@@ -1,8 +1,6 @@
 ---
 title: 'What is Coraza?'
 weight: 70
-aliases:
-  - '../../what-is-coraza/'
 ---
 # What is Coraza?
 

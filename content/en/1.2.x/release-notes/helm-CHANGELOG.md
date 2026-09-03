@@ -2,8 +2,6 @@
 title: 'Helm Chart Changelog'
 linkTitle: 'Helm Chart'
 weight: 10
-aliases:
-  - '../helm-CHANGELOG/'
 ---
 # Changelog {#changelog}
 

@@ -1,8 +1,6 @@
 ---
 title: 'OpenAPI Validation'
 weight: 140
-aliases:
-  - '../openapi-validation/'
 ---
 # OpenAPI Validation
 

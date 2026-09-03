@@ -1,8 +1,6 @@
 ---
 title: 'Header Manipulation'
 weight: 90
-aliases:
-  - '../header-manipulation/'
 ---
 # Header Manipulation
 

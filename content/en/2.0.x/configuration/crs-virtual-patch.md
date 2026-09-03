@@ -1,8 +1,6 @@
 ---
 title: 'Virtual Patch'
 weight: 150
-aliases:
-  - '../crs-virtual-patch/'
 ---
 # Virtual Patch
 

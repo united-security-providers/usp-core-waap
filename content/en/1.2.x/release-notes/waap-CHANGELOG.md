@@ -2,8 +2,6 @@
 title: 'Core WAAP Changelog'
 linkTitle: 'Core WAAP'
 weight: 30
-aliases:
-  - '../waap-CHANGELOG/'
 ---
 # Changelog {#changelog}
 

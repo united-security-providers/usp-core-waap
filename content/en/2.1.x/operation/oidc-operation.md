@@ -1,8 +1,6 @@
 ---
 title: 'OAuth2 / OIDC'
 weight: 240
-aliases:
-  - '../oidc-operation/'
 ---
 # OAuth2 / OIDC
 
