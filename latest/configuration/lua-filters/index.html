@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/lua-filters/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Lua Filters - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/configuration/lua-filters/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#lua-filters" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/latest/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">latest</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/configuration/lua-filters/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/configuration/lua-filters/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/configuration/lua-filters/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/configuration/lua-filters/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["latest"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      You are viewing the documentation under development. It is not a release and can change at any time.
+      <a href="/usp-core-waap/2.1.x/configuration/lua-filters/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/latest/">Welcome</a></li>
+      
+<li><a href="/usp-core-waap/latest/getting-started/">Getting Started</a></li>
+      
+<li><a href="/usp-core-waap/latest/core-waap-releasenotes/">Release Notes</a></li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/processing-order/">Processing Order</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Coraza</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza/">Coraza</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-filtering/">Header Filtering</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-manipulation/">Header Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/cookie-manipulation/">Cookie Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/openapi-validation/">OpenAPI Validation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/lua-filters/" aria-current="page">Lua Filters</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/rate-limiting/">Rate Limiting</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/autolearning/">Auto-Learning</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/large-payloads/">Large Payloads</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/oidc-operation/">OAuth2 / OIDC</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/debugging/">Debugging</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/latest/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#example-1-multiple-filters-store-path-simple-lua-module">Example 1: Multiple filters, store path, simple Lua module</a>
+</li>
+
+      <li>
+  <a href="#example-2-share-data-between-filters-in-same-request">Example 2: Share data between filters in same request</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/latest/">latest</a></li>
+    <li>Configuration</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:latest">
+  <h1 id="lua-filters">Lua Filters</h1>
+<p>Using Lua filters in the USP Core WAAP adds flexibility for custom application integrations.</p>
+<p>Filters written in the <a href="https://www.lua.org/">Lua programming language</a>
+ can be configured to be processed
+as part of the regular request/response processing in the USP Core WAAP,
+both before and after other filters (like filters for authentication, openapi validation, etc.).</p>
+<p>Since the corresponding filter scripts are part of the configuration
+of the USP Core WAAP — as opposed to part of a USP Core WAAP binary or release —,
+this feature generally adds more flexibility with usually no significant performance impact.
+(Lua is a very performant and sophisticated script language with a tiny footprint,
+also broadly used in computer games for the same reasons,
+and in the case of USP Core WAAP also precompiled with the Lua JIT compiler.)</p>
+<p>The Envoy Lua filter usage, including what can be done in filter scripts, is generally described here:</p>
+<ul>
+<li><a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/lua_filter">envoy/Configuration reference/HTTP/HTTP filters/Lua</a>
+</li>
+</ul>
+<p>The following examples show how to configure and use Lua filtering in the USP Core WAAP,
+and provide at the same time some general info and tips regarding how to typically use Lua filters.</p>
+<h2 id="example-1-multiple-filters-store-path-simple-lua-module">Example 1: Multiple filters, store path, simple Lua module</h2>
+<p>Here is the <code>routes</code> and <code>lua</code> configuration for this example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/foo&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l">myhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">luaRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">first</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">filter1.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">filter2.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">last</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># effective order will be reversed, will be the order at spec.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">filter3.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">filter2.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/bar&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l">myhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">luaRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">first</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">filter1.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">lua</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;lua-basic-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">filter1.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">filter2.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">filter3.lua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">helpers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">util.lua</span></span></span></code></pre></div>
+<p>There are two locations:</p>
+<ul>
+<li><code>/foo</code>
+<ul>
+<li><code>filter1</code> and <code>filter2</code> referenced as &quot;first&quot; Lua filters
+will be run in that order before all other filters
+(authentication, openapi validation, &quot;last&quot; Lua filters)</li>
+<li><code>filter3</code> and <code>filter2</code> referenced as &quot;last&quot; Lua filters
+will be run in the order <code>filter2</code> then <code>filter3</code> after all other filters
+(except the final filter that routes to the backend)</li>
+<li><strong>Note</strong> that the order in which filters are run is the order listed at <code>spec.lua</code>,
+not the order listed at <code>spec.routes.luaRefs.first|last</code>;
+this is essentially an architectural limitation of the underlying Envoy proxy.</li>
+</ul>
+</li>
+<li><code>/bar</code>
+<ul>
+<li>Just <code>filter1</code> will be run as first filter.</li>
+</ul>
+</li>
+</ul>
+<p>The Lua filter and helper scripts are defined in a config map named <code>lua-basic-config-map</code>.
+They only do some logging but do not modify request/response in this example.
+Besides the simple example in filter1.lua, filter2.lua and filter3.lua illustrate how utility functions from other scripts can be used (Lua module).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;lua-basic-functionality-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span>{{<span class="l">.Values.namespace}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter1.lua</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local path
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_request(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        path = request_handle:headers():get(&#39;:path&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        request_handle:logInfo(&#39;[REQ] &#39; .. path .. &#39; filter1&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_response(response_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        response_handle:logInfo(&#39;[RES] &#39; .. path .. &#39; filter1&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter2.lua</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local util = require &#39;opt.usp.core-waap.lua.filters.util&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local path
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_request(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        path = util.getPath(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        util.logFilter(request_handle, &#39;REQ&#39;, path, &#39;filter2&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_response(response_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        util.logFilter(response_handle, &#39;RES&#39;, path, &#39;filter2&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter3.lua</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local util = require &#39;opt.usp.core-waap.lua.filters.util&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local path
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_request(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        path = util.getPath(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        util.logFilter(request_handle, &#39;REQ&#39;, path, &#39;filter3&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function envoy_on_response(response_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        util.logFilter(response_handle, &#39;RES&#39;, path, &#39;filter3&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">util.lua</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    local meta = { }
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -- get path from request
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function getPath(request_handle)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        return request_handle:headers():get(&#39;:path&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end
+</span></span></span><span class="line"><span class="cl"><span class="sd">    meta.getPath = getPath
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -- log direction, path and filter name as given
+</span></span></span><span class="line"><span class="cl"><span class="sd">    function logFilter(handle, direction, path, filter)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      handle:logInfo(&#39;[&#39; .. direction .. &#39;] &#39; .. path .. &#39; &#39; .. filter)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    end
+</span></span></span><span class="line"><span class="cl"><span class="sd">    meta.logFilter = logFilter
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    return meta</span></span></span></code></pre></div>
+<p>Some things worth noting:</p>
+<ul>
+<li>The local variable <code>path</code> that is defined outside the two handlers for request and response
+is set in the request handler and available that way also in the response handler.</li>
+<li>Both local and global variables defined that way are not available
+to other filter scripts nor to the same filter when processing a different request/response.</li>
+<li>Lua filters and helper files (which are not limited to Lua scripts) are all deployed to the
+directory <code>/opt/usp/core-waap/lua/filters</code>.
+<ul>
+<li>To use a helper Lua script e.g. <code>util.lua</code> that implements a Lua module use <code>require</code>
+as in the scripts above with module path of <code>opt.usp.core-waap.lua.filters.util</code>,
+which resolves to the Lua file at <code>/opt/usp/core-waap/lua/filters/util.lua</code>.</li>
+<li>To read the contents of a helper file e.g. <code>config.xml</code> use the full path in Lua scripts,
+<code>/opt/usp/core-waap/lua/filters/config.xml</code>.</li>
+</ul>
+</li>
+</ul>
+<p>This produces the following log entries for a GET request first to <code>/foo</code> and then one to <code>/bar</code>
+(log prefixes removed below):</p>
+<pre tabindex="0"><code>[REQ] /foo filter1
+[REQ] /foo filter2
+[REQ] /foo filter2
+[REQ] /foo filter3
+[RES] /foo filter3
+[RES] /foo filter2
+[RES] /foo filter2
+[RES] /foo filter1
+[REQ] /bar filter1
+[RES] /bar filter1</code></pre>
+<p>Note that filters that come first when processing the request come last when processing the response.</p>
+<h2 id="example-2-share-data-between-filters-in-same-request">Example 2: Share data between filters in same request</h2>
+<p>Sometimes it is helpful to be able to share some data between filters,
+for example  if some data that can only be obtained in a &quot;first&quot; filter
+is needed in a &quot;last&quot; filter.</p>
+<p>The underlying mechanism is called &quot;dynamic metadata&quot; in Envoy.</p>
+<p>Here is a <code>util.lua</code> Lua module that would be defined as a helper script
+in the USP Core WAAP configuration (see example 1 above):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="kd">local</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">-- store given value under given key in given context</span>
+</span></span><span class="line"><span class="cl"><span class="kr">function</span> <span class="nf">set</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">contextId</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">handle</span><span class="p">:</span><span class="n">streamInfo</span><span class="p">():</span><span class="n">dynamicMetadata</span><span class="p">():</span><span class="n">set</span><span class="p">(</span><span class="n">contextId</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">end</span>
+</span></span><span class="line"><span class="cl"><span class="n">meta.set</span> <span class="o">=</span> <span class="n">set</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">-- retrieve given value under given key from given context</span>
+</span></span><span class="line"><span class="cl"><span class="kr">function</span> <span class="nf">get</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">contextId</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">local</span> <span class="n">context</span> <span class="o">=</span> <span class="n">handle</span><span class="p">:</span><span class="n">streamInfo</span><span class="p">():</span><span class="n">dynamicMetadata</span><span class="p">():</span><span class="n">get</span><span class="p">(</span><span class="n">contextId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">if</span> <span class="n">context</span> <span class="o">==</span> <span class="kc">nil</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">else</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">return</span> <span class="n">context</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span>
+</span></span><span class="line"><span class="cl"><span class="kr">end</span>
+</span></span><span class="line"><span class="cl"><span class="n">meta.get</span> <span class="o">=</span> <span class="n">get</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">return</span> <span class="n">meta</span></span></span></code></pre></div>
+<p>The module would be used as in example 1, i.e. first required like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="kd">local</span> <span class="n">util</span> <span class="o">=</span> <span class="n">require</span> <span class="s1">&#39;opt.usp.core-waap.lua.filters.util&#39;</span></span></span></code></pre></div>
+<p>Then it could be used in filter request and response handlers in the following way,
+where <code>handle</code> could be both a request or response handle.</p>
+<p>Store value <code>myValue</code> with key <code>myKey</code> in shared context with id <code>contextId</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="n">util.set</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;contextId&#39;</span><span class="p">,</span> <span class="s1">&#39;myKey&#39;</span><span class="p">,</span> <span class="s1">&#39;myValue&#39;</span><span class="p">)</span></span></span></code></pre></div>
+<p>Retrieve value with key <code>myKey</code> from shared context with id <code>contextId</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">util.get</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;contextId&#39;</span><span class="p">,</span> <span class="s1">&#39;myKey&#39;</span><span class="p">)</span></span></span></code></pre></div>
+<p>Note that this data is stored exclusively per single request/response transaction.
+Other requests have no access to &quot;dynamic metadata&quot; of another request.</p>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

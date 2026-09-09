@@ -1,0 +1,45 @@
+/* Self-hosted brand fonts: Montserrat (SIL OFL 1.1) for text, Roboto Mono
+   (Apache-2.0) for code.
+
+   The weights mirror the brand stylesheet: Light is 100, Regular 200, Medium
+   300. Nothing above 300 exists, so text (400) and bold (700) both resolve to
+   Medium - that is what gives the pages their weight. */
+@font-face {
+    font-family: 'montserrat-2';
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('../fonts/Montserrat-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'montserrat-2';
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'montserrat-2';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'roboto-mono-2';
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: swap;
+    src: url('../fonts/RobotoMono-Variable.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'roboto-mono-2';
+    font-style: italic;
+    font-weight: 100 700;
+    font-display: swap;
+    src: url('../fonts/RobotoMono-Italic-Variable.woff2') format('woff2');
+}

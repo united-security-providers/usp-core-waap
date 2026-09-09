@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/1.2.x/configuration/error-mapping/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Error Mapping - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/1.2.x/configuration/error-mapping/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#error-mapping" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/1.2.x/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">1.2.x</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/configuration/error-mapping/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/configuration/error-mapping/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/configuration/error-mapping/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/configuration/error-mapping/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/configuration/error-mapping/" aria-current="true">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["1.2.x"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      This release has reached its end of life and is no longer maintained.
+      <a href="/usp-core-waap/2.1.x/configuration/error-mapping/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/1.2.x/">Welcome</a></li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Release Notes</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/helm-CHANGELOG/">Helm Chart</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/operator-CHANGELOG/">Operator</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/waap-CHANGELOG/">Core WAAP</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/ext-proc-icap-CHANGELOG/">extProc ICAP</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/ext-proc-openapi-CHANGELOG/">extProc OpenAPI</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/error-mapping/" aria-current="page">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Traffic Processing</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/traffic-processing-overview/">Overview</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/openapi-validation/">OpenAPI Validation</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/autolearning/">Auto-Learning</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/1.2.x/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#html-error-page-for-all-4xx-errors-with-style-and-logo">HTML error page for all 4xx errors with style and logo</a>
+</li>
+
+      <li>
+  <a href="#json-error-document-for-504-error-mapped-to-500">JSON error document for 504 error mapped to 500</a>
+</li>
+
+      <li>
+  <a href="#behavior-on-configuration-changes">Behavior on configuration changes</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+    <li>Configuration</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:1.2.x">
+  <h1 id="error-mapping">Error Mapping</h1>
+<p>The main purpose of error mapping is to hide internals of the web application backend from potential attackers who could otherwise gather information about vulnerabilities. HTML error status codes (e.g. 403, 500) can be mapped to generic error pages. The error pages can be enriched with meta information like request-id, timestamp etc. to ease analysis for support staff. Furthermore the companies corporate design can easily be applied on such error pages across different backends.</p>
+<p>Example of an error page:</p>
+<p><img src="/usp-core-waap/1.2.x/assets/images/error-page-usp-404.jpg" alt="Sample 404 Error Page">
+</p>
+<h2 id="html-error-page-for-all-4xx-errors-with-style-and-logo">HTML error page for all 4xx errors with style and logo</h2>
+<p>A simple HTML error page with some info about the request is configured as follows.</p>
+<p>In the CoreWaapService custom resource specify something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">webResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/resources/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">errorPages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error4xx.html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">statusCode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;4xx&#34;</span></span></span></code></pre></div>
+<p>Note: This will map all backend errors in the range 400-499 to the HTML page <code>error4xx.html</code></p>
+<p>The HTML Page can now be specified in a config map like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;your-namespace&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">error4xx.html</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    &lt;html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &lt;title&gt;Error Page 4xx&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &lt;h1&gt;Error Page 4xx&lt;/h1&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &lt;p&gt;Backend status code: %RESPONSE_CODE%&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &lt;p&gt;Request ID: %REQ(X-REQUEST-ID)%&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd">    &lt;/html&gt;</span></span></span></code></pre></div>
+<p>Note that you could use any of the <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage">Envoy &quot;%...%&quot; variables</a>
+ in the error page.</p>
+<p>As described in the <a href="/usp-core-waap/1.2.x/configuration/crd-doc/#corewaapservicespecwebresources">API Reference</a>
+ it is actually possible to directly serve other static files directly from Core WAAP. Anyhow, since Core WAAP is not a web server, there are strict size limitations. Therefore it is recommended to serve static files like JavaScript, CSS or images from a different web server and only reference them in HTML in Core WAAP. In order to avoid dependency to existing backend server for serving such static resources, one possible approach is to set up a dedicated pod to serve only such content. This is beyond the scope of this documentation. If the required static resources (e.g a CSS like w3.css) are publicly available over a CDN, they can also directly be fetched on browser side.</p>
+<h2 id="json-error-document-for-504-error-mapped-to-500">JSON error document for 504 error mapped to 500</h2>
+<p>In the CoreWaapService custom resource specify something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">webResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/resources/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">errorPages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error504.json&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">statusCode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;504&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">mappedStatusCode</span><span class="p">:</span><span class="w"> </span><span class="m">500</span></span></span></code></pre></div>
+<p>And specify the resources in a config map like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;your-namespace&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">error504.json</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;request_id&#34;:&#34;%REQ(X-REQUEST-ID)%&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;message&#34;:&#34;Gateway Timeout&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span></span></span></code></pre></div>
+<h2 id="behavior-on-configuration-changes">Behavior on configuration changes</h2>
+<p>Note that changes to a config map are not directly applied by a running Core WAAP. Therefore the Core WAAP Deployment has to be restarted. e.g.:
+<code>kubectl -n juiceshop rollout restart deployment usp-core-waap</code></p>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

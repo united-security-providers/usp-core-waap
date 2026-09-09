@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-filtering/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Header Filtering - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/configuration/header-filtering/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#header-filtering" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/latest/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">latest</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/configuration/header-filtering/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/configuration/header-filtering/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["latest"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      You are viewing the documentation under development. It is not a release and can change at any time.
+      <a href="/usp-core-waap/2.1.x/configuration/header-filtering/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/latest/">Welcome</a></li>
+      
+<li><a href="/usp-core-waap/latest/getting-started/">Getting Started</a></li>
+      
+<li><a href="/usp-core-waap/latest/core-waap-releasenotes/">Release Notes</a></li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/processing-order/">Processing Order</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Coraza</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza/">Coraza</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-filtering/" aria-current="page">Header Filtering</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-manipulation/">Header Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/cookie-manipulation/">Cookie Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/openapi-validation/">OpenAPI Validation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/lua-filters/">Lua Filters</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/rate-limiting/">Rate Limiting</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/autolearning/">Auto-Learning</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/large-payloads/">Large Payloads</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/oidc-operation/">OAuth2 / OIDC</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/debugging/">Debugging</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/latest/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#basic-config-structure">Basic config structure</a>
+</li>
+
+      <li>
+  <a href="#filter-config-settings-and-basic-filtering">Filter config settings and basic filtering</a>
+</li>
+
+      <li>
+  <a href="#merge-behavior-between-per-route-and-default-in-detail">Merge behavior between per-route and default in detail</a>
+</li>
+
+      <li>
+  <a href="#example-for-filtering-when-both-default-and-per-route-are-defined">Example for filtering when both default and per route are defined</a>
+</li>
+
+      <li>
+  <a href="#allow-classes">Allow classes</a>
+  <ul>
+      <li>
+  <a href="#request-restricted">Request <code>RESTRICTED</code></a>
+</li>
+
+      <li>
+  <a href="#request-standard">Request <code>STANDARD</code></a>
+</li>
+
+      <li>
+  <a href="#request-extended">Request <code>EXTENDED</code></a>
+</li>
+
+      <li>
+  <a href="#response-implicitly">Response (implicitly)</a>
+</li>
+
+  </ul>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/latest/">latest</a></li>
+    <li>Configuration</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:latest">
+  <h1 id="header-filtering">Header Filtering</h1>
+<p>The header filtering feature allows to filter both request and response headers.</p>
+<p>The two main functionalities are:</p>
+<ul>
+<li>Define a set of header names that are allowed through, while all other headers are removed.</li>
+<li>Define a set of rules to additionally remove headers by regex on the header value.</li>
+</ul>
+<p>Header filters can be configured globally and per route, which allows to modify
+the above two main functionalities per route without having to list everything that
+is  already defined globally.</p>
+<h2 id="basic-config-structure">Basic config structure</h2>
+<p>Header filtering is configured in two places, under <code>spec.headerFilter</code>
+plus a single setting <code>spec.routes[].headerFilterRef</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaultFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;my-default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;my-default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># settings...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;routes-a&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># settings...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;routes-b&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># settings...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/one</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">PREFIX</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;routes-a&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/two</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">PREFIX</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;routes-a&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/three</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">PREFIX</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;routes-a&#34;</span></span></span></code></pre></div>
+<p>Both the default filter ref and per-route filter refs are optional;
+if no default filter is referenced and no filter on the route,
+header filtering is enabled for requests with allow class <code>STANDARD</code>
+and enabled for responses with the implicit default set of allowed
+response headers, see further below for details.</p>
+<h2 id="filter-config-settings-and-basic-filtering">Filter config settings and basic filtering</h2>
+<p>Here is a filter config where all individual settings are configured:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allowClass</span><span class="p">:</span><span class="w"> </span><span class="l">STANDARD</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">X-Myapp-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">X-Myapp-2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">deny</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">X-Forwarded-Proto</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">denyPattern</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">X-Myapp-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;^evil-.*$&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;^EVIL.*$&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">response</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># no allowClass for response, there is currently only a single implicit allowClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allow</span><span class="p">:</span><span class="w">       </span><span class="c"># same structure as for request</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">deny</span><span class="p">:</span><span class="w">        </span><span class="c"># same structure as for request</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">denyPattern</span><span class="p">:</span><span class="w"> </span><span class="c"># same structure as for request</span></span></span></code></pre></div>
+<p>See the <a href="/usp-core-waap/latest/configuration/crd-doc/#corewaapservicespecheaderfilter">API Reference</a>
+
+of the individual settings for what their basic function is.</p>
+<p>The set of effectively allowed headers is informally as follows:</p>
+<ul>
+<li><code>allowClass</code> + <code>allow</code> - <code>deny</code></li>
+</ul>
+<p>Plus if <code>denyPattern</code> is set, headers that match the regex
+are additionally filtered out.</p>
+<p>With the above example config and assuming a request with the following request headers:</p>
+<ul>
+<li><code>X-Unknown: Hello</code></li>
+<li><code>X-Forwarded-Proto: https</code></li>
+<li><code>X-Myapp1: Harmless</code></li>
+<li><code>X-Myapp2: EVIL</code></li>
+<li>(more headers from <code>STANDARD</code>)</li>
+</ul>
+<p>headers are filtered as follows:</p>
+<ul>
+<li><code>X-Unknown</code> - Filtered out, not in <code>STANDARD</code> and not additionally allowed</li>
+<li><code>X-Forwarded-Proto</code> - Filtered out, is in <code>STANDARD</code>, but was explicitly denied</li>
+<li><code>X-Myapp1: Harmless</code> - Not filtered out, not in <code>STANDARD</code>, but additionally allowed and not denied by name or regex pattern</li>
+<li><code>X-Myapp2: EVIL</code> - Filtered out, not in <code>STANDARD</code>, additionally allowed and not denied by name, but matched the deny pattern with &quot;*&quot; wildcard header name</li>
+<li>(more headers from <code>STANDARD</code>) - Only filtered out if matched the deny pattern with &quot;*&quot; wildcard header name</li>
+</ul>
+<p>Which headers are contained in which allow class
+is specified at the bottom of this page.</p>
+<h2 id="merge-behavior-between-per-route-and-default-in-detail">Merge behavior between per-route and default in detail</h2>
+<p>If filtering is defined both per-route and as default,
+many useful combinations are possible;
+these are described in the following.</p>
+<p>For the following settings the logic is the same:</p>
+<ul>
+<li><code>logOnly</code></li>
+<li><code>enabled</code> (request+response)</li>
+<li><code>allowClass</code></li>
+<li><code>denyPattern</code> (request+response)</li>
+</ul>
+<p>Namely:</p>
+<ul>
+<li>Set per route =&gt; pre-route setting is effective (for the matching route)</li>
+<li>Not set per route and set in default =&gt; default setting is effective</li>
+<li>Neither set per route nor in default =&gt; implicit defaults:
+<ul>
+<li><code>logOnly</code>: <code>false</code></li>
+<li><code>enabled</code>: <code>true</code></li>
+<li><code>allowClass</code>: <code>STANDARD</code></li>
+<li><code>denyPattern</code>: empty (none)</li>
+</ul>
+</li>
+</ul>
+<p>A special case is if <code>enabled</code> is explicitly set to <code>false</code> on a route,
+then <code>allow</code>, <code>deny</code> and <code>denyPattern</code> are treated as not set.</p>
+<p>If <code>allow</code> or <code>deny</code> are not set, this is treated the same way as set to an empty set.</p>
+<p>The complete filter logic with per-route and default settings is:</p>
+<ul>
+<li>If not <code>enabled</code> for request resp. response (from per-route if set, else from default if set, else <code>true</code>),
+request header filtering is enabled with allow class <code>STANDARD</code>
+and response header filtering is enabled with the default set of allowed response headers.</li>
+<li>Start with an empty set of headers.</li>
+<li>If request, add headers from <code>allowClass</code> (from per-route if set, else from default if set, else <code>STANDARD</code>) to set.</li>
+<li>If response, add headers from implicit allow class to set.</li>
+<li>Add headers from default <code>allow</code> to set.</li>
+<li>Remove headers from default <code>deny</code> from set.</li>
+<li>Add headers from per-route <code>allow</code> to set.</li>
+<li>Remove headers from per-route <code>deny</code> from set.</li>
+<li>Remove headers not in the set of headers from request resp. response.</li>
+<li>Remove  headers that match the effective <code>denyPattern</code> (from per-route if set, else from default if set, else none) from request resp. response.</li>
+</ul>
+<h2 id="example-for-filtering-when-both-default-and-per-route-are-defined">Example for filtering when both default and per route are defined</h2>
+<p>Configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaultFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">allow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">deny</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-4&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">denyPatterns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;^possibly-evil$&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;per-route&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">logOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">allow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-4&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">deny</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;X-Req-2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;per-route&#34;</span></span></span></code></pre></div>
+<p>Request headers in request to <code>/filter</code>:</p>
+<pre tabindex="0"><code>X-Req-1: always-ok
+X-Req-2: maybe-evil
+X-Req-3: possibly-evil
+X-Req-4: ok
+Cookie: possibly-evil</code></pre>
+<p>Request header filtering:</p>
+<ul>
+<li><code>X-Req-1</code>: Not filtered out (allowed on route, nowhere denied)</li>
+<li><code>X-Req-2</code>: Filtered out (allowed by default, but denied on route)</li>
+<li><code>X-Req-3</code>: Filtered out (allowed on route and by default, but denied by pattern)</li>
+<li><code>X-Req-4</code>: Not filtered out (denied by default, but allowed on route)</li>
+<li><code>cookie</code>: Filtered out (part of <code>STANDARD</code> set, but denied by pattern)</li>
+</ul>
+<h2 id="allow-classes">Allow classes</h2>
+<p>(Note that HTTP headers are case-insensitive; listed lowercase below.)</p>
+<p>For request headers one of the following allow classes can be selected via
+<code>request.allowClass</code>. The classes are cumulative, each one being a superset of
+the previous: <code>EXTENDED</code> ⊇ <code>STANDARD</code> ⊇ <code>RESTRICTED</code>. If no class is selected,
+the default is <code>STANDARD</code>.</p>
+<h3 id="request-restricted">Request <code>RESTRICTED</code></h3>
+<p>The smallest class: the HTTP/2 pseudo-headers plus the most common browser
+request headers.</p>
+<ul>
+<li><code>:path</code></li>
+<li><code>:method</code></li>
+<li><code>:authority</code></li>
+<li><code>:scheme</code></li>
+<li><code>accept</code></li>
+<li><code>accept-encoding</code></li>
+<li><code>accept-language</code></li>
+<li><code>content-length</code></li>
+<li><code>content-type</code></li>
+<li><code>cookie</code></li>
+<li><code>expect</code></li>
+<li><code>host</code></li>
+<li><code>referer</code></li>
+<li><code>transfer-encoding</code></li>
+<li><code>upgrade-insecure-requests</code></li>
+<li><code>user-agent</code></li>
+<li><code>x-forwarded-proto</code></li>
+<li><code>x-request-id</code></li>
+</ul>
+<h3 id="request-standard">Request <code>STANDARD</code></h3>
+<p><code>RESTRICTED</code> plus the full set of standard web request headers. This is the default.</p>
+<p>All headers from <code>RESTRICTED</code>, plus:</p>
+<ul>
+<li><code>access-control-request-headers</code></li>
+<li><code>access-control-request-method</code></li>
+<li><code>authorization</code></li>
+<li><code>cache-control</code></li>
+<li><code>connection</code></li>
+<li><code>content-encoding</code></li>
+<li><code>content-language</code></li>
+<li><code>content-location</code></li>
+<li><code>date</code></li>
+<li><code>dpop</code></li>
+<li><code>if-match</code></li>
+<li><code>if-modified-since</code></li>
+<li><code>if-none-match</code></li>
+<li><code>if-range</code></li>
+<li><code>if-unmodified-since</code></li>
+<li><code>max-forwards</code></li>
+<li><code>origin</code></li>
+<li><code>priority</code></li>
+<li><code>range</code></li>
+<li><code>sec-fetch-dest</code></li>
+<li><code>sec-fetch-mode</code></li>
+<li><code>sec-fetch-site</code></li>
+<li><code>sec-fetch-storage-access</code></li>
+<li><code>sec-fetch-user</code></li>
+<li><code>sec-purpose</code></li>
+<li><code>sec-websocket-extensions</code></li>
+<li><code>sec-websocket-key</code></li>
+<li><code>sec-websocket-protocol</code></li>
+<li><code>sec-websocket-version</code></li>
+<li><code>te</code></li>
+<li><code>upgrade</code></li>
+<li><code>x-requested-with</code></li>
+</ul>
+<h3 id="request-extended">Request <code>EXTENDED</code></h3>
+<p><code>STANDARD</code> plus client hints and other modern browser/SPA/mobile request headers.</p>
+<p>All headers from <code>STANDARD</code>, plus:</p>
+<ul>
+<li><code>available-dictionary</code></li>
+<li><code>content-digest</code></li>
+<li><code>dictionary-id</code></li>
+<li><code>downlink</code></li>
+<li><code>ect</code></li>
+<li><code>from</code></li>
+<li><code>idempotency-key</code></li>
+<li><code>last-event-id</code></li>
+<li><code>prefer</code></li>
+<li><code>repr-digest</code></li>
+<li><code>rtt</code></li>
+<li><code>save-data</code></li>
+<li><code>sec-ch-device-memory</code></li>
+<li><code>sec-ch-dpr</code></li>
+<li><code>sec-ch-prefers-color-scheme</code></li>
+<li><code>sec-ch-prefers-reduced-motion</code></li>
+<li><code>sec-ch-prefers-reduced-transparency</code></li>
+<li><code>sec-ch-ua</code></li>
+<li><code>sec-ch-ua-arch</code></li>
+<li><code>sec-ch-ua-bitness</code></li>
+<li><code>sec-ch-ua-form-factors</code></li>
+<li><code>sec-ch-ua-full-version-list</code></li>
+<li><code>sec-ch-ua-mobile</code></li>
+<li><code>sec-ch-ua-model</code></li>
+<li><code>sec-ch-ua-platform</code></li>
+<li><code>sec-ch-ua-platform-version</code></li>
+<li><code>sec-ch-ua-wow64</code></li>
+<li><code>sec-ch-viewport-height</code></li>
+<li><code>sec-ch-viewport-width</code></li>
+<li><code>sec-ch-width</code></li>
+<li><code>sec-gpc</code></li>
+<li><code>service-worker-navigation-preload</code></li>
+<li><code>want-content-digest</code></li>
+<li><code>want-repr-digest</code></li>
+</ul>
+<p>For response headers there is currently a single implicit allow class
+that is always used when response filtering is enabled:</p>
+<h3 id="response-implicitly">Response (implicitly)</h3>
+<ul>
+<li><code>:status</code></li>
+<li><code>accept-ch</code></li>
+<li><code>accept-patch</code></li>
+<li><code>accept-post</code></li>
+<li><code>accept-ranges</code></li>
+<li><code>access-control-allow-credentials</code></li>
+<li><code>access-control-allow-headers</code></li>
+<li><code>access-control-allow-methods</code></li>
+<li><code>access-control-allow-origin</code></li>
+<li><code>access-control-expose-headers</code></li>
+<li><code>access-control-max-age</code></li>
+<li><code>activate-storage-access</code></li>
+<li><code>age</code></li>
+<li><code>allow</code></li>
+<li><code>attribution-reporting-register-source</code></li>
+<li><code>attribution-reporting-register-trigger</code></li>
+<li><code>cache-control</code></li>
+<li><code>cache-group-invalidation</code></li>
+<li><code>cache-groups</code></li>
+<li><code>clear-site-data</code></li>
+<li><code>connection</code></li>
+<li><code>content-digest</code></li>
+<li><code>content-disposition</code></li>
+<li><code>content-encoding</code></li>
+<li><code>content-language</code></li>
+<li><code>content-length</code></li>
+<li><code>content-location</code></li>
+<li><code>content-range</code></li>
+<li><code>content-security-policy</code></li>
+<li><code>content-security-policy-report-only</code></li>
+<li><code>content-type</code></li>
+<li><code>critical-ch</code></li>
+<li><code>cross-origin-embedder-policy</code></li>
+<li><code>cross-origin-embedder-policy-report-only</code></li>
+<li><code>cross-origin-opener-policy</code></li>
+<li><code>cross-origin-opener-policy-report-only</code></li>
+<li><code>cross-origin-resource-policy</code></li>
+<li><code>date</code></li>
+<li><code>deprecation</code></li>
+<li><code>dpop-nonce</code></li>
+<li><code>etag</code></li>
+<li><code>expires</code></li>
+<li><code>integrity-policy</code></li>
+<li><code>integrity-policy-report-only</code></li>
+<li><code>keep-alive</code></li>
+<li><code>last-modified</code></li>
+<li><code>link</code></li>
+<li><code>location</code></li>
+<li><code>nel</code></li>
+<li><code>no-vary-search</code></li>
+<li><code>origin-agent-cluster</code></li>
+<li><code>permissions-policy</code></li>
+<li><code>prefer</code></li>
+<li><code>preference-applied</code></li>
+<li><code>priority</code></li>
+<li><code>ratelimit</code></li>
+<li><code>ratelimit-limit</code></li>
+<li><code>ratelimit-policy</code></li>
+<li><code>ratelimit-remaining</code></li>
+<li><code>ratelimit-reset</code></li>
+<li><code>referrer-policy</code></li>
+<li><code>refresh</code></li>
+<li><code>reporting-endpoints</code></li>
+<li><code>repr-digest</code></li>
+<li><code>retry-after</code></li>
+<li><code>sec-websocket-accept</code></li>
+<li><code>sec-websocket-extensions</code></li>
+<li><code>sec-websocket-protocol</code></li>
+<li><code>sec-websocket-version</code></li>
+<li><code>server</code></li>
+<li><code>service-worker-allowed</code></li>
+<li><code>set-cookie</code></li>
+<li><code>speculation-rules</code></li>
+<li><code>strict-transport-security</code></li>
+<li><code>sunset</code></li>
+<li><code>supports-loading-mode</code></li>
+<li><code>timing-allow-origin</code></li>
+<li><code>transfer-encoding</code></li>
+<li><code>upgrade</code></li>
+<li><code>use-as-dictionary</code></li>
+<li><code>vary</code></li>
+<li><code>www-authenticate</code></li>
+<li><code>x-content-type-options</code></li>
+<li><code>x-dns-prefetch-control</code></li>
+<li><code>x-frame-options</code></li>
+<li><code>x-permitted-cross-domain-policies</code></li>
+<li><code>x-robots-tag</code></li>
+</ul>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/debugging/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Debugging - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/2.1.x/operation/debugging/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#debugging" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/2.1.x/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">2.1.x</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/operation/debugging/" aria-current="true">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/operation/debugging/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["2.1.x"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/2.1.x/">Welcome</a></li>
+      
+<li><a href="/usp-core-waap/2.1.x/getting-started/">Getting Started</a></li>
+      
+<li><a href="/usp-core-waap/2.1.x/core-waap-releasenotes/">Release Notes</a></li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/processing-order/">Processing Order</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Coraza</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/coraza/coraza/">Coraza</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/coraza/coraza-crs/">CRS</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/header-filtering/">Header Filtering</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/header-manipulation/">Header Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/cookie-manipulation/">Cookie Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/openapi-validation/">OpenAPI Validation</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/lua-filters/">Lua Filters</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/configuration/rate-limiting/">Rate Limiting</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/autolearning/">Auto-Learning</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/large-payloads/">Large Payloads</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/oidc-operation/">OAuth2 / OIDC</a></li>
+        
+<li><a href="/usp-core-waap/2.1.x/operation/debugging/" aria-current="page">Debugging</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/2.1.x/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#segmentation-faults-and-core-dumps">Segmentation faults and core dumps</a>
+</li>
+
+      <li>
+  <a href="#how-to-switch-to-the-debug-version">How to switch to the debug version</a>
+</li>
+
+      <li>
+  <a href="#core-dump-file-analysis">Core dump file analysis</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/2.1.x/">2.1.x</a></li>
+    <li>Operation</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:2.1.x">
+  <h1 id="debugging">Debugging</h1>
+<p>This chapter describes the recommended approach for debugging crashes, segmentation faults and other issues you might encounter.</p>
+<div class="usp-admonition usp-admonition--hint">
+    <p class="usp-admonition__title">Hint</p>
+    <p>A core dump file can get very big depending on how long Core WAAP proxy was running. Make sure that you have at least 10G of disk space available to the Core Waap container.</p>
+  </div><div class="usp-admonition usp-admonition--warning">
+    <p class="usp-admonition__title">Warning</p>
+    <p>The debugging image should <strong>never</strong> be used in production. The used binary for Core WAAP proxy was built in debug mode which means it contains zero optimizations. This has a big impact on performance.</p>
+  </div><h2 id="segmentation-faults-and-core-dumps">Segmentation faults and core dumps</h2>
+<p>When a segmentation fault occurs, the first thing to do is to check the logs and the backtrace.
+In many cases, these already contain enough information to understand what went wrong and where the crash happened.</p>
+<p>If the logs and backtrace are not sufficient, the next step is to switch to the debug version.
+The debug version contains debug symbols, which make stack traces and crash analysis more useful.
+In addition, a core dump is always generated whenever a crash happens.
+You can find the generated file at <code>/coredumps/envoy.&lt;UNIX_TIMESTAMP&gt;</code>.
+After the core dump has been written, Core WAAP proxy is restarted automatically.</p>
+<h2 id="how-to-switch-to-the-debug-version">How to switch to the debug version</h2>
+<div class="usp-admonition usp-admonition--hint">
+    <p class="usp-admonition__title">Hint</p>
+    <p>The debug image requires the <code>SYS_PTRACE</code> linux capability to work. The operator will add it automatically to the configured security context or update the default security context.</p>
+  </div><p>Set <code>spec.operation.debug</code> to <code>true</code> and the operator will recreate the Core WAAP proxy with the debug image.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">apiVersion: waap.core.u-s-p.ch/v1alpha1
+</span></span><span class="line"><span class="cl">kind: CoreWaapService
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  namespace: backend-httpbin
+</span></span><span class="line"><span class="cl">  name: httpbin-core-waap
+</span></span><span class="line"><span class="cl">spec:
+</span></span><span class="line"><span class="cl">  operation:
+</span></span><span class="line"><span class="cl">    debug: true
+</span></span><span class="line"><span class="cl">  routes:
+</span></span><span class="line"><span class="cl">    - backend:
+</span></span><span class="line"><span class="cl">        address: httpbin
+</span></span><span class="line"><span class="cl">        port: 8000
+</span></span><span class="line"><span class="cl">        protocol:
+</span></span><span class="line"><span class="cl">          selection: h1
+</span></span><span class="line"><span class="cl">      match:
+</span></span><span class="line"><span class="cl">        path: /
+</span></span><span class="line"><span class="cl">        pathType: PREFIX
+</span></span></code></pre></div>
+<h2 id="core-dump-file-analysis">Core dump file analysis</h2>
+<p>The core dump file can either be analyzed directly in the container:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">exec</span> -it -n NAMESPACE CORE_WAAP_POD envoy -- bash
+</span></span><span class="line"><span class="cl">lldb-20 /usr/local/bin/envoy -c /coredumps/CORE_DUMP_FILE</span></span></code></pre></div>
+<p>or you can copy it locally and analyze it outside of kubernetes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl cp NAMESPACE/CORE_WAAP_POD:/coredumps/CORE_DUMP_FILE CORE_DUMP_FILE -c envoy</span></span></code></pre></div>
+<p>A segfault can also be forced by sending a <code>SIGSEGV</code> signal to the Core WAAP proxy process.
+Simply run <code>kill -11 &lt;CORE_WAAP_PROXY_PID&gt;</code> in a POD that has enough permissions (e.g. the Core WAAP proxy container).</p>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

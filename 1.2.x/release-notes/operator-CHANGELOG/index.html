@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/1.2.x/release-notes/operator-CHANGELOG/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Operator Changelog - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/1.2.x/release-notes/operator-CHANGELOG/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#changelog" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/1.2.x/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">1.2.x</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/release-notes/operator-CHANGELOG/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/release-notes/operator-CHANGELOG/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/release-notes/operator-CHANGELOG/" aria-current="true">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["1.2.x"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      This release has reached its end of life and is no longer maintained.
+      <a href="/usp-core-waap/2.1.x/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/1.2.x/">Welcome</a></li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Release Notes</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/helm-CHANGELOG/">Helm Chart</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/operator-CHANGELOG/" aria-current="page">Operator</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/waap-CHANGELOG/">Core WAAP</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/ext-proc-icap-CHANGELOG/">extProc ICAP</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/release-notes/ext-proc-openapi-CHANGELOG/">extProc OpenAPI</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Traffic Processing</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/traffic-processing-overview/">Overview</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/traffic-processing/openapi-validation/">OpenAPI Validation</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.2.x/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/1.2.x/operation/autolearning/">Auto-Learning</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/1.2.x/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#110-2025-01-17">1.1.0 - 2025-01-17</a>
+  <ul>
+      <li>
+  <a href="#contents">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed">Changed</a>
+</li>
+
+      <li>
+  <a href="#added">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#101-2024-09-13">1.0.1 - 2024-09-13</a>
+  <ul>
+      <li>
+  <a href="#contents_1">Contents</a>
+</li>
+
+      <li>
+  <a href="#added_1">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_1">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#100-2024-09-05">1.0.0 - 2024-09-05</a>
+  <ul>
+      <li>
+  <a href="#contents_2">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_1">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_2">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_2">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#0101-2024-08-05">0.10.1 - 2024-08-05</a>
+  <ul>
+      <li>
+  <a href="#contents_3">Contents</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#0100-2024-08-05">0.10.0 - 2024-08-05</a>
+  <ul>
+      <li>
+  <a href="#contents_4">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_2">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#080-2024-05-23">0.8.0 - 2024-05-23</a>
+  <ul>
+      <li>
+  <a href="#contents_5">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_3">Changed</a>
+</li>
+
+      <li>
+  <a href="#fixed_3">Fixed</a>
+</li>
+
+      <li>
+  <a href="#added_3">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#070-2024-04-29">0.7.0 - 2024-04-29</a>
+  <ul>
+      <li>
+  <a href="#contents_6">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_4">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_4">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_4">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#061-2024-03-28">0.6.1 - 2024-03-28</a>
+  <ul>
+      <li>
+  <a href="#contents_7">Contents</a>
+</li>
+
+      <li>
+  <a href="#fixed_5">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#060-2024-03-25">0.6.0 - 2024-03-25</a>
+  <ul>
+      <li>
+  <a href="#contents_8">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_5">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_5">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_6">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#050-2024-03-05">0.5.0 - 2024-03-05</a>
+  <ul>
+      <li>
+  <a href="#contents_9">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_6">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_6">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_7">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#041-2024-02-27">0.4.1 - 2024-02-27</a>
+  <ul>
+      <li>
+  <a href="#contents_10">Contents</a>
+</li>
+
+      <li>
+  <a href="#fixed_8">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#040-2024-02-26">0.4.0 - 2024-02-26</a>
+  <ul>
+      <li>
+  <a href="#contents_11">Contents</a>
+</li>
+
+      <li>
+  <a href="#added_7">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#030-2024-02-23">0.3.0 - 2024-02-23</a>
+  <ul>
+      <li>
+  <a href="#contents_12">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_7">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_8">Added</a>
+</li>
+
+      <li>
+  <a href="#fixed_9">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#020-2024-02-12">0.2.0 - 2024-02-12</a>
+  <ul>
+      <li>
+  <a href="#contents_13">Contents</a>
+</li>
+
+      <li>
+  <a href="#changed_8">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#011-2024-01-25">0.1.1 - 2024-01-25</a>
+  <ul>
+      <li>
+  <a href="#contents_14">Contents</a>
+</li>
+
+      <li>
+  <a href="#added_9">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#010-2024-01-18">0.1.0 - 2024-01-18</a>
+  <ul>
+      <li>
+  <a href="#contents_15">Contents</a>
+</li>
+
+      <li>
+  <a href="#added_10">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#009-2024-01-11">0.0.9 - 2024-01-11</a>
+  <ul>
+      <li>
+  <a href="#changed_9">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_11">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#008-2024-01-03">0.0.8 - 2024-01-03</a>
+  <ul>
+      <li>
+  <a href="#fixed_10">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#007-2024-12-19">0.0.7 - 2024-12-19</a>
+  <ul>
+      <li>
+  <a href="#fixed_11">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#006-2024-12-16">0.0.6 - 2024-12-16</a>
+  <ul>
+      <li>
+  <a href="#fixed_12">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#005">0.0.5</a>
+  <ul>
+      <li>
+  <a href="#added_12">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#004">0.0.4</a>
+</li>
+
+      <li>
+  <a href="#003">0.0.3</a>
+</li>
+
+      <li>
+  <a href="#002">0.0.2</a>
+</li>
+
+      <li>
+  <a href="#001">0.0.1</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+    <li>Release Notes</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:1.2.x">
+  <h1 id="changelog">Changelog</h1>
+<p>Breaking changes/additions may require to adapt existing configurations when updating.</p>
+<h2 id="110-2025-01-17">1.1.0 - 2025-01-17</h2>
+<h3 id="contents">Contents</h3>
+<ul>
+<li>
+<p>Envoy config 1.32.3 CRS 4.3.0</p>
+</li>
+<li>
+<p>Core WAAP 1.2.0 (Envoy 1.32.3 CRS 4.3.0)</p>
+</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>
+<p>Change <code>image</code> field of <code>waapSpecDefaults</code> to NOT include version anymore use new <code>version</code> field instead (while for backwards compatibility the old format is still supported but deprecated and will result in a warn log entry in the operator) (#289927)</p>
+</li>
+<li>
+<p>Access log logs <code>http.req_headers.fowarded_host</code> (<code>X-Forwarded-Host</code> header) instead of <code>http.req_headers.authority</code> because the <code>:authority</code> pseudo HTTP header already has a modified value when logged (#290369)</p>
+</li>
+</ul>
+<h3 id="added">Added</h3>
+<ul>
+<li>
+<p>Add traffic processing for ICAP antivirus checks via extProc to sidecar container and from there to external ICAP server (#289689)</p>
+</li>
+<li>
+<p>Add traffic processing for OpenAPI validation via extProc to sidecar container (#289845)</p>
+</li>
+<li>
+<p>Add setting <code>customRequestBlockingRules</code> to <code>crs</code> to be able to apply a virtual patch for zero-day vulnerability (#289563)</p>
+</li>
+<li>
+<p>Add startup parameters for Core WAAP Envoy under <code>operation.startup</code> (#290332)</p>
+</li>
+<li>
+<p>Add <code>version</code> field for <code>waapSpecDefaults</code> (#289927)</p>
+</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Fix native config post-processing (NCPP) error messages in native operator image (#289848)</li>
+</ul>
+<h2 id="101-2024-09-13">1.0.1 - 2024-09-13</h2>
+<h3 id="contents_1">Contents</h3>
+<ul>
+<li>
+<p>Spec library 1.0.1 (Envoy config 1.31.0 CRS 4.3.0)</p>
+</li>
+<li>
+<p>Core WAAP 1.1.8 (Envoy 1.31.0 CRS 4.3.0)</p>
+</li>
+</ul>
+<h3 id="added_1">Added</h3>
+<ul>
+<li>Add setting <code>logOnly</code> (default <code>false</code>) to <code>headerFiltering</code> to allow to determine headers to allow more conveniently (#289744)</li>
+</ul>
+<h3 id="fixed_1">Fixed</h3>
+<ul>
+<li>Operator config default considered for expose admin interface or not (#289741)</li>
+</ul>
+<h2 id="100-2024-09-05">1.0.0 - 2024-09-05</h2>
+<h3 id="contents_2">Contents</h3>
+<ul>
+<li>
+<p>Spec library 1.0.0 (Envoy config 1.31.0 CRS 4.3.0)</p>
+</li>
+<li>
+<p>Core WAAP 1.1.8 (Envoy 1.31.0 CRS 4.3.0)</p>
+</li>
+</ul>
+<h3 id="changed_1">Changed</h3>
+<ul>
+<li>
+<p><strong>Breaking</strong>: Move almost all operator settings and annotations to Core WAAP spec under <code>operation</code> with default settings definable in the operator config map under <code>config.waapSpecDefaults</code> (#282449)</p>
+</li>
+<li>
+<p>Only a single operator config setting remains of the old settings: <code>watchedNamespaces</code> (list of watched namespaces optional default empty which means to watch all namespaces).</p>
+</li>
+<li>
+<p>No annotations remain.</p>
+</li>
+<li>
+<p>In the Core WAAP spec under <code>operation</code> as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code> there are also Kubernetes settings (<code>replicas</code> <code>resources</code> <code>tolerations</code> <code>priorityClassName</code> and <code>affinity</code>) see CRD for full detail.</p>
+</li>
+<li>
+<p><strong>NOTE</strong>: Previous operator config for <code>resources</code> mistakenly used <code>request</code> (singular) instead of <code>requests</code> (plural) please correct when migrating settings.</p>
+</li>
+<li>
+<p><strong>Breaking</strong>: CRS 4.3.0 (#288942)</p>
+</li>
+<li>
+<p><strong>Breaking</strong>: Change various CRS defaults (#287832)</p>
+</li>
+<li>
+<p>Change <code>enabledRequestRules</code> and <code>enabledResponseRules</code> now enums instead of numbers</p>
+</li>
+<li>
+<p>Rename <code>requestBodyLimit</code> and <code>responseBodyLimit</code> to <code>requestBodyLimitKb</code> resp. <code>responseBodyLimitKb</code></p>
+</li>
+<li>
+<p><code>hostnames</code> setting optional defaults to <code>*</code> (#287832)</p>
+</li>
+</ul>
+<h3 id="added_2">Added</h3>
+<ul>
+<li>
+<p><strong>Breaking</strong>: Add CSRF protection filter <code>csrfPolicy</code> active by default (#289461)</p>
+</li>
+<li>
+<p><strong>Breaking</strong>: Add global HTTP header filtering <code>headerFiltering</code> active by default (#286882)</p>
+</li>
+<li>
+<p><strong>Breaking</strong>: Add universal HTTP header validator (UHV) active by default (#289581)</p>
+</li>
+<li>
+<p>Add mappable custom error pages with dynamic content and static file resources <code>webResources</code> (#289442)</p>
+</li>
+<li>
+<p>Add settings to expose Envoy admin interface as Kubernetes service <code>operation.adminInterfaceServices</code> (#289346)</p>
+</li>
+<li>
+<p>Allow to skip CRS body scanning per location / HTTP methods <code>crs.requestBodyAccessExceptions</code> (#289373)</p>
+</li>
+<li>
+<p>Allow to disable the CRS engine per Core WAAP route <code>routesindex.crs</code> (#289373)</p>
+</li>
+<li>
+<p>Add Kubernetes scheduling properties (<code>replicas</code> <code>resources</code> <code>tolerations</code> <code>priorityClassName</code> and <code>affinity</code>) to <code>operation</code> as well as in the defaults in the operator config map under <code>config.waapSpecDefaults</code> see CRD for full detail (#282449)</p>
+</li>
+</ul>
+<h3 id="fixed_2">Fixed</h3>
+<ul>
+<li>
+<p>Operator properly compares actual &amp; desired values of cpu &amp; memory resource requests to avoid endless reconcile loop (#289318).</p>
+</li>
+<li>
+<p>CRS autolearning removes the query part of the location and URL-decodes the location (#289357)</p>
+</li>
+<li>
+<p>CRS settings <code>requestBodyLimit</code> and <code>responseBodyLimit</code> are now interpreted as kb as documented no longer as bytes (plus renamed to <code>requestBodyLimitKb</code> and <code>responseBodyLimitKb</code> for clarity) (#287832)</p>
+</li>
+<li>
+<p>If allowed methods are specified and a request comes in with a method that is not allowed no longer responds with 404 (Not Found) but with a 405 (Method not allowed) (#256147)</p>
+</li>
+<li>
+<p>Fix bug with authentication with public superlocations (#289691)</p>
+</li>
+</ul>
+<h2 id="0101-2024-08-05">0.10.1 - 2024-08-05</h2>
+<h3 id="contents_3">Contents</h3>
+<ul>
+<li>
+<p>Spec library 0.8.1 (Envoy config 1.31.0 CRS 4.3.0)</p>
+</li>
+<li>
+<p>Core WAAP 1.1.6 (Envoy 1.31.0 CRS 4.3.0)</p>
+</li>
+</ul>
+<h2 id="0100-2024-08-05">0.10.0 - 2024-08-05</h2>
+<h3 id="contents_4">Contents</h3>
+<ul>
+<li>
+<p>Spec library 0.8.0 (Envoy config 1.30.1 CRS 4.3.0)</p>
+</li>
+<li>
+<p>Core WAAP 1.1.6 (Envoy 1.31.0 CRS 4.3.0)</p>
+</li>
+</ul>
+<h3 id="changed_2">Changed</h3>
+<ul>
+<li>Fixed spec lib version for internal release.</li>
+</ul>
+<h2 id="080-2024-05-23">0.8.0 - 2024-05-23</h2>
+<h3 id="contents_5">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.5 (Envoy 1.30.1)</p>
+</li>
+<li>
+<p>Spec library 0.7.0 (Envoy config 1.30.1 CRS 4.0.0-RC2)</p>
+</li>
+<li>
+<p>Helm Charts 0.8.0</p>
+</li>
+</ul>
+<h3 id="changed_3">Changed</h3>
+<ul>
+<li>Publish to <code>uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator</code> no longer to <code>quay.io/usp/usp-core-waap-operator</code> (#289345)</li>
+</ul>
+<h3 id="fixed_3">Fixed</h3>
+<ul>
+<li>Fix CRS in mode detect (#289258)</li>
+</ul>
+<h3 id="added_3">Added</h3>
+<ul>
+<li>JavaScripts for post-processing generated Envoy config (#289260)</li>
+</ul>
+<h2 id="070-2024-04-29">0.7.0 - 2024-04-29</h2>
+<h3 id="contents_6">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.5 (Envoy 1.30.1)</p>
+</li>
+<li>
+<p>Spec library 0.6.0 (Envoy config 1.30.1 CRS 4.0.0-RC2)</p>
+</li>
+<li>
+<p>Helm Charts 0.7.4</p>
+</li>
+</ul>
+<h3 id="changed_4">Changed</h3>
+<ul>
+<li><strong>Breaking</strong>: Default upstream protocol HTTP/2 (previously HTTP/1.1) (#285763)</li>
+</ul>
+<h3 id="added_4">Added</h3>
+<ul>
+<li>
+<p>Add &quot;serviceAnnotations&quot; config setting and corresponding &quot;service-annotations&quot; annotation (#285763)</p>
+</li>
+<li>
+<p>Add origin IP allow/deny (#286876)</p>
+</li>
+<li>
+<p>Add allowed HTTP methods per route (#256147)</p>
+</li>
+<li>
+<p>Add autoHostRewrite configurable (if true set X-Forwarded-Host header) (#287831 #288623)</p>
+</li>
+<li>
+<p>Add downstream automatic preference of HTTP/2; upstream HTTP/2 (default) HTTP/1.1 or automatic selection via ALPN (requires TLS) (#285763)</p>
+</li>
+<li>
+<p>Add features to CRS autolearn CLI (#288611)</p>
+</li>
+</ul>
+<h3 id="fixed_4">Fixed</h3>
+<ul>
+<li>
+<p>At JWT-only authentication forward JWT upstream if configured (#288135)</p>
+</li>
+<li>
+<p>Add missing CRS rules (#288611)</p>
+</li>
+</ul>
+<h2 id="061-2024-03-28">0.6.1 - 2024-03-28</h2>
+<h3 id="contents_7">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.2</p>
+</li>
+<li>
+<p>Spec library 0.5.0 (Envoy config 1.29.x)</p>
+</li>
+</ul>
+<h3 id="fixed_5">Fixed</h3>
+<ul>
+<li>
+<p>Missing version suffix (e.g. &quot;:1.1.2&quot;) in the &quot;envoy.image&quot; configuration setting could lead to an invalid version</p>
+<p>label in the generated ConfigMap object leading to a failed deployment. Now the version will fall back to &quot;latest&quot;</p>
+<p>if no version is specified for the image.</p>
+</li>
+</ul>
+<h2 id="060-2024-03-25">0.6.0 - 2024-03-25</h2>
+<h3 id="contents_8">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.2</p>
+</li>
+<li>
+<p>Spec library 0.5.0 (Envoy config 1.29.x)</p>
+</li>
+</ul>
+<h3 id="changed_5">Changed</h3>
+<ul>
+<li>
+<p><strong>Breaking</strong>: Use plural for lists in WAAP Spec (authentications audiences) (#285960)</p>
+</li>
+<li>
+<p><strong>Breaking:</strong> Default for &quot;replicas&quot; is no longer 1 but to not set it so that an HPA (Horizontal Pod Autoscaler) can manage it (#282428)</p>
+</li>
+<li>
+<p><strong>Breaking:</strong> The name in the operator CR (custom resource) is ignored as well as the corresponding annotation instead uses the metadata name of the resource &quot;CoreWaapService&quot; (the Core WAAP CR) as name for Pods Service ReplicaSets etc. (#284588)</p>
+</li>
+<li>
+<p><strong>Breaking</strong>: Replace authentication tokenEndpointAuthType QUERY with BODY (#285777)</p>
+</li>
+<li>
+<p>Improve validation of WAAP Spec and more info in generated CRD (#282608)</p>
+</li>
+</ul>
+<h3 id="added_5">Added</h3>
+<ul>
+<li>
+<p>Add header match for routes (#285016)</p>
+</li>
+<li>
+<p>Add authentication useRefreshToken flag (#285777)</p>
+</li>
+<li>
+<p>Allow plain http jwksEndpoint in JWT-auth-only use case (#285962)</p>
+</li>
+</ul>
+<h3 id="fixed_6">Fixed</h3>
+<ul>
+<li>Support multiple instances in same namespace (#284588)</li>
+</ul>
+<h2 id="050-2024-03-05">0.5.0 - 2024-03-05</h2>
+<h3 id="contents_9">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.0</p>
+</li>
+<li>
+<p>Spec library 0.4.0 (Envoy config 1.29.x)</p>
+</li>
+</ul>
+<h3 id="changed_6">Changed</h3>
+<ul>
+<li><strong>Breaking:</strong> If <code>caCertificatesConfigMapName</code> is set also <code>caCertificateKeyInConfigMap</code> must be set (or corresponding annotations) (#282762)</li>
+</ul>
+<h3 id="added_6">Added</h3>
+<ul>
+<li>Set service account name and whether to automount token (#282286)</li>
+</ul>
+<h3 id="fixed_7">Fixed</h3>
+<ul>
+<li>Mounted CA certificates always under <code>/etc/ssl/certs/ca-certificates.crt</code> (#282762)</li>
+</ul>
+<h2 id="041-2024-02-27">0.4.1 - 2024-02-27</h2>
+<h3 id="contents_10">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.0</p>
+</li>
+<li>
+<p>Spec library 0.3.0 (Envoy config 1.29.x)</p>
+</li>
+</ul>
+<h3 id="fixed_8">Fixed</h3>
+<ul>
+<li>Fixed build problem.</li>
+</ul>
+<h2 id="040-2024-02-26">0.4.0 - 2024-02-26</h2>
+<h3 id="contents_11">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.0</p>
+</li>
+<li>
+<p>Spec library 0.2.2</p>
+</li>
+</ul>
+<h3 id="added_7">Added</h3>
+<ul>
+<li>TLS support for upstream backends.</li>
+</ul>
+<h2 id="030-2024-02-23">0.3.0 - 2024-02-23</h2>
+<h3 id="contents_12">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.0</p>
+</li>
+<li>
+<p>Spec library 0.2.</p>
+</li>
+</ul>
+<h3 id="changed_7">Changed</h3>
+<ul>
+<li>
+<p><strong>Breaking:</strong> The &quot;podName&quot; operator setting has been renamed to just &quot;name&quot;. The custom annotation to override</p>
+<p>this setting has been adapted accordingly from &quot;core.waap.u-s-p.ch/pod-name&quot; to &quot;core.waap.u-s-p.ch/name&quot;.</p>
+</li>
+</ul>
+<h3 id="added_8">Added</h3>
+<ul>
+<li>
+<p>New operator setting &quot;envoy/labels&quot; (or annotation &quot;core.waap.u-s-p.ch/labels&quot;) allows to define one or multiple</p>
+<p>custom labels for the Envoy pods.</p>
+</li>
+</ul>
+<h3 id="fixed_9">Fixed</h3>
+<ul>
+<li>
+<p>The &quot;name&quot; operator configuration setting (formerly &quot;podName&quot;) is now also properly used for the name of the &quot;Service&quot;</p>
+<p>and the &quot;ConfigMap&quot; objects of the Core WAAP deployment. This allows to have multiple Core WAAP deployments within the same</p>
+<p>application namespace.</p>
+</li>
+</ul>
+<h2 id="020-2024-02-12">0.2.0 - 2024-02-12</h2>
+<h3 id="contents_13">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.1.0</p>
+</li>
+<li>
+<p>Spec library 0.2.0</p>
+</li>
+</ul>
+<h3 id="changed_8">Changed</h3>
+<ul>
+<li><strong>Breaking:</strong> Renamed everything to &quot;core-waap-operator&quot;.</li>
+</ul>
+<h2 id="011-2024-01-25">0.1.1 - 2024-01-25</h2>
+<h3 id="contents_14">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.0.6</p>
+</li>
+<li>
+<p>Spec library 0.0.8</p>
+</li>
+</ul>
+<h3 id="added_9">Added</h3>
+<ul>
+<li>Added Envoy configuration for custom CA certificates.</li>
+</ul>
+<h2 id="010-2024-01-18">0.1.0 - 2024-01-18</h2>
+<h3 id="contents_15">Contents</h3>
+<ul>
+<li>
+<p>Core WAAP 1.0.6</p>
+</li>
+<li>
+<p>Spec library 0.0.7</p>
+</li>
+</ul>
+<h3 id="added_10">Added</h3>
+<ul>
+<li>Added configuration option and annotation for custom CA truststore.</li>
+</ul>
+<h2 id="009-2024-01-11">0.0.9 - 2024-01-11</h2>
+<h3 id="changed_9">Changed</h3>
+<ul>
+<li>Updated CRD (obsolete status fields replaced with single message).</li>
+</ul>
+<h3 id="added_11">Added</h3>
+<ul>
+<li>
+<p>Added configuration option and annotation for number of replicas.</p>
+</li>
+<li>
+<p>Added support for mounting secrets for OIDC authentication.</p>
+</li>
+</ul>
+<h2 id="008-2024-01-03">0.0.8 - 2024-01-03</h2>
+<h3 id="fixed_10">Fixed</h3>
+<ul>
+<li>Fixed invalid resource format handling</li>
+</ul>
+<h2 id="007-2024-12-19">0.0.7 - 2024-12-19</h2>
+<h3 id="fixed_11">Fixed</h3>
+<ul>
+<li>Fixed invalid CR annotation name for image override</li>
+</ul>
+<h2 id="006-2024-12-16">0.0.6 - 2024-12-16</h2>
+<h3 id="fixed_12">Fixed</h3>
+<ul>
+<li>Fixed copy-paste error with &quot;limits&quot; resources.</li>
+</ul>
+<h2 id="005">0.0.5</h2>
+<h3 id="added_12">Added</h3>
+<ul>
+<li>
+<p>Operator config map template with resources</p>
+</li>
+<li>
+<p>Operator config support for envoy resources (cpu memory)</p>
+</li>
+<li>
+<p>Operator config support for envoy pod name</p>
+</li>
+<li>
+<p>Envoy log format supports auto-learning CLI tool.</p>
+</li>
+</ul>
+<h2 id="004">0.0.4</h2>
+<ul>
+<li>Internal testing release.</li>
+</ul>
+<h2 id="003">0.0.3</h2>
+<ul>
+<li>
+<p>First usable native build.</p>
+</li>
+<li>
+<p>Uses Envoy 1.29 (no hot reload for normal config changes)</p>
+</li>
+</ul>
+<h2 id="002">0.0.2</h2>
+<ul>
+<li>Minor extensions.</li>
+</ul>
+<h2 id="001">0.0.1</h2>
+<ul>
+<li>Experimental release for Envoy 1.28.</li>
+</ul>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

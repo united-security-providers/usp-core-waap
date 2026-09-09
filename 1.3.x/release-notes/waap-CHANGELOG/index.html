@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/1.3.x/release-notes/waap-CHANGELOG/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Core WAAP Changelog - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/1.3.x/release-notes/waap-CHANGELOG/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#changelog" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/1.3.x/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">1.3.x</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/release-notes/waap-CHANGELOG/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/release-notes/waap-CHANGELOG/" aria-current="true">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/release-notes/waap-CHANGELOG/">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["1.3.x"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      This release has reached its end of life and is no longer maintained.
+      <a href="/usp-core-waap/2.1.x/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/1.3.x/">Welcome</a></li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Release Notes</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.3.x/release-notes/helm-CHANGELOG/">Helm Chart</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/release-notes/operator-CHANGELOG/">Operator</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/release-notes/waap-CHANGELOG/" aria-current="page">Core WAAP</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/release-notes/ext-proc-icap-CHANGELOG/">extProc ICAP</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/release-notes/ext-proc-openapi-CHANGELOG/">extProc OpenAPI</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Traffic Processing</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/traffic-processing/traffic-processing-overview/">Overview</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/traffic-processing/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/traffic-processing/openapi-validation/">OpenAPI Validation</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/configuration/lua-filters/">Lua Filters</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/autolearning/">Auto-Learning</a></li>
+        
+<li><a href="/usp-core-waap/1.3.x/operation/large-payloads/">Large Payloads</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/1.3.x/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#130-2025-07-10">1.3.0 - 2025-07-10</a>
+  <ul>
+      <li>
+  <a href="#contents">Contents</a>
+</li>
+
+      <li>
+  <a href="#added">Added</a>
+</li>
+
+      <li>
+  <a href="#changed">Changed</a>
+</li>
+
+      <li>
+  <a href="#fixed">Fixed</a>
+</li>
+
+      <li>
+  <a href="#known-issues">Known Issues</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#120-2025-01-16">1.2.0 - 2025-01-16</a>
+  <ul>
+      <li>
+  <a href="#changed_1">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#119-2024-10-14">1.1.9 - 2024-10-14</a>
+  <ul>
+      <li>
+  <a href="#changed_2">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#118-2024-09-05">1.1.8 - 2024-09-05</a>
+  <ul>
+      <li>
+  <a href="#added_1">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#117-2024-08-29">1.1.7 - 2024-08-29</a>
+  <ul>
+      <li>
+  <a href="#changed_3">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#116-2024-08-06">1.1.6 - 2024-08-06</a>
+  <ul>
+      <li>
+  <a href="#changed_4">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_2">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#115-2024-04-26">1.1.5 - 2024-04-26</a>
+  <ul>
+      <li>
+  <a href="#changed_5">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#114-2024-04-17">1.1.4 - 2024-04-17</a>
+  <ul>
+      <li>
+  <a href="#fixed_1">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#113-2024-04-17">1.1.3 - 2024-04-17</a>
+  <ul>
+      <li>
+  <a href="#changed_6">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#111-2024-02-29">1.1.1 - 2024-02-29</a>
+  <ul>
+      <li>
+  <a href="#changed_7">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_3">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#110-2024-02-01">1.1.0 - 2024-02-01</a>
+  <ul>
+      <li>
+  <a href="#added_4">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#106-2024-01-18">1.0.6 - 2024-01-18</a>
+  <ul>
+      <li>
+  <a href="#changed_8">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#105-2023-12-18">1.0.5 - 2023-12-18</a>
+  <ul>
+      <li>
+  <a href="#changed_9">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_5">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#104-2023-12-05">1.0.4 - 2023-12-05</a>
+  <ul>
+      <li>
+  <a href="#changed_10">Changed</a>
+</li>
+
+      <li>
+  <a href="#added_6">Added</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#103-2024-11-17">1.0.3 - 2024-11-17</a>
+  <ul>
+      <li>
+  <a href="#fixed_2">Fixed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#102-2023-11-07">1.0.2 - 2023-11-07</a>
+  <ul>
+      <li>
+  <a href="#changed_11">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#101-2023-11-15">1.0.1 - 2023-11-15</a>
+  <ul>
+      <li>
+  <a href="#changed_12">Changed</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#100-2023-11-02">1.0.0 - 2023-11-02</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/1.3.x/">1.3.x</a></li>
+    <li>Release Notes</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:1.3.x">
+  <h1 id="changelog">Changelog</h1>
+<p>Breaking changes/additions may require to adapt existing configurations when updating, see <a href="/usp-core-waap/1.3.x/operation/upgrade/">Migration Guide</a>
+.</p>
+<h2 id="130-2025-07-10">1.3.0 - 2025-07-10</h2>
+<h3 id="contents">Contents</h3>
+<ul>
+<li>
+<p>base image: alpine-3.21</p>
+</li>
+<li>
+<p>envoy version: 1.34.1</p>
+</li>
+<li>
+<p>coraza version: 3.3.3</p>
+</li>
+<li>
+<p>coreruleset version: 4.14</p>
+</li>
+<li>
+<p>coraza-envoy-go-filter version: 0.0.2</p>
+</li>
+<li>
+<p>core-waap header filter version: 1.0.2</p>
+</li>
+</ul>
+<h3 id="added">Added</h3>
+<ul>
+<li>
+<p>Provide golang filter support</p>
+</li>
+<li>
+<p>Integrate coraza-waf golang filter plugin</p>
+</li>
+<li>
+<p>Allow to set additional command line arguments for envoy via environment variable</p>
+</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>
+<p>Update CRS to version 4.14.0</p>
+</li>
+<li>
+<p>Update envoy to version 1.34.1</p>
+</li>
+<li>
+<p>Update base image to alpine-3.21</p>
+</li>
+<li>
+<p>Update coraza to version 3.3.3</p>
+</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Fix issue in external processing when receiving too large payloads in buffered mode</li>
+</ul>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li>A bug in Coraza results in a wrong HTTP status code returned, if <code>SecResponseBodyLimit</code> is reached and <code>SecResponseBodyLimitAction</code> is set to <code>Reject</code>. Coraza incorrectly returns HTTP 413 instead of HTTP 500. (<a href="https://github.com/corazawaf/coraza/issues/1377">corazawaf/coraza#1377</a>
+)</li>
+</ul>
+<h2 id="120-2025-01-16">1.2.0 - 2025-01-16</h2>
+<h3 id="changed_1">Changed</h3>
+<ul>
+<li>
+<p>Update Envoy to version v1.32.3</p>
+</li>
+<li>
+<p>Allow to set concurrency level and log levels of Envoy using container environment variables.</p>
+</li>
+</ul>
+<h2 id="119-2024-10-14">1.1.9 - 2024-10-14</h2>
+<h3 id="changed_2">Changed</h3>
+<ul>
+<li>Update Envoy to version v1.31.2</li>
+</ul>
+<h2 id="118-2024-09-05">1.1.8 - 2024-09-05</h2>
+<h3 id="added_1">Added</h3>
+<ul>
+<li>Enable the Unified Header Validator (UHV) in envoy.</li>
+</ul>
+<h2 id="117-2024-08-29">1.1.7 - 2024-08-29</h2>
+<h3 id="changed_3">Changed</h3>
+<ul>
+<li>Lua header filter: Add common WebSocket headers to the STANDARD allow class as well as to the default response headers.</li>
+</ul>
+<h2 id="116-2024-08-06">1.1.6 - 2024-08-06</h2>
+<h3 id="changed_4">Changed</h3>
+<ul>
+<li>
+<p>Update CRS to version v4.3.0</p>
+</li>
+<li>
+<p>Update OS image to alpine-3.20</p>
+</li>
+<li>
+<p>Update Envoy to version v1.31.0</p>
+</li>
+</ul>
+<h3 id="added_2">Added</h3>
+<ul>
+<li>
+<p>Allow to set the general/component log level using environmet variables</p>
+</li>
+<li>
+<p>Add Lua header filter</p>
+</li>
+</ul>
+<h2 id="115-2024-04-26">1.1.5 - 2024-04-26</h2>
+<h3 id="changed_5">Changed</h3>
+<ul>
+<li>Update Envoy to version v1.30.1</li>
+</ul>
+<h2 id="114-2024-04-17">1.1.4 - 2024-04-17</h2>
+<h3 id="fixed_1">Fixed</h3>
+<ul>
+<li>Fix format of version information file /etc/usp-core-waap-release</li>
+</ul>
+<h2 id="113-2024-04-17">1.1.3 - 2024-04-17</h2>
+<h3 id="changed_6">Changed</h3>
+<ul>
+<li>
+<p>Update OS image to alpine-3.19</p>
+</li>
+<li>
+<p>Update Envoy to version v1.30.0</p>
+</li>
+</ul>
+<h2 id="111-2024-02-29">1.1.1 - 2024-02-29</h2>
+<h3 id="changed_7">Changed</h3>
+<ul>
+<li>Update Envoy to version v1.29.1</li>
+</ul>
+<h3 id="added_3">Added</h3>
+<ul>
+<li>Add version information file /etc/usp-core-waap-release</li>
+</ul>
+<h2 id="110-2024-02-01">1.1.0 - 2024-02-01</h2>
+<h3 id="added_4">Added</h3>
+<ul>
+<li>
+<p>Implement common changelog format (<a href="https://redmine.u-s-p.local/issues/266949">#266949</a>
+)</p>
+</li>
+<li>
+<p>Implement Core WAAP naming convention (<a href="https://redmine.u-s-p.local/issues/258353">#258353</a>
+)</p>
+</li>
+</ul>
+<h2 id="106-2024-01-18">1.0.6 - 2024-01-18</h2>
+<h3 id="changed_8">Changed</h3>
+<ul>
+<li>
+<p>Update Envoy to version v1.29.0</p>
+</li>
+<li>
+<p>Update Coraza Proxy WASM to version 0.0.5</p>
+</li>
+</ul>
+<h2 id="105-2023-12-18">1.0.5 - 2023-12-18</h2>
+<h3 id="changed_9">Changed</h3>
+<ul>
+<li>Align JSON field names of Envoy access log and Coraza error log</li>
+</ul>
+<h3 id="added_5">Added</h3>
+<ul>
+<li>Support x-request-id in USP specific log format in Coraza</li>
+</ul>
+<h2 id="104-2023-12-05">1.0.4 - 2023-12-05</h2>
+<h3 id="changed_10">Changed</h3>
+<ul>
+<li>
+<p>Switch to OWASP core rule set</p>
+</li>
+<li>
+<p>Update OS image to alpine-3.18</p>
+</li>
+</ul>
+<h3 id="added_6">Added</h3>
+<ul>
+<li>Add patch for Coraza WAF to allow USP specific SecAuditLogFormat</li>
+</ul>
+<h2 id="103-2024-11-17">1.0.3 - 2024-11-17</h2>
+<h3 id="fixed_2">Fixed</h3>
+<ul>
+<li>Fix broken image with CRS 4.0.0-rc2_p1</li>
+</ul>
+<h2 id="102-2023-11-07">1.0.2 - 2023-11-07</h2>
+<h3 id="changed_11">Changed</h3>
+<ul>
+<li>Use CRS 4.0.0-rc2</li>
+</ul>
+<h2 id="101-2023-11-15">1.0.1 - 2023-11-15</h2>
+<h3 id="changed_12">Changed</h3>
+<ul>
+<li>Update envoy to 1-29-dev</li>
+</ul>
+<h2 id="100-2023-11-02">1.0.0 - 2023-11-02</h2>
+<p><em>First release.</em></p>
+
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>
