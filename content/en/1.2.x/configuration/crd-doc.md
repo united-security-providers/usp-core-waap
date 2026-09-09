@@ -1,6 +1,7 @@
 ---
 title: 'API Reference'
 weight: 60
+toc: false
 ---
 # API Reference {#api-reference}
 
