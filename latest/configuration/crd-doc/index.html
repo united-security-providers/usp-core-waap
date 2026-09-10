@@ -1820,7 +1820,7 @@
         <td><b><a href="#corewaapservicespeccorazacrs">crs</a></b></td>
         <td>object</td>
         <td>
-          OWASP Core Rule Set (CRS) settings<br/>
+          OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Coraza is deactivated<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1845,7 +1845,14 @@
         <td><b><a href="#corewaapservicespeccorazagraphql">graphql</a></b></td>
         <td>object</td>
         <td>
-          GraphQL settings<br/>
+          GraphQL validation settings; note that GraphQL validation is inactive if Coraza is deactivated<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#corewaapservicespeccorazaheadervalidation">headerValidation</a></b></td>
+        <td>object</td>
+        <td>
+          Header validation settings (validates request headers), enabled by default; note that header validation is inactive if Coraza is deactivated<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1967,7 +1974,7 @@
 <h3 id="corewaapservicespeccorazacrs">CoreWaapService.spec.coraza.crs</h3>
 <p><sup><sup><a href="#corewaapservicespeccoraza">↩ Parent</a>
 </sup></sup></p>
-<p>OWASP Core Rule Set (CRS) settings</p>
+<p>OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Coraza is deactivated</p>
 <table>
     <thead>
         <tr>
@@ -2025,7 +2032,7 @@
         <td><b><a href="#corewaapservicespeccorazacrsociimagesource">ociImageSource</a></b></td>
         <td>object</td>
         <td>
-          Optional OCI image source of the CRS rules that will be used; by default the hard-coded CRS rules of version4.25.1 are used; requires Kubernetes >= 1.36<br/>
+          Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.1 are used; requires Kubernetes >= 1.36<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2092,12 +2099,21 @@
           SecLang expression. Rule id range must be [300000,399999] <br/>
         </td>
         <td>true</td>
+      </tr><tr>
+        <td><b>beforeCrs</b></td>
+        <td>boolean</td>
+        <td>
+          Whether to insert the rule early, just before CRS rules are included, or late, just before the anomaly scoring blocking evaluation (REQUEST-949-BLOCKING-EVALUATION) <br/>
+          <br/>
+            <i>Default</i>: false<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 <h3 id="corewaapservicespeccorazacrsociimagesource">CoreWaapService.spec.coraza.crs.ociImageSource</h3>
 <p><sup><sup><a href="#corewaapservicespeccorazacrs">↩ Parent</a>
 </sup></sup></p>
-<p>Optional OCI image source of the CRS rules that will be used; by default the hard-coded CRS rules of version4.25.1 are used; requires Kubernetes &gt;= 1.36</p>
+<p>Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.1 are used; requires Kubernetes &gt;= 1.36</p>
 <table>
     <thead>
         <tr>
@@ -2334,7 +2350,7 @@
 <h3 id="corewaapservicespeccorazagraphql">CoreWaapService.spec.coraza.graphql</h3>
 <p><sup><sup><a href="#corewaapservicespeccoraza">↩ Parent</a>
 </sup></sup></p>
-<p>GraphQL settings</p>
+<p>GraphQL validation settings; note that GraphQL validation is inactive if Coraza is deactivated</p>
 <table>
     <thead>
         <tr>
@@ -2515,6 +2531,47 @@
           Key in the config map that contains the file, and also the name of the file <br/>
         </td>
         <td>true</td>
+      </tr></tbody>
+</table>
+<h3 id="corewaapservicespeccorazaheadervalidation">CoreWaapService.spec.coraza.headerValidation</h3>
+<p><sup><sup><a href="#corewaapservicespeccoraza">↩ Parent</a>
+</sup></sup></p>
+<p>Header validation settings (validates request headers), enabled by default; note that header validation is inactive if Coraza is deactivated</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          Enables header validation <br/>
+          <br/>
+            <i>Default</i>: true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>exceptions</b></td>
+        <td>[]string</td>
+        <td>
+          Header validations to exclude, can be the header name '{header}' for excluding both length and syntax validation, or '{header}/length' for excluding only length validation or '{header}/syntax' for excluding only syntax validation (header names are case-insensitive)<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>mode</b></td>
+        <td>enum</td>
+        <td>
+          Mode (DETECT = traffic identified as suspicious is logged but not blocked; BLOCK = traffic identified as suspicious is blocked) <br/>
+          <br/>
+            <i>Enum</i>: BLOCK, DETECT<br/>
+            <i>Default</i>: BLOCK<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 <h3 id="corewaapservicespeccorspolicy">CoreWaapService.spec.corsPolicy</h3>
