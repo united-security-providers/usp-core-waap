@@ -5,21 +5,21 @@ weight: 190
 ---
 # usp-core-waap-operator {#usp-core-waap-operator}
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
+![Version: latest](https://img.shields.io/badge/Version-latest-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Helm chart for the USP Core WAAP operator.
 
 ## Values {#values}
 
 | Key | Type | Default | Description |
-|---|---|---|---|
-| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.1"},"watchedNamespaces":[]}` | Settings for operator config |
-| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.1"}` | *Optional*: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
-| operator.config.watchedNamespaces | list | `[]` | *Optional*: list of namespaces for which to process custom resources or ingress manifests (defaults to all). |
-| operator.image | string | `"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator"` | Operator container image |
-| operator.imagePullSecretName | string | `""` | *Optional*: Name of the image pull secret to be used by the service account |
+|-----|------|---------|-------------|
+| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"},"watchedNamespaces":[]}` | Settings for operator config |
+| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
+| operator.config.watchedNamespaces | list | `[]` | _Optional_: list of namespaces for which to process custom resources or ingress manifests (defaults to all). |
+| operator.image | string | `"reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator"` | Operator container image |
+| operator.imagePullSecretName | string | `""` | _Optional_: Name of the image pull secret to be used by the service account |
 | operator.replicas | int | `1` | Number of replicas (0 or 1) |
-| operator.resources | object | `{"limits":{"cpu":"","memory":""},"requests":{"cpu":"","memory":""}}` | Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings, and as a consequence, the clusters own defaults will apply. |
+| operator.resources | object | `{"limits":{"cpu":"","memory":""},"requests":{"cpu":"","memory":""}}` | Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings,       and as a consequence, the clusters own defaults will apply. |
 | operator.resources.limits.cpu | string | `""` | CPU resource limit per request |
 | operator.resources.limits.memory | string | `""` | Memory resource limit per request |
 | operator.resources.requests.cpu | string | `""` | CPU resources required per request |
@@ -32,7 +32,7 @@ Helm chart for the USP Core WAAP operator.
 | operator.securityContext.runAsNonRoot | bool | `true` | Indicates that the container must run as a non-root user (defaults to `true`). |
 | operator.securityContext.runAsUser | int | `185` | The UID to run the entrypoint of the container process (defaults to `185`). |
 | operator.serviceAccount | string | `"usp-core-waap-operator"` | Name of service account |
-| operator.version | string | `"2.1.0"` | Version of operator to deploy |
+| operator.version | string | `"latest"` | Version of operator to deploy |
 
 ---
 
