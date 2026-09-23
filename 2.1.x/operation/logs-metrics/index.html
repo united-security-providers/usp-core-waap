@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Logs and Metrics - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/2.1.x/operation/logs-metrics/index.md">
@@ -231,41 +231,80 @@ additional <code>key=value</code> attributes providing context for the message.<
 <p>The bracketed fields are:</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>Field</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>time</code></td>
-        <td>Timestamp of the log event (e.g. <code>2026-01-31 12:00:00.123456</code>).</td>
-      </tr>
-      <tr>
-        <td><code>level</code></td>
-        <td>Log level, e.g. <code>info</code>, <code>warning</code>, <code>error</code>, <code>debug</code>.</td>
-      </tr>
-      <tr>
-        <td><code>worker</code></td>
-        <td>Envoy worker (thread) id.</td>
-      </tr>
-      <tr>
-        <td><code>logger</code></td>
-        <td>Name of the logger that emitted the line.</td>
-      </tr>
-      <tr>
-        <td><code>source</code></td>
-        <td>Source location as <code>file:line</code>.</td>
-      </tr>
-      <tr>
-        <td><code>component</code></td>
-        <td>Core WAAP component that emitted the line (e.g. <code>proxy</code>).</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>The message follows in <code>msg</code>. Depending on the component, additional attributes may be appended as
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>time</code></td>
+      <td>Timestamp of the log event (e.g. <code>2026-01-31 12:00:00.123456</code>).</td>
+    </tr>
+    <tr>
+      <td><code>level</code></td>
+      <td>Log level, e.g. <code>info</code>, <code>warning</code>, <code>error</code>, <code>debug</code>.</td>
+    </tr>
+    <tr>
+      <td><code>worker</code></td>
+      <td>Envoy worker (thread) id.</td>
+    </tr>
+    <tr>
+      <td><code>logger</code></td>
+      <td>Name of the logger that emitted the line.</td>
+    </tr>
+    <tr>
+      <td><code>source</code></td>
+      <td>Source location as <code>file:line</code>.</td>
+    </tr>
+    <tr>
+      <td><code>component</code></td>
+      <td>Core WAAP component that emitted the line (e.g. <code>proxy</code>).</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-0" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-0" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>time</code></td>
+      <td>Timestamp of the log event (e.g. <code>2026-01-31 12:00:00.123456</code>).</td>
+    </tr>
+    <tr>
+      <td><code>level</code></td>
+      <td>Log level, e.g. <code>info</code>, <code>warning</code>, <code>error</code>, <code>debug</code>.</td>
+    </tr>
+    <tr>
+      <td><code>worker</code></td>
+      <td>Envoy worker (thread) id.</td>
+    </tr>
+    <tr>
+      <td><code>logger</code></td>
+      <td>Name of the logger that emitted the line.</td>
+    </tr>
+    <tr>
+      <td><code>source</code></td>
+      <td>Source location as <code>file:line</code>.</td>
+    </tr>
+    <tr>
+      <td><code>component</code></td>
+      <td>Core WAAP component that emitted the line (e.g. <code>proxy</code>).</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>The message follows in <code>msg</code>. Depending on the component, additional attributes may be appended as
 <code>key=value</code> pairs (text format) or as extra fields (JSON format).</p>
 <h3 id="access-logs">Access logs</h3>
 <p>Access log lines describe a single processed HTTP request / response. They are identified by the
@@ -317,204 +356,406 @@ additional <code>key=value</code> attributes providing context for the message.<
 <p>The fields are:</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>Field</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>time</code></td>
-        <td>Start time of the request.</td>
-      </tr>
-      <tr>
-        <td><code>component</code></td>
-        <td>Access log entries always use 'access' as the component value.</td>
-      </tr>
-      <tr>
-        <td><code>request.id</code></td>
-        <td>Request id (<code>X-Request-ID</code> header).</td>
-      </tr>
-      <tr>
-        <td><code>request.protocol</code></td>
-        <td>Request protocol, e.g. <code>HTTP/1.1</code>.</td>
-      </tr>
-      <tr>
-        <td><code>request.method</code></td>
-        <td>HTTP request method.</td>
-      </tr>
-      <tr>
-        <td><code>request.path</code></td>
-        <td>Request path (original path if it was rewritten).</td>
-      </tr>
-      <tr>
-        <td><code>request.total_duration</code></td>
-        <td>Total request duration in milliseconds.</td>
-      </tr>
-      <tr>
-        <td><code>request.body_bytes_received</code></td>
-        <td>Number of request body bytes received.</td>
-      </tr>
-      <tr>
-        <td><code>request.headers.referer</code></td>
-        <td><code>Referer</code> request header.</td>
-      </tr>
-      <tr>
-        <td><code>request.headers.forwarded_proto</code></td>
-        <td><code>X-Forwarded-Proto</code> request header.</td>
-      </tr>
-      <tr>
-        <td><code>request.headers.forwarded_host</code></td>
-        <td><code>X-Forwarded-Host</code> request header.</td>
-      </tr>
-      <tr>
-        <td><code>request.headers.forwarded_for</code></td>
-        <td><code>X-Forwarded-For</code> request header.</td>
-      </tr>
-      <tr>
-        <td><code>request.headers.useragent</code></td>
-        <td><code>User-Agent</code> request header.</td>
-      </tr>
-      <tr>
-        <td><code>response.status</code></td>
-        <td>HTTP response status code.</td>
-      </tr>
-      <tr>
-        <td><code>response.details</code></td>
-        <td>Envoy response code details.</td>
-      </tr>
-      <tr>
-        <td><code>response.flags</code></td>
-        <td>Envoy response flags.</td>
-      </tr>
-      <tr>
-        <td><code>response.body_bytes_sent</code></td>
-        <td>Number of response body bytes sent.</td>
-      </tr>
-      <tr>
-        <td><code>upstream.connection_id</code></td>
-        <td>Downstream connection id.</td>
-      </tr>
-      <tr>
-        <td><code>upstream.duration</code></td>
-        <td>Upstream service time (<code>X-Envoy-Upstream-Service-Time</code> header).</td>
-      </tr>
-      <tr>
-        <td><code>upstream.host</code></td>
-        <td>Upstream host that served the request.</td>
-      </tr>
-      <tr>
-        <td><code>upstream.route</code></td>
-        <td>Name of the matched route.</td>
-      </tr>
-      <tr>
-        <td><code>upstream.cluster</code></td>
-        <td>Upstream cluster that served the request.</td>
-      </tr>
-      <tr>
-        <td><code>upstream.bytes_sent</code></td>
-        <td>Bytes sent to the upstream (on the wire).</td>
-      </tr>
-      <tr>
-        <td><code>upstream.bytes_received</code></td>
-        <td>Bytes received from the upstream (on the wire).</td>
-      </tr>
-      <tr>
-        <td><code>client.id</code></td>
-        <td>Client trace id (<code>X-Client-Trace-ID</code> header).</td>
-      </tr>
-      <tr>
-        <td><code>client.address</code></td>
-        <td>Downstream remote address.</td>
-      </tr>
-      <tr>
-        <td><code>client.local_address</code></td>
-        <td>Downstream local address.</td>
-      </tr>
-      <tr>
-        <td><code>client.direct_address</code></td>
-        <td>Downstream direct remote address.</td>
-      </tr>
-      <tr>
-        <td><code>hostname</code></td>
-        <td>Hostname of the Core WAAP instance.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h2 id="core-waap-filter-metrics">Core WAAP filter metrics</h2>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>time</code></td>
+      <td>Start time of the request.</td>
+    </tr>
+    <tr>
+      <td><code>component</code></td>
+      <td>Access log entries always use 'access' as the component value.</td>
+    </tr>
+    <tr>
+      <td><code>request.id</code></td>
+      <td>Request id (<code>X-Request-ID</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>request.protocol</code></td>
+      <td>Request protocol, e.g. <code>HTTP/1.1</code>.</td>
+    </tr>
+    <tr>
+      <td><code>request.method</code></td>
+      <td>HTTP request method.</td>
+    </tr>
+    <tr>
+      <td><code>request.path</code></td>
+      <td>Request path (original path if it was rewritten).</td>
+    </tr>
+    <tr>
+      <td><code>request.total_duration</code></td>
+      <td>Total request duration in milliseconds.</td>
+    </tr>
+    <tr>
+      <td><code>request.body_bytes_received</code></td>
+      <td>Number of request body bytes received.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.referer</code></td>
+      <td><code>Referer</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_proto</code></td>
+      <td><code>X-Forwarded-Proto</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_host</code></td>
+      <td><code>X-Forwarded-Host</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_for</code></td>
+      <td><code>X-Forwarded-For</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.useragent</code></td>
+      <td><code>User-Agent</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>response.status</code></td>
+      <td>HTTP response status code.</td>
+    </tr>
+    <tr>
+      <td><code>response.details</code></td>
+      <td>Envoy response code details.</td>
+    </tr>
+    <tr>
+      <td><code>response.flags</code></td>
+      <td>Envoy response flags.</td>
+    </tr>
+    <tr>
+      <td><code>response.body_bytes_sent</code></td>
+      <td>Number of response body bytes sent.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.connection_id</code></td>
+      <td>Downstream connection id.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.duration</code></td>
+      <td>Upstream service time (<code>X-Envoy-Upstream-Service-Time</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>upstream.host</code></td>
+      <td>Upstream host that served the request.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.route</code></td>
+      <td>Name of the matched route.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.cluster</code></td>
+      <td>Upstream cluster that served the request.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.bytes_sent</code></td>
+      <td>Bytes sent to the upstream (on the wire).</td>
+    </tr>
+    <tr>
+      <td><code>upstream.bytes_received</code></td>
+      <td>Bytes received from the upstream (on the wire).</td>
+    </tr>
+    <tr>
+      <td><code>client.id</code></td>
+      <td>Client trace id (<code>X-Client-Trace-ID</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>client.address</code></td>
+      <td>Downstream remote address.</td>
+    </tr>
+    <tr>
+      <td><code>client.local_address</code></td>
+      <td>Downstream local address.</td>
+    </tr>
+    <tr>
+      <td><code>client.direct_address</code></td>
+      <td>Downstream direct remote address.</td>
+    </tr>
+    <tr>
+      <td><code>hostname</code></td>
+      <td>Hostname of the Core WAAP instance.</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-1" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-1" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-1" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>time</code></td>
+      <td>Start time of the request.</td>
+    </tr>
+    <tr>
+      <td><code>component</code></td>
+      <td>Access log entries always use 'access' as the component value.</td>
+    </tr>
+    <tr>
+      <td><code>request.id</code></td>
+      <td>Request id (<code>X-Request-ID</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>request.protocol</code></td>
+      <td>Request protocol, e.g. <code>HTTP/1.1</code>.</td>
+    </tr>
+    <tr>
+      <td><code>request.method</code></td>
+      <td>HTTP request method.</td>
+    </tr>
+    <tr>
+      <td><code>request.path</code></td>
+      <td>Request path (original path if it was rewritten).</td>
+    </tr>
+    <tr>
+      <td><code>request.total_duration</code></td>
+      <td>Total request duration in milliseconds.</td>
+    </tr>
+    <tr>
+      <td><code>request.body_bytes_received</code></td>
+      <td>Number of request body bytes received.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.referer</code></td>
+      <td><code>Referer</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_proto</code></td>
+      <td><code>X-Forwarded-Proto</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_host</code></td>
+      <td><code>X-Forwarded-Host</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.forwarded_for</code></td>
+      <td><code>X-Forwarded-For</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>request.headers.useragent</code></td>
+      <td><code>User-Agent</code> request header.</td>
+    </tr>
+    <tr>
+      <td><code>response.status</code></td>
+      <td>HTTP response status code.</td>
+    </tr>
+    <tr>
+      <td><code>response.details</code></td>
+      <td>Envoy response code details.</td>
+    </tr>
+    <tr>
+      <td><code>response.flags</code></td>
+      <td>Envoy response flags.</td>
+    </tr>
+    <tr>
+      <td><code>response.body_bytes_sent</code></td>
+      <td>Number of response body bytes sent.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.connection_id</code></td>
+      <td>Downstream connection id.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.duration</code></td>
+      <td>Upstream service time (<code>X-Envoy-Upstream-Service-Time</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>upstream.host</code></td>
+      <td>Upstream host that served the request.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.route</code></td>
+      <td>Name of the matched route.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.cluster</code></td>
+      <td>Upstream cluster that served the request.</td>
+    </tr>
+    <tr>
+      <td><code>upstream.bytes_sent</code></td>
+      <td>Bytes sent to the upstream (on the wire).</td>
+    </tr>
+    <tr>
+      <td><code>upstream.bytes_received</code></td>
+      <td>Bytes received from the upstream (on the wire).</td>
+    </tr>
+    <tr>
+      <td><code>client.id</code></td>
+      <td>Client trace id (<code>X-Client-Trace-ID</code> header).</td>
+    </tr>
+    <tr>
+      <td><code>client.address</code></td>
+      <td>Downstream remote address.</td>
+    </tr>
+    <tr>
+      <td><code>client.local_address</code></td>
+      <td>Downstream local address.</td>
+    </tr>
+    <tr>
+      <td><code>client.direct_address</code></td>
+      <td>Downstream direct remote address.</td>
+    </tr>
+    <tr>
+      <td><code>hostname</code></td>
+      <td>Hostname of the Core WAAP instance.</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h2 id="core-waap-filter-metrics">Core WAAP filter metrics</h2>
 <p>The following metrics are exposed to help you monitor and observe the behavior of several filters.
 Each metric captures a specific aspect of traffic processing giving you full visibility into both allowed and blocked transactions across all policy layers.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>header_filter_tx_total</code></td>
-        <td>Total number of requests processed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>header_filter_request_headers_removed_total</code></td>
-        <td>Total number of request headers removed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>header_filter_response_headers_removed_total</code></td>
-        <td>Total number of response headers removed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_allowed</code></td>
-        <td>Total number of requests allowed after ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_blocked</code></td>
-        <td>Total number of requests blocked by ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_processing_errors</code></td>
-        <td>Total number of errors encountered during ICAP processing.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_total</code></td>
-        <td>Total number of requests submitted for ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>dos_tx_total</code></td>
-        <td>Total number of requests evaluated by the DoS protection policy.</td>
-      </tr>
-      <tr>
-        <td><code>dos_blocked_tx_total</code></td>
-        <td>Total number of requests blocked by the DoS protection policy.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_allowed</code></td>
-        <td>Total number of requests allowed after OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_blocked</code></td>
-        <td>Total number of requests blocked by OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_responses_tx_allowed</code></td>
-        <td>Total number of responses allowed after OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_responses_tx_blocked</code></td>
-        <td>Total number of responses blocked by OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_total</code></td>
-        <td>Total number of requests evaluated against the OpenAPI schema.</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>header_filter_tx_total</code></td>
+      <td>Total number of requests processed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_request_headers_removed_total</code></td>
+      <td>Total number of request headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_response_headers_removed_total</code></td>
+      <td>Total number of response headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_allowed</code></td>
+      <td>Total number of requests allowed after ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_blocked</code></td>
+      <td>Total number of requests blocked by ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_processing_errors</code></td>
+      <td>Total number of errors encountered during ICAP processing.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_total</code></td>
+      <td>Total number of requests submitted for ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>dos_tx_total</code></td>
+      <td>Total number of requests evaluated by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>dos_blocked_tx_total</code></td>
+      <td>Total number of requests blocked by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_allowed</code></td>
+      <td>Total number of requests allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_blocked</code></td>
+      <td>Total number of requests blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_allowed</code></td>
+      <td>Total number of responses allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_blocked</code></td>
+      <td>Total number of responses blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_total</code></td>
+      <td>Total number of requests evaluated against the OpenAPI schema.</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-2" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-2" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-2" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>header_filter_tx_total</code></td>
+      <td>Total number of requests processed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_request_headers_removed_total</code></td>
+      <td>Total number of request headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_response_headers_removed_total</code></td>
+      <td>Total number of response headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_allowed</code></td>
+      <td>Total number of requests allowed after ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_blocked</code></td>
+      <td>Total number of requests blocked by ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_processing_errors</code></td>
+      <td>Total number of errors encountered during ICAP processing.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_total</code></td>
+      <td>Total number of requests submitted for ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>dos_tx_total</code></td>
+      <td>Total number of requests evaluated by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>dos_blocked_tx_total</code></td>
+      <td>Total number of requests blocked by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_allowed</code></td>
+      <td>Total number of requests allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_blocked</code></td>
+      <td>Total number of requests blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_allowed</code></td>
+      <td>Total number of responses allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_blocked</code></td>
+      <td>Total number of responses blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_total</code></td>
+      <td>Total number of requests evaluated against the OpenAPI schema.</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
 </div>
-
 
         </article>
       </main>

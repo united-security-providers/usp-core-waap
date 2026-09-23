@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Getting Started - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/getting-started/index.md">
@@ -226,10 +226,10 @@
   <h1 id="getting-started">Getting Started</h1>
 <p>This guide walks you through a minimal end-to-end setup: install the <strong>USP Core WAAP operator</strong> into a Kubernetes
 cluster and protect an example backend application — the intentionally vulnerable
-<a href="https://owasp.org/www-project-juice-shop/">OWASP Juice Shop</a>
+<a href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener">OWASP Juice Shop</a>
  — with a <code>CoreWaapService</code> custom resource.</p>
 <p>If you prefer a fully prepared, browser-based environment, you can also follow the
-<a href="https://killercoda.com/united-security-providers">Killercoda Core WAAP scenarios</a>
+<a href="https://killercoda.com/united-security-providers" target="_blank" rel="noopener">Killercoda Core WAAP scenarios</a>
  instead.</p>
 <div class="usp-admonition usp-admonition--hint">
     <p class="usp-admonition__title">Hint</p>
@@ -238,10 +238,10 @@ cluster and protect an example backend application — the intentionally vulnera
 <p>Before you start, make sure you have:</p>
 <ul>
 <li>A running Kubernetes cluster (e.g. <code>kind</code>, <code>minikube</code>, or a managed cluster) and <code>kubectl</code> configured to access it.</li>
-<li><a href="https://helm.sh/docs/intro/install/">Helm 3</a>
+<li><a href="https://helm.sh/docs/intro/install/" target="_blank" rel="noopener">Helm 3</a>
  installed locally.</li>
 <li>Pull credentials for the USP container registry (<code>uspregistry.azurecr.io</code>). If you do not yet have one,
-<a href="https://www.united-security-providers.ch/technology/application-security/web-application-api-protection-waap/#more">get in touch with us</a>
+<a href="https://www.united-security-providers.ch/technology/application-security/web-application-api-protection-waap/#more" target="_blank" rel="noopener">get in touch with us</a>
 .</li>
 </ul>
 <div class="usp-admonition usp-admonition--hint">
@@ -259,7 +259,7 @@ from USP:</p>
 <h2 id="3-create-pull-secret-for-operator-installation">3. Create Pull secret for operator installation</h2>
 <p>To install the operator from our registry, you need to setup a pull secret.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"> kubectl -n usp-core-waap-operator create secret docker-registry uspregistry --docker-server<span class="o">=</span>uspregistry.azurecr.io --docker-username<span class="o">=</span>&lt;your-username&gt; --docker-password<span class="o">=</span>&lt;your-password&gt;</span></span></code></pre></div>
-<p>For other ways how to create such a secret see <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">Kubernetes.io - Pull an Image from a Private Registry</a>
+<p>For other ways how to create such a secret see <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/" target="_blank" rel="noopener">Kubernetes.io - Pull an Image from a Private Registry</a>
 </p>
 <h2 id="4-install-the-usp-core-waap-operator">4. Install the USP Core WAAP operator</h2>
 <p>To use the created pull secret you need to create a local helm values file:</p>
@@ -352,7 +352,7 @@ protected</strong> by USP Core WAAP.</p>
 </span></span></span><span class="line"><span class="cl"><span class="l">EOL</span></span></span></code></pre></div>
 <div class="usp-admonition usp-admonition--note">
     <p class="usp-admonition__title">Note</p>
-    <p>This example raises the default <a href="https://coreruleset.org/docs/2-how-crs-works/2-2-paranoia_levels/">Paranoia Level</a>
+    <p>This example raises the default <a href="https://coreruleset.org/docs/2-how-crs-works/2-2-paranoia_levels/" target="_blank" rel="noopener">Paranoia Level</a>
 
 from 1 to 2 and adds a
 <a href="/usp-core-waap/latest/configuration/crd-doc/#corewaapservicespeccorazacrsrequestruleexceptionsindex">requestRuleException</a>
@@ -400,7 +400,7 @@ logs:</p>
 .</li>
 <li>Learn about <a href="/usp-core-waap/latest/operation/logs-metrics/">logs and metrics</a>
  for day-2 operations.</li>
-<li>Try the hands-on <a href="https://killercoda.com/united-security-providers">Killercoda scenarios</a>
+<li>Try the hands-on <a href="https://killercoda.com/united-security-providers" target="_blank" rel="noopener">Killercoda scenarios</a>
  for guided exercises.</li>
 </ul>
 

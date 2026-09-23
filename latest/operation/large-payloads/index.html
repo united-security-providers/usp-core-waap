@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Large Payloads - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/operation/large-payloads/index.md">
@@ -289,9 +289,9 @@
 </nav>
 <article class="usp-prose" data-pagefind-filter="docset:latest">
   <h1 id="handling-large-request-and-response-payloads-with-owasp-crs-attack-detection">Handling large request and response payloads with OWASP CRS attack detection</h1>
-<p>In USP Core WAAP, <a href="https://owasp.org/www-project-modsecurity-core-rule-set">OWASP CRS</a>
- attack detection and prevention capabilities, as well as GraphQL protection, are provided by the <a href="https://coraza.io">Coraza Web Application Firewall (WAF)</a>
-. This WAF is deployed as an <a href="https://github.com/united-security-providers/coraza-envoy-go-filter">Envoy Golang Filter</a>
+<p>In USP Core WAAP, <a href="https://owasp.org/www-project-modsecurity-core-rule-set" target="_blank" rel="noopener">OWASP CRS</a>
+ attack detection and prevention capabilities, as well as GraphQL protection, are provided by the <a href="https://coraza.io" target="_blank" rel="noopener">Coraza Web Application Firewall (WAF)</a>
+. This WAF is deployed as an <a href="https://github.com/united-security-providers/coraza-envoy-go-filter" target="_blank" rel="noopener">Envoy Golang Filter</a>
  (with an additional, proprietary plugin for GraphQL) which, contingent on its specific configuration, necessitates data buffering to perform thorough analysis of requests and responses for potential attack vectors.</p>
 <p>For the WAF to effectively inspect substantial data volumes, including extensive request bodies and large file uploads, precise configuration is paramount. Misconfigured limits can result in the erroneous blocking of legitimate requests, whereas excessively high thresholds can cause significant memory overhead, elevated CPU utilization, and a heightened risk of performance bottlenecks or denial-of-service (DoS) vulnerabilities. The same considerations apply to handling responses with large bodies.</p>
 <p>Optimizing WAF settings is crucial to maintain both security efficacy and system stability.</p>
@@ -299,7 +299,7 @@
 <p>Core WAAP applies payload limits at three distinct levels. They are complementary and serve different purposes, so it is important to understand which one applies to a given situation and how they interact:</p>
 <ol>
 <li>
-<p><strong>Core WAAP proxy connection buffer limit</strong> <em>(applies to requests and responses)</em>: the outermost limit. It is configured through <code>spec.operation.bufferLimitBytes</code> and is rendered as Envoy's <a href="https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/listener/v3/listener.proto"><code>perConnectionBufferLimitBytes</code></a>
+<p><strong>Core WAAP proxy connection buffer limit</strong> <em>(applies to requests and responses)</em>: the outermost limit. It is configured through <code>spec.operation.bufferLimitBytes</code> and is rendered as Envoy's <a href="https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/listener/v3/listener.proto" target="_blank" rel="noopener"><code>perConnectionBufferLimitBytes</code></a>
  on the listener. This is a <em>soft limit</em> (a high-watermark) on the size of the connection's read and write buffers, used for flow control and backpressure; it is <strong>not</strong> in itself a hard request-size limit. For payloads that stream straight through, exceeding it merely applies backpressure (Core WAAP proxy pauses reading until the buffer drains). It becomes a hard ceiling only for filters that must buffer the <em>full</em> body before they can act, such as the WAF body inspection or OpenAPI request body validation: a buffered <strong>request</strong> body that exceeds the limit is rejected with a 413 (Payload Too Large), and a buffered <strong>response</strong> body that exceeds it fails with a 500 (Internal Server Error). The default is 1 MiB. Because every buffering filter is bounded by this limit, it effectively bounds the two levels below it: the WAF can never scan more of a body than fits within this buffer. It is described in <a href="#corewaapservicespecoperationbufferlimitbytes"><code>CoreWaapService.spec.operation.bufferLimitBytes</code></a>
  below.</p>
 </li>
@@ -430,463 +430,946 @@
 <p>In the following use case, both scanning of requests and responses is disabled. For illustrative purposes, the default buffer size limit is reduced to 1024 bytes.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.operation.bufferLimitBytes</td>
-        <td>1024</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>When either the request or response payload exceed the 1024 byte buffer limit, the transaction still proceeds successfully as the WAF is not configured to access any data. Core WAAP processes the large payloads by streaming them directly between the client and the backend, without attempting to hold the entire body in memory, thus avoiding any size-based limitations that would otherwise apply if accessing were enabled.</p>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>1024</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-0" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-0" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>1024</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>When either the request or response payload exceed the 1024 byte buffer limit, the transaction still proceeds successfully as the WAF is not configured to access any data. Core WAAP processes the large payloads by streaming them directly between the client and the backend, without attempting to hold the entire body in memory, thus avoiding any size-based limitations that would otherwise apply if accessing were enabled.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>request payload</th>
-        <th>response payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
-        <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
-        <td>200 OK</td>
-        <td>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
-        <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
-        <td>200 OK</td>
-        <td>• payload size is not limited as no buffering needed</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h3 id="request-inspection-with-partial-processing-mode">Request inspection with partial processing mode</h3>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• payload size is not limited as no buffering needed</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-1" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-1" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-1" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td><code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• payload size is not limited as no buffering needed</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h3 id="request-inspection-with-partial-processing-mode">Request inspection with partial processing mode</h3>
 <p>In the next use case, scanning of up to 1024 bytes is enabled, with a maximum allowable payload size of 10 KB. The “<em>SecRequestBodyLimitAction</em>” option is set to “<em>ProcessPartial</em>” by default. Response scanning is deactivated.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.operation.bufferLimitBytes</td>
-        <td>10240</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyAccess</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitKb</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitAction</td>
-        <td>ProcessPartial (default)</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>With these configurations options provided, the WAF is configured to partially inspect request payloads, scanning only the first 1024 bytes for threats. While it blocks any malicious requests found within that initial section, larger payloads are forwarded to the backend without scanning the rest of the content. Any threat located beyond the first 1024 bytes is missed. The WAF rejects any request that exceeds the overall 10 KB buffer limit.</p>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitAction</td>
+      <td>ProcessPartial (default)</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-2" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-2" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-2" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitAction</td>
+      <td>ProcessPartial (default)</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>With these configurations options provided, the WAF is configured to partially inspect request payloads, scanning only the first 1024 bytes for threats. While it blocks any malicious requests found within that initial section, larger payloads are forwarded to the backend without scanning the rest of the content. Any threat located beyond the first 1024 bytes is missed. The WAF rejects any request that exceeds the overall 10 KB buffer limit.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>request payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
-        <td>200 OK</td>
-        <td>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
-        <td>200 OK</td>
-        <td>• ProcessPartial does not reject </br>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
-        <td>413 Payload Too Large</td>
-        <td>• insufficient buffer capacity to fully store the incoming request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb bytes</code></td>
-        <td>403 Forbidden</td>
-        <td>• backend receives no request payload </br>• malicious content found within first 1024 bytes</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious after spec.coraza.requestBodyLimitKb bytes</code></td>
-        <td>200 OK</td>
-        <td>• only first 1024 bytes are scanned </br>• backend receives full request payload</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h3 id="request-inspection-with-reject-processing-mode">Request inspection with reject processing mode</h3>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• ProcessPartial does not reject </br>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• insufficient buffer capacity to fully store the incoming request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb bytes</code></td>
+      <td>403 Forbidden</td>
+      <td>• backend receives no request payload </br>• malicious content found within first 1024 bytes</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious after spec.coraza.requestBodyLimitKb bytes</code></td>
+      <td>200 OK</td>
+      <td>• only first 1024 bytes are scanned </br>• backend receives full request payload</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-3" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-3" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-3" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• ProcessPartial does not reject </br>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• insufficient buffer capacity to fully store the incoming request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb bytes</code></td>
+      <td>403 Forbidden</td>
+      <td>• backend receives no request payload </br>• malicious content found within first 1024 bytes</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious after spec.coraza.requestBodyLimitKb bytes</code></td>
+      <td>200 OK</td>
+      <td>• only first 1024 bytes are scanned </br>• backend receives full request payload</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h3 id="request-inspection-with-reject-processing-mode">Request inspection with reject processing mode</h3>
 <p>The following use case is similar to the previous one, with the difference that the action for requests whose payload exceeds the WAF body limit is set to <em>Reject</em>.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.operation.bufferLimitBytes</td>
-        <td>10240</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyAccess</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitKb</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitAction</td>
-        <td>Reject</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content within this limit, it is immediately blocked with a 403 Forbidden error. Any request with a payload exceeding the 1 KB request body limit will be rejected with a 413 Payload Too Large error.</p>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitAction</td>
+      <td>Reject</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-4" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-4" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-4" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitAction</td>
+      <td>Reject</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>With these configurations, the WAF is set to perform strict inspection on request payloads up to a 1 KB limit. If a request payload is within this limit and is free of malicious content, it is successfully forwarded to the backend. However, if a request payload is found to contain malicious content within this limit, it is immediately blocked with a 403 Forbidden error. Any request with a payload exceeding the 1 KB request body limit will be rejected with a 413 Payload Too Large error.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>request payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
-        <td>200 OK</td>
-        <td>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code></td>
-        <td>413 Payload Too Large</td>
-        <td>• request is rejected as limit of <em>spec.coraza.requestBodyLimitKb</em> is exceeded</td>
-      </tr>
-      <tr>
-        <td><code>payload &lt; spec.coraza.requestBodyLimitKb</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb</code></td>
-        <td>403 Forbidden</td>
-        <td>• backend receives no request payload </br>• malicious content found</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.operation.bufferLimitBytes</code></br>and</br><code>payload contains malicious content after spec.coraza.requestBodyLimitKb</code></td>
-        <td>413 Payload Too Large</td>
-        <td>• insufficient buffer capacity to fully store the incoming request payload and to detect the malicious content</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h3 id="response-inspection-with-partial-processing-mode">Response inspection with partial processing mode</h3>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• request is rejected as limit of <em>spec.coraza.requestBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &lt; spec.coraza.requestBodyLimitKb</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb</code></td>
+      <td>403 Forbidden</td>
+      <td>• backend receives no request payload </br>• malicious content found</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></br>and</br><code>payload contains malicious content after spec.coraza.requestBodyLimitKb</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• insufficient buffer capacity to fully store the incoming request payload and to detect the malicious content</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-5" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-5" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-5" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.requestBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.requestBodyLimitKb</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• request is rejected as limit of <em>spec.coraza.requestBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &lt; spec.coraza.requestBodyLimitKb</code> </br>and</br><code>payload contains malicious content within spec.coraza.requestBodyLimitKb</code></td>
+      <td>403 Forbidden</td>
+      <td>• backend receives no request payload </br>• malicious content found</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></br>and</br><code>payload contains malicious content after spec.coraza.requestBodyLimitKb</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• insufficient buffer capacity to fully store the incoming request payload and to detect the malicious content</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h3 id="response-inspection-with-partial-processing-mode">Response inspection with partial processing mode</h3>
 <p>The next use case deals exclusively with response inspection and is subject to the same restrictions as the previous cases for scanning requests.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.operation.bufferLimitBytes</td>
-        <td>10240</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyAccess</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.crs.enabledResponseRules</td>
-        <td>- RESPONSE_950_DATA_LEAKAGES</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitKb</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitAction</td>
-        <td>ProcessPartial (default)</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="usp-table">
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.crs.enabledResponseRules</td>
+      <td>- RESPONSE_950_DATA_LEAKAGES</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitAction</td>
+      <td>ProcessPartial (default)</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-6" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-6" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-6" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.crs.enabledResponseRules</td>
+      <td>- RESPONSE_950_DATA_LEAKAGES</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitAction</td>
+      <td>ProcessPartial (default)</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>response payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
-        <td>200 OK</td>
-        <td>• client receives full response payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &lt; spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
-        <td>403 Forbidden</td>
-        <td>• malicious content found within first 1024 bytes</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
-        <td>200 OK</td>
-        <td>• ProcessPartial does not reject </br>• client receives full response payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
-        <td>500 Internal Server Error</td>
-        <td>• insufficient buffer capacity to fully store the outgoing response payload</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>The WAF scans the first 1024 bytes of any response for malicious content. If a response is within this 1 KB limit and is safe, it's passed on to the client. Similarly, for larger responses up to the 10 KB buffer limit, the WAF scans the initial 1 KB and, finding no threats, allows the entire response to pass through. If malicious content is found within that initial 1 KB section, the WAF blocks the response and returns a 403 Forbidden error to the client. Any response payload exceeding the overall 10 KB buffer limit causes the WAF to abort, resulting in a 500 Internal Server Error.</p>
+  <thead>
+    <tr>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &lt; spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>403 Forbidden</td>
+      <td>• malicious content found within first 1024 bytes</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• ProcessPartial does not reject </br>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• insufficient buffer capacity to fully store the outgoing response payload</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-7" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-7" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-7" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &lt; spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>403 Forbidden</td>
+      <td>• malicious content found within first 1024 bytes</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>200 OK</td>
+      <td>• ProcessPartial does not reject </br>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.operation.bufferLimitBytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• insufficient buffer capacity to fully store the outgoing response payload</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>The WAF scans the first 1024 bytes of any response for malicious content. If a response is within this 1 KB limit and is safe, it's passed on to the client. Similarly, for larger responses up to the 10 KB buffer limit, the WAF scans the initial 1 KB and, finding no threats, allows the entire response to pass through. If malicious content is found within that initial 1 KB section, the WAF blocks the response and returns a 403 Forbidden error to the client. Any response payload exceeding the overall 10 KB buffer limit causes the WAF to abort, resulting in a 500 Internal Server Error.</p>
 <h3 id="response-inspection-with-reject-processing-mode">Response inspection with reject processing mode</h3>
 <p>And finally, the use case for response inspection with action <em>Reject</em> for oversized response data.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.operation.bufferLimitBytes</td>
-        <td>10240</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyAccess</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.requestBodyLimitKb</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyAccess</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.crs.enabledResponseRules</td>
-        <td>- RESPONSE_950_DATA_LEAKAGES</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitKb</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td>spec.coraza.responseBodyLimitAction</td>
-        <td>Reject</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>If a response is under the 1 KB limit and is found to be clean, it's delivered to the client without issue. However, if a response exceeds this limit, the WAF immediately rejects it with a 500 Internal Server Error. The WAF won't process or allow any response larger than its 1 KB inspection size, regardless of whether it contains malicious content or not.</p>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.crs.enabledResponseRules</td>
+      <td>- RESPONSE_950_DATA_LEAKAGES</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitAction</td>
+      <td>Reject</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-8" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-8" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-8" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.operation.bufferLimitBytes</td>
+      <td>10240</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyAccess</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.requestBodyLimitKb</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyAccess</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.crs.enabledResponseRules</td>
+      <td>- RESPONSE_950_DATA_LEAKAGES</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitKb</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>spec.coraza.responseBodyLimitAction</td>
+      <td>Reject</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><p>If a response is under the 1 KB limit and is found to be clean, it's delivered to the client without issue. However, if a response exceeds this limit, the WAF immediately rejects it with a 500 Internal Server Error. The WAF won't process or allow any response larger than its 1 KB inspection size, regardless of whether it contains malicious content or not.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>response payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
-        <td>200 OK</td>
-        <td>• client receives full response payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
-        <td>500 Internal Server Error</td>
-        <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
-        <td>500 Internal Server Error</td>
-        <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content after spec.coraza.responseBodyLimitKb bytes</code></td>
-        <td>500 Internal Server Error</td>
-        <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h3 id="route-level-request-size-enforcement-with-reject-behaviour">Route-level request size enforcement with reject behaviour</h3>
+  <thead>
+    <tr>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content after spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-9" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-9" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-9" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>response payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= spec.coraza.responseBodyLimitKb</code></td>
+      <td>200 OK</td>
+      <td>• client receives full response payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content within spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; spec.coraza.responseBodyLimitKb</code> </br>and</br> <code>payload &lt;= spec.operation.bufferLimitBytes</code> </br>and</br><code>payload contains malicious content after spec.coraza.responseBodyLimitKb bytes</code></td>
+      <td>500 Internal Server Error</td>
+      <td>• request is rejected as limit of <em>spec.coraza.responseBodyLimitKb</em> is exceeded</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h3 id="route-level-request-size-enforcement-with-reject-behaviour">Route-level request size enforcement with reject behaviour</h3>
 <p>This use case uses route-level request size enforcement to cap the request body at 2048 bytes, rejecting oversized requests with a 413 status code. It is independent of the WAF settings shown above.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
-        <td>2048</td>
-      </tr>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
-        <td>413</td>
-      </tr>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
-        <td>REJECT</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="usp-table">
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
+      <td>2048</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
+      <td>413</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
+      <td>REJECT</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-10" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-10" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-10" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
+      <td>2048</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
+      <td>413</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
+      <td>REJECT</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>request payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= maxSize</code></td>
-        <td>200 OK</td>
-        <td>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; maxSize</code></td>
-        <td>413 Payload Too Large</td>
-        <td>• request is rejected with the configured <em>maxSizeStatusCode</em></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<h3 id="route-level-request-size-enforcement-with-detect-behaviour">Route-level request size enforcement with detect behaviour</h3>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= maxSize</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; maxSize</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• request is rejected with the configured <em>maxSizeStatusCode</em></td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-11" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-11" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-11" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= maxSize</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; maxSize</code></td>
+      <td>413 Payload Too Large</td>
+      <td>• request is rejected with the configured <em>maxSizeStatusCode</em></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h3 id="route-level-request-size-enforcement-with-detect-behaviour">Route-level request size enforcement with detect behaviour</h3>
 <p>The same limit configured with <em>limitBehaviour</em> set to <em>DETECT</em>. Oversized requests are not blocked but are logged, which is useful for sizing the limit against real traffic before enforcing it.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th><strong>Setting</strong></th>
-        <th><strong>Value</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
-        <td>2048</td>
-      </tr>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
-        <td>413</td>
-      </tr>
-      <tr>
-        <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
-        <td>DETECT</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="usp-table">
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
+      <td>2048</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
+      <td>413</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
+      <td>DETECT</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-12" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-12" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-12" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th><strong>Setting</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSize</td>
+      <td>2048</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.body.maxSizeStatusCode</td>
+      <td>413</td>
+    </tr>
+    <tr>
+      <td>spec.routes[].sizeEnforcement.request.limitBehaviour</td>
+      <td>DETECT</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>request payload</th>
-        <th>HTTP status code</th>
-        <th>result/explanation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>payload &lt;= maxSize</code></td>
-        <td>200 OK</td>
-        <td>• backend receives full request payload</td>
-      </tr>
-      <tr>
-        <td><code>payload &gt; maxSize</code></td>
-        <td>200 OK</td>
-        <td>• request is not blocked </br>• backend receives full request payload </br>• limit violation is written to the log</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= maxSize</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; maxSize</code></td>
+      <td>200 OK</td>
+      <td>• request is not blocked </br>• backend receives full request payload </br>• limit violation is written to the log</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-13" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-13" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-13" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>request payload</th>
+      <th>HTTP status code</th>
+      <th>result/explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>payload &lt;= maxSize</code></td>
+      <td>200 OK</td>
+      <td>• backend receives full request payload</td>
+    </tr>
+    <tr>
+      <td><code>payload &gt; maxSize</code></td>
+      <td>200 OK</td>
+      <td>• request is not blocked </br>• backend receives full request payload </br>• limit violation is written to the log</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
 </div>
-
 
         </article>
       </main>

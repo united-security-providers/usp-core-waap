@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Logs and Metrics - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/2.0.x/operation/logs-metrics/index.md">
@@ -208,73 +208,144 @@ CRD (see <a href="/usp-core-waap/2.0.x/configuration/crd-doc/#corewaapservicespe
 Each metric captures a specific aspect of traffic processing giving you full visibility into both allowed and blocked transactions across all policy layers.</p>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>header_filter_tx_total</code></td>
-        <td>Total number of requests processed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>header_filter_request_headers_removed_total</code></td>
-        <td>Total number of request headers removed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>header_filter_response_headers_removed_total</code></td>
-        <td>Total number of response headers removed by the header filter.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_allowed</code></td>
-        <td>Total number of requests allowed after ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_blocked</code></td>
-        <td>Total number of requests blocked by ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_processing_errors</code></td>
-        <td>Total number of errors encountered during ICAP processing.</td>
-      </tr>
-      <tr>
-        <td><code>icap_tx_total</code></td>
-        <td>Total number of requests submitted for ICAP inspection.</td>
-      </tr>
-      <tr>
-        <td><code>dos_tx_total</code></td>
-        <td>Total number of requests evaluated by the DoS protection policy.</td>
-      </tr>
-      <tr>
-        <td><code>dos_blocked_tx_total</code></td>
-        <td>Total number of requests blocked by the DoS protection policy.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_allowed</code></td>
-        <td>Total number of requests allowed after OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_blocked</code></td>
-        <td>Total number of requests blocked by OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_responses_tx_allowed</code></td>
-        <td>Total number of responses allowed after OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_responses_tx_blocked</code></td>
-        <td>Total number of responses blocked by OpenAPI schema validation.</td>
-      </tr>
-      <tr>
-        <td><code>openapi_tx_total</code></td>
-        <td>Total number of requests evaluated against the OpenAPI schema.</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>header_filter_tx_total</code></td>
+      <td>Total number of requests processed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_request_headers_removed_total</code></td>
+      <td>Total number of request headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_response_headers_removed_total</code></td>
+      <td>Total number of response headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_allowed</code></td>
+      <td>Total number of requests allowed after ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_blocked</code></td>
+      <td>Total number of requests blocked by ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_processing_errors</code></td>
+      <td>Total number of errors encountered during ICAP processing.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_total</code></td>
+      <td>Total number of requests submitted for ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>dos_tx_total</code></td>
+      <td>Total number of requests evaluated by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>dos_blocked_tx_total</code></td>
+      <td>Total number of requests blocked by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_allowed</code></td>
+      <td>Total number of requests allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_blocked</code></td>
+      <td>Total number of requests blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_allowed</code></td>
+      <td>Total number of responses allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_blocked</code></td>
+      <td>Total number of responses blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_total</code></td>
+      <td>Total number of requests evaluated against the OpenAPI schema.</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-0" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-0" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>header_filter_tx_total</code></td>
+      <td>Total number of requests processed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_request_headers_removed_total</code></td>
+      <td>Total number of request headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>header_filter_response_headers_removed_total</code></td>
+      <td>Total number of response headers removed by the header filter.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_allowed</code></td>
+      <td>Total number of requests allowed after ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_blocked</code></td>
+      <td>Total number of requests blocked by ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_processing_errors</code></td>
+      <td>Total number of errors encountered during ICAP processing.</td>
+    </tr>
+    <tr>
+      <td><code>icap_tx_total</code></td>
+      <td>Total number of requests submitted for ICAP inspection.</td>
+    </tr>
+    <tr>
+      <td><code>dos_tx_total</code></td>
+      <td>Total number of requests evaluated by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>dos_blocked_tx_total</code></td>
+      <td>Total number of requests blocked by the DoS protection policy.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_allowed</code></td>
+      <td>Total number of requests allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_blocked</code></td>
+      <td>Total number of requests blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_allowed</code></td>
+      <td>Total number of responses allowed after OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_responses_tx_blocked</code></td>
+      <td>Total number of responses blocked by OpenAPI schema validation.</td>
+    </tr>
+    <tr>
+      <td><code>openapi_tx_total</code></td>
+      <td>Total number of requests evaluated against the OpenAPI schema.</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
 </div>
-
 
         </article>
       </main>

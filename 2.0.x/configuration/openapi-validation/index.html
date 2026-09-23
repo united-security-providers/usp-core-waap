@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>OpenAPI Validation - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/2.0.x/configuration/openapi-validation/index.md">
@@ -210,7 +210,7 @@
 <p>Because APIs are like doorways between different software systems, they can potentially be exploited if not well-secured. Ensuring API security means safeguarding the data that flows through these connections. In today's interconnected world, a breach in one system could cascade into others. By securing APIs, businesses protect against data breaches, unauthorized access, and other cyber threats, forming a critical layer in a comprehensive defense strategy.</p>
 <h2 id="open-api-schema-validation">Open API Schema Validation</h2>
 <p>Open API schema validation ensures that the API adheres to a predefined structure. This means it checks if the data being sent or received is in the correct format and follows the rules set out in the schema. It's like having a gatekeeper that only allows the right kind of data through. This reduces the risk of injecting harmful or invalid data, which could potentially exploit vulnerabilities or cause the system to behave unexpectedly. Validating API payload is a crucial element in security in depth for APIs. In essence, it helps to maintain the integrity and security of the API.</p>
-<p>Core WAAP has an ability to validate incoming requests and outgoing responses against the <a href="https://www.openapis.org/">OpenAPI Specification schema</a>
+<p>Core WAAP has an ability to validate incoming requests and outgoing responses against the <a href="https://www.openapis.org/" target="_blank" rel="noopener">OpenAPI Specification schema</a>
 .</p>
 <p>The OpenAPI Specification (OAS) defines a standard, programming language-agnostic interface description for HTTP APIs, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code, additional documentation, or inspection of network traffic. Core WAAP OAS schema validation can be activated selectively for API requests and response. If a request/response is not compliant to the schema, the transaction is blocked with a status <code>400 Bad Request</code>.</p>
 <p>Currently supported levels of the specification are OpenAPI 3.0 and 3.1.</p>

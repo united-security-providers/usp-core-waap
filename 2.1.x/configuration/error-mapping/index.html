@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Error Mapping - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/2.1.x/configuration/error-mapping/index.md">
@@ -200,7 +200,11 @@
   <h1 id="error-mapping">Error Mapping</h1>
 <p>The main purpose of error mapping is to hide internals of the web application backend from potential attackers who could otherwise gather information about vulnerabilities. HTML error status codes (e.g. 403, 500) can be mapped to generic error pages. The error pages can be enriched with meta information like request-id, timestamp etc. to ease analysis for support staff. Furthermore the companies corporate design can easily be applied on such error pages across different backends.</p>
 <p>Example of an error page:</p>
-<p><img src="/usp-core-waap/2.1.x/assets/images/error-page-usp-404.jpg" alt="Sample 404 Error Page">
+<p><button type="button" class="usp-zoomable" popovertarget="usp-zoom-image-0" aria-label="Expand image"><img src="/usp-core-waap/2.1.x/assets/images/error-page-usp-404.jpg" alt="Sample 404 Error Page"></button>
+<span id="usp-zoom-image-0" class="usp-lightbox" popover data-pagefind-ignore>
+  <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-image-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+  <img class="usp-lightbox__image" src="/usp-core-waap/2.1.x/assets/images/error-page-usp-404.jpg" alt="Sample 404 Error Page" loading="lazy">
+</span>
 </p>
 <h2 id="html-error-page-for-all-4xx-errors-with-style-and-logo">HTML error page for all 4xx errors with style and logo</h2>
 <p>A simple HTML error page with some info about the request is configured as follows.</p>
@@ -230,7 +234,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        &lt;p&gt;Request ID: %REQ(X-REQUEST-ID)%&lt;/p&gt;
 </span></span></span><span class="line"><span class="cl"><span class="sd">      &lt;/body&gt;
 </span></span></span><span class="line"><span class="cl"><span class="sd">    &lt;/html&gt;</span></span></span></code></pre></div>
-<p>Note that you could use any of the <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage">Envoy &quot;%...%&quot; variables</a>
+<p>Note that you could use any of the <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage" target="_blank" rel="noopener">Envoy &quot;%...%&quot; variables</a>
  in the error page.</p>
 <p>As described in the <a href="/usp-core-waap/2.1.x/configuration/crd-doc/#corewaapservicespecwebresources">API Reference</a>
  it is actually possible to directly serve other static files directly from Core WAAP. Anyhow, since Core WAAP is not a web server, there are strict size limitations. Therefore it is recommended to serve static files like JavaScript, CSS or images from a different web server and only reference them in HTML in Core WAAP. In order to avoid dependency to existing backend server for serving such static resources, one possible approach is to set up a dedicated pod to serve only such content. This is beyond the scope of this documentation. If the required static resources (e.g a CSS like w3.css) are publicly available over a CDN, they can also directly be fetched on browser side.</p>

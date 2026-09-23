@@ -7,7 +7,7 @@
     <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
     <link rel="icon" href="/usp-core-waap/favicon.ico">
     <title>Helm Chart Values - USP Core WAAP documentation</title>
-    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.ca38f5293b40da5a5e772d8bd4aeb7e7a79b196eac08ff4b5b50e2573c3ac5c1.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
     <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
     <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/operation/helm/values/index.md">
@@ -194,148 +194,297 @@
 </nav>
 <article class="usp-prose" data-pagefind-filter="docset:latest">
   <h1 id="usp-core-waap-operator">usp-core-waap-operator</h1>
-<p><img src="https://img.shields.io/badge/Version-latest-informational?style=flat-square" alt="Version: latest">
- <img src="https://img.shields.io/badge/Type-application-informational?style=flat-square" alt="Type: application">
- <img src="https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square" alt="AppVersion: latest">
+<p><button type="button" class="usp-zoomable" popovertarget="usp-zoom-image-0" aria-label="Expand image"><img src="https://img.shields.io/badge/Version-latest-informational?style=flat-square" alt="Version: latest"></button>
+<span id="usp-zoom-image-0" class="usp-lightbox" popover data-pagefind-ignore>
+  <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-image-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+  <img class="usp-lightbox__image" src="https://img.shields.io/badge/Version-latest-informational?style=flat-square" alt="Version: latest" loading="lazy">
+</span>
+ <button type="button" class="usp-zoomable" popovertarget="usp-zoom-image-1" aria-label="Expand image"><img src="https://img.shields.io/badge/Type-application-informational?style=flat-square" alt="Type: application"></button>
+<span id="usp-zoom-image-1" class="usp-lightbox" popover data-pagefind-ignore>
+  <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-image-1" popovertargetaction="hide" aria-label="Close">&times;</button>
+  <img class="usp-lightbox__image" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" alt="Type: application" loading="lazy">
+</span>
+ <button type="button" class="usp-zoomable" popovertarget="usp-zoom-image-2" aria-label="Expand image"><img src="https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square" alt="AppVersion: latest"></button>
+<span id="usp-zoom-image-2" class="usp-lightbox" popover data-pagefind-ignore>
+  <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-image-2" popovertargetaction="hide" aria-label="Close">&times;</button>
+  <img class="usp-lightbox__image" src="https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square" alt="AppVersion: latest" loading="lazy">
+</span>
 </p>
 <p>Helm chart for the USP Core WAAP operator.</p>
 <h2 id="values">Values</h2>
 <div class="usp-table">
   <table>
-    <thead>
-      <tr>
-        <th>Key</th>
-        <th>Type</th>
-        <th>Default</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>operator.config</td>
-        <td>object</td>
-        <td><code>{&quot;waapSpecDefaults&quot;:{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;},&quot;watchedNamespaces&quot;:[]}</code></td>
-        <td>Settings for operator config</td>
-      </tr>
-      <tr>
-        <td>operator.config.waapSpecDefaults</td>
-        <td>object</td>
-        <td><code>{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;}</code></td>
-        <td><em>Optional</em>: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior</td>
-      </tr>
-      <tr>
-        <td>operator.config.watchedNamespaces</td>
-        <td>list</td>
-        <td><code>[]</code></td>
-        <td><em>Optional</em>: list of namespaces for which to process custom resources or ingress manifests (defaults to all).</td>
-      </tr>
-      <tr>
-        <td>operator.image</td>
-        <td>string</td>
-        <td><code>&quot;reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator&quot;</code></td>
-        <td>Operator container image</td>
-      </tr>
-      <tr>
-        <td>operator.imagePullSecretName</td>
-        <td>string</td>
-        <td><code>&quot;&quot;</code></td>
-        <td><em>Optional</em>: Name of the image pull secret to be used by the service account</td>
-      </tr>
-      <tr>
-        <td>operator.replicas</td>
-        <td>int</td>
-        <td><code>1</code></td>
-        <td>Number of replicas (0 or 1)</td>
-      </tr>
-      <tr>
-        <td>operator.resources</td>
-        <td>object</td>
-        <td><code>{&quot;limits&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;},&quot;requests&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;}}</code></td>
-        <td>Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings,       and as a consequence, the clusters own defaults will apply.</td>
-      </tr>
-      <tr>
-        <td>operator.resources.limits.cpu</td>
-        <td>string</td>
-        <td><code>&quot;&quot;</code></td>
-        <td>CPU resource limit per request</td>
-      </tr>
-      <tr>
-        <td>operator.resources.limits.memory</td>
-        <td>string</td>
-        <td><code>&quot;&quot;</code></td>
-        <td>Memory resource limit per request</td>
-      </tr>
-      <tr>
-        <td>operator.resources.requests.cpu</td>
-        <td>string</td>
-        <td><code>&quot;&quot;</code></td>
-        <td>CPU resources required per request</td>
-      </tr>
-      <tr>
-        <td>operator.resources.requests.memory</td>
-        <td>string</td>
-        <td><code>&quot;&quot;</code></td>
-        <td>Memory resources required per request</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext</td>
-        <td>object</td>
-        <td><code>{&quot;allowPrivilegeEscalation&quot;:false,&quot;privileged&quot;:false,&quot;readOnlyRootFilesystem&quot;:true,&quot;runAsGroup&quot;:65533,&quot;runAsNonRoot&quot;:true,&quot;runAsUser&quot;:185}</code></td>
-        <td>Security context settings for WAAP operator</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.allowPrivilegeEscalation</td>
-        <td>bool</td>
-        <td><code>false</code></td>
-        <td>Controls whether a process can gain more privileges than its parent process (defaults to <code>false</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.privileged</td>
-        <td>bool</td>
-        <td><code>false</code></td>
-        <td>Run container in privileged mode (defaults to <code>false</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.readOnlyRootFilesystem</td>
-        <td>bool</td>
-        <td><code>true</code></td>
-        <td>Whether this container has a read-only root filesystem (defaults to <code>true</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.runAsGroup</td>
-        <td>int</td>
-        <td><code>65533</code></td>
-        <td>The GID to run the entrypoint of the container process (defaults to <code>65533</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.runAsNonRoot</td>
-        <td>bool</td>
-        <td><code>true</code></td>
-        <td>Indicates that the container must run as a non-root user (defaults to <code>true</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.securityContext.runAsUser</td>
-        <td>int</td>
-        <td><code>185</code></td>
-        <td>The UID to run the entrypoint of the container process (defaults to <code>185</code>).</td>
-      </tr>
-      <tr>
-        <td>operator.serviceAccount</td>
-        <td>string</td>
-        <td><code>&quot;usp-core-waap-operator&quot;</code></td>
-        <td>Name of service account</td>
-      </tr>
-      <tr>
-        <td>operator.version</td>
-        <td>string</td>
-        <td><code>&quot;latest&quot;</code></td>
-        <td>Version of operator to deploy</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<hr>
-<p>Autogenerated from chart metadata using <a href="https://github.com/norwoodj/helm-docs/releases/v1.14.2">helm-docs v1.14.2</a>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator.config</td>
+      <td>object</td>
+      <td><code>{&quot;waapSpecDefaults&quot;:{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;},&quot;watchedNamespaces&quot;:[]}</code></td>
+      <td>Settings for operator config</td>
+    </tr>
+    <tr>
+      <td>operator.config.waapSpecDefaults</td>
+      <td>object</td>
+      <td><code>{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;}</code></td>
+      <td><em>Optional</em>: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior</td>
+    </tr>
+    <tr>
+      <td>operator.config.watchedNamespaces</td>
+      <td>list</td>
+      <td><code>[]</code></td>
+      <td><em>Optional</em>: list of namespaces for which to process custom resources or ingress manifests (defaults to all).</td>
+    </tr>
+    <tr>
+      <td>operator.image</td>
+      <td>string</td>
+      <td><code>&quot;reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator&quot;</code></td>
+      <td>Operator container image</td>
+    </tr>
+    <tr>
+      <td>operator.imagePullSecretName</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td><em>Optional</em>: Name of the image pull secret to be used by the service account</td>
+    </tr>
+    <tr>
+      <td>operator.replicas</td>
+      <td>int</td>
+      <td><code>1</code></td>
+      <td>Number of replicas (0 or 1)</td>
+    </tr>
+    <tr>
+      <td>operator.resources</td>
+      <td>object</td>
+      <td><code>{&quot;limits&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;},&quot;requests&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;}}</code></td>
+      <td>Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings,       and as a consequence, the clusters own defaults will apply.</td>
+    </tr>
+    <tr>
+      <td>operator.resources.limits.cpu</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>CPU resource limit per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.limits.memory</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>Memory resource limit per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.requests.cpu</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>CPU resources required per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.requests.memory</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>Memory resources required per request</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext</td>
+      <td>object</td>
+      <td><code>{&quot;allowPrivilegeEscalation&quot;:false,&quot;privileged&quot;:false,&quot;readOnlyRootFilesystem&quot;:true,&quot;runAsGroup&quot;:65533,&quot;runAsNonRoot&quot;:true,&quot;runAsUser&quot;:185}</code></td>
+      <td>Security context settings for WAAP operator</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.allowPrivilegeEscalation</td>
+      <td>bool</td>
+      <td><code>false</code></td>
+      <td>Controls whether a process can gain more privileges than its parent process (defaults to <code>false</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.privileged</td>
+      <td>bool</td>
+      <td><code>false</code></td>
+      <td>Run container in privileged mode (defaults to <code>false</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.readOnlyRootFilesystem</td>
+      <td>bool</td>
+      <td><code>true</code></td>
+      <td>Whether this container has a read-only root filesystem (defaults to <code>true</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsGroup</td>
+      <td>int</td>
+      <td><code>65533</code></td>
+      <td>The GID to run the entrypoint of the container process (defaults to <code>65533</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsNonRoot</td>
+      <td>bool</td>
+      <td><code>true</code></td>
+      <td>Indicates that the container must run as a non-root user (defaults to <code>true</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsUser</td>
+      <td>int</td>
+      <td><code>185</code></td>
+      <td>The UID to run the entrypoint of the container process (defaults to <code>185</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.serviceAccount</td>
+      <td>string</td>
+      <td><code>&quot;usp-core-waap-operator&quot;</code></td>
+      <td>Name of service account</td>
+    </tr>
+    <tr>
+      <td>operator.version</td>
+      <td>string</td>
+      <td><code>&quot;latest&quot;</code></td>
+      <td>Version of operator to deploy</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-0" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-0" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator.config</td>
+      <td>object</td>
+      <td><code>{&quot;waapSpecDefaults&quot;:{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;},&quot;watchedNamespaces&quot;:[]}</code></td>
+      <td>Settings for operator config</td>
+    </tr>
+    <tr>
+      <td>operator.config.waapSpecDefaults</td>
+      <td>object</td>
+      <td><code>{&quot;image&quot;:&quot;uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy&quot;,&quot;version&quot;:&quot;2.0.0-rc3&quot;}</code></td>
+      <td><em>Optional</em>: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior</td>
+    </tr>
+    <tr>
+      <td>operator.config.watchedNamespaces</td>
+      <td>list</td>
+      <td><code>[]</code></td>
+      <td><em>Optional</em>: list of namespaces for which to process custom resources or ingress manifests (defaults to all).</td>
+    </tr>
+    <tr>
+      <td>operator.image</td>
+      <td>string</td>
+      <td><code>&quot;reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator&quot;</code></td>
+      <td>Operator container image</td>
+    </tr>
+    <tr>
+      <td>operator.imagePullSecretName</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td><em>Optional</em>: Name of the image pull secret to be used by the service account</td>
+    </tr>
+    <tr>
+      <td>operator.replicas</td>
+      <td>int</td>
+      <td><code>1</code></td>
+      <td>Number of replicas (0 or 1)</td>
+    </tr>
+    <tr>
+      <td>operator.resources</td>
+      <td>object</td>
+      <td><code>{&quot;limits&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;},&quot;requests&quot;:{&quot;cpu&quot;:&quot;&quot;,&quot;memory&quot;:&quot;&quot;}}</code></td>
+      <td>Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings,       and as a consequence, the clusters own defaults will apply.</td>
+    </tr>
+    <tr>
+      <td>operator.resources.limits.cpu</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>CPU resource limit per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.limits.memory</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>Memory resource limit per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.requests.cpu</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>CPU resources required per request</td>
+    </tr>
+    <tr>
+      <td>operator.resources.requests.memory</td>
+      <td>string</td>
+      <td><code>&quot;&quot;</code></td>
+      <td>Memory resources required per request</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext</td>
+      <td>object</td>
+      <td><code>{&quot;allowPrivilegeEscalation&quot;:false,&quot;privileged&quot;:false,&quot;readOnlyRootFilesystem&quot;:true,&quot;runAsGroup&quot;:65533,&quot;runAsNonRoot&quot;:true,&quot;runAsUser&quot;:185}</code></td>
+      <td>Security context settings for WAAP operator</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.allowPrivilegeEscalation</td>
+      <td>bool</td>
+      <td><code>false</code></td>
+      <td>Controls whether a process can gain more privileges than its parent process (defaults to <code>false</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.privileged</td>
+      <td>bool</td>
+      <td><code>false</code></td>
+      <td>Run container in privileged mode (defaults to <code>false</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.readOnlyRootFilesystem</td>
+      <td>bool</td>
+      <td><code>true</code></td>
+      <td>Whether this container has a read-only root filesystem (defaults to <code>true</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsGroup</td>
+      <td>int</td>
+      <td><code>65533</code></td>
+      <td>The GID to run the entrypoint of the container process (defaults to <code>65533</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsNonRoot</td>
+      <td>bool</td>
+      <td><code>true</code></td>
+      <td>Indicates that the container must run as a non-root user (defaults to <code>true</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.securityContext.runAsUser</td>
+      <td>int</td>
+      <td><code>185</code></td>
+      <td>The UID to run the entrypoint of the container process (defaults to <code>185</code>).</td>
+    </tr>
+    <tr>
+      <td>operator.serviceAccount</td>
+      <td>string</td>
+      <td><code>&quot;usp-core-waap-operator&quot;</code></td>
+      <td>Name of service account</td>
+    </tr>
+    <tr>
+      <td>operator.version</td>
+      <td>string</td>
+      <td><code>&quot;latest&quot;</code></td>
+      <td>Version of operator to deploy</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><hr>
+<p>Autogenerated from chart metadata using <a href="https://github.com/norwoodj/helm-docs/releases/v1.14.2" target="_blank" rel="noopener">helm-docs v1.14.2</a>
 </p>
 
 

@@ -645,12 +645,14 @@ a:hover {
 }
 
 .usp-table {
+    position: relative;
     margin: 1em 0;
-    max-width: 100%;
-    overflow: auto;
 }
 
 .usp-prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
     border-collapse: collapse;
     background-color: var(--usp-paper);
     border: var(--usp-hairline) solid var(--usp-line);
@@ -676,6 +678,32 @@ a:hover {
 
 .usp-prose tbody tr:hover {
     background-color: var(--usp-row-hover);
+}
+
+.usp-table__expand {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0.3rem;
+    color: var(--usp-ink-light);
+    background-color: var(--usp-ink-lightest);
+    border: 0;
+    border-radius: 0.1rem;
+    cursor: pointer;
+}
+
+.usp-table__expand:hover,
+.usp-table__expand:focus-visible {
+    color: var(--usp-ink);
+    background-color: var(--usp-ink-lighter);
+}
+
+.usp-table__expand svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* admonitions */
@@ -820,6 +848,70 @@ a:hover {
     font-size: clamp(1.2rem, 3.3vw, 2.1rem);
     font-weight: 200;
     line-height: 1.4286;
+}
+
+/* lightbox */
+
+.usp-zoomable {
+    display: block;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: zoom-in;
+}
+
+.usp-zoomable:hover,
+.usp-zoomable:focus-visible {
+    outline: 0.15rem solid var(--usp-ink-lighter);
+    outline-offset: 0.15rem;
+}
+
+.usp-lightbox {
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: auto;
+}
+
+/* A table's max-width:100% can't resolve against a fit-content popover, so it
+   would never scroll sideways. */
+.usp-lightbox:has(table) {
+    width: 95vw;
+}
+
+.usp-lightbox::backdrop {
+    background-color: #0006;
+}
+
+.usp-lightbox__image {
+    display: block;
+    max-width: 100%;
+    max-height: 95vh;
+    margin: auto;
+    object-fit: contain;
+}
+
+.usp-lightbox__close {
+    position: fixed;
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: var(--usp-paper);
+    background-color: #0006;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.usp-lightbox__close:hover,
+.usp-lightbox__close:focus-visible {
+    background-color: #0009;
 }
 
 /* breakpoints */
