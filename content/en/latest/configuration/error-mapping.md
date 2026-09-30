@@ -51,6 +51,12 @@ data:
 
 Note that you could use any of the [Envoy "%...%" variables](https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage) in the error page.
 
+Since `%` is used to mark these variables, a literal `%` character in the error page (e.g. in inline CSS like `width: 100%`) has to be escaped as `%%`:
+
+```html
+<div style="width: 100%%">...</div>
+```
+
 As described in the [API Reference](crd-doc/#corewaapservicespecwebresources) it is actually possible to directly serve other static files directly from Core WAAP. Anyhow, since Core WAAP is not a web server, there are strict size limitations. Therefore it is recommended to serve static files like JavaScript, CSS or images from a different web server and only reference them in HTML in Core WAAP. In order to avoid dependency to existing backend server for serving such static resources, one possible approach is to set up a dedicated pod to serve only such content. This is beyond the scope of this documentation. If the required static resources (e.g a CSS like w3.css) are publicly available over a CDN, they can also directly be fetched on browser side.
 
 ## JSON error document for 504 error mapped to 500
