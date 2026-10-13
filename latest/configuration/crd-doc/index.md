@@ -424,6 +424,20 @@ TLS
             <i>Default</i>: false<br/>
         </td>
         <td>false</td>
+      </tr><tr>
+        <td><b>san</b></td>
+        <td>string</td>
+        <td>
+          DNS subject alternative name the backend certificate must contain (default is the backend address); only has an effect if checkCertificates is true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>sni</b></td>
+        <td>string</td>
+        <td>
+          Server name to send as SNI in the TLS handshake with the backend (default is the backend address)<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 
@@ -1189,6 +1203,22 @@ Configuration for the bearer token cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>forwardToBackend</b></td>
+        <td>boolean</td>
+        <td>
+          If false, the cookie is removed from requests before they are forwarded to the backend; only has an effect for OAuth 2.0 authentications <br/>
+          <br/>
+            <i>Default</i>: true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1217,6 +1247,13 @@ Configuration for the code verifier cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1245,6 +1282,13 @@ Configuration for the OAuth expires cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1273,6 +1317,13 @@ Configuration for the OAuth HMAC cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1301,6 +1352,22 @@ Configuration for the ID token cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>forwardToBackend</b></td>
+        <td>boolean</td>
+        <td>
+          If false, the cookie is removed from requests before they are forwarded to the backend; only has an effect for OAuth 2.0 authentications <br/>
+          <br/>
+            <i>Default</i>: true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1329,6 +1396,13 @@ Configuration for the OAuth nonce cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
@@ -1357,6 +1431,13 @@ Configuration for the refresh token cookie
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>crsRuleExceptionIds</b></td>
+        <td>[]integer</td>
+        <td>
+          CRS rule IDs for which automatic CRS rule exceptions are done for this cookie (REQUEST_COOKIES) to prevent false positives; only has an effect for OAuth 2.0 authentications; if set, replaces the default list, an empty list disables the automatic exceptions  <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>sameSite</b></td>
         <td>enum</td>
         <td>
