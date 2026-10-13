@@ -13,11 +13,15 @@ Helm chart for the USP Core WAAP operator.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| operator.annotations | object | `{}` | _Optional_: Additional annotations for the operator deployment |
 | operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"},"watchedNamespaces":[]}` | Settings for operator config |
 | operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
 | operator.config.watchedNamespaces | list | `[]` | _Optional_: list of namespaces for which to process custom resources or ingress manifests (defaults to all). |
 | operator.image | string | `"reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator"` | Operator container image |
 | operator.imagePullSecretName | string | `""` | _Optional_: Name of the image pull secret to be used by the service account |
+| operator.labels | object | `{}` | _Optional_: Additional labels for the operator deployment |
+| operator.podAnnotations | object | `{}` | _Optional_: Additional annotations for the operator pod |
+| operator.podLabels | object | `{}` | _Optional_: Additional labels for the operator pod |
 | operator.replicas | int | `1` | Number of replicas (0 or 1) |
 | operator.resources | object | `{"limits":{"cpu":"","memory":""},"requests":{"cpu":"","memory":""}}` | Resource settings for WAAP operator NOTE: If the fields are left empty, the operator deployment will not contain the corresponding settings,       and as a consequence, the clusters own defaults will apply. |
 | operator.resources.limits.cpu | string | `""` | CPU resource limit per request |

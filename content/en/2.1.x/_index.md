@@ -7,12 +7,12 @@ USP Core WAAP (Web Application and API Protection) provides secure access to web
 while simplifying the process of configuration and deployment.
 
 > [!TIP]
-> The current **[Helm chart](operation/helm/usage.md)** version for the **[USP Core WAAP operator](operation/helm/usage/#install-operator)** is : **2.1.1**
+> The current **[Helm chart](operation/helm/usage.md)** version for the **[USP Core WAAP operator](operation/helm/usage/#install-operator)** is : **2.1.2**
 
 ## Overview
 
-For Kubernetes we provide the Core WAAP Operator which deploys Core WAAP based on a Custom 
-Resource with the respective services and pods. With Core WAAP, the security configuration can be fully integrated in applications continuous integration and delivery process 
+For Kubernetes we provide the Core WAAP Operator which deploys Core WAAP based on a Custom
+Resource with the respective services and pods. With Core WAAP, the security configuration can be fully integrated in applications continuous integration and delivery process
 while enabling developers move from DevOps to SecDevOps.
 
 ![Core WAAP Overview](assets/images/core-waap-illustration1.png)
