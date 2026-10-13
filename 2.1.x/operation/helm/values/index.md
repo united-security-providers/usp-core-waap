@@ -2,7 +2,7 @@
 
 # usp-core-waap-operator {#usp-core-waap-operator}
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
+![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
 
 Helm chart for the USP Core WAAP operator.
 
@@ -10,8 +10,8 @@ Helm chart for the USP Core WAAP operator.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.2"},"watchedNamespaces":[]}` | Settings for operator config |
-| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.2"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
+| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.3"},"watchedNamespaces":[]}` | Settings for operator config |
+| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.1.3"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
 | operator.config.watchedNamespaces | list | `[]` | _Optional_: list of namespaces for which to process custom resources or ingress manifests (defaults to all). |
 | operator.image | string | `"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator"` | Operator container image |
 | operator.imagePullSecretName | string | `""` | _Optional_: Name of the image pull secret to be used by the service account |

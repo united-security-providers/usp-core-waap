@@ -2,6 +2,21 @@
 
 # Core WAAP Release Notes
 
+## 2.1.3 - 2026-10-13
+
+### Contents
+
+- core-waap proxy version: 2.1.3
+- helm chart version: 2.1.3
+- operator version: 2.1.0
+- coreruleset version: 4.25.1
+
+## New features and improvements
+
+Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
+
+- **proxy**: Updating Envoy proxy to version 1.39.4, addressing [various CVEs](https://github.com/envoyproxy/envoy/releases/tag/v1.39.4)
+
 ## 2.1.2 - 2026-10-12
 
 ### Contents

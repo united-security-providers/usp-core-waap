@@ -19,13 +19,13 @@ helm pull oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator
 To install the latest operator release (into existing default namespace) use:
 
 ```
-helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2
+helm install usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3
 ```
 
 To install the operator into a custom namespace called `usp-core-waap-op` use:
 
 ```
-helm install --create-namespace --namespace usp-core-waap-operator usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2
+helm install --create-namespace --namespace usp-core-waap-operator usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3
 ```
 
 **Note:** The `--create-namespace` is required if the namespace does not yet exist but can be also be used if the namespace already exists (helm will then skip namespace creation). Detailed information about `--create-namespace` and `--namespace` options are available via [helm documentation](https://helm.sh/docs/helm/helm_install/).
@@ -35,7 +35,7 @@ To override the operator configuration settings in the `operator-configuration.y
 file, e.g. `custom-values.yaml` with the `-f` Helm CLI argument:
 
 ```
-helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2
+helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3
 ```
 
 ## Extract Operator Custom Resource Definition (CRD)
@@ -43,7 +43,7 @@ helm install -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azur
 In order to extract the CRD (Custom Resource Definition) you can use:
 
 ```
-helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2 > usp-core-waap-crd-2.1.2.yaml
+helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3 > usp-core-waap-crd-2.1.3.yaml
 ```
 
 **Note:** If you upgrade the operator **you manually have to apply the new CRD definition** prior to the helm upgrade command!
@@ -54,9 +54,9 @@ As [documented by helm](https://helm.sh/docs/chart_best_practices/custom_resourc
 
 In order to upgrade the current installed CRD **you manually have to upgrade it** otherwise the upgrade will not be successful!
 
-1. extract CRD: `helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2 > usp-core-waap-crd-2.1.2.yaml`
-1. [manually apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/) new CRD: `kubectl apply --server-side -f usp-core-waap-crd-2.1.2.yaml --force-conflicts`
-1. upgrade operator: `helm upgrade --namespace <operator-namespace> <release-name> oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2`
+1. extract CRD: `helm show crds oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3 > usp-core-waap-crd-2.1.3.yaml`
+1. [manually apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/) new CRD: `kubectl apply --server-side -f usp-core-waap-crd-2.1.3.yaml --force-conflicts`
+1. upgrade operator: `helm upgrade --namespace <operator-namespace> <release-name> oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3`
 
 **Note:** This generic procedure does not take into account possible **manual changes to be applied prior to the operator `helm upgrade` command** as support for automatic migration is not yet provided.
 
@@ -66,5 +66,5 @@ You can use `helm template` to just render the templates to the console in order
 actually installing the operator:
 
 ```
-helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.2
+helm template -f custom-values.yaml usp-core-waap-operator oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator --version 2.1.3
 ```
