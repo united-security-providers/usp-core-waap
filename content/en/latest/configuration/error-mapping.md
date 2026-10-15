@@ -140,10 +140,8 @@ The following rules apply:
 
 ### Which headers are matched
 
-The header conditions are checked against the request and response headers in the state they have
-when the error pages are mapped, which is the last step of the response phase, see [Processing Order](processing-order.md).
-So changes by all other features apply, in particular by [Header Filtering](header-filtering.md)
-and [Header Manipulation](header-manipulation.md), both to request and to response headers.
+> [!IMPORTANT]
+> The header conditions are checked against the request and response headers **in the state they have when the error pages are mapped, which is the last step of the response phase**, see [Processing Order](processing-order.md). So changes by all other features apply, in particular by [Header Filtering](header-filtering.md) and [Header Manipulation](header-manipulation.md), both to request and to response headers. Make sure the headers you are checking for are actually present at that point.
 
 Standard headers like `sec-fetch-dest` and `content-type` are allowed by default by the header filter.
 But a custom header, for example `x-error-format` in the request or `x-backend-error` in the backend response,
