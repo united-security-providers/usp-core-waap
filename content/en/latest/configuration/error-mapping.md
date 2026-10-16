@@ -120,15 +120,6 @@ the browser has sent `sec-fetch-dest: document` (i.e. the request is a top-level
 and the backend response is JSON (`application/json` or `application/problem+json`).
 In all other cases the client gets the original response from the backend.
 
-Both `requestHeaders` and `responseHeaders` are lists of entries with these fields:
-
-* `name`: The header name.
-* `value`: The value to match.
-* `valueType`: `EXACT` (default) for an exact match of the whole value,
-  or `REGEX` for a regular expression in [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
-  that has to match the whole value (hence the trailing `.*` in the example above).
-  Note that in YAML a backslash inside double quotes has to be escaped as `\\`.
-
 The following rules apply:
 
 * All conditions of an entry have to match: the status code and every header in `requestHeaders` and `responseHeaders`.
