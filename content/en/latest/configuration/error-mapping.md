@@ -136,7 +136,7 @@ The following rules apply:
 * The entries in `errorPages` are checked in the order in which they are listed, the first matching entry wins.
   So list more specific entries before more general ones with the same status code.
 * If no entry matches, the client gets the original response from the backend.
-* Entries without `requestHeaders` and `responseHeaders` match on the status code alone, as before.
+* Entries without `requestHeaders` and `responseHeaders` match on the status code alone.
 
 ### Which headers are matched
 
