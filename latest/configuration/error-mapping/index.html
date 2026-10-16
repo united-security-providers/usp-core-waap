@@ -186,6 +186,20 @@
 </li>
 
       <li>
+  <a href="#error-pages-depending-on-request-and-response-headers">Error pages depending on request and response headers</a>
+  <ul>
+      <li>
+  <a href="#which-headers-are-matched">Which headers are matched</a>
+</li>
+
+  </ul>
+</li>
+
+      <li>
+  <a href="#turning-error-pages-off-per-route">Turning error pages off per route</a>
+</li>
+
+      <li>
   <a href="#behavior-on-configuration-changes">Behavior on configuration changes</a>
 </li>
 
@@ -264,6 +278,97 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;request_id&#34;:&#34;%REQ(X-REQUEST-ID)%&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;message&#34;:&#34;Gateway Timeout&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }</span></span></span></code></pre></div>
+<h2 id="error-pages-depending-on-request-and-response-headers">Error pages depending on request and response headers</h2>
+<p>An error page can additionally be restricted to requests and backend responses with certain headers.</p>
+<p>A typical use case is an API backend that returns JSON error documents:
+API clients should still get the JSON document from the backend,
+but a user who navigates there directly with a browser should see an HTML error page.</p>
+<p>In the CoreWaapService custom resource specify something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">webResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/resources/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">errorPages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error5xx.html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">statusCode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5xx&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">requestHeaders</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;sec-fetch-dest&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;document&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">responseHeaders</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;content-type&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;application/(problem\\+)?json.*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;REGEX&#34;</span></span></span></code></pre></div>
+<p>Here the HTML page <code>error5xx.html</code> is only served if the backend responds with a status code in the range 500-599,
+the browser has sent <code>sec-fetch-dest: document</code> (i.e. the request is a top-level navigation and not e.g. a <code>fetch()</code> call),
+and the backend response is JSON (<code>application/json</code> or <code>application/problem+json</code>).
+In all other cases the client gets the original response from the backend.</p>
+<p>The following rules apply:</p>
+<ul>
+<li>All conditions of an entry have to match: the status code and every header in <code>requestHeaders</code> and <code>responseHeaders</code>.</li>
+<li>A header that is missing in the request or response counts as no match.</li>
+<li>The entries in <code>errorPages</code> are checked in the order in which they are listed, the first matching entry wins.
+So list more specific entries before more general ones with the same status code.</li>
+<li>If no entry matches, the client gets the original response from the backend.</li>
+<li>Entries without <code>requestHeaders</code> and <code>responseHeaders</code> match on the status code alone.</li>
+</ul>
+<h3 id="which-headers-are-matched">Which headers are matched</h3>
+<div class="usp-admonition usp-admonition--note">
+    <p class="usp-admonition__title">Important</p>
+    <p>The header conditions are checked against the request and response headers <strong>in the state they have when the error pages are mapped, which is the last step of the response phase</strong>, see <a href="/usp-core-waap/latest/configuration/processing-order/">Processing Order</a>
+. So changes by all other features apply, in particular by <a href="/usp-core-waap/latest/configuration/header-filtering/">Header Filtering</a>
+ and <a href="/usp-core-waap/latest/configuration/header-manipulation/">Header Manipulation</a>
+, both to request and to response headers. Make sure the headers you are checking for are actually present at that point.</p>
+  </div><p>Standard headers like <code>sec-fetch-dest</code> and <code>content-type</code> are allowed by default by the header filter.
+But a custom header, for example <code>x-error-format</code> in the request or <code>x-backend-error</code> in the backend response,
+is removed by the header filter by default, and an error page condition on it never matches.
+To use such a header, allow it in the header filter that applies to the route, for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">headerFilter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;allow-custom-headers&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">allow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;x-error-format&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">response</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">allow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;x-backend-error&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">webResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;web-resources-config-map&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/resources/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">errorPages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error403.html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">statusCode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;403&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">requestHeaders</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;x-error-format&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error502.html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">statusCode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;502&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">responseHeaders</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;x-backend-error&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headerFilterRef</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;allow-custom-headers&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span></span></span></code></pre></div>
+<p>Note that the headers are then also passed on, the request header to the backend and the response header to the client
+(at least if no error page is served).</p>
+<h2 id="turning-error-pages-off-per-route">Turning error pages off per route</h2>
+<p>By default the error pages apply to all routes.
+To pass backend responses through unchanged on a route, turn error pages off for it with <code>errorPages.enabled: false</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/api/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">errorPages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;PREFIX&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">...</span><span class="p">:</span><span class="w"> </span><span class="l">...</span></span></span></code></pre></div>
+<p>On such a route none of the entries under <code>webResources.errorPages</code> is applied,
+so the client gets the original status code and body from the backend.
+Static files under <code>webResources.staticFiles</code> are not affected.</p>
 <h2 id="behavior-on-configuration-changes">Behavior on configuration changes</h2>
 <p>Note that changes to a config map are not directly applied by a running Core WAAP. Therefore the Core WAAP Deployment has to be restarted. e.g.:
 <code>kubectl -n juiceshop rollout restart deployment usp-core-waap</code></p>
