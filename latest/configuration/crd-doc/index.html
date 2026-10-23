@@ -440,6 +440,13 @@
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b><a href="#corewaapservicespecroutesindexerrorpages">errorPages</a></b></td>
+        <td>object</td>
+        <td>
+          Error pages settings per route<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>headerFilterRef</b></td>
         <td>string</td>
         <td>
@@ -935,6 +942,30 @@
         <td>string</td>
         <td>
           Reference to name of corresponding GraphQL setting; required if GraphQL is enabled on the route<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+<h3 id="corewaapservicespecroutesindexerrorpages">CoreWaapService.spec.routes[index].errorPages</h3>
+<p><sup><sup><a href="#corewaapservicespecroutesindex">↩ Parent</a>
+</sup></sup></p>
+<p>Error pages settings per route</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          Whether to map status codes to the error pages under spec.webResources.errorPages for the route or not <br/>
+          <br/>
+            <i>Default</i>: true<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3526,6 +3557,13 @@
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b><a href="#corewaapservicespecoperationrequestid">requestId</a></b></td>
+        <td>object</td>
+        <td>
+          Settings for handling of the x-request-id HTTP header<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#corewaapservicespecoperationresources">resources</a></b></td>
         <td>object</td>
         <td>
@@ -4858,6 +4896,31 @@
         <td>false</td>
       </tr></tbody>
 </table>
+<h3 id="corewaapservicespecoperationrequestid">CoreWaapService.spec.operation.requestId</h3>
+<p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a>
+</sup></sup></p>
+<p>Settings for handling of the x-request-id HTTP header</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>mode</b></td>
+        <td>enum</td>
+        <td>
+          How the x-request-id header is handled: PRESERVE_OR_GENERATE preserves a client-supplied x-request-id and only generates one if absent, GENERATE_AND_SET always replaces it with a newly generated one, REMOVE removes it and does not generate one <br/>
+          <br/>
+            <i>Enum</i>: GENERATE_AND_SET, PRESERVE_OR_GENERATE, REMOVE<br/>
+            <i>Default</i>: PRESERVE_OR_GENERATE<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
 <h3 id="corewaapservicespecoperationresources">CoreWaapService.spec.operation.resources</h3>
 <p><sup><sup><a href="#corewaapservicespecoperation">↩ Parent</a>
 </sup></sup></p>
@@ -5591,6 +5654,96 @@
         <td>integer</td>
         <td>
           Status code to send to client (defaults to upstream status code)<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#corewaapservicespecwebresourceserrorpagesindexrequestheadersindex">requestHeaders</a></b></td>
+        <td>[]object</td>
+        <td>
+          List of request header matchers (logical AND between header matchers and with status code); note that matching applies to request headers after header filtering and manipulation, hence make sure that the headers to match are not filtered out, and match the manipulated values if headers are manipulated<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#corewaapservicespecwebresourceserrorpagesindexresponseheadersindex">responseHeaders</a></b></td>
+        <td>[]object</td>
+        <td>
+          List of backend response header matchers (logical AND between header matchers and with status code); note that matching applies to backend response headers after header filtering and manipulation, hence make sure that the headers to match are not filtered out, and match the manipulated values if headers are manipulated<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+<h3 id="corewaapservicespecwebresourceserrorpagesindexrequestheadersindex">CoreWaapService.spec.webResources.errorPages[index].requestHeaders[index]</h3>
+<p><sup><sup><a href="#corewaapservicespecwebresourceserrorpagesindex">↩ Parent</a>
+</sup></sup></p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Header name (a missing header counts as no match) <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>value</b></td>
+        <td>string</td>
+        <td>
+          Header value (exact match of full string or regex match) <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>valueType</b></td>
+        <td>enum</td>
+        <td>
+          Value type <br/>
+          <br/>
+            <i>Enum</i>: EXACT, REGEX<br/>
+            <i>Default</i>: EXACT<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+<h3 id="corewaapservicespecwebresourceserrorpagesindexresponseheadersindex">CoreWaapService.spec.webResources.errorPages[index].responseHeaders[index]</h3>
+<p><sup><sup><a href="#corewaapservicespecwebresourceserrorpagesindex">↩ Parent</a>
+</sup></sup></p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Header name (a missing header counts as no match) <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>value</b></td>
+        <td>string</td>
+        <td>
+          Header value (exact match of full string or regex match) <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>valueType</b></td>
+        <td>enum</td>
+        <td>
+          Value type <br/>
+          <br/>
+            <i>Enum</i>: EXACT, REGEX<br/>
+            <i>Default</i>: EXACT<br/>
         </td>
         <td>false</td>
       </tr></tbody>
