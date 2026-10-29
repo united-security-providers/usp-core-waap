@@ -5,7 +5,7 @@ weight: 190
 ---
 # usp-core-waap-operator {#usp-core-waap-operator}
 
-![Version: latest](https://img.shields.io/badge/Version-latest-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
 
 Helm chart for the USP Core WAAP operator.
 
@@ -14,10 +14,10 @@ Helm chart for the USP Core WAAP operator.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | operator.annotations | object | `{}` | _Optional_: Additional annotations for the operator deployment |
-| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"},"watchedNamespaces":[]}` | Settings for operator config |
-| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.0.0-rc3"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
+| operator.config | object | `{"waapSpecDefaults":{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.2.0"},"watchedNamespaces":[]}` | Settings for operator config |
+| operator.config.waapSpecDefaults | object | `{"image":"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-proxy","version":"2.2.0"}` | _Optional_: operation defaults, see field 'operation' in the Core WAAP CRD for possible settings and merge behavior |
 | operator.config.watchedNamespaces | list | `[]` | _Optional_: list of namespaces for which to process custom resources or ingress manifests (defaults to all). |
-| operator.image | string | `"reg-bob.u-s-p.local/usp/core/waap/usp-core-waap-operator"` | Operator container image |
+| operator.image | string | `"uspregistry.azurecr.io/usp/core/waap/usp-core-waap-operator"` | Operator container image |
 | operator.imagePullSecretName | string | `""` | _Optional_: Name of the image pull secret to be used by the service account |
 | operator.labels | object | `{}` | _Optional_: Additional labels for the operator deployment |
 | operator.podAnnotations | object | `{}` | _Optional_: Additional annotations for the operator pod |
@@ -36,7 +36,7 @@ Helm chart for the USP Core WAAP operator.
 | operator.securityContext.runAsNonRoot | bool | `true` | Indicates that the container must run as a non-root user (defaults to `true`). |
 | operator.securityContext.runAsUser | int | `185` | The UID to run the entrypoint of the container process (defaults to `185`). |
 | operator.serviceAccount | string | `"usp-core-waap-operator"` | Name of service account |
-| operator.version | string | `"latest"` | Version of operator to deploy |
+| operator.version | string | `"2.2.0"` | Version of operator to deploy |
 
 ---
 
