@@ -4,6 +4,41 @@ weight: 20
 ---
 # Core WAAP Release Notes
 
+## 2.2.0 - 2026-10-29
+
+### Contents
+
+- core-waap proxy version: 2.2.0
+- helm chart version: 2.2.0
+- operator version: 2.2.0
+- coreruleset version: 4.25.2
+
+## New features and improvements
+
+Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
+
+- **operator**: Add request header validation, which checks request headers for valid syntax and length.
+  Individual headers can be excluded from the validation (`spec.coraza.headerValidation`).
+- **operator**: The server name used for the TLS connection to a backend can now be set independently of the backend address.
+  This allows reaching a backend via its internal name while it presents a certificate for its public name (`spec.routes[].backend.tls`).
+- **operator**: OAuth 2.0 session cookies no longer cause false positives in the OWASP Core Rule Set (CRS).
+- **operator**: The OAuth access token and ID token can now be withheld from the backend (`spec.authentications[].cookieConfigurations`).
+- **operator**: Add options to control how the request ID (`x-request-id` header) is handled: keep the client-supplied ID (default),
+  always generate a new one, or remove it (`spec.operation.requestId`).
+- **operator**: The access log now also contains the original status code returned by the backend, even if an error page replaced the response.
+- **operator**: Error pages can now be turned off for individual routes (`spec.routes[].errorPages`).
+- **operator**: Error pages can now also depend on request or backend response headers, in addition to the status code.
+  See [Error Mapping](configuration/error-mapping.md) for details.
+- **operator**: Custom rules can now optionally be evaluated before the CRS rules.
+- **helm**: Add options to set additional labels and annotations on the operator deployment and pod.
+
+## Incompatible behavior changes
+
+Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
+
+- **operator**: Header validation is enabled by default and blocks requests with invalid or overly long headers.
+  It can be switched to log-only mode or disabled (`spec.coraza.headerValidation`).
+
 ## 2.1.3 - 2026-10-13
 
 ### Contents
