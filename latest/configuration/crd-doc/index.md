@@ -2046,7 +2046,7 @@ OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Cora
         <td><b>enabledRequestRules</b></td>
         <td>[]enum</td>
         <td>
-          Set of request rule classes (default is to include all rules, rules REQUEST_901_INITIALIZATION and REQUEST_949_BLOCKING_EVALUATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.25.1/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
+          Set of request rule classes (default is to include all rules, rules REQUEST_901_INITIALIZATION and REQUEST_949_BLOCKING_EVALUATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.25.2/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
           <br/>
             <i>Enum</i>: REQUEST_913_SCANNER_DETECTION, REQUEST_920_PROTOCOL_ENFORCEMENT, REQUEST_921_PROTOCOL_ATTACK, REQUEST_922_MULTIPART_ATTACK, REQUEST_930_APPLICATION_ATTACK_LFI, REQUEST_931_APPLICATION_ATTACK_RFI, REQUEST_932_APPLICATION_ATTACK_RCE, REQUEST_933_APPLICATION_ATTACK_PHP, REQUEST_934_APPLICATION_ATTACK_GENERIC, REQUEST_941_APPLICATION_ATTACK_XSS, REQUEST_942_APPLICATION_ATTACK_SQLI, REQUEST_943_APPLICATION_ATTACK_SESSION_FIXATION, REQUEST_944_APPLICATION_ATTACK_JAVA<br/>
         </td>
@@ -2055,7 +2055,7 @@ OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Cora
         <td><b>enabledResponseRules</b></td>
         <td>[]enum</td>
         <td>
-          Set of response rule classes (default is to include no rules, rules RESPONSE_959_BLOCKING_EVALUATION and RESPONSE_980_CORRELATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.25.1/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
+          Set of response rule classes (default is to include no rules, rules RESPONSE_959_BLOCKING_EVALUATION and RESPONSE_980_CORRELATION are always included, see https://github.com/coreruleset/coreruleset/tree/v4.25.2/rules for all configurable values, just replace '-' by '_' and omit '.conf')<br/>
           <br/>
             <i>Enum</i>: RESPONSE_950_DATA_LEAKAGES, RESPONSE_951_DATA_LEAKAGES_SQL, RESPONSE_952_DATA_LEAKAGES_JAVA, RESPONSE_953_DATA_LEAKAGES_PHP, RESPONSE_954_DATA_LEAKAGES_IIS, RESPONSE_955_WEB_SHELLS, RESPONSE_956_DATA_LEAKAGES_RUBY<br/>
         </td>
@@ -2074,7 +2074,7 @@ OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Cora
         <td><b><a href="#corewaapservicespeccorazacrsociimagesource">ociImageSource</a></b></td>
         <td>object</td>
         <td>
-          Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.1 are used; requires Kubernetes >= 1.36<br/>
+          Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.2 are used; requires Kubernetes >= 1.36<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2159,7 +2159,7 @@ OWASP Core Rule Set (CRS) settings; note that CRS validation is inactive if Cora
 
 <sup><sup>[↩ Parent](#corewaapservicespeccorazacrs)</sup></sup>
 
-Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.1 are used; requires Kubernetes >= 1.36
+Optional OCI image source of the CRS rules that will be used; by default the CRS rules of LTS version4.25.2 are used; requires Kubernetes >= 1.36
 
 <table>
     <thead>

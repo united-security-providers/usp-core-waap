@@ -233,7 +233,7 @@ cluster and protect an example backend application — the intentionally vulnera
  instead.</p>
 <div class="usp-admonition usp-admonition--hint">
     <p class="usp-admonition__title">Hint</p>
-    <p>The steps below use the latest Helm chart version: <strong>2.1.3</strong>.</p>
+    <p>The steps below use the latest Helm chart version: <strong>2.2.0</strong>.</p>
   </div><h2 id="prerequisites">Prerequisites</h2>
 <p>Before you start, make sure you have:</p>
 <ul>
@@ -270,7 +270,7 @@ from USP:</p>
 <p>Install the operator into its own namespace <code>usp-core-waap-operator</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">helm install -f custom-values.yaml usp-core-waap-operator <span class="se">\
 </span></span></span><span class="line"><span class="cl">  oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --version 2.1.3 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --version 2.2.0 <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --namespace usp-core-waap-operator</span></span></code></pre></div>
 <p>Verify that the operator pod is running:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kubectl get pods -n usp-core-waap-operator</span></span></code></pre></div>
