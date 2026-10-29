@@ -12,7 +12,7 @@ If you prefer a fully prepared, browser-based environment, you can also follow t
 [Killercoda Core WAAP scenarios](https://killercoda.com/united-security-providers) instead.
 
 > [!TIP]
-> The steps below use the latest Helm chart version: **2.1.3**.
+> The steps below use the latest Helm chart version: **2.2.0**.
 
 ## Prerequisites
 
@@ -69,7 +69,7 @@ Install the operator into its own namespace `usp-core-waap-operator`.
 ```shell
 helm install -f custom-values.yaml usp-core-waap-operator \
   oci://uspregistry.azurecr.io/helm/usp/core/waap/usp-core-waap-operator \
-  --version 2.1.3 \
+  --version 2.2.0 \
   --namespace usp-core-waap-operator
 ```
 

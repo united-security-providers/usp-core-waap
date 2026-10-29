@@ -44,7 +44,7 @@ The examples below use a shell variable for the jar name, just to keep the
 commands short:
 
 ```shell
-JAR=waap-lib-autolearn-cli-2.1.0.jar
+JAR=waap-lib-autolearn-cli-2.2.0.jar
 ```
 
 A few things that apply to all examples:
@@ -148,7 +148,7 @@ See the [Usage](#usage) section below for the complete list of options.
 
 The tool itself is an executable Java archive (jar) and can be [downloaded here](../downloads.md).
 
-Run with `java -jar waap-lib-autolearn-cli-2.1.0.jar --help` to see usage:
+Run with `java -jar waap-lib-autolearn-cli-2.2.0.jar --help` to see usage:
 
 ```
 Usage: java -jar waap-lib-autolearn-cli-<version>.jar [-hV] [[-i=<specIn>]

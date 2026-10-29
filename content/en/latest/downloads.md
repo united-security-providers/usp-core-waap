@@ -6,6 +6,6 @@ weight: 260
 
 ## Auto-Learning Tool
 
-- Executable Jar: [waap-lib-autolearn-cli-2.1.0.jar]
+- Executable Jar: [waap-lib-autolearn-cli-2.2.0.jar]
 
-[waap-lib-autolearn-cli-2.1.0.jar]: files/waap-lib-autolearn-cli-2.1.0.jar
+[waap-lib-autolearn-cli-2.2.0.jar]: files/waap-lib-autolearn-cli-2.2.0.jar
