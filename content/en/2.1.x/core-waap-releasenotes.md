@@ -32,7 +32,7 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 
 Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.
 
-- **proxy**: Updating Envoy proxy to version 1.39.3, addressing [various CVEs](https://github.com/envoyproxy/envoy/releases/tag/v1.39.3)
+- **proxy**: Updating Envoy proxy to version 1.39.3, addressing various CVEs fixed in [1.39.2](https://github.com/envoyproxy/envoy/releases/tag/v1.39.2) and [1.39.3](https://github.com/envoyproxy/envoy/releases/tag/v1.39.3)
 
 ## 2.1.1 - 2026-08-31
 
