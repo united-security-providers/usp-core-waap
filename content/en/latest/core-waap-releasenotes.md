@@ -19,6 +19,7 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 
 - **operator**: Add request header validation, which checks request headers for valid syntax and length.
   Individual headers can be excluded from the validation (`spec.coraza.headerValidation`).
+  See [Header Validation](configuration/coraza/coraza-header-validation.md) for details.
 - **operator**: The server name used for the TLS connection to a backend can now be set independently of the backend address.
   This allows reaching a backend via its internal name while it presents a certificate for its public name (`spec.routes[].backend.tls`).
 - **operator**: OAuth 2.0 session cookies no longer cause false positives in the OWASP Core Rule Set (CRS).
@@ -37,7 +38,8 @@ Newly added capabilities/functionality or enhancements to existing features, suc
 Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.
 
 - **operator**: Header validation is enabled by default and blocks requests with invalid or overly long headers.
-  It can be switched to log-only mode or disabled (`spec.coraza.headerValidation`).
+  It can be switched to log-only mode or disabled (`spec.coraza.headerValidation`),
+  see [Introducing header validation](configuration/coraza/coraza-header-validation.md#introducing-header-validation).
 
 ## 2.1.3 - 2026-10-13
 
