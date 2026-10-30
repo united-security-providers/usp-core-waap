@@ -89,6 +89,9 @@ data:
     }
 ```
 
+The client receives status code 500 and the original status code 504 of the backend remains visible
+in the access log field `upstream.status`, see [Access logs](../operation/logs-metrics.md#access-logs).
+
 ## Error pages depending on request and response headers
 
 An error page can additionally be restricted to requests and backend responses with certain headers.
