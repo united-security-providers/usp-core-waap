@@ -43,7 +43,9 @@ selector in the header is built from the directories that exist.
 make prepare-release RELEASE=2.2.x
 ```
 
-2. Review the changes and then commit it to `main`:
+2. Retire the previous release, see [Retiring a release](#retiring-a-release)
+
+3. Review the changes and then commit it to `main`:
 
 ```bash
 git add content/en/2.2.x
