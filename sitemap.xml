@@ -133,6 +133,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-filtering/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-header-validation/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/1.4.x/configuration/coraza/coraza-graphql/</loc>
   </url>
   <url>

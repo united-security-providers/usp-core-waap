@@ -18,6 +18,7 @@ Every link below points to the markdown source of a page. The page itself is at 
 - [Coraza](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza/index.md)
 - [CRS Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-crs/index.md)
 - [GraphQL Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-graphql/index.md)
+- [Header Validation Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-header-validation/index.md)
 - [Header Filtering](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-filtering/index.md)
 - [Header Manipulation](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-manipulation/index.md)
 - [Cookie Manipulation](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/cookie-manipulation/index.md)

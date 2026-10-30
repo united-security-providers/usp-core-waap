@@ -106,6 +106,8 @@
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
         
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/">Header Validation</a></li>
     </ul>
   </details>
 </li>
@@ -278,6 +280,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;request_id&#34;:&#34;%REQ(X-REQUEST-ID)%&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">      &#34;message&#34;:&#34;Gateway Timeout&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }</span></span></span></code></pre></div>
+<p>The client receives status code 500 and the original status code 504 of the backend remains visible
+in the access log field <code>upstream.status</code>, see <a href="/usp-core-waap/latest/operation/logs-metrics/#access-logs">Access logs</a>
+.</p>
 <h2 id="error-pages-depending-on-request-and-response-headers">Error pages depending on request and response headers</h2>
 <p>An error page can additionally be restricted to requests and backend responses with certain headers.</p>
 <p>A typical use case is an API backend that returns JSON error documents:

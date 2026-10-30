@@ -96,12 +96,18 @@ with potentially similar benfits.
   are specified at `spec.coraza.graphql` and `spec.routes[].coraza.graphql`
   in the [API Reference](../crd-doc.md),
   plus there is a basic overview in the section [*GraphQL*](coraza-graphql.md).
+* Settings regarding specifically header validation
+  are specified at `spec.coraza.headerValidation`
+  in the [API Reference](../crd-doc.md),
+  plus there is a basic overview in the section [*Header Validation*](coraza-header-validation.md).
 
 > [!TIP]
 > Note that `spec.coraza.enabled` and per route `spec.routes[].coraza.enabled`
 > decide whether the Coraza filter is inserted at all at a given route.
-> The Coraza filter needs to be inserted if either CRS or GraphQL validations are to be done.
+> The Coraza filter needs to be inserted if CRS, GraphQL or header validations are to be done.
 > Whether CRS is active on a route is defined by `spec.coraza.defaultEnabled`
 > and `spec.routes[].coraza.crs.enabled`.
 > Whether GraphQL validation is active on a route is defined by
 > `spec.routes[].coraza.graphql.enabled`.
+> Header validation is active on all routes with the Coraza filter, independent of CRS,
+> and is turned on or off by `spec.coraza.headerValidation.enabled`.

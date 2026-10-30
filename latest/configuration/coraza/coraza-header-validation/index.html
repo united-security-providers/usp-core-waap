@@ -1,0 +1,2230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-header-validation/">
+    <meta name="description" content="Configuration, operation and release notes for the USP Core WAAP (Web Application and API Protection).">
+    <link rel="icon" href="/usp-core-waap/favicon.ico">
+    <title>Coraza Header Validation - USP Core WAAP documentation</title>
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/usp-docs.65ec41a132b70ffc2bd4b17a4dea8dd262f9ca31a22c29647c0b47711492f6ef.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/highlight.8ffd1f6914fb6b60dcf36f5b43cb54b0b569b46920e0f6c9223866c1132784f5.css">
+    <link rel="stylesheet" href="/usp-core-waap/stylesheets/fonts.a423719d8c6b857f394a6c70f0289dc8e250e5ad1e3a465fd9930ea27ac05946.css">
+    <link rel="alternate" type="text/markdown" href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/index.md">
+  </head>
+  <body>
+    <p class="usp-agent-note">For AI agents: this documentation is indexed at https://docs.united-security-providers.ch/usp-core-waap/llms.txt, and every page is available as markdown at its own address plus index.md.</p>
+
+    <input type="checkbox" id="__drawer" autocomplete="off" hidden>
+    <label class="usp-overlay" for="__drawer" aria-hidden="true"></label>
+    <a href="#header-validation-basic-usage" class="usp-skip">Skip to content</a>
+    <header class="usp-header">
+  <div class="usp-header__inner">
+    <label class="usp-header__drawer" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+
+    </label>
+    <a class="usp-header__logo" href="/usp-core-waap/latest/" aria-label="USP Core WAAP documentation">
+      <img src="/usp-core-waap/images/USP-Logo-2023-ohne-claim-lang-white1.webp" alt="USP Core WAAP documentation">
+    </a>
+    <span class="usp-header__title">USP Core WAAP documentation</span>
+    
+<div class="usp-picker usp-picker--version">
+  <button class="usp-picker__current" aria-label="Select version">
+    <span class="usp-picker__label">latest</span>
+    <svg class="usp-picker__caret" viewBox="7 10 10 5"><path d="M7 10l5 5 5-5z"/></svg>
+  </button>
+  <ul class="usp-picker__list">
+    <li><a href="/usp-core-waap/2.1.x/">2.1.x</a></li>
+    <li><a href="/usp-core-waap/2.0.x/">2.0.x</a></li>
+    <li><a href="/usp-core-waap/1.4.x/">1.4.x</a></li>
+    <li><a href="/usp-core-waap/1.3.x/">1.3.x</a></li>
+    <li><a href="/usp-core-waap/1.2.x/">1.2.x</a></li>
+  </ul>
+</div>
+
+
+    <div class="usp-header__tools">
+      <link rel="stylesheet" href="/usp-core-waap/pagefind/pagefind-component-ui.css" data-usp-search-bundle>
+<pagefind-config data-usp-search-config></pagefind-config>
+<script>
+  document.querySelector("[data-usp-search-config]").setAttribute("bundle-path",
+    new URL(".", document.querySelector("[data-usp-search-bundle]").href).href);
+</script>
+<script type="module" src="/usp-core-waap/pagefind/pagefind-component-ui.js"></script><script type="module">
+  window.PagefindComponents.getInstanceManager().getInstance("default")
+    .searchFilters = {"docset":{"any":["latest"]}};
+</script>
+<div class="usp-search">
+  <pagefind-searchbox placeholder="Search" shortcut="/"></pagefind-searchbox>
+</div>
+<div class="usp-search-compact">
+  <pagefind-modal-trigger></pagefind-modal-trigger>
+  <pagefind-modal></pagefind-modal>
+</div>
+
+    </div>
+  </div>
+</header>
+
+    <aside class="usp-banner">
+      You are viewing the documentation under development. It is not a release and can change at any time.
+      <a href="/usp-core-waap/2.1.x/">Go to the 2.1.x release.</a>
+    </aside>
+    <div class="usp-layout">
+      <div class="usp-nav-wrapper usp-sidebar">
+        <nav class="usp-nav" aria-label="Navigation">
+  <div class="usp-nav__title">USP Core WAAP documentation</div>
+  <ul>
+    
+<li><a href="/usp-core-waap/latest/">Welcome</a></li>
+      
+<li><a href="/usp-core-waap/latest/getting-started/">Getting Started</a></li>
+      
+<li><a href="/usp-core-waap/latest/core-waap-releasenotes/">Release Notes</a></li>
+      <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Configuration</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/crd-doc/">API Reference</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/processing-order/">Processing Order</a></li>
+        <li class="usp-nav__section">
+  <details open>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Coraza</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza/">Coraza</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/" aria-current="page">Header Validation</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-filtering/">Header Filtering</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/header-manipulation/">Header Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/cookie-manipulation/">Cookie Manipulation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/error-mapping/">Error Mapping</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/native-config-post-processing/">Native Config Post-Processing</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/icap-antivirus-scanning/">ICAP Antivirus Scanning</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/openapi-validation/">OpenAPI Validation</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/crs-virtual-patch/">Virtual Patch</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/lua-filters/">Lua Filters</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/rate-limiting/">Rate Limiting</a></li>
+    </ul>
+  </details>
+</li>
+      <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operation</span>
+    </summary>
+    <ul>
+        <li class="usp-nav__section">
+  <details>
+    <summary class="usp-nav__label">
+      <svg class="usp-nav__caret" viewBox="7 10 10 5" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <span>Operator Helm Chart</span>
+    </summary>
+    <ul>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/usage/">Usage</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/helm/values/">Values</a></li>
+    </ul>
+  </details>
+</li>
+        
+<li><a href="/usp-core-waap/latest/operation/upgrade/">Core WAAP Upgrade</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/logs-metrics/">Logs and Metrics</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/autolearning/">Auto-Learning</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/large-payloads/">Large Payloads</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/oidc-operation/">OAuth2 / OIDC</a></li>
+        
+<li><a href="/usp-core-waap/latest/operation/debugging/">Debugging</a></li>
+    </ul>
+  </details>
+</li>
+      
+<li><a href="/usp-core-waap/latest/downloads/">Downloads</a></li>
+  </ul>
+</nav>
+
+      </div>
+      <nav class="usp-toc usp-sidebar" aria-label="Table of contents">
+  <div class="usp-toc__title">Table of contents</div>
+  <ul>
+      <li>
+  <a href="#what-is-validated">What is validated</a>
+</li>
+
+      <li>
+  <a href="#excluding-headers">Excluding headers</a>
+</li>
+
+      <li>
+  <a href="#introducing-header-validation">Introducing header validation</a>
+</li>
+
+      <li>
+  <a href="#validated-headers">Validated headers</a>
+</li>
+
+  </ul>
+</nav>
+      <main class="usp-content">
+        
+<nav class="usp-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/usp-core-waap/latest/">latest</a></li>
+    <li>Configuration</li>
+    <li>Coraza</li>
+  </ol>
+</nav>
+<article class="usp-prose" data-pagefind-filter="docset:latest">
+  <h1 id="header-validation-basic-usage">Header Validation Basic Usage</h1>
+<p>(This section assumes you have read the section <a href="/usp-core-waap/latest/configuration/coraza/coraza/#what-is-coraza">What is Coraza?</a>
+)</p>
+<ul>
+<li>Header validation checks the request headers listed <a href="#validated-headers">below</a>
+
+for valid syntax and length.
+Request headers not listed there are not validated.</li>
+<li>By default, header validation is active in mode BLOCK:
+a request with at least one invalid header is rejected with status code 403.
+In mode DETECT, such requests are logged but not blocked.</li>
+<li>Header validation does not depend on CRS, it is also active on routes where CRS is disabled.
+It is only inactive where the Coraza filter is disabled
+(<code>spec.coraza.enabled</code> or <code>spec.routes[].coraza.enabled</code>).</li>
+<li>Header validation settings are at <code>spec.coraza.headerValidation</code>
+in the <a href="/usp-core-waap/latest/configuration/crd-doc/#corewaapservicespeccorazaheadervalidation">API Reference</a>
+.
+They apply to all routes.</li>
+</ul>
+<h2 id="what-is-validated">What is validated</h2>
+<p>Each validated header is checked in two ways:</p>
+<ul>
+<li><strong>Length</strong>: the value must not exceed the maximum length listed for the header.</li>
+<li><strong>Syntax</strong>: the value must match the grammar defined by the specification of the header,
+for most headers an RFC (e.g. <a href="https://www.rfc-editor.org/rfc/rfc9110.html" target="_blank" rel="noopener">RFC 9110</a>
+ for the common HTTP headers).
+For widely used headers without a specification (e.g. <code>X-Forwarded-For</code>),
+the grammar follows common implementation practice.</li>
+</ul>
+<p>The syntax check validates the form of a value, not its meaning.
+A value that is well-formed but makes no sense is accepted:</p>
+<div class="usp-table">
+  <table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Result</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Accept-Encoding: foozip</code></td>
+      <td>accepted</td>
+      <td>any token is a valid content coding, the value is not checked against known codings</td>
+    </tr>
+    <tr>
+      <td><code>Authorization: Token abc</code></td>
+      <td>accepted</td>
+      <td><code>Token</code> is a valid authentication scheme name</td>
+    </tr>
+    <tr>
+      <td><code>Accept: text/</code></td>
+      <td>rejected</td>
+      <td>the media subtype is missing</td>
+    </tr>
+    <tr>
+      <td><code>Accept: (text)/html</code></td>
+      <td>rejected</td>
+      <td><code>(</code> is not allowed in a media type</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-0" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-0" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-0" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Result</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Accept-Encoding: foozip</code></td>
+      <td>accepted</td>
+      <td>any token is a valid content coding, the value is not checked against known codings</td>
+    </tr>
+    <tr>
+      <td><code>Authorization: Token abc</code></td>
+      <td>accepted</td>
+      <td><code>Token</code> is a valid authentication scheme name</td>
+    </tr>
+    <tr>
+      <td><code>Accept: text/</code></td>
+      <td>rejected</td>
+      <td>the media subtype is missing</td>
+    </tr>
+    <tr>
+      <td><code>Accept: (text)/html</code></td>
+      <td>rejected</td>
+      <td><code>(</code> is not allowed in a media type</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div><h2 id="excluding-headers">Excluding headers</h2>
+<p>If legitimate clients send headers that fail the validation, these can be excluded
+via <code>spec.coraza.headerValidation.exceptions</code> (header names are case-insensitive):</p>
+<ul>
+<li><code>&lt;header&gt;</code> excludes the header from both length and syntax validation</li>
+<li><code>&lt;header&gt;/length</code> excludes only the length validation</li>
+<li><code>&lt;header&gt;/syntax</code> excludes only the syntax validation</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">[</span><span class="l">...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">coraza</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">headerValidation</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exceptions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;authorization/length&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;x-legacy-client&#34;</span></span></span></code></pre></div>
+<h2 id="introducing-header-validation">Introducing header validation</h2>
+<p>To introduce header validation without blocking legitimate traffic,
+it is recommended to first use mode DETECT, add exceptions for headers
+legitimately reported as invalid, and then switch to mode BLOCK:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">[</span><span class="l">...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">coraza</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">headerValidation</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">DETECT</span></span></span></code></pre></div>
+<p>To disable header validation completely, set <code>spec.coraza.headerValidation.enabled</code> to <code>false</code>.</p>
+<h2 id="validated-headers">Validated headers</h2>
+<div class="usp-table">
+  <table>
+  <thead>
+    <tr>
+      <th>Header</th>
+      <th>Specification</th>
+      <th style="text-align: right">Max length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Accept</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Charset</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-charset" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-encoding" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Language</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-language" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Ranges</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-ranges" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Access-Control-Request-Method</code></td>
+      <td><a href="https://fetch.spec.whatwg.org/#http-access-control-request-method" target="_blank" rel="noopener">WHATWG Fetch</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Access-Control-Request-Headers</code></td>
+      <td><a href="https://fetch.spec.whatwg.org/#http-access-control-request-headers" target="_blank" rel="noopener">WHATWG Fetch</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Allow</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.allow" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Authorization</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.authorization" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">4096</td>
+    </tr>
+    <tr>
+      <td><code>Proxy-Authorization</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.proxy-authorization" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">1200</td>
+    </tr>
+    <tr>
+      <td><code>Cache-Control</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.cache-control" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Connection</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#name-connection-management" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Language</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-language" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Length</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#name-content-length" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Content-Location</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-location" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Content-Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Type</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-type" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">600</td>
+    </tr>
+    <tr>
+      <td><code>Date</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.date" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Expect</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.expect" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>From</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.from" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Host</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.host" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>HTTP2-Settings</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7540.html#section-3.2.1" target="_blank" rel="noopener">RFC 7540</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>If-Match</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-match" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Modified-Since</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-modified-since" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>If-None-Match</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-none-match" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Unmodified-Since</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-unmodified-since" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Last-Modified</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.last-modified" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Location</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.location" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Max-Forwards</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.max-forwards" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Origin</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6454.html#section-3.2" target="_blank" rel="noopener">RFC 6454</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Pragma</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.pragma" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Referer</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.referer" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>TE</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.te" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Transfer-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#field.transfer-encoding" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Upgrade</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.upgrade" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>User-Agent</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.user-agent" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Vary</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.vary" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Via</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.via" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Warning</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.warning" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>WWW-Authenticate</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.www-authenticate" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Forwarded</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7239.html#section-4" target="_blank" rel="noopener">RFC 7239</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Cookie</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6265.html#section-4.2" target="_blank" rel="noopener">RFC 6265</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Key</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.1" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Version</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.5" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Protocol</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.4" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Extensions</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.2" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">500</td>
+    </tr>
+    <tr>
+      <td><code>Early-Data</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc8470.html#section-5.1" target="_blank" rel="noopener">RFC 8470</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Priority</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9218.html#name-priority-parameters" target="_blank" rel="noopener">RFC 9218</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Content-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#content-digest" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>Repr-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#name-the-repr-digest-field" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>Want-Content-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#want-fields" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Want-Repr-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#want-fields" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Signature</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9421.html#signature-header" target="_blank" rel="noopener">RFC 9421</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+    <tr>
+      <td><code>Signature-Input</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9421.html#signature-input-header" target="_blank" rel="noopener">RFC 9421</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-For</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Port</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Proto</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Ssl</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Front-End-Https</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Server</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-By</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>X-Real-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>True-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>CF-Connecting-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Cluster-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Fastly-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Azure-ClientIP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-ProxyUser-Ip</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>CF-IPCountry</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">4</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-URL</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Rewrite-URL</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Path</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-HTTP-Method-Override</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-HTTP-Method</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-Method-Override</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-Method</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Site</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-site" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Mode</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-mode" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-User</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-user" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Dest</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-dest" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Storage-Access</code></td>
+      <td><a href="https://privacycg.github.io/storage-access-headers/#http-headerdef-sec-fetch-storage-access" target="_blank" rel="noopener">Storage Access Headers</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Purpose</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Purpose</code></td>
+      <td><a href="https://wicg.github.io/nav-speculation/prefetch.html#sec-purpose-header" target="_blank" rel="noopener">Speculation Rules</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">300</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Full-Version-List</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-full-version-list" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">500</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Form-Factors</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-form-factors" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Mobile</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-mobile" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Platform</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-platform" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Platform-Version</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-platform-version" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Full-Version</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-full-version" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Arch</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-arch" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Bitness</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-bitness" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Model</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-model" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-WoW64</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-wow64" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Color-Scheme</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-color-scheme" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Motion</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-reduced-motion" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Transparency</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-reduced-transparency" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Contrast</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-contrast" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Viewport-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Viewport-Height</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-height" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-DPR</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-dpr" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Device-Memory</code></td>
+      <td><a href="https://www.w3.org/TR/device-memory-1/#http-headerdef-sec-ch-device-memory" target="_blank" rel="noopener">W3C Device Memory</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Downlink</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-downlink" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-RTT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-rtt" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-ECT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-ect" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Save-Data</code></td>
+      <td><a href="https://wicg.github.io/savedata/#registration-save-data" target="_blank" rel="noopener">WICG Save Data</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>DPR</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-dpr" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Viewport-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Device-Memory</code></td>
+      <td><a href="https://www.w3.org/TR/device-memory-1/#http-headerdef-sec-ch-device-memory" target="_blank" rel="noopener">W3C Device Memory</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Downlink</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-downlink" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>RTT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-rtt" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>ECT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-ect" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Save-Data</code></td>
+      <td><a href="https://wicg.github.io/savedata/#registration-save-data" target="_blank" rel="noopener">WICG Save Data</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Requested-With</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>X-CSRF-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-XSRF-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-Api-Key</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-Auth-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>X-Request-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Correlation-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Trace-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Idempotency-Key</code></td>
+      <td><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header" target="_blank" rel="noopener">IETF draft</a>
+</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Traceparent</code></td>
+      <td><a href="https://www.w3.org/TR/trace-context/#traceparent-header" target="_blank" rel="noopener">W3C Trace Context</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Tracestate</code></td>
+      <td><a href="https://www.w3.org/TR/trace-context/#tracestate-header" target="_blank" rel="noopener">W3C Trace Context</a>
+</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>Baggage</code></td>
+      <td><a href="https://www.w3.org/TR/baggage/" target="_blank" rel="noopener">W3C Baggage</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>DNT</code></td>
+      <td><a href="https://www.w3.org/TR/tracking-dnt/#dnt-header-field" target="_blank" rel="noopener">W3C DNT</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-GPC</code></td>
+      <td><a href="https://w3c.github.io/gpc/#set-global-privacy-control" target="_blank" rel="noopener">W3C GPC</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Upgrade-Insecure-Requests</code></td>
+      <td><a href="https://www.w3.org/TR/upgrade-insecure-requests/#upgrade-insecure-requests" target="_blank" rel="noopener">W3C UIR</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>MIME-Version</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc2045.html#section-4" target="_blank" rel="noopener">RFC 2045</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>A-IM</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc3229.html#section-10.5.3" target="_blank" rel="noopener">RFC 3229</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Depth</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.2" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Destination</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.3" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>If</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.4" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Lock-Token</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.5" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Overwrite</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.6" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Timeout</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.7" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Datetime</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7089.html#section-2.1.1" target="_blank" rel="noopener">RFC 7089</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Prefer</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7240.html#section-2" target="_blank" rel="noopener">RFC 7240</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Service-Worker</code></td>
+      <td><a href="https://w3c.github.io/ServiceWorker/#service-worker-script-request" target="_blank" rel="noopener">W3C Service Workers</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Service-Worker-Navigation-Preload</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Ping-From</code></td>
+      <td><a href="https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing" target="_blank" rel="noopener">WHATWG HTML</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Ping-To</code></td>
+      <td><a href="https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing" target="_blank" rel="noopener">WHATWG HTML</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Data</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Browsing-Topics</code></td>
+      <td><a href="https://patcg-individual-drafts.github.io/topics/#http-headerdef-sec-browsing-topics" target="_blank" rel="noopener">Topics API</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Speculation-Tags</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Attribution-Reporting-Eligible</code></td>
+      <td><a href="https://wicg.github.io/attribution-reporting-api/#attribution-reporting-eligible" target="_blank" rel="noopener">Attribution Reporting</a>
+</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Attribution-Reporting-Support</code></td>
+      <td><a href="https://wicg.github.io/attribution-reporting-api/#attribution-reporting-support" target="_blank" rel="noopener">Attribution Reporting</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Ad-Auction-Fetch</code></td>
+      <td><a href="https://wicg.github.io/turtledove/#http-headerdef-sec-ad-auction-fetch" target="_blank" rel="noopener">Protected Audience</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Shared-Storage-Writable</code></td>
+      <td><a href="https://wicg.github.io/shared-storage/#http-headerdef-sec-shared-storage-writable" target="_blank" rel="noopener">Shared Storage</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Private-State-Token</code></td>
+      <td><a href="https://wicg.github.io/trust-token-api/#http-headerdef-sec-private-state-token" target="_blank" rel="noopener">Private State Tokens</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+  </tbody>
+</table>
+  <button type="button" class="usp-table__expand" popovertarget="usp-zoom-table-1" aria-label="Expand table">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0v6h-6v-2h4v-4h2z"/></svg>
+  </button>
+  <div id="usp-zoom-table-1" class="usp-lightbox" popover data-pagefind-ignore>
+    <button type="button" class="usp-lightbox__close" popovertarget="usp-zoom-table-1" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <table>
+  <thead>
+    <tr>
+      <th>Header</th>
+      <th>Specification</th>
+      <th style="text-align: right">Max length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Accept</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Charset</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-charset" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-encoding" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Language</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-language" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Ranges</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.accept-ranges" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Access-Control-Request-Method</code></td>
+      <td><a href="https://fetch.spec.whatwg.org/#http-access-control-request-method" target="_blank" rel="noopener">WHATWG Fetch</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Access-Control-Request-Headers</code></td>
+      <td><a href="https://fetch.spec.whatwg.org/#http-access-control-request-headers" target="_blank" rel="noopener">WHATWG Fetch</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Allow</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.allow" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Authorization</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.authorization" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">4096</td>
+    </tr>
+    <tr>
+      <td><code>Proxy-Authorization</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.proxy-authorization" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">1200</td>
+    </tr>
+    <tr>
+      <td><code>Cache-Control</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.cache-control" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Connection</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#name-connection-management" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Language</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-language" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Length</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#name-content-length" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Content-Location</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-location" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Content-Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Content-Type</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-type" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">600</td>
+    </tr>
+    <tr>
+      <td><code>Date</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.date" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Expect</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.expect" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>From</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.from" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Host</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.host" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>HTTP2-Settings</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7540.html#section-3.2.1" target="_blank" rel="noopener">RFC 7540</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>If-Match</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-match" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Modified-Since</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-modified-since" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>If-None-Match</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-none-match" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>If-Unmodified-Since</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.if-unmodified-since" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Last-Modified</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.last-modified" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Location</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.location" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Max-Forwards</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.max-forwards" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Origin</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6454.html#section-3.2" target="_blank" rel="noopener">RFC 6454</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Pragma</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.pragma" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Range</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.range" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Referer</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.referer" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>TE</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.te" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Transfer-Encoding</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9112.html#field.transfer-encoding" target="_blank" rel="noopener">RFC 9112</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Upgrade</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.upgrade" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>User-Agent</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.user-agent" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Vary</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.vary" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Via</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.via" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Warning</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9111.html#field.warning" target="_blank" rel="noopener">RFC 9111</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>WWW-Authenticate</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.www-authenticate" target="_blank" rel="noopener">RFC 9110</a>
+</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td><code>Forwarded</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7239.html#section-4" target="_blank" rel="noopener">RFC 7239</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Cookie</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6265.html#section-4.2" target="_blank" rel="noopener">RFC 6265</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Key</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.1" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Version</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.5" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Protocol</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.4" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Sec-WebSocket-Extensions</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc6455.html#section-11.3.2" target="_blank" rel="noopener">RFC 6455</a>
+</td>
+      <td style="text-align: right">500</td>
+    </tr>
+    <tr>
+      <td><code>Early-Data</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc8470.html#section-5.1" target="_blank" rel="noopener">RFC 8470</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Priority</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9218.html#name-priority-parameters" target="_blank" rel="noopener">RFC 9218</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Content-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#content-digest" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>Repr-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#name-the-repr-digest-field" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>Want-Content-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#want-fields" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Want-Repr-Digest</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9530.html#want-fields" target="_blank" rel="noopener">RFC 9530</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Signature</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9421.html#signature-header" target="_blank" rel="noopener">RFC 9421</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+    <tr>
+      <td><code>Signature-Input</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc9421.html#signature-input-header" target="_blank" rel="noopener">RFC 9421</a>
+</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-For</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Port</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Proto</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Ssl</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Front-End-Https</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Server</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-By</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>X-Real-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>True-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>CF-Connecting-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Cluster-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Fastly-Client-IP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-Azure-ClientIP</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>X-ProxyUser-Ip</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>CF-IPCountry</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">4</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Host</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-URL</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Rewrite-URL</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-Forwarded-Path</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>X-HTTP-Method-Override</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-HTTP-Method</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-Method-Override</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>X-Original-Method</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Site</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-site" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Mode</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-mode" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-User</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-user" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Dest</code></td>
+      <td><a href="https://w3c.github.io/webappsec-fetch-metadata/#http-headerdef-sec-fetch-dest" target="_blank" rel="noopener">W3C Fetch Metadata</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Fetch-Storage-Access</code></td>
+      <td><a href="https://privacycg.github.io/storage-access-headers/#http-headerdef-sec-fetch-storage-access" target="_blank" rel="noopener">Storage Access Headers</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Purpose</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Purpose</code></td>
+      <td><a href="https://wicg.github.io/nav-speculation/prefetch.html#sec-purpose-header" target="_blank" rel="noopener">Speculation Rules</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">300</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Full-Version-List</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-full-version-list" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">500</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Form-Factors</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-form-factors" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Mobile</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-mobile" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Platform</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-platform" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Platform-Version</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-platform-version" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Full-Version</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-full-version" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Arch</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-arch" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">50</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Bitness</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-bitness" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-Model</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-model" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-UA-WoW64</code></td>
+      <td><a href="https://wicg.github.io/ua-client-hints/#http-headerdef-sec-ch-ua-wow64" target="_blank" rel="noopener">W3C UA-CH</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Color-Scheme</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-color-scheme" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Motion</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-reduced-motion" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Transparency</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-reduced-transparency" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Contrast</code></td>
+      <td><a href="https://wicg.github.io/user-preference-media-features-headers/#sec-ch-prefers-contrast" target="_blank" rel="noopener">User Preference CH</a>
+</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Viewport-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Viewport-Height</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-height" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-DPR</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-dpr" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Device-Memory</code></td>
+      <td><a href="https://www.w3.org/TR/device-memory-1/#http-headerdef-sec-ch-device-memory" target="_blank" rel="noopener">W3C Device Memory</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Downlink</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-downlink" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-RTT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-rtt" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-ECT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-ect" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Save-Data</code></td>
+      <td><a href="https://wicg.github.io/savedata/#registration-save-data" target="_blank" rel="noopener">WICG Save Data</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>DPR</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-dpr" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Viewport-Width</code></td>
+      <td><a href="https://wicg.github.io/responsive-image-client-hints/#http-headerdef-sec-ch-viewport-width" target="_blank" rel="noopener">Responsive Image CH</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Device-Memory</code></td>
+      <td><a href="https://www.w3.org/TR/device-memory-1/#http-headerdef-sec-ch-device-memory" target="_blank" rel="noopener">W3C Device Memory</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Downlink</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-downlink" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>RTT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-rtt" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>ECT</code></td>
+      <td><a href="https://wicg.github.io/netinfo/#registration-ect" target="_blank" rel="noopener">W3C Network Information</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Save-Data</code></td>
+      <td><a href="https://wicg.github.io/savedata/#registration-save-data" target="_blank" rel="noopener">WICG Save Data</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>X-Requested-With</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td><code>X-CSRF-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-XSRF-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-Api-Key</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>X-Auth-Token</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">1024</td>
+    </tr>
+    <tr>
+      <td><code>X-Request-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Correlation-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>X-Trace-Id</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Idempotency-Key</code></td>
+      <td><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header" target="_blank" rel="noopener">IETF draft</a>
+</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Traceparent</code></td>
+      <td><a href="https://www.w3.org/TR/trace-context/#traceparent-header" target="_blank" rel="noopener">W3C Trace Context</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Tracestate</code></td>
+      <td><a href="https://www.w3.org/TR/trace-context/#tracestate-header" target="_blank" rel="noopener">W3C Trace Context</a>
+</td>
+      <td style="text-align: right">512</td>
+    </tr>
+    <tr>
+      <td><code>Baggage</code></td>
+      <td><a href="https://www.w3.org/TR/baggage/" target="_blank" rel="noopener">W3C Baggage</a>
+</td>
+      <td style="text-align: right">8192</td>
+    </tr>
+    <tr>
+      <td><code>DNT</code></td>
+      <td><a href="https://www.w3.org/TR/tracking-dnt/#dnt-header-field" target="_blank" rel="noopener">W3C DNT</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-GPC</code></td>
+      <td><a href="https://w3c.github.io/gpc/#set-global-privacy-control" target="_blank" rel="noopener">W3C GPC</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Upgrade-Insecure-Requests</code></td>
+      <td><a href="https://www.w3.org/TR/upgrade-insecure-requests/#upgrade-insecure-requests" target="_blank" rel="noopener">W3C UIR</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>MIME-Version</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc2045.html#section-4" target="_blank" rel="noopener">RFC 2045</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>A-IM</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc3229.html#section-10.5.3" target="_blank" rel="noopener">RFC 3229</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Depth</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.2" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Destination</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.3" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>If</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.4" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Lock-Token</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.5" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Overwrite</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.6" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Timeout</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc4918.html#section-10.7" target="_blank" rel="noopener">RFC 4918</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Accept-Datetime</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7089.html#section-2.1.1" target="_blank" rel="noopener">RFC 7089</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Prefer</code></td>
+      <td><a href="https://www.rfc-editor.org/rfc/rfc7240.html#section-2" target="_blank" rel="noopener">RFC 7240</a>
+</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Service-Worker</code></td>
+      <td><a href="https://w3c.github.io/ServiceWorker/#service-worker-script-request" target="_blank" rel="noopener">W3C Service Workers</a>
+</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td><code>Service-Worker-Navigation-Preload</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td><code>Ping-From</code></td>
+      <td><a href="https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing" target="_blank" rel="noopener">WHATWG HTML</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Ping-To</code></td>
+      <td><a href="https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing" target="_blank" rel="noopener">WHATWG HTML</a>
+</td>
+      <td style="text-align: right">2000</td>
+    </tr>
+    <tr>
+      <td><code>Sec-CH-Prefers-Reduced-Data</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">30</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Browsing-Topics</code></td>
+      <td><a href="https://patcg-individual-drafts.github.io/topics/#http-headerdef-sec-browsing-topics" target="_blank" rel="noopener">Topics API</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Speculation-Tags</code></td>
+      <td>no specification</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Attribution-Reporting-Eligible</code></td>
+      <td><a href="https://wicg.github.io/attribution-reporting-api/#attribution-reporting-eligible" target="_blank" rel="noopener">Attribution Reporting</a>
+</td>
+      <td style="text-align: right">256</td>
+    </tr>
+    <tr>
+      <td><code>Attribution-Reporting-Support</code></td>
+      <td><a href="https://wicg.github.io/attribution-reporting-api/#attribution-reporting-support" target="_blank" rel="noopener">Attribution Reporting</a>
+</td>
+      <td style="text-align: right">64</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Ad-Auction-Fetch</code></td>
+      <td><a href="https://wicg.github.io/turtledove/#http-headerdef-sec-ad-auction-fetch" target="_blank" rel="noopener">Protected Audience</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Shared-Storage-Writable</code></td>
+      <td><a href="https://wicg.github.io/shared-storage/#http-headerdef-sec-shared-storage-writable" target="_blank" rel="noopener">Shared Storage</a>
+</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td><code>Sec-Private-State-Token</code></td>
+      <td><a href="https://wicg.github.io/trust-token-api/#http-headerdef-sec-private-state-token" target="_blank" rel="noopener">Private State Tokens</a>
+</td>
+      <td style="text-align: right">2048</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div>
+
+        </article>
+      </main>
+    </div>
+    <footer class="usp-footer">
+  <div class="usp-footer__inner">
+    <div class="usp-footer__copyright">&copy; 2026 United Security Providers AG. All Rights Reserved.</div>
+    <div class="usp-social">
+      <a href="https://www.linkedin.com/company/united-security-providers/" target="_blank" rel="noopener" title="United Security Providers on Linkedin" aria-label="United Security Providers on Linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+
+      </a>
+      <a href="https://www.youtube.com/@United-security-providersCh" target="_blank" rel="noopener" title="United Security Providers on Youtube" aria-label="United Security Providers on Youtube">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <script src="/usp-core-waap/javascripts/usp-docs.420438fc4f902397b8dba3a2d330491e6b18d703b3126e7f9c5c7dd0d21ca200.js"></script>
+  </body>
+</html>

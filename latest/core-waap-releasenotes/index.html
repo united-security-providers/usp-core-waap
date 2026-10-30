@@ -106,6 +106,8 @@
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
         
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/">Header Validation</a></li>
     </ul>
   </details>
 </li>
@@ -344,7 +346,9 @@
 <p>Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.</p>
 <ul>
 <li><strong>operator</strong>: Add request header validation, which checks request headers for valid syntax and length.
-Individual headers can be excluded from the validation (<code>spec.coraza.headerValidation</code>).</li>
+Individual headers can be excluded from the validation (<code>spec.coraza.headerValidation</code>).
+See <a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/">Header Validation</a>
+ for details.</li>
 <li><strong>operator</strong>: The server name used for the TLS connection to a backend can now be set independently of the backend address.
 This allows reaching a backend via its internal name while it presents a certificate for its public name (<code>spec.routes[].backend.tls</code>).</li>
 <li><strong>operator</strong>: OAuth 2.0 session cookies no longer cause false positives in the OWASP Core Rule Set (CRS).</li>
@@ -363,7 +367,9 @@ See <a href="/usp-core-waap/latest/configuration/error-mapping/">Error Mapping</
 <p>Changes that are expected to cause an incompatibility if applicable; deployment changes are likely required.</p>
 <ul>
 <li><strong>operator</strong>: Header validation is enabled by default and blocks requests with invalid or overly long headers.
-It can be switched to log-only mode or disabled (<code>spec.coraza.headerValidation</code>).</li>
+It can be switched to log-only mode or disabled (<code>spec.coraza.headerValidation</code>),
+see <a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/#introducing-header-validation">Introducing header validation</a>
+.</li>
 </ul>
 <h2 id="213---2026-10-13">2.1.3 - 2026-10-13</h2>
 <h3 id="contents-1">Contents</h3>
@@ -390,7 +396,8 @@ It can be switched to log-only mode or disabled (<code>spec.coraza.headerValidat
 <h2 id="new-features-and-improvements-2">New features and improvements</h2>
 <p>Newly added capabilities/functionality or enhancements to existing features, such as better performance, usability, stability, or efficiency.</p>
 <ul>
-<li><strong>proxy</strong>: Updating Envoy proxy to version 1.39.3, addressing <a href="https://github.com/envoyproxy/envoy/releases/tag/v1.39.3" target="_blank" rel="noopener">various CVEs</a>
+<li><strong>proxy</strong>: Updating Envoy proxy to version 1.39.3, addressing various CVEs fixed in <a href="https://github.com/envoyproxy/envoy/releases/tag/v1.39.2" target="_blank" rel="noopener">1.39.2</a>
+ and <a href="https://github.com/envoyproxy/envoy/releases/tag/v1.39.3" target="_blank" rel="noopener">1.39.3</a>
 </li>
 </ul>
 <h2 id="211---2026-08-31">2.1.1 - 2026-08-31</h2>

@@ -106,6 +106,8 @@
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-crs/">CRS</a></li>
         
 <li><a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/">GraphQL</a></li>
+        
+<li><a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/">Header Validation</a></li>
     </ul>
   </details>
 </li>
@@ -300,16 +302,24 @@ in the <a href="/usp-core-waap/latest/configuration/crd-doc/">API Reference</a>
 ,
 plus there is a basic overview in the section <a href="/usp-core-waap/latest/configuration/coraza/coraza-graphql/"><em>GraphQL</em></a>
 .</li>
+<li>Settings regarding specifically header validation
+are specified at <code>spec.coraza.headerValidation</code>
+in the <a href="/usp-core-waap/latest/configuration/crd-doc/">API Reference</a>
+,
+plus there is a basic overview in the section <a href="/usp-core-waap/latest/configuration/coraza/coraza-header-validation/"><em>Header Validation</em></a>
+.</li>
 </ul>
 <div class="usp-admonition usp-admonition--hint">
     <p class="usp-admonition__title">Hint</p>
     <p>Note that <code>spec.coraza.enabled</code> and per route <code>spec.routes[].coraza.enabled</code>
 decide whether the Coraza filter is inserted at all at a given route.
-The Coraza filter needs to be inserted if either CRS or GraphQL validations are to be done.
+The Coraza filter needs to be inserted if CRS, GraphQL or header validations are to be done.
 Whether CRS is active on a route is defined by <code>spec.coraza.defaultEnabled</code>
 and <code>spec.routes[].coraza.crs.enabled</code>.
 Whether GraphQL validation is active on a route is defined by
-<code>spec.routes[].coraza.graphql.enabled</code>.</p>
+<code>spec.routes[].coraza.graphql.enabled</code>.
+Header validation is active on all routes with the Coraza filter, independent of CRS,
+and is turned on or off by <code>spec.coraza.headerValidation.enabled</code>.</p>
   </div>
 
         </article>

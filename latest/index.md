@@ -41,6 +41,7 @@ If you want to try the Core WAAP yourself head over to the [Killercoda Core WAAP
 - [Coraza](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza/index.md)
 - [CRS Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-crs/index.md)
 - [GraphQL Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-graphql/index.md)
+- [Header Validation Basic Usage](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-header-validation/index.md)
 - [Header Filtering](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-filtering/index.md)
 - [Header Manipulation](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-manipulation/index.md)
 - [Cookie Manipulation](https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/cookie-manipulation/index.md)
