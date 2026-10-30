@@ -7,6 +7,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/getting-started/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/getting-started/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/getting-started/</loc>
   </url>
   <url>
@@ -34,6 +37,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/core-waap-releasenotes/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/core-waap-releasenotes/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/core-waap-releasenotes/</loc>
   </url>
   <url>
@@ -41,6 +47,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/crd-doc/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/crd-doc/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/crd-doc/</loc>
@@ -70,6 +79,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/processing-order/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/processing-order/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/processing-order/</loc>
   </url>
   <url>
@@ -77,6 +89,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/coraza/coraza/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/coraza/coraza/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza/</loc>
@@ -106,6 +121,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/coraza/coraza-crs/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/coraza/coraza-crs/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-crs/</loc>
   </url>
   <url>
@@ -113,6 +131,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/coraza/coraza-graphql/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/coraza/coraza-graphql/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-graphql/</loc>
@@ -130,7 +151,13 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/header-filtering/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/header-filtering/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-filtering/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/coraza/coraza-header-validation/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/coraza/coraza-header-validation/</loc>
@@ -145,10 +172,16 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/header-manipulation/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/header-manipulation/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/header-manipulation/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/cookie-manipulation/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/cookie-manipulation/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/cookie-manipulation/</loc>
@@ -169,6 +202,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/error-mapping/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/error-mapping/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/error-mapping/</loc>
   </url>
   <url>
@@ -185,6 +221,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/native-config-post-processing/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/native-config-post-processing/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/native-config-post-processing/</loc>
@@ -214,6 +253,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/icap-antivirus-scanning/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/icap-antivirus-scanning/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/icap-antivirus-scanning/</loc>
   </url>
   <url>
@@ -230,6 +272,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/openapi-validation/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/openapi-validation/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/openapi-validation/</loc>
@@ -250,6 +295,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/crs-virtual-patch/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/crs-virtual-patch/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/crs-virtual-patch/</loc>
   </url>
   <url>
@@ -265,6 +313,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/lua-filters/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/lua-filters/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/lua-filters/</loc>
   </url>
   <url>
@@ -272,6 +323,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/configuration/rate-limiting/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/configuration/rate-limiting/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/configuration/rate-limiting/</loc>
@@ -290,6 +344,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/helm/usage/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/helm/usage/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/helm/usage/</loc>
@@ -319,6 +376,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/helm/values/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/helm/values/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/helm/values/</loc>
   </url>
   <url>
@@ -326,6 +386,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/upgrade/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/upgrade/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/upgrade/</loc>
@@ -355,6 +418,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/logs-metrics/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/logs-metrics/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/logs-metrics/</loc>
   </url>
   <url>
@@ -362,6 +428,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/autolearning/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/autolearning/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/autolearning/</loc>
@@ -379,6 +448,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/large-payloads/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/large-payloads/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/large-payloads/</loc>
   </url>
   <url>
@@ -394,6 +466,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/oidc-operation/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/oidc-operation/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/oidc-operation/</loc>
   </url>
   <url>
@@ -401,6 +476,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/operation/debugging/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/operation/debugging/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/operation/debugging/</loc>
@@ -421,6 +499,9 @@
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/downloads/</loc>
   </url>
   <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/downloads/</loc>
+  </url>
+  <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/downloads/</loc>
   </url>
   <url>
@@ -437,6 +518,9 @@
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/2.1.x/</loc>
+  </url>
+  <url>
+    <loc>https://docs.united-security-providers.ch/usp-core-waap/2.2.x/</loc>
   </url>
   <url>
     <loc>https://docs.united-security-providers.ch/usp-core-waap/latest/</loc>

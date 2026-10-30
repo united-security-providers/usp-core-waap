@@ -11,4 +11,5 @@
 - [USP Core WAAP](https://docs.united-security-providers.ch/usp-core-waap/1.4.x/index.md)
 - [USP Core WAAP](https://docs.united-security-providers.ch/usp-core-waap/2.0.x/index.md)
 - [USP Core WAAP](https://docs.united-security-providers.ch/usp-core-waap/2.1.x/index.md)
+- [USP Core WAAP](https://docs.united-security-providers.ch/usp-core-waap/2.2.x/index.md)
 - [USP Core WAAP](https://docs.united-security-providers.ch/usp-core-waap/latest/index.md)
